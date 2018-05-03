@@ -15,11 +15,11 @@ export class AppComponent implements OnInit {
   categories: Category[]
 
   ngOnInit(): void {
-    this.getCategories();
+    //this.getCategories();
   }
 
-  getCategories(): void {
-    this.categoryService.getCategories()
-      .subscribe(c => this.categories = c)
-  }
+  //getCategories(): void {
+  //  this.categoryService.getCategories()
+  //    .subscribe(c => this.categories = c)
+  //}
 }

@@ -21,70 +21,31 @@
 </div>
 
 <div class="container">
+
   <div class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3" *ngFor="let article of pageArticles?.data">
       <div class="card">
         <div class="card-body">
-          <a href="javascript:void(0)">
-            <strong class="text-primary">.Net</strong>
+          <a routerLink="{{'/'+article.category.value}}">
+            <strong [style.color]="article.category.color">{{article.category.label}}</strong>
           </a>
           <h5 class="card-title">
-            <a class="text-dark" href="javascript:void(0)">面向对象</a>
+            <a class="text-dark" routerLink="{{'/detail/'+article.id}}">{{article.title}}</a>
           </h5>
           <p class="text-muted mb-1">
             <i class="fa fa-calendar"></i>
-            2018-4-24 15:47:50
+            {{article.createTime}}
           </p>
           <p class="mb-1">
-            <span class="badge badge-success" data-toggle="tooltip" title="点击量：123">
+            <span class="badge badge-success" data-toggle="tooltip" title="点击量：{{article.viewCount}}">
               <i class="fa fa-line-chart" aria-hidden="true"></i>
-              123
+              {{article.viewCount}}
             </span>
           </p>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <strong class="text-primary">.Net</strong>
-          <h5 class="card-title">
-            <a class="text-dark" href="javascript:void(0)">面向对象</a>
-          </h5>
-          <p class="text-muted mb-1">
-            <i class="fa fa-calendar"></i>
-            2018-4-24 15:47:50
-          </p>
-          <p class="mb-1">
-            <span class="badge badge-success" data-toggle="tooltip" title="点击量：123">
-              <i class="fa fa-line-chart" aria-hidden="true"></i>
-              123
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <strong class="text-primary">.Net</strong>
-          <h5 class="card-title">
-            <a class="text-dark" href="javascript:void(0)">面向对象</a>
-          </h5>
-          <p class="text-muted mb-1">
-            <i class="fa fa-calendar"></i>
-            2018-4-24 15:47:50
-          </p>
-          <p class="mb-1">
-            <span class="badge badge-success" data-toggle="tooltip" title="点击量：123">
-              <i class="fa fa-line-chart" aria-hidden="true"></i>
-              123
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

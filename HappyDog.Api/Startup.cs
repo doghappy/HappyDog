@@ -27,6 +27,7 @@ namespace HappyDog.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+                //.AddJsonOptions(options=>options.SerializerSettings.DateFormatHandling= Newtonsoft.Json.DateFormatHandling.)
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));

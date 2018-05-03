@@ -26,7 +26,7 @@ namespace HappyDog.Api.Controllers
 
         public int PageSize => 20;
 
-        public async Task<Pagination<ArticleDTO>> Get(int? cid, int page = 1)
+        public async Task<Pagination<ArticleSummaryDTO>> Get(int? cid, int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = context.Articles.Include(a => a.Category).AsNoTracking()
@@ -35,7 +35,7 @@ namespace HappyDog.Api.Controllers
                     && (!cid.HasValue || a.CategoryId == cid.Value)
                 )
                 .OrderByDescending(a => a.Id)
-                .ProjectTo<ArticleDTO>();
+                .ProjectTo<ArticleSummaryDTO>();
             return await pager.GetPaginationAsync(query);
         }
     }

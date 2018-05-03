@@ -11,6 +11,7 @@ namespace HappyDog.Api.Infrastructure
         {
             CreateMap<Category, CategoryDTO>();
             CreateMap<Article, ArticleDTO>();
+            CreateMap<Article, ArticleSummaryDTO>();
         }
     }
 }
