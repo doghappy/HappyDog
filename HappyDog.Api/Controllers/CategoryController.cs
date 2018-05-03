@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using HappyDog.DataTransferObjects.Category;
 using HappyDog.Domain;
 using HappyDog.Domain.Enums;
@@ -25,14 +26,15 @@ namespace HappyDog.Api.Controllers
         {
             return await context.Categories.AsNoTracking()
                  .Where(c => c.State == BaseState.Enable)
-                 .Select(c => new CategoryDTO
-                 {
-                     Id = c.Id,
-                     Label = c.Label,
-                     Value = c.Value,
-                     Color = c.Color,
-                     IconClass = c.IconClass
-                 })
+                 .ProjectTo<CategoryDTO>()
+                 //.Select(c => new CategoryDTO
+                 //{
+                 //    Id = c.Id,
+                 //    Label = c.Label,
+                 //    Value = c.Value,
+                 //    Color = c.Color,
+                 //    IconClass = c.IconClass
+                 //})
                  .ToListAsync();
         }
     }

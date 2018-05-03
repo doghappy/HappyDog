@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace HappyDog.Infrastructure
 {
@@ -55,7 +58,6 @@ namespace HappyDog.Infrastructure
             return builder.ToString();
         }
 
-
         public string GetSimplePagingLinks(Func<int, string> pageUrl)
         {
             StringBuilder builder = new StringBuilder();
@@ -74,6 +76,16 @@ namespace HappyDog.Infrastructure
             }
             builder.Append("</ul></nav>");
             return builder.ToString();
+        }
+
+        public async Task<Pagination<T>> GetPaginationAsync<T>(IQueryable<T> query)
+        {
+            TotalItems = await query.CountAsync();
+            return new Pagination<T>
+            {
+                Data = query.Skip(Skip).Take(Size),
+                TotalPages = TotalPages
+            };
         }
     }
 }
