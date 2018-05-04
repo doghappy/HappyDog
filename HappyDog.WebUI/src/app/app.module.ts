@@ -13,7 +13,7 @@ import { DbComponent } from './components/nav/db/db.component';
 import { WindowsComponent } from './components/nav/windows/windows.component';
 import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { EssaysComponent } from './components/nav/essays/essays.component';
     BrowserModule,
     AppTroutingModule,
     HttpClientModule,
-    MarkdownModule
+    MarkdownModule,
+    PaginationModule.forRoot()
   ],
   providers: [CategoryService, ArticleService],
   bootstrap: [AppComponent]
