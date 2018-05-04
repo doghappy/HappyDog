@@ -1,0 +1,39 @@
+<div class="jumbotron">
+  <div class="container body-content">
+    <h1 class="display-4 text-light">数据库</h1>
+    <p class="lead text-light">
+      SQL: 关系型数据库，是一种成熟的数据库，对数据结构有着严谨的要求，因此它的数据具有高度的一致性。但是它的读写性能没有NoSQL好。
+    </p>
+    <p class="lead text-light">
+      NoSQL： 非关系型数据库，近十年来发展迅速，灵活的数据模型，读写性能好，易于扩展。但是不支持事务，在复杂的统计面前力不从心，没有SQL成熟。
+    </p>
+    <p class="lead text-light">
+      SQL 与 NoSQL 优劣互补，它们的应用场景是不同的。
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3" *ngFor="let article of pageArticles?.data">
+      <div class="card">
+        <div class="card-body">
+            <strong class="dbColor">数据库</strong>
+          <h5 class="card-title">
+            <a class="text-dark" routerLink="{{'/detail/'+article.id}}">{{article.title}}</a>
+          </h5>
+          <p class="text-muted mb-1">
+            <i class="fa fa-calendar"></i>
+            {{article.createTime}}
+          </p>
+          <p class="mb-1">
+            <span class="badge badge-success" data-toggle="tooltip" title="点击量：{{article.viewCount}}">
+              <i class="fa fa-line-chart" aria-hidden="true"></i>
+              {{article.viewCount}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

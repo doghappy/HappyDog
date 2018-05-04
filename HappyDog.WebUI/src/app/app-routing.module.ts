@@ -3,12 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IndexComponent } from './components/index/index.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { NetComponent } from './components/net/net.component';
+import { NetComponent } from './components/nav/net/net.component';
+import { DbComponent } from './components/nav/db/db.component';
+import { WindowsComponent } from './components/nav/windows/windows.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'detail/:id', component: DetailComponent },
-  { path: 'net', component: NetComponent }
+  { path: 'net', component: NetComponent },
+  { path: 'db', component: DbComponent },
+  { path: 'windows', component: WindowsComponent },
 ]
 
 @NgModule({

@@ -19,12 +19,12 @@
         </p>
         <p class="lead">
           <!--@if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
-      {
-      <a class="btn btn-primary btn-lg" href="@Url.Action(" Post")">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        写博客
-      </a>
-      }-->
+          {
+          <a class="btn btn-primary btn-lg" href="@Url.Action(" Post")">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            写博客
+          </a>
+          }-->
         </p>
       </div>
     </div>
@@ -32,14 +32,11 @@
 </div>
 
 <div class="container">
-
   <div class="row">
     <div class="col-md-6 mb-3" *ngFor="let article of pageArticles?.data">
       <div class="card">
         <div class="card-body">
-          <a routerLink="{{'/'+article.category.value}}">
-            <strong class="netColor">{{article.category.label}}</strong>
-          </a>
+          <strong class="netColor">.Net</strong>
           <h5 class="card-title">
             <a class="text-dark" routerLink="{{'/detail/'+article.id}}">{{article.title}}</a>
           </h5>

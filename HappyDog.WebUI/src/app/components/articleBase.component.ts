@@ -18,6 +18,7 @@ export abstract class ArticleBaseComponent implements OnInit {
   protected articleService: ArticleService;
 
   ngOnInit(): void {
+    console.log("init...")
     this.getPageArticles();
   }
 

@@ -9,7 +9,9 @@ import { AppTroutingModule } from './app-routing.module';
 import { DetailComponent } from './components/detail/detail.component';
 import { CategoryService } from './services/category.service';
 import { ArticleService } from './services/article.service';
-import { NetComponent } from './components/net/net.component';
+import { NetComponent } from './components/nav/net/net.component';
+import { DbComponent } from './components/nav/db/db.component';
+import { WindowsComponent } from './components/nav/windows/windows.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { NetComponent } from './components/net/net.component';
     AppComponent,
     IndexComponent,
     DetailComponent,
-    NetComponent
+    NetComponent,
+    DbComponent,
+    WindowsComponent
   ],
   imports: [
     BrowserModule,
