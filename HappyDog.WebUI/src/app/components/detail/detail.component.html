@@ -1,13 +1,19 @@
-<div class="jumbotron" style="border-radius:unset;">
+<div class="jumbotron">
   <div class="container body-content">
-    <h1 class="display-6 mb-4">如何解决 Roslyn csc.exe 在共享主机上的问题</h1>
+    <h1 class="display-6 mb-4">{{article?.title}}</h1>
     <p class="lead text-muted mb-1">
       <i class="fa fa-calendar"></i>
-      2018-4-16 22:02:14
+      {{article?.createTime}}
     </p>
     <p class="lead text-muted mb-1">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
-      123
+      {{article?.viewCount}}
     </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="markdown-body mb-4">
+    <markdown [data]="article?.content"></markdown>
   </div>
 </div>

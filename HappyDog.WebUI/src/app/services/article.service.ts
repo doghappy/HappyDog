@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ArticleSummary } from '../models/articleSummary';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pagination } from '../models/pagination';
+import { Article } from '../models/article';
 
 @Injectable()
 export class ArticleService {
@@ -21,5 +22,9 @@ export class ArticleService {
       params = params.append("cid", cid.toString());
     }
     return this.client.get<Pagination<ArticleSummary>>(this.url, { params });
+  }
+
+  getArticle(id: number): Observable<Article> {
+    return this.client.get<Article>(`${this.url}/${id}`);
   }
 }

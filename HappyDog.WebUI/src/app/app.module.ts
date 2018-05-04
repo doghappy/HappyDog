@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { MarkdownModule } from 'angular2-markdown'
 import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
 import { AppTroutingModule } from './app-routing.module';
@@ -30,7 +29,8 @@ import { EssaysComponent } from './components/nav/essays/essays.component';
   imports: [
     BrowserModule,
     AppTroutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule
   ],
   providers: [CategoryService, ArticleService],
   bootstrap: [AppComponent]
