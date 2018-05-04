@@ -8,6 +8,7 @@ using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
+using HappyDog.Domain.Entities;
 
 namespace HappyDog.Api.Controllers
 {
@@ -25,6 +26,14 @@ namespace HappyDog.Api.Controllers
         }
 
         public int PageSize => 20;
+
+        [HttpGet("{id}")]
+        public async Task<ArticleDTO> Get(int id)
+        {
+            var article = await context.Articles.AsNoTracking()
+                .SingleOrDefaultAsync(a => a.Id == id && (User.Identity.IsAuthenticated || a.State == BaseState.Enable));
+            return mapper.Map<Article, ArticleDTO>(article);
+        }
 
         public async Task<Pagination<ArticleSummaryDTO>> Get(int? cid, int page = 1)
         {
