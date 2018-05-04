@@ -12,6 +12,8 @@ import { ArticleService } from './services/article.service';
 import { NetComponent } from './components/nav/net/net.component';
 import { DbComponent } from './components/nav/db/db.component';
 import { WindowsComponent } from './components/nav/windows/windows.component';
+import { ReadComponent } from './components/nav/read/read.component';
+import { EssaysComponent } from './components/nav/essays/essays.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { WindowsComponent } from './components/nav/windows/windows.component';
     DetailComponent,
     NetComponent,
     DbComponent,
-    WindowsComponent
+    WindowsComponent,
+    ReadComponent,
+    EssaysComponent
   ],
   imports: [
     BrowserModule,

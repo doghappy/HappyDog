@@ -1,0 +1,49 @@
+<div class="jumbotron">
+  <div class="container body-content">
+    <!--<div class="row">
+      <div class="col-md-10 banner-text">
+        <h1 class="display-4 essaysColor">随笔</h1>
+        <p class="lead">
+          夫运筹帷幄之中，决胜千里之外，吾不如子房；镇国家，抚百姓，给饷馈，不绝粮道，吾不如萧何；连百万之众，战必胜，攻必取，吾不如韩信。三者皆人杰，吾能用之，此吾所以取天下者也。
+        </p>
+        <p class="lead text-right">
+          ——刘邦
+        </p>
+      </div>
+    </div>-->
+    <div class="banner-text">
+      <h1 class="display-4 essaysColor">随笔</h1>
+      <p class="lead">
+        夫运筹帷幄之中，决胜千里之外，吾不如子房；镇国家，抚百姓，给饷馈，不绝粮道，吾不如萧何；连百万之众，战必胜，攻必取，吾不如韩信。三者皆人杰，吾能用之，此吾所以取天下者也。
+      </p>
+      <p class="lead text-right">
+        ——刘邦
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3" *ngFor="let article of pageArticles?.data">
+      <div class="card">
+        <div class="card-body">
+          <strong class="essaysColor">随笔</strong>
+          <h5 class="card-title">
+            <a class="text-dark" routerLink="{{'/detail/'+article.id}}">{{article.title}}</a>
+          </h5>
+          <p class="text-muted mb-1">
+            <i class="fa fa-calendar"></i>
+            {{article.createTime}}
+          </p>
+          <p class="mb-1">
+            <span class="badge badge-success" data-toggle="tooltip" title="点击量：{{article.viewCount}}">
+              <i class="fa fa-line-chart" aria-hidden="true"></i>
+              {{article.viewCount}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,8 @@ import { DetailComponent } from './components/detail/detail.component';
 import { NetComponent } from './components/nav/net/net.component';
 import { DbComponent } from './components/nav/db/db.component';
 import { WindowsComponent } from './components/nav/windows/windows.component';
+import { ReadComponent } from './components/nav/read/read.component';
+import { EssaysComponent } from './components/nav/essays/essays.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'net', component: NetComponent },
   { path: 'db', component: DbComponent },
   { path: 'windows', component: WindowsComponent },
+  { path: 'read', component: ReadComponent },
+  { path: 'essays', component: EssaysComponent },
 ]
 
 @NgModule({
