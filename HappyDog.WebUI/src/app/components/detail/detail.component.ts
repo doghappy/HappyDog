@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private articleService: ArticleService) { }
+
+  id: number;
 
   ngOnInit() {
+    this.route.params.subscribe(p => this.id = p.id)
+    //this.articleService
   }
 
 }
