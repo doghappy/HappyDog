@@ -9,17 +9,11 @@ import { ArticleBaseComponent } from '../articleBase.component';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
-export class IndexComponent extends ArticleBaseComponent implements OnInit {
+export class IndexComponent extends ArticleBaseComponent {
 
-  protected categoryId: number;
+  protected categoryId?: number;
 
-  //constructor(private articleService: ArticleService) {
-  //  super(articleService);
-  //}
-
-  pageArticles: Pagination<ArticleSummary>;
-
-  ngOnInit() {
-    this.getPageArticles();
+  constructor(articleService: ArticleService) {
+    super(articleService);
   }
 }

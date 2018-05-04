@@ -1,3 +1,60 @@
-<p>
-  net works!
-</p>
+<div class="jumbotron">
+  <div class="container body-content">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="https://www.microsoft.com/net/images/redesign/shared/developers-at-desk.svg?v=zmyD_fnoax3vsHlb11A9hjWhtNicdVy1Lk3i6KclMzU" />
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-4 netColor">.Net</h1>
+        <p class="lead">
+          免费、跨平台、开源<br />
+          一个用于构建
+          <code>Web</code>、
+          <code>手机</code>、
+          <code>桌面</code>、
+          <code>游戏</code>、
+          <code>机器学习 &amp; AI</code>、
+          <code>物联网</code>、
+          <code>和其它所有应用</code>的开发平台
+        </p>
+        <p class="lead">
+          <!--@if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+      {
+      <a class="btn btn-primary btn-lg" href="@Url.Action(" Post")">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        写博客
+      </a>
+      }-->
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6 mb-3" *ngFor="let article of pageArticles?.data">
+      <div class="card">
+        <div class="card-body">
+          <a routerLink="{{'/'+article.category.value}}">
+            <strong class="netColor">{{article.category.label}}</strong>
+          </a>
+          <h5 class="card-title">
+            <a class="text-dark" routerLink="{{'/detail/'+article.id}}">{{article.title}}</a>
+          </h5>
+          <p class="text-muted mb-1">
+            <i class="fa fa-calendar"></i>
+            {{article.createTime}}
+          </p>
+          <p class="mb-1">
+            <span class="badge badge-success" data-toggle="tooltip" title="点击量：{{article.viewCount}}">
+              <i class="fa fa-line-chart" aria-hidden="true"></i>
+              {{article.viewCount}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,11 @@
 body { margin-top: 3.5rem; }
+div.jumbotron { border-radius: unset; }
 footer { padding: 4rem 0; }
   footer ul { list-style: none; margin: 0 0 1rem 0; padding: 0; }
     footer ul li { display: inline-block; }
+
+.netColor { color: #7014e8; }
+.dbColor { color: #f65314; }
+.windowsColor { color: #00a1f1; }
+.readColor { color: #7cbb00; }
+.essaysColor { color: #ffbb00; }
