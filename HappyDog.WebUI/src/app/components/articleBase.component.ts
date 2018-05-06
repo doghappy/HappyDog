@@ -11,14 +11,21 @@ export abstract class ArticleBaseComponent implements OnInit {
 
   protected abstract categoryId?: number;
 
-  protected pageNumber: number = 1;
+  private _pageNumber: number;
+  get pageNumber(): number {
+    return this._pageNumber;
+  }
+  set pageNumber(value: number) {
+    this._pageNumber = value;
+    this.getPageArticles();
+  }
 
   public pageArticles: Pagination<ArticleSummary>;
 
   protected articleService: ArticleService;
 
   ngOnInit(): void {
-    this.getPageArticles();
+    this.pageNumber = 1;
   }
 
   protected getPageArticles(): void {

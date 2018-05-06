@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
 import { MarkdownModule } from 'angular2-markdown'
 import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
@@ -14,6 +15,7 @@ import { WindowsComponent } from './components/nav/windows/windows.component';
 import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ArticleListComponent } from './components/article-list/article-list.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     DbComponent,
     WindowsComponent,
     ReadComponent,
-    EssaysComponent
+    EssaysComponent,
+    ArticleListComponent
   ],
   imports: [
     BrowserModule,
     AppTroutingModule,
     HttpClientModule,
     MarkdownModule,
+    FormsModule,
     PaginationModule.forRoot()
   ],
   providers: [CategoryService, ArticleService],
