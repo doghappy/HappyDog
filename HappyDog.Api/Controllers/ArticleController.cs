@@ -30,8 +30,13 @@ namespace HappyDog.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ArticleDTO> Get(int id)
         {
-            var article = await context.Articles.AsNoTracking()
+            var article = await context.Articles
                 .SingleOrDefaultAsync(a => a.Id == id && (User.Identity.IsAuthenticated || a.State == BaseState.Enable));
+            if (article!=null)
+            {
+                article.ViewCount++;
+                await context.SaveChangesAsync();
+            }
             return mapper.Map<Article, ArticleDTO>(article);
         }
 
