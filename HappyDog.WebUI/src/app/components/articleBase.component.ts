@@ -2,14 +2,16 @@ import { ArticleSummary } from "../models/articleSummary";
 import { Pagination } from "../models/pagination";
 import { ArticleService } from "../services/article.service";
 import { OnInit } from '@angular/core';
+//import { Router } from "@angular/router";
 
 export abstract class ArticleBaseComponent implements OnInit {
 
-  constructor(articleService: ArticleService) {
-    this.articleService = articleService;
+  constructor(protected articleService: ArticleService) {
+    this.target = '#paginationTarget';
   }
 
   protected abstract categoryId?: number;
+  protected target: string;
 
   private _pageNumber: number;
   get pageNumber(): number {
@@ -22,8 +24,6 @@ export abstract class ArticleBaseComponent implements OnInit {
 
   public pageArticles: Pagination<ArticleSummary>;
 
-  protected articleService: ArticleService;
-
   ngOnInit(): void {
     this.pageNumber = 1;
   }
@@ -31,5 +31,13 @@ export abstract class ArticleBaseComponent implements OnInit {
   protected getPageArticles(): void {
     this.articleService.getPageArticles(this.pageNumber, this.categoryId)
       .subscribe(d => this.pageArticles = d);
+  }
+
+  public pageChanged({ page, itemsPerPage }): void {
+    if (this.target && this.target.length > 0) {
+      try {
+        document.querySelector(this.target).scrollIntoView();
+      } catch (e) { }
+    }
   }
 }

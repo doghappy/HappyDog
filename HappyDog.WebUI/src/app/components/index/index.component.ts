@@ -11,9 +11,9 @@ import { ArticleBaseComponent } from '../articleBase.component';
 })
 export class IndexComponent extends ArticleBaseComponent {
 
-  protected categoryId?: number;
-
   constructor(articleService: ArticleService) {
     super(articleService);
   }
+
+  protected categoryId?: number;
 }

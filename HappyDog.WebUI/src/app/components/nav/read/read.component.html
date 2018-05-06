@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="jumbotron" id="paginationTarget">
   <div class="container body-content">
     <div class="banner-text">
       <h1 class="display-4 readColor">阅读</h1>
@@ -17,6 +17,8 @@
 <div class="container">
   <app-article-list [pageArticles]="pageArticles"></app-article-list>
   <div class="clearfix">
-    <pagination class="pull-right" previousText="上一页" nextText="下一页" [totalItems]="pageArticles?.totalItems" [itemsPerPage]="20" [maxSize]="5" [(ngModel)]="pageNumber"></pagination>
+    <pagination class="pull-right" previousText="上一页" nextText="下一页"
+                [totalItems]="pageArticles?.totalItems" [itemsPerPage]="20" [maxSize]="5" [(ngModel)]="pageNumber"
+                (pageChanged)="pageChanged($event)"></pagination>
   </div>
 </div>
