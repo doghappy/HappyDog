@@ -16,6 +16,7 @@ import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ArticleListComponent } from './components/article-list/article-list.component';
+import { AdminSignInComponent } from './components/admin/admin-sign-in/admin-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ArticleListComponent } from './components/article-list/article-list.com
     WindowsComponent,
     ReadComponent,
     EssaysComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    AdminSignInComponent
   ],
   imports: [
     BrowserModule,

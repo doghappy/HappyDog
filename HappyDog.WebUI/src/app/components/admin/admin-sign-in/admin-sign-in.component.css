@@ -1,0 +1,3 @@
+div#form-box { margin: 4rem 0; }
+input[name='UserName'] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; }
+input[name='Password'] { border-top-left-radius: 0; border-top-right-radius: 0; }
