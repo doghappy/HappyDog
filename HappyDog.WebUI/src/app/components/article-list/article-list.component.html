@@ -11,7 +11,7 @@
         </h5>
         <p class="text-muted mb-1">
           <i class="fa fa-calendar"></i>
-          {{article.createTime}}
+          {{article.createTime | date: 'yyyy/MM/dd'}}
         </p>
         <p class="mb-1">
           <span class="badge badge-success" data-toggle="tooltip" title="点击量：{{article.viewCount}}">

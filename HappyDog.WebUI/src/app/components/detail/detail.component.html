@@ -3,7 +3,7 @@
     <h1 class="display-6 mb-4">{{article?.title}}</h1>
     <p class="lead text-muted mb-1">
       <i class="fa fa-calendar"></i>
-      {{article?.createTime}}
+      {{article?.createTime | date: 'yyyy/MM/dd'}}
     </p>
     <p class="lead text-muted mb-1">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
