@@ -3,12 +3,12 @@
     <div class="text-center mb-4">
       <img src="favicon.ico" width="72" height="72" />
     </div>
-    <input class="form-control" name="UserName" required autofocus placeholder="请输入用户名..." />
-    <input class="form-control mb-2" name="Password" type="password" required autofocus placeholder="请输入密码..." />
+    <input class="form-control" name="UserName" [(ngModel)]="userName" required autofocus placeholder="请输入用户名..." />
+    <input class="form-control mb-2" name="Password" [(ngModel)]="password" type="password" required autofocus placeholder="请输入密码..." />
     <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="rememberMe" />
+      <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe" />
       <label class="form-check-label" for="rememberMe">记住我</label>
     </div>
-    <button class="btn btn-primary btn-block">登录</button>
+    <button class="btn btn-primary btn-block" (click)="signIn()">登录</button>
   </form>
 </div>
