@@ -11,9 +11,10 @@ namespace HappyDog.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200, MinimumLength = 1)]
+        [MaxLength(200)]
         public string Title { get; set; }
 
+        [Column(TypeName = "ntext")]
         public string Content { get; set; }
 
         public int CategoryId { get; set; }

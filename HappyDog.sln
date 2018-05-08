@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Api", "HappyDog.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Domain", "HappyDog.Domain\HappyDog.Domain.csproj", "{F54F9B7B-9AB0-49F6-AF7F-D51C71B82CB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.DataTransferObjects", "HappyDog.DataTransferObjects\HappyDog.DataTransferObjects.csproj", "{4ED566E3-F810-48EE-A359-BE8BAAAFD12E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.DataTransferObjects", "HappyDog.DataTransferObjects\HappyDog.DataTransferObjects.csproj", "{4ED566E3-F810-48EE-A359-BE8BAAAFD12E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.Infrastructure", "HappyDog.Infrastructure\HappyDog.Infrastructure.csproj", "{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Infrastructure", "HappyDog.Infrastructure\HappyDog.Infrastructure.csproj", "{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
