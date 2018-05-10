@@ -21,7 +21,7 @@ namespace HappyDog.Domain.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            user.Password = HashEncrypt.Sha1Encrypt($"HappyDog-{user.Password}-{user.Password}");
+            user.Password = HashEncrypt.Sha1Encrypt($"HappyDog-{user.Password}-{user.PasswordHash}");
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return await Task.FromResult(IdentityResult.Success);
@@ -34,9 +34,9 @@ namespace HappyDog.Domain.Identity
 
         public void Dispose() { }
 
-        public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await db.Users.AsNoTracking().SingleOrDefaultAsync(u => u.UserName == userId);
         }
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
@@ -56,7 +56,7 @@ namespace HappyDog.Domain.Identity
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.UserName);
+            return Task.FromResult(user.Id.ToString());
         }
 
         public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)

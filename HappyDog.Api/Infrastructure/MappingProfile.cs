@@ -15,6 +15,7 @@ namespace HappyDog.Api.Infrastructure
             CreateMap<Article, ArticleDTO>();
             CreateMap<Article, ArticleSummaryDTO>();
             CreateMap<RegisterDTO, User>().ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
+            CreateMap<LoginDTO, User>();
         }
     }
 }

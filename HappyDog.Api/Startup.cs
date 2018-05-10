@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Identity;
+using HappyDog.Domain.Models.Results;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace HappyDog.Api
 {
@@ -39,6 +44,26 @@ namespace HappyDog.Api
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = async context =>
+                {
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
+                };
+            });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Events.OnRedirectToLogin = context =>
+            //    {
+            //        //if (context.Request.Path.StartsWithSegments("/api"))
+            //        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //        return Task.CompletedTask;
+            //    };
+            //});
 
             /*
             services.Configure<IdentityOptions>(options =>
@@ -72,6 +97,14 @@ namespace HappyDog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseStatusCodePages(async context =>
+            //{
+            //    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+            //    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized);
+            //    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
+            //});
 
             app.UseAuthentication();
 

@@ -72,5 +72,11 @@ namespace HappyDog.Domain.Models.Results
             Code = CodeResult.InternalServerError,
             Notify = NotifyResult.Danger
         };
+
+        public static HttpBaseResult Unauthorized => new HttpBaseResult(true)
+        {
+            Code = CodeResult.Unauthorized,
+            Notify = NotifyResult.Warning
+        };
     }
 }

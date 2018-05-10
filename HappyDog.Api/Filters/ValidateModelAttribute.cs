@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace HappyDog.Api.Filters
 {
-    public class ModelStateValidAttribute : ActionFilterAttribute
+    public class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

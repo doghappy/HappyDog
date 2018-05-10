@@ -5,6 +5,7 @@ using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
+using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,37 +23,36 @@ namespace HappyDog.Api.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        readonly HappyDogContext context;
+        readonly HappyDogContext db;
         readonly SignInManager<User> signInManager;
         readonly UserManager<User> userManager;
         readonly IMapper mapper;
 
         public UserController(
-            HappyDogContext context,
+            HappyDogContext db,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IMapper mapper)
         {
-            this.context = context;
+            this.db = db;
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.mapper = mapper;
         }
 
         [HttpPost("{login}")]
-        [ModelStateValid]
+        [ValidateModel]
         [AllowAnonymous]
         public async Task<HttpBaseResult> Login(LoginDTO dto)
         {
-            var admin = await context.Users.AsNoTracking()
-                .SingleOrDefaultAsync(a => a.UserName == dto.UserName && a.Password == dto.Password);
-            if (admin == null)
+            //var user = mapper.Map<LoginDTO, User>(dto);
+            var user = await db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == dto.UserName);
+            if (user != null && user.Password == HashEncrypt.Sha1Encrypt($"HappyDog-{dto.Password}-{user.PasswordHash}"))
             {
+                await signInManager.SignInAsync(user, dto.RememberMe);
                 return new HttpBaseResult
                 {
-                    Code = CodeResult.Unauthorized,
-                    Message = "密码错误",
-                    Notify = NotifyResult.Warning
+                    Message = "登陆成功"
                 };
             }
             return new HttpBaseResult
@@ -63,8 +63,15 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        //[AllowAnonymous]
+        public string Get()
+        {
+            //throw new Exception("ts");
+            return "test";
+        }
+        
         [HttpPost("register")]
-        [ModelStateValid]
+        [ValidateModel]
         [AllowAnonymous]
         public async Task<HttpBaseResult> Regsiter(RegisterDTO dto)
         {
