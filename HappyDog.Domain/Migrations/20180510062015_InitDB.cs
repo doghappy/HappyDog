@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HappyDog.Domain.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,11 +14,8 @@ namespace HappyDog.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    Color = table.Column<string>(maxLength: 10, nullable: false),
-                    IconClass = table.Column<string>(maxLength: 50, nullable: false),
-                    Label = table.Column<string>(maxLength: 20, nullable: false),
-                    State = table.Column<int>(nullable: false),
-                    Value = table.Column<string>(maxLength: 20, nullable: false)
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
+                    State = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +41,7 @@ namespace HappyDog.Domain.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Password = table.Column<string>(maxLength: 16, nullable: false),
+                    Password = table.Column<string>(maxLength: 50, nullable: false),
                     PasswordHash = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 12, nullable: false)
                 },

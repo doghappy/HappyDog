@@ -24,10 +24,6 @@ namespace HappyDog.Domain.Entities
         public string Color { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string IconClass { get; set; }
-
-        [Required]
         public BaseState State { get; set; }
 
         public List<Article> Article { get; set; }

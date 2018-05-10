@@ -12,8 +12,8 @@ using System;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180508142545_ChangeUser_Password_Length")]
-    partial class ChangeUser_Password_Length
+    [Migration("20180510062015_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,23 +53,11 @@ namespace HappyDog.Domain.Migrations
                 {
                     b.Property<int>("Id");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
-                    b.Property<string>("IconClass")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Label")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20);
 
                     b.Property<int>("State");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

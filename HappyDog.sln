@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.DataTransferObject
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Infrastructure", "HappyDog.Infrastructure\HappyDog.Infrastructure.csproj", "{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.Api.Test", "HappyDog.Api.Test\HappyDog.Api.Test.csproj", "{00B0F58F-010B-49F4-A136-3CA47208AB3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44B39FEB-D9C2-456E-AE7A-E33B8A5ABB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B0F58F-010B-49F4-A136-3CA47208AB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B0F58F-010B-49F4-A136-3CA47208AB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B0F58F-010B-49F4-A136-3CA47208AB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B0F58F-010B-49F4-A136-3CA47208AB3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

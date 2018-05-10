@@ -12,8 +12,8 @@ using System;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180508102215_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180510064439_CategoryAddFields")]
+    partial class CategoryAddFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,7 +97,7 @@ namespace HappyDog.Domain.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(16);
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("PasswordHash");
 

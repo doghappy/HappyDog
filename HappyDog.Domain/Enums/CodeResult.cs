@@ -23,12 +23,17 @@
         Forbidden = 403,
 
         /// <summary>
+        /// 所请求的资源不在服务器上。
+        /// </summary>
+        NotFound = 404,
+
+        /// <summary>
         /// 服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。
         /// </summary>
         InternalServerError = 500,
 
         /// <summary>
-        /// 服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。
+        /// 服务器不支持所请求的功能。
         /// </summary>
         NotImplemented = 501
     }

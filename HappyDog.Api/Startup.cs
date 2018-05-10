@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using HappyDog.Api.Infrastructure;
 using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Identity;
 using HappyDog.Domain.Models.Results;
+using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +29,15 @@ namespace HappyDog.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
         }
 
         public IConfiguration Configuration { get; }
+
+        private readonly JsonSerializerSettings jsonSerializerSettings;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,11 +47,26 @@ namespace HappyDog.Api
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
-            services.AddAutoMapper();
+            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
 
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
-            services.AddTransient<IUserStore<User>, UserStore>();
-            services.AddTransient<IRoleStore<UserRole>, RoleStore>();
+            services.AddScoped<IUserStore<User>, UserStore>();
+            services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+
+            #region IoC Service
+            // Transient：瞬时（Transient）生命周期服务在它们每次请求时被创建。这一生命周期适合轻量级的，无状态的服务。
+
+            // Scoped：作用域（Scoped）生命周期服务在每次请求被创建一次。
+
+            // Singleton：单例（Singleton）生命周期服务在它们第一次被请求时创建。
+            // 或者如果你在 ConfigureServices 运行时指定一个实例
+            // 并且每个后续请求将使用相同的实例。如果你的应用程序需要单例行为，
+            // 建议让服务容器管理服务的生命周期而不是在自己的类中实现单例模式和管理对象的生命周期。
+
+            //https://stackoverflow.com/questions/38138100/what-is-the-difference-between-services-addtransient-service-addscope-and-servi
+
+            services.AddScoped<ArticleService>();
+            #endregion
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -51,7 +74,7 @@ namespace HappyDog.Api
                 {
                     context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
                     await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
                 };
             });
@@ -98,13 +121,21 @@ namespace HappyDog.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseStatusCodePages(async context =>
-            //{
-            //    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-            //    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized);
-            //    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
-            //});
+            app.UseStatusCodePages(async context =>
+            {
+                context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+                string content = null;
+                switch (context.HttpContext.Response.StatusCode)
+                {
+                    case StatusCodes.Status401Unauthorized:
+                        content = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
+                        break;
+                    case StatusCodes.Status404NotFound:
+                        content = JsonConvert.SerializeObject(HttpBaseResult.NotFound, jsonSerializerSettings);
+                        break;
+                }
+                await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
+            });
 
             app.UseAuthentication();
 

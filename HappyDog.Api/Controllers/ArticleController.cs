@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using System.Linq;
 using System.Threading.Tasks;
 using HappyDog.DataTransferObjects.Article;
-using HappyDog.Domain;
-using HappyDog.Domain.Enums;
 using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.Entities;
+using HappyDog.Domain.Services;
 
 namespace HappyDog.Api.Controllers
 {
@@ -16,39 +13,33 @@ namespace HappyDog.Api.Controllers
     [Route("api/article")]
     public class ArticleController : Controller
     {
-        readonly HappyDogContext context;
+        readonly ArticleService svc;
         readonly IMapper mapper;
 
-        public ArticleController(HappyDogContext context, IMapper mapper)
+        public ArticleController(ArticleService svc, IMapper mapper)
         {
-            this.context = context;
+            this.svc = svc;
             this.mapper = mapper;
         }
 
         public int PageSize => 20;
 
         [HttpGet("{id}")]
-        public async Task<ArticleDTO> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var article = await context.Articles
-                .SingleOrDefaultAsync(a => a.Id == id && (User.Identity.IsAuthenticated || a.State == BaseState.Enable));
-            if (article!=null)
+            var article = await svc.GetAsync(id, User.Identity.IsAuthenticated);
+            if (article == null)
             {
-                article.ViewCount++;
-                await context.SaveChangesAsync();
+                return NotFound();
             }
-            return mapper.Map<Article, ArticleDTO>(article);
+            return Json(mapper.Map<Article, ArticleDTO>(article));
         }
 
         public async Task<Pagination<ArticleSummaryDTO>> Get(int? cid, int page = 1)
         {
+            bool flag = svc == null;
             var pager = new Pager(page, PageSize);
-            var query = context.Articles.Include(a => a.Category).AsNoTracking()
-                .Where(a =>
-                    (User.Identity.IsAuthenticated || a.State == BaseState.Enable)
-                    && (!cid.HasValue || a.CategoryId == cid.Value)
-                )
-                .OrderByDescending(a => a.Id)
+            var query = svc.Get(User.Identity.IsAuthenticated, cid)
                 .ProjectTo<ArticleSummaryDTO>();
             return await pager.GetPaginationAsync(query);
         }
