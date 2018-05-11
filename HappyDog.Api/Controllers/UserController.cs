@@ -63,6 +63,11 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        public string Get()
+        {
+            return "get";
+        }
+
         /*
         [HttpPost("register")]
         [ValidateModel]

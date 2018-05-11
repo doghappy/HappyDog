@@ -66,6 +66,7 @@ namespace HappyDog.Api
             //https://stackoverflow.com/questions/38138100/what-is-the-difference-between-services-addtransient-service-addscope-and-servi
 
             services.AddScoped<ArticleService>();
+            services.AddScoped<UserService>();
             #endregion
 
             services.ConfigureApplicationCookie(options =>
