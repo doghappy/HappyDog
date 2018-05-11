@@ -71,6 +71,7 @@ namespace HappyDog.Api
 
             services.ConfigureApplicationCookie(options =>
             {
+                //options.Cookie.Name = ".net";
                 options.Events.OnRedirectToLogin = async context =>
                 {
                     context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
