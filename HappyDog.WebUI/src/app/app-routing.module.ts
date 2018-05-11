@@ -8,7 +8,7 @@ import { DbComponent } from './components/nav/db/db.component';
 import { WindowsComponent } from './components/nav/windows/windows.component';
 import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
-import { AdminSignInComponent } from './components/admin/admin-sign-in/admin-sign-in.component';
+import { UserSignInComponent } from './components/user/user-sign-in/user-sign-in.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'windows', component: WindowsComponent },
   { path: 'read', component: ReadComponent },
   { path: 'essays', component: EssaysComponent },
-  { path: 'admin/signIn', component: AdminSignInComponent }
+  { path: 'signIn', component: UserSignInComponent }
 ]
 
 @NgModule({

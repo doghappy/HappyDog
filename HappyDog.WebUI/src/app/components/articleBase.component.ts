@@ -13,19 +13,22 @@ export abstract class ArticleBaseComponent implements OnInit {
   protected abstract categoryId?: number;
   protected target: string;
 
-  private _pageNumber: number;
-  get pageNumber(): number {
-    return this._pageNumber;
-  }
-  set pageNumber(value: number) {
-    this._pageNumber = value;
-    this.getPageArticles();
-  }
+  //private _pageNumber: number;
+  //get pageNumber(): number {
+  //  return this._pageNumber;
+  //}
+  //set pageNumber(value: number) {
+  //  console.log(value)
+  //  this._pageNumber = value;
+  //  this.getPageArticles();
+  //}
+  public pageNumber: number;
 
   public pageArticles: Pagination<ArticleSummary>;
 
   ngOnInit(): void {
     this.pageNumber = 1;
+    this.getPageArticles();
   }
 
   protected getPageArticles(): void {
@@ -34,6 +37,7 @@ export abstract class ArticleBaseComponent implements OnInit {
   }
 
   public pageChanged({ page, itemsPerPage }): void {
+    this.getPageArticles();
     if (this.target && this.target.length > 0) {
       try {
         document.querySelector(this.target).scrollIntoView();

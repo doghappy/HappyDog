@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-sign-in',
-  templateUrl: './admin-sign-in.component.html',
-  styleUrls: ['./admin-sign-in.component.css']
+  selector: 'app-sign-in',
+  templateUrl: './user-sign-in.component.html',
+  styleUrls: ['./user-sign-in.component.css']
 })
-export class AdminSignInComponent {
+export class UserSignInComponent {
 
   constructor() { }
 
@@ -16,7 +16,7 @@ export class AdminSignInComponent {
   public password: string;
 
   @Input()
-  public rememberMe: boolean;
+  public rememberMe: boolean = false;
 
   public signIn(): void {
     console.log('UserName: ' + this.userName);

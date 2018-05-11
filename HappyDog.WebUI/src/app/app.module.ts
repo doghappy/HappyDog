@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
+import { CookieModule } from 'ngx-cookie';
 import { MarkdownModule } from 'angular2-markdown'
 import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
@@ -15,8 +16,10 @@ import { WindowsComponent } from './components/nav/windows/windows.component';
 import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { ArticleListComponent } from './components/article-list/article-list.component';
-import { AdminSignInComponent } from './components/admin/admin-sign-in/admin-sign-in.component';
+import { ArticleListComponent } from './components/article/article-list/article-list.component';
+import { UserSignInComponent } from './components/user/user-sign-in/user-sign-in.component';
+import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
+import { ArticleEditButtonComponent } from './components/article/article-edit-button/article-edit-button.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { AdminSignInComponent } from './components/admin/admin-sign-in/admin-sig
     ReadComponent,
     EssaysComponent,
     ArticleListComponent,
-    AdminSignInComponent
+    UserSignInComponent,
+    ArticleEditComponent,
+    ArticleEditButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import { AdminSignInComponent } from './components/admin/admin-sign-in/admin-sig
     HttpClientModule,
     MarkdownModule,
     FormsModule,
+    CookieModule.forRoot(),
     PaginationModule.forRoot()
   ],
   providers: [CategoryService, ArticleService],
