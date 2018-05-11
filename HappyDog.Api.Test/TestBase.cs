@@ -9,15 +9,21 @@ namespace HappyDog.Api.Test
 {
     public class TestBase
     {
-        public TestBase()
+        static IMapper mapper;
+        protected IMapper Mapper
         {
-            var mappings = new MapperConfigurationExpression();
-            mappings.AddProfile<MappingProfile>();
-            AutoMapper.Mapper.Initialize(mappings);
-            Mapper= AutoMapper.Mapper.Instance;
+            get
+            {
+                if (mapper==null)
+                {
+                    var mappings = new MapperConfigurationExpression();
+                    mappings.AddProfile<MappingProfile>();
+                    AutoMapper.Mapper.Initialize(mappings);
+                    mapper = AutoMapper.Mapper.Instance;
+                }
+                return mapper;
+            }
         }
-
-        protected IMapper Mapper { get; }
 
         protected DbContextOptions<HappyDogContext> GetOptions()
         {

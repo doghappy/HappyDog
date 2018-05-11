@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using HappyDog.Api.Filters;
-using HappyDog.DataTransferObjects.Admin;
+using HappyDog.DataTransferObjects.User;
 using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
+using HappyDog.Domain.Services;
 using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -23,18 +24,18 @@ namespace HappyDog.Api.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        readonly HappyDogContext db;
+        readonly UserService svc;
         readonly SignInManager<User> signInManager;
         readonly UserManager<User> userManager;
         readonly IMapper mapper;
 
         public UserController(
-            HappyDogContext db,
+            UserService svc,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IMapper mapper)
         {
-            this.db = db;
+            this.svc = svc;
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.mapper = mapper;
@@ -43,13 +44,12 @@ namespace HappyDog.Api.Controllers
         [HttpPost("{login}")]
         [ValidateModel]
         [AllowAnonymous]
-        public async Task<HttpBaseResult> Login(LoginDTO dto)
+        public async Task<HttpBaseResult> Login(LoginDto dto)
         {
-            //var user = mapper.Map<LoginDTO, User>(dto);
-            var user = await db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == dto.UserName);
-            if (user != null && user.Password == HashEncrypt.Sha1Encrypt($"HappyDog-{dto.Password}-{user.PasswordHash}"))
+            var result = await svc.LoginAsync(dto);
+            if (result.Result)
             {
-                await signInManager.SignInAsync(user, dto.RememberMe);
+                await signInManager.SignInAsync(result.Data, dto.RememberMe);
                 return new HttpBaseResult
                 {
                     Message = "登陆成功"
@@ -63,13 +63,7 @@ namespace HappyDog.Api.Controllers
             };
         }
 
-        //[AllowAnonymous]
-        public string Get()
-        {
-            //throw new Exception("ts");
-            return "test";
-        }
-        
+        /*
         [HttpPost("register")]
         [ValidateModel]
         [AllowAnonymous]
@@ -83,10 +77,6 @@ namespace HappyDog.Api.Controllers
                 var result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    //var code = await userManager.GenerateEmailConfirmationTokenAsync(account);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = account.Id, code }, HttpContext.Request.Scheme);
-                    //await 
-
                     return new HttpBaseResult
                     {
                         Code = CodeResult.OK,
@@ -106,5 +96,6 @@ namespace HappyDog.Api.Controllers
             }
             return HttpBaseResult.NotImplemented;
         }
+        */
     }
 }

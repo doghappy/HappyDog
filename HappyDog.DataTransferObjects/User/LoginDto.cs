@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HappyDog.DataTransferObjects.Admin
+namespace HappyDog.DataTransferObjects.User
 {
-    public class LoginDTO
+    public class LoginDto
     {
         [Required]
         [StringLength(12)]

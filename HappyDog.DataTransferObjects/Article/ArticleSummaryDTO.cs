@@ -3,12 +3,12 @@ using System;
 
 namespace HappyDog.DataTransferObjects.Article
 {
-    public class ArticleSummaryDTO
+    public class ArticleSummaryDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime CreateTime { get; set; }
         public int ViewCount { get; set; }
-        public CategoryDTO Category { get; set; }
+        public CategoryDto Category { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HappyDog.DataTransferObjects.Admin
+namespace HappyDog.DataTransferObjects.User
 {
-    public class RegisterDTO : IValidatableObject
+    public class RegisterDto : IValidatableObject
     {
         [Required]
         public string UserName { get; set; }

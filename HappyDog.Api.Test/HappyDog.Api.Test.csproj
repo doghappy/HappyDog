@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HappyDog.Api\HappyDog.Api.csproj" />
+    <ProjectReference Include="..\HappyDog.DataTransferObjects\HappyDog.DataTransferObjects.csproj" />
   </ItemGroup>
 
 </Project>

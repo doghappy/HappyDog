@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using HappyDog.DataTransferObjects.Admin;
 using HappyDog.DataTransferObjects.Article;
 using HappyDog.DataTransferObjects.Category;
+using HappyDog.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using System;
 
@@ -11,11 +11,11 @@ namespace HappyDog.Api.Infrastructure
     {
         public MappingProfile()
         {
-            CreateMap<Category, CategoryDTO>();
-            CreateMap<Article, ArticleDTO>();
-            CreateMap<Article, ArticleSummaryDTO>();
-            CreateMap<RegisterDTO, User>().ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
-            CreateMap<LoginDTO, User>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Article, ArticleDto>();
+            CreateMap<Article, ArticleSummaryDto>();
+            CreateMap<RegisterDto, User>().ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
+            CreateMap<LoginDto, User>();
         }
     }
 }

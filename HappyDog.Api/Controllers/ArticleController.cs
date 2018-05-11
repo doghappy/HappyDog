@@ -20,9 +20,10 @@ namespace HappyDog.Api.Controllers
         {
             this.svc = svc;
             this.mapper = mapper;
+            PageSize = 20;
         }
 
-        public int PageSize => 20;
+        public int PageSize { get; set; }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -32,15 +33,15 @@ namespace HappyDog.Api.Controllers
             {
                 return NotFound();
             }
-            return Json(mapper.Map<Article, ArticleDTO>(article));
+            return Json(mapper.Map<Article, ArticleDto>(article));
         }
 
-        public async Task<Pagination<ArticleSummaryDTO>> Get(int? cid, int page = 1)
+        public async Task<Pagination<ArticleSummaryDto>> Get(int? cid, int page = 1)
         {
             bool flag = svc == null;
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, cid)
-                .ProjectTo<ArticleSummaryDTO>();
+                .ProjectTo<ArticleSummaryDto>();
             return await pager.GetPaginationAsync(query);
         }
     }
