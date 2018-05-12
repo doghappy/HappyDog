@@ -41,7 +41,7 @@ namespace HappyDog.Api.Controllers
             this.mapper = mapper;
         }
 
-        [HttpPost("{login}")]
+        [HttpPost("login")]
         [ValidateModel]
         [AllowAnonymous]
         public async Task<HttpBaseResult> Login(LoginDto dto)

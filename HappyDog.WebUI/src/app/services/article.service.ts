@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { ArticleSummary } from '../models/articleSummary';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pagination } from '../models/pagination';
 import { Article } from '../models/article';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class ArticleService {
+export class ArticleService extends BaseService {
 
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient) {
+    super();
+  }
 
-  private url = `${environment.server}/api/article`;
+  private url = `${this.server}/api/article`;
 
   getPageArticles(page: number, cid?: number): Observable<Pagination<ArticleSummary>> {
     let params = new HttpParams();

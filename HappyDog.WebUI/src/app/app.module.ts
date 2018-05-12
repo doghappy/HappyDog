@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
 import { AppTroutingModule } from './app-routing.module';
 import { DetailComponent } from './components/detail/detail.component';
-import { CategoryService } from './services/category.service';
 import { ArticleService } from './services/article.service';
 import { NetComponent } from './components/nav/net/net.component';
 import { DbComponent } from './components/nav/db/db.component';
@@ -17,9 +16,11 @@ import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
-import { UserSignInComponent } from './components/user/user-sign-in/user-sign-in.component';
+import { UserSignInComponent } from './components/user/user-login/user-login.component';
 import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
 import { ArticleEditButtonComponent } from './components/article/article-edit-button/article-edit-button.component';
+import { UserService } from './services/user.service';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -43,9 +44,10 @@ import { ArticleEditButtonComponent } from './components/article/article-edit-bu
     MarkdownModule,
     FormsModule,
     CookieModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    AlertModule.forRoot()
   ],
-  providers: [CategoryService, ArticleService],
+  providers: [ArticleService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
