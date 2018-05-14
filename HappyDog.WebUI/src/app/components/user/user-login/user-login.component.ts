@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CodeResult } from '../../../models/results/codeResult';
 import { HttpBaseResult } from '../../../models/results/httpBaseResult';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +11,8 @@ import { HttpBaseResult } from '../../../models/results/httpBaseResult';
 })
 export class UserSignInComponent {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   @Input()
   public userName: string;
@@ -24,6 +26,7 @@ export class UserSignInComponent {
   public loginResult: HttpBaseResult;
 
   public login(): void {
+    this.loginResult = null;
     this.userService.login(this.userName, this.password, this.rememberMe)
       .subscribe(r => this.loginResult = r);
   }

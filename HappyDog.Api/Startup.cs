@@ -141,7 +141,7 @@ namespace HappyDog.Api
 
             app.UseAuthentication();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }

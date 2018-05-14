@@ -44,7 +44,7 @@ namespace HappyDog.Api.Controllers
         [HttpPost("login")]
         [ValidateModel]
         [AllowAnonymous]
-        public async Task<HttpBaseResult> Login(LoginDto dto)
+        public async Task<HttpBaseResult> Login([FromBody]LoginDto dto)
         {
             var result = await svc.LoginAsync(dto);
             if (result.Result)

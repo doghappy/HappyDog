@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { HttpBaseResult } from '../models/results/httpBaseResult';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -17,11 +16,11 @@ export class UserService extends BaseService {
 
   public login(userName: string, password: string, rememberMe: boolean): Observable<HttpBaseResult> {
     const url: string = `${this.url}/login`;
-    const data = {
+    var data = {
       UserName: userName,
       Password: password,
-      RememberMe: rememberMe
+      Remember: rememberMe
     };
-    return this.client.post<HttpBaseResult>(url, data, this.reqOptions);
+    return this.client.post<HttpBaseResult>(url, data);
   }
 }
