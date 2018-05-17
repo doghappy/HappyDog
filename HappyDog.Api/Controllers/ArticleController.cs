@@ -49,9 +49,10 @@ namespace HappyDog.Api.Controllers
         }
 
         [Authorize]
-        public async Task<HttpBaseResult> Put(int id, [FromBody]PutArticleDto dto)
+        [HttpPut("{id}")]
+        public async Task<HttpBaseResult> Put(int id, [FromBody]Article article)
         {
-            await svc.UpdateAsync(id, dto);
+            await svc.UpdateAsync(id, article);
             return new HttpBaseResult
             {
                 Code = CodeResult.OK,

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Category } from './models/category';
+import { Configuration } from './data/configuration';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor() {
+    this.categories = Configuration.categories;
+  }
+
+  public categories: Category[];
 }

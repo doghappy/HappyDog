@@ -456,8 +456,8 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var dto = new PutArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
-            await controller.Put(1, dto);
+            var model = new Article { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
+            await controller.Put(1, model);
 
             Assert.AreEqual(1, article.Id);
             Assert.AreEqual("title2", article.Title);

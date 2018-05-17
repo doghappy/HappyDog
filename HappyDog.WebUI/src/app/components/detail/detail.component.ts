@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router'
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
 import { CookieService } from 'ngx-cookie';
+import { Category } from '../../models/category';
+import { Configuration } from '../../data/configuration';
 
 @Component({
   selector: 'app-detail',
@@ -18,13 +20,16 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private cookieService: CookieService
-  ) { }
+  ) {
+    this.categories = Configuration.categories;
+  }
 
   private id: number;
 
   isEdit: boolean = false;
   hasAuthCookie: boolean;
   article: Article;
+  categories: Category[];
 
   ngOnInit() {
     this.hasAuthCookie = this.cookieService.get('.AspNetCore.Cookies') !== undefined;
@@ -32,7 +37,9 @@ export class DetailComponent implements OnInit {
     this.articleService.getArticle(this.id).subscribe(d => this.article = d);
   }
 
-  save(): void {
+  update(): void {
 
+    this.articleService.update(this.article)
+      .subscribe(a => location.reload())
   }
 }
