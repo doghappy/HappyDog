@@ -33,11 +33,5 @@ export class UserLoginComponent {
           history.back();
         }
       });
-
-
-    this.userService.test().subscribe(s => {
-      debugger;
-      console.log(s)
-    })
   }
 }

@@ -18,7 +18,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
-import { ArticleEditButtonComponent } from './components/article/article-edit-button/article-edit-button.component';
 import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
@@ -36,7 +35,6 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
     ArticleListComponent,
     UserLoginComponent,
     ArticleEditComponent,
-    ArticleEditButtonComponent
   ],
   imports: [
     BrowserModule,
