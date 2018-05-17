@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HappyDog.Api.Filters;
-using HappyDog.DataTransferObjects.User;
+using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;

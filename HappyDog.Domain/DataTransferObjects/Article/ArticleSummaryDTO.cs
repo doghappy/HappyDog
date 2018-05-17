@@ -1,7 +1,7 @@
-﻿using HappyDog.DataTransferObjects.Category;
+﻿using HappyDog.Domain.DataTransferObjects.Category;
 using System;
 
-namespace HappyDog.DataTransferObjects.Article
+namespace HappyDog.Domain.DataTransferObjects.Article
 {
     public class ArticleSummaryDto
     {

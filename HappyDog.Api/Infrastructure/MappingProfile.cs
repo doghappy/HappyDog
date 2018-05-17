@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using HappyDog.DataTransferObjects.Article;
-using HappyDog.DataTransferObjects.Category;
-using HappyDog.DataTransferObjects.User;
+using HappyDog.Domain.DataTransferObjects.Article;
+using HappyDog.Domain.DataTransferObjects.Category;
+using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
-using System;
 
 namespace HappyDog.Api.Infrastructure
 {

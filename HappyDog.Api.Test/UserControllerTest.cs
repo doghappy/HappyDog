@@ -2,9 +2,8 @@
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Threading.Tasks;
-using HappyDog.DataTransferObjects.User;
+using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Api.Controllers;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,4 +1,4 @@
-﻿using HappyDog.DataTransferObjects.User;
+﻿using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Models.Results;
 using Microsoft.EntityFrameworkCore;

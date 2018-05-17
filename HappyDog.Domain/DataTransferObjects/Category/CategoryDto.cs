@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HappyDog.DataTransferObjects.Category
+﻿namespace HappyDog.Domain.DataTransferObjects.Category
 {
     public class CategoryDto
     {

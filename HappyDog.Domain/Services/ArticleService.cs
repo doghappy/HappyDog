@@ -1,4 +1,5 @@
-﻿using HappyDog.Domain.Entities;
+﻿using HappyDog.Domain.DataTransferObjects.Article;
+using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -35,6 +36,19 @@ namespace HappyDog.Domain.Services
                     && (!cid.HasValue || a.CategoryId == cid.Value)
                 )
                 .OrderByDescending(a => a.Id);
+        }
+
+        public async Task UpdateAsync(int id, PutArticleDto dto)
+        {
+            var article = await db.Articles.FindAsync(id);
+            if (article != null)
+            {
+                article.CategoryId = dto.CategoryId;
+                article.Title = dto.Title;
+                article.Content = dto.Content;
+                article.State = dto.State;
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

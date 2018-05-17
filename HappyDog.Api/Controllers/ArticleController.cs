@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using System.Threading.Tasks;
-using HappyDog.DataTransferObjects.Article;
 using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
+using HappyDog.Domain.Models.Results;
+using Microsoft.AspNetCore.Authorization;
+using HappyDog.Domain.Enums;
+using HappyDog.Domain.DataTransferObjects.Article;
 
 namespace HappyDog.Api.Controllers
 {
@@ -43,6 +46,18 @@ namespace HappyDog.Api.Controllers
             var query = svc.Get(User.Identity.IsAuthenticated, cid)
                 .ProjectTo<ArticleSummaryDto>();
             return await pager.GetPaginationAsync(query);
+        }
+
+        [Authorize]
+        public async Task<HttpBaseResult> Put(int id, [FromBody]PutArticleDto dto)
+        {
+            await svc.UpdateAsync(id, dto);
+            return new HttpBaseResult
+            {
+                Code = CodeResult.OK,
+                Notify = NotifyResult.Success,
+                Message = "修改成功"
+            };
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace HappyDog.DataTransferObjects.Article
+﻿namespace HappyDog.Domain.DataTransferObjects.Article
 {
     public class ArticleDto : ArticleSummaryDto
     {

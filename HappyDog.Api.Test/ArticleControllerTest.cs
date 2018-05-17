@@ -1,5 +1,5 @@
 using HappyDog.Api.Controllers;
-using HappyDog.DataTransferObjects.Article;
+using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
@@ -442,6 +442,29 @@ namespace HappyDog.Api.Test
         }
         #endregion
 
+        #endregion
+
+        #region put: api/article/{id}
+        [TestMethod]
+        public async Task PutTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var article = new Article { Id = 1, Title = "title1", Content = "content1", CategoryId = 1, State = BaseState.Disable };
+            await db.AddAsync(article);
+            await db.SaveChangesAsync();
+
+            var svc = new ArticleService(db);
+            var controller = new ArticleController(svc, null);
+
+            var dto = new PutArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
+            await controller.Put(1, dto);
+
+            Assert.AreEqual(1, article.Id);
+            Assert.AreEqual("title2", article.Title);
+            Assert.AreEqual("content2", article.Content);
+            Assert.AreEqual(BaseState.Enable, article.State);
+            Assert.AreEqual(2, article.CategoryId);
+        }
         #endregion
     }
 }

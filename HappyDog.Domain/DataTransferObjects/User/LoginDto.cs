@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HappyDog.DataTransferObjects.User
+namespace HappyDog.Domain.DataTransferObjects.User
 {
     public class LoginDto
     {

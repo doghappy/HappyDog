@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HappyDog.DataTransferObjects\HappyDog.DataTransferObjects.csproj" />
     <ProjectReference Include="..\HappyDog.Infrastructure\HappyDog.Infrastructure.csproj" />
   </ItemGroup>
 
