@@ -2,23 +2,22 @@ import { Component, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CodeResult } from '../../../models/results/codeResult';
 import { HttpBaseResult } from '../../../models/results/httpBaseResult';
-import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-export class UserSignInComponent {
+export class UserLoginComponent {
 
   constructor(private userService: UserService) {
   }
 
   @Input()
-  public userName: string;
+  public userName: string = 'herowong';
 
   @Input()
-  public password: string;
+  public password: string = 'devenv';
 
   @Input()
   public rememberMe: boolean = false;
@@ -28,6 +27,17 @@ export class UserSignInComponent {
   public login(): void {
     this.loginResult = null;
     this.userService.login(this.userName, this.password, this.rememberMe)
-      .subscribe(r => this.loginResult = r);
+      .subscribe(r => {
+        this.loginResult = r;
+        if (r.code == CodeResult.OK) {
+          history.back();
+        }
+      });
+
+
+    this.userService.test().subscribe(s => {
+      debugger;
+      console.log(s)
+    })
   }
 }

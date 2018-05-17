@@ -1,7 +1,6 @@
 ﻿using HappyDog.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Models.Results;
-using HappyDog.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -16,14 +15,28 @@ namespace HappyDog.Domain.Services
             this.db = db;
         }
 
-        public async Task<DataResult<User>> LoginAsync(LoginDto dto)
+        public async Task<BaseResult> LoginAsync(LoginDto dto)
         {
-            var user = await db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == dto.UserName);
-            return new DataResult<User>
+            var user = await db.Users.AsNoTracking()
+                .Include(u=>u.UserRoles)
+                .SingleOrDefaultAsync(u => u.UserName == dto.UserName && u.Password == dto.Password);
+            if (user == null)
             {
-                Result = user != null && user.Password == HashEncrypt.Sha1Encrypt($"HappyDog-{dto.Password}-{user.PasswordHash}"),
-                Data = user
-            };
+                return new BaseResult
+                {
+                    Result = false,
+                    Message = "密码错误"
+                };
+            }
+            else
+            {
+                return new DataResult<User>
+                {
+                    Result = user != null,
+                    Data = user,
+                    Message = "登录成功"
+                };
+            }
         }
     }
 }

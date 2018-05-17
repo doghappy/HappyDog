@@ -8,12 +8,14 @@ using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -25,19 +27,13 @@ namespace HappyDog.Api.Controllers
     public class UserController : Controller
     {
         readonly UserService svc;
-        readonly SignInManager<User> signInManager;
-        readonly UserManager<User> userManager;
         readonly IMapper mapper;
 
         public UserController(
             UserService svc,
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
             IMapper mapper)
         {
             this.svc = svc;
-            this.signInManager = signInManager;
-            this.userManager = userManager;
             this.mapper = mapper;
         }
 
@@ -49,16 +45,40 @@ namespace HappyDog.Api.Controllers
             var result = await svc.LoginAsync(dto);
             if (result.Result)
             {
-                await signInManager.SignInAsync(result.Data, dto.RememberMe);
+                var dataResult = result as DataResult<User>;
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, dataResult.Data.Id.ToString()),
+                    new Claim(ClaimTypes.Name, dataResult.Data.UserName)
+                };
+                var roles = dataResult.Data.UserRoles.Select(u => u.Role);
+                foreach (var item in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item.Name));
+                }
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                //AuthenticationProperties authProps = new AuthenticationProperties();
+                //if (dto.RememberMe)
+                //{
+                //    authProps.IsPersistent = true;
+                //}
+                //else
+                //{
+                //    authProps.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(20);
+                //    authProps.oli
+                //}
+
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = dto.RememberMe });
                 return new HttpBaseResult
                 {
-                    Message = "登陆成功"
+                    Code = CodeResult.OK,
+                    Message = result.Message
                 };
             }
             return new HttpBaseResult
             {
                 Code = CodeResult.Unauthorized,
-                Message = "密码错误",
+                Message = result.Message,
                 Notify = NotifyResult.Warning
             };
         }

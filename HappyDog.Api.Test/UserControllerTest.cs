@@ -3,15 +3,10 @@ using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using HappyDog.DataTransferObjects.User;
 using HappyDog.Api.Controllers;
-using Moq;
 using Microsoft.AspNetCore.Identity;
-using HappyDog.Domain.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HappyDog.Api.Test
 {
@@ -27,7 +22,7 @@ namespace HappyDog.Api.Test
         public async Task LoginTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111", PasswordHash = Guid.Empty });
+            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);
@@ -38,7 +33,7 @@ namespace HappyDog.Api.Test
             var signInManager = new SignInManager<User>(userManagerMock.Object, null, null, null, null, null);
 
 
-            var controller = new UserController(svc, null, signInManager, null);
+            var controller = new UserController(svc, Mapper);
 
             var result = await controller.Login(dto);
 

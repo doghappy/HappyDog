@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using HappyDog.Api.Infrastructure;
 using HappyDog.Domain;
-using HappyDog.Domain.Entities;
-using HappyDog.Domain.Identity;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -49,9 +43,27 @@ namespace HappyDog.Api
             services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
 
-            services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
-            services.AddScoped<IUserStore<User>, UserStore>();
-            services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.SlidingExpiration = true;
+                options.Cookie.HttpOnly = false;
+                options.Events.OnRedirectToLogin = async context =>
+                {
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
+                    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
+                };
+            });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            //{
+            //    options.SlidingExpiration = true;
+            //    options.Events.OnSigningIn = ctx =>
+            //    {
+            //        ctx.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(7);
+            //        return Task.CompletedTask;
+            //    };
+            //});
 
             #region IoC Service
             // Transient：瞬时（Transient）生命周期服务在它们每次请求时被创建。这一生命周期适合轻量级的，无状态的服务。
@@ -69,17 +81,19 @@ namespace HappyDog.Api
             services.AddScoped<UserService>();
             #endregion
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                //options.Cookie.Name = ".net";
-                options.Events.OnRedirectToLogin = async context =>
-                {
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
-                    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
-                };
-            });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    //options.Cookie.Name = ".net";
+            //    options.SlidingExpiration = true;
+            //    options.Events.OnRedirectToLogin = async context =>
+            //    {
+            //        context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //        context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+            //        string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
+            //        await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
+            //    };
+            //});
+
             //services.ConfigureApplicationCookie(options =>
             //{
             //    options.Events.OnRedirectToLogin = context =>
@@ -123,25 +137,32 @@ namespace HappyDog.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStatusCodePages(async context =>
-            {
-                context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-                string content = null;
-                switch (context.HttpContext.Response.StatusCode)
-                {
-                    case StatusCodes.Status401Unauthorized:
-                        content = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
-                        break;
-                    case StatusCodes.Status404NotFound:
-                        content = JsonConvert.SerializeObject(HttpBaseResult.NotFound, jsonSerializerSettings);
-                        break;
-                }
-                await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
-            });
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
+            //app.UseStatusCodePages(async context =>
+            //{
+            //    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+            //    HttpBaseResult result = null;
+            //    switch (context.HttpContext.Response.StatusCode)
+            //    {
+            //        case StatusCodes.Status401Unauthorized:
+            //            result = HttpBaseResult.Unauthorized;
+            //            break;
+            //        case StatusCodes.Status404NotFound:
+            //            result = HttpBaseResult.NotFound;
+            //            break;
+            //    }
+            //    if (result != null)
+            //    {
+            //        string content = JsonConvert.SerializeObject(result, jsonSerializerSettings);
+            //        await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
+            //    }
+            //});
 
             app.UseAuthentication();
-
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }

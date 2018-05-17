@@ -21,6 +21,10 @@ export class UserService extends BaseService {
       Password: password,
       Remember: rememberMe
     };
-    return this.client.post<HttpBaseResult>(url, data);
+    return this.client.post<HttpBaseResult>(url, data, { withCredentials: true });
+  }
+
+  public test(): Observable<string> {
+    return this.client.get<string>(this.url, { withCredentials: true });
   }
 }

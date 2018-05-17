@@ -13,8 +13,7 @@ export class ArticleEditButtonComponent implements OnInit {
   public hasAuthCookie: boolean;
 
   ngOnInit() {
-    this.hasAuthCookie = this.cookieService.get('.AspNetCore.Identity.Application') !== undefined;
-    console.log(this.hasAuthCookie);
+    this.hasAuthCookie = this.cookieService.get('.AspNetCore.Cookies') !== undefined;
   }
 
 }

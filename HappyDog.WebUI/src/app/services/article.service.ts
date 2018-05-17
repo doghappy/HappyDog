@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pagination } from '../models/pagination';
 import { Article } from '../models/article';
 import { BaseService } from './base.service';
+import { HttpBaseResult } from '../models/results/httpBaseResult';
 
 @Injectable()
 export class ArticleService extends BaseService {
@@ -28,5 +29,9 @@ export class ArticleService extends BaseService {
 
   getArticle(id: number): Observable<Article> {
     return this.client.get<Article>(`${this.url}/${id}`);
+  }
+
+  update(article: Article): Observable<HttpBaseResult> {
+    return this.client.put<HttpBaseResult>(`${this.url}/${article.id}`, article, { withCredentials: true })
   }
 }

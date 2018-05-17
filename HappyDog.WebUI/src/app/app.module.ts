@@ -16,11 +16,12 @@ import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
-import { UserSignInComponent } from './components/user/user-login/user-login.component';
+import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
 import { ArticleEditButtonComponent } from './components/article/article-edit-button/article-edit-button.component';
 import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     ReadComponent,
     EssaysComponent,
     ArticleListComponent,
-    UserSignInComponent,
+    UserLoginComponent,
     ArticleEditComponent,
     ArticleEditButtonComponent
   ],
@@ -45,7 +46,8 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     FormsModule,
     CookieModule.forRoot(),
     PaginationModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    LMarkdownEditorModule
   ],
   providers: [ArticleService, UserService],
   bootstrap: [AppComponent]

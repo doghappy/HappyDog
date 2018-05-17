@@ -5,16 +5,27 @@
       <i class="fa fa-calendar"></i>
       {{article?.createTime | date: 'yyyy/MM/dd'}}
     </p>
-    <p class="lead text-muted mb-1">
+    <p class="lead text-muted mb-4">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
       {{article?.viewCount}}
     </p>
+    <button class="btn btn-outline-primary" *ngIf="hasAuthCookie" (click)="isEdit = !isEdit">
+      <i class="fa fa-pencil"></i>
+      编辑
+    </button>
   </div>
 </div>
 
-<div class="container">
-  <div class="markdown-body mb-4">
+<div class="container" style="padding-bottom:4rem">
+  <div *ngIf="!isEdit" class="markdown-body" style="padding-bottom:4rem">
     <markdown [data]="article?.content"></markdown>
   </div>
-  <app-article-edit-button></app-article-edit-button>
+  <div *ngIf="isEdit">
+    <md-editor *ngIf="article" [(ngModel)]="article.content"
+               [height]="'40rem'"
+               [mode]="mode"
+               [options]="options"
+               maxlength="500"></md-editor>
+    <button class="btn btn-primary" (click)="update()">保存</button>
+  </div>
 </div>

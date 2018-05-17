@@ -12,9 +12,10 @@ using System;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    partial class HappyDogContextModelSnapshot : ModelSnapshot
+    [Migration("20180516125724_RemoveUserPasswordHash")]
+    partial class RemoveUserPasswordHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
