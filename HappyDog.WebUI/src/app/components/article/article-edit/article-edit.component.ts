@@ -4,7 +4,7 @@ import { BaseState } from '../../../enums/baseState';
 import { Category } from '../../../models/category';
 import { Configuration } from '../../../data/configuration';
 import { ArticleService } from '../../../services/article.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-edit',
@@ -15,7 +15,8 @@ export class ArticleEditComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.categories = Configuration.categories;
   }
@@ -32,6 +33,6 @@ export class ArticleEditComponent implements OnInit {
 
   public update(): void {
     this.articleService.update(this.article)
-      .subscribe(r => location.href = `/detail/${this.article.id}`)
+      .subscribe(r => this.router.navigateByUrl(`/detail/${this.article.id}`))
   }
 }

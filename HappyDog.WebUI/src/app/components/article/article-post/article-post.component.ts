@@ -4,6 +4,7 @@ import { Category } from '../../../models/category';
 import { Configuration } from '../../../data/configuration';
 import { BaseState } from '../../../enums/baseState';
 import { ArticleService } from '../../../services/article.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-post',
@@ -12,7 +13,7 @@ import { ArticleService } from '../../../services/article.service';
 })
 export class ArticlePostComponent implements OnInit {
 
-  constructor(private articleService: ArticleService) {
+  constructor(private articleService: ArticleService, private router: Router) {
     this.article = new Article();
     this.categories = Configuration.categories;
     this.article.state = BaseState.disable;
@@ -27,6 +28,6 @@ export class ArticlePostComponent implements OnInit {
 
   public post(): void {
     this.articleService.post(this.article)
-      .subscribe(r => location.href = `/detail/${r.data}`)
+      .subscribe(r => this.router.navigateByUrl(`/detail/${r.data}`))
   }
 }
