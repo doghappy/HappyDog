@@ -1,4 +1,4 @@
-<div class="container" style="padding:4rem 0;" *ngIf="article">
+<div class="container" style="padding:4rem 0;">
   <div class="mb-4">
     <strong>标题：</strong>
     <input class="form-control" [(ngModel)]="article.title" />
@@ -21,6 +21,14 @@
   </div>
   <div class="mb-4 form-inline">
     <strong>状态：</strong>
+    <!--<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="state" id="state.disable" [checked)]="article.state" value="0">
+    <label class="form-check-label" for="state.disable">隐藏</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="state" id="state.enable" checked [(checked)]="article.state" value="1">
+    <label class="form-check-label" for="state.enable">显示</label>
+  </div>-->
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="state" id="state.disable" [(ngModel)]="article.state" [value]="0">
       <label class="form-check-label" for="state.disable">隐藏</label>
@@ -30,5 +38,5 @@
       <label class="form-check-label" for="state.enable">显示</label>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="update()">保存</button>
+  <button class="btn btn-primary" (click)="post()">保存</button>
 </div>

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from '../../../models/article';
+import { BaseState } from '../../../enums/baseState';
+import { Category } from '../../../models/category';
+import { Configuration } from '../../../data/configuration';
+import { ArticleService } from '../../../services/article.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-article-edit',
@@ -7,9 +13,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticleEditComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private articleService: ArticleService,
+    private route: ActivatedRoute
+  ) {
+    this.categories = Configuration.categories;
   }
 
+  private id: number;
+
+  public article: Article;
+  public categories: Category[];
+
+  ngOnInit() {
+    this.route.params.subscribe(p => this.id = p.id);
+    this.articleService.getArticle(this.id).subscribe(d => this.article = d);
+  }
+
+  public update(): void {
+    this.articleService.update(this.article)
+      .subscribe(r => location.href = `/detail/${this.article.id}`)
+  }
 }

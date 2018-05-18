@@ -72,6 +72,7 @@ namespace HappyDog.Api.Test
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
+            Assert.AreEqual(1, data.ViewCount);
         }
 
         [TestMethod]
@@ -100,6 +101,7 @@ namespace HappyDog.Api.Test
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Id);
+            Assert.AreEqual(0, data.ViewCount);
         }
 
         [TestMethod]
@@ -128,6 +130,7 @@ namespace HappyDog.Api.Test
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
+            Assert.AreEqual(1, data.ViewCount);
         }
 
         #endregion

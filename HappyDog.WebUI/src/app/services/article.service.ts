@@ -6,6 +6,7 @@ import { Pagination } from '../models/pagination';
 import { Article } from '../models/article';
 import { BaseService } from './base.service';
 import { HttpBaseResult } from '../models/results/httpBaseResult';
+import { HttpDataResult } from '../models/results/httpDataResult';
 
 @Injectable()
 export class ArticleService extends BaseService {
@@ -33,5 +34,9 @@ export class ArticleService extends BaseService {
 
   update(article: Article): Observable<HttpBaseResult> {
     return this.client.put<HttpBaseResult>(`${this.url}/${article.id}`, article, { withCredentials: true })
+  }
+
+  post(article: Article): Observable<HttpDataResult<number>> {
+    return this.client.post<HttpDataResult<number>>(this.url, article, { withCredentials: true });
   }
 }

@@ -65,6 +65,7 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        [HttpPost]
         [ValidateModel]
         public async Task<HttpDataResult<int>> Post([FromBody]PostArticleDto dto)
         {

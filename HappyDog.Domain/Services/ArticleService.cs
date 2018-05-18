@@ -19,9 +19,9 @@ namespace HappyDog.Domain.Services
 
         public async Task<Article> GetAsync(int id, bool isAuthenticated)
         {
-            var article = await db.Articles.AsNoTracking().Include(a => a.Category)
+            var article = await db.Articles.Include(a => a.Category)
                 .SingleOrDefaultAsync(a => a.Id == id && (isAuthenticated || a.State == BaseState.Enable));
-            if (article != null)
+            if (article?.State == BaseState.Enable)
             {
                 article.ViewCount++;
                 await db.SaveChangesAsync();

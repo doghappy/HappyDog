@@ -27,7 +27,6 @@ export class DetailComponent implements OnInit {
 
   private id: number;
 
-  isEdit: boolean = false;
   article: Article;
   categories: Category[];
   hasAuthCookie: boolean;

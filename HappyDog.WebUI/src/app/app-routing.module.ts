@@ -9,6 +9,8 @@ import { WindowsComponent } from './components/nav/windows/windows.component';
 import { ReadComponent } from './components/nav/read/read.component';
 import { EssaysComponent } from './components/nav/essays/essays.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
+import { ArticlePostComponent } from './components/article/article-post/article-post.component';
+import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -18,7 +20,9 @@ const routes: Routes = [
   { path: 'windows', component: WindowsComponent },
   { path: 'read', component: ReadComponent },
   { path: 'essays', component: EssaysComponent },
-  { path: 'login', component: UserLoginComponent }
+  { path: 'login', component: UserLoginComponent },
+  { path: 'post', component: ArticlePostComponent },
+  { path: 'edit/:id', component: ArticleEditComponent },
 ]
 
 @NgModule({

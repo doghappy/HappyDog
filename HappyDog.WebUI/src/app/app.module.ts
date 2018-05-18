@@ -22,6 +22,7 @@ import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { AuthenticationService } from './services/authentication.service';
+import { ArticlePostComponent } from './components/article/article-post/article-post.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthenticationService } from './services/authentication.service';
     ArticleListComponent,
     UserLoginComponent,
     ArticleEditComponent,
+    ArticlePostComponent,
   ],
   imports: [
     BrowserModule,
