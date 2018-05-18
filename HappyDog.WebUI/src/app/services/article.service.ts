@@ -25,7 +25,7 @@ export class ArticleService extends BaseService {
     if (cid) {
       params = params.append("cid", cid.toString());
     }
-    return this.client.get<Pagination<ArticleSummary>>(this.url, { params });
+    return this.client.get<Pagination<ArticleSummary>>(this.url, { params, withCredentials: true });
   }
 
   getArticle(id: number): Observable<Article> {
