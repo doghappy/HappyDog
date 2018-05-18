@@ -29,7 +29,7 @@ export class ArticleService extends BaseService {
   }
 
   getArticle(id: number): Observable<Article> {
-    return this.client.get<Article>(`${this.url}/${id}`);
+    return this.client.get<Article>(`${this.url}/${id}`, { withCredentials: true });
   }
 
   update(article: Article): Observable<HttpBaseResult> {
