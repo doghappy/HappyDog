@@ -21,6 +21,7 @@ import { ArticleEditComponent } from './components/article/article-edit/article-
 import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
     AlertModule.forRoot(),
     LMarkdownEditorModule
   ],
-  providers: [ArticleService, UserService],
+  providers: [ArticleService, UserService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

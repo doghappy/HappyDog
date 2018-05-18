@@ -456,14 +456,36 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var model = new Article { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
-            await controller.Put(1, model);
+            var dto = new PutArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
+            await controller.Put(1, dto);
 
             Assert.AreEqual(1, article.Id);
             Assert.AreEqual("title2", article.Title);
             Assert.AreEqual("content2", article.Content);
             Assert.AreEqual(BaseState.Enable, article.State);
             Assert.AreEqual(2, article.CategoryId);
+        }
+        #endregion
+
+        #region post: api/article
+        [TestMethod]
+        public async Task PostAsync()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var svc = new ArticleService(db);
+            var controller = new ArticleController(svc, null);
+
+            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, State = BaseState.Enable };
+            await controller.Post(dto);
+
+            var list = db.Articles.ToList();
+            Assert.AreEqual(1, list.Count);
+
+            var article = list.FirstOrDefault();
+            Assert.AreEqual("title", article.Title);
+            Assert.AreEqual("content", article.Content);
+            Assert.AreEqual(1, article.CategoryId);
+            Assert.AreEqual(BaseState.Enable, article.State);
         }
         #endregion
     }

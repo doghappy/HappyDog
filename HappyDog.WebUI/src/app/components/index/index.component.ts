@@ -3,6 +3,7 @@ import { ArticleService } from '../../services/article.service';
 import { Pagination } from '../../models/pagination';
 import { ArticleSummary } from '../../models/articleSummary';
 import { ArticleBaseComponent } from '../articleBase.component';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-index',
@@ -11,9 +12,14 @@ import { ArticleBaseComponent } from '../articleBase.component';
 })
 export class IndexComponent extends ArticleBaseComponent {
 
-  constructor(articleService: ArticleService) {
+  constructor(
+    articleService: ArticleService,
+    authService: AuthenticationService
+  ) {
     super(articleService);
+    this.hasAuthCookie = authService.hasAuthCookie;
   }
 
   protected categoryId?: number;
+  public hasAuthCookie: boolean;
 }

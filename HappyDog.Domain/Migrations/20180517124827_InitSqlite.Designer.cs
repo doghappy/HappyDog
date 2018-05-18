@@ -12,15 +12,14 @@ using System;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180516125724_RemoveUserPasswordHash")]
-    partial class RemoveUserPasswordHash
+    [Migration("20180517124827_InitSqlite")]
+    partial class InitSqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026");
 
             modelBuilder.Entity("HappyDog.Domain.Entities.Article", b =>
                 {

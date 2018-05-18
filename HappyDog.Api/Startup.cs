@@ -40,7 +40,8 @@ namespace HappyDog.Api
             //.AddJsonOptions(options=>options.SerializerSettings.DateFormatHandling= Newtonsoft.Json.DateFormatHandling.)
 
             string conn = Configuration.GetConnectionString("HappyDog");
-            services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
+            //services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
+            services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>

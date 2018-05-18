@@ -1,4 +1,5 @@
-﻿using HappyDog.Domain.DataTransferObjects.User;
+﻿using System;
+using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Models.Results;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,9 @@ namespace HappyDog.Domain.Services
         {
             var user = await db.Users.AsNoTracking()
                 .Include(u=>u.UserRoles)
-                .SingleOrDefaultAsync(u => u.UserName == dto.UserName && u.Password == dto.Password);
+                .SingleOrDefaultAsync(u => 
+                    u.UserName.Equals(dto.UserName, StringComparison.CurrentCultureIgnoreCase)
+                    && u.Password == dto.Password);
             if (user == null)
             {
                 return new BaseResult

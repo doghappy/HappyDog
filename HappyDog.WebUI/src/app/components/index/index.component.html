@@ -8,15 +8,12 @@
       People can’t do somethin’ themselves, they wanna tell you, you can’t do it.<br />
       If you want somethin’, go get it.
     </p>
-    <!--<p class="lead">
-      @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
-      {
-      <a class="btn btn-primary btn-lg" href="@Url.Action(" Post")">
+    <p class="lead" *ngIf="hasAuthCookie">
+      <a class="btn btn-primary" href="#">
         <i class="fa fa-pencil" aria-hidden="true"></i>
-        写博客
+        写文章
       </a>
-      }
-    </p>-->
+    </p>
   </div>
 </div>
 

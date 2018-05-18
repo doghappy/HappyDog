@@ -2,6 +2,7 @@
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,17 +39,32 @@ namespace HappyDog.Domain.Services
                 .OrderByDescending(a => a.Id);
         }
 
-        public async Task UpdateAsync(int id, Article article)
+        public async Task UpdateAsync(int id, PutArticleDto dto)
         {
-            var dbArticle = await db.Articles.FindAsync(id);
-            if (dbArticle != null)
+            var article = await db.Articles.FindAsync(id);
+            if (article != null)
             {
-                dbArticle.CategoryId = article.CategoryId;
-                dbArticle.Title = article.Title;
-                dbArticle.Content = article.Content;
-                dbArticle.State = article.State;
+                article.CategoryId = dto.CategoryId;
+                article.Title = dto.Title;
+                article.Content = dto.Content;
+                article.State = dto.State;
                 await db.SaveChangesAsync();
             }
+        }
+
+        public async Task<Article> InsertAsync(PostArticleDto dto)
+        {
+            var article = new Article
+            {
+                CategoryId = dto.CategoryId,
+                Content = dto.Content,
+                CreateTime = DateTime.Now,
+                State = dto.State,
+                Title = dto.Title
+            };
+            await db.Articles.AddAsync(article);
+            await db.SaveChangesAsync();
+            return article;
         }
     }
 }
