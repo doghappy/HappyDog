@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using AutoMapper;
 using HappyDog.Api.Infrastructure;
 using HappyDog.Domain;
@@ -57,15 +55,6 @@ namespace HappyDog.Api
                     await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
                 };
             });
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
-            //{
-            //    options.SlidingExpiration = true;
-            //    options.Events.OnSigningIn = ctx =>
-            //    {
-            //        ctx.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(7);
-            //        return Task.CompletedTask;
-            //    };
-            //});
 
             #region IoC Service
             // Transient：瞬时（Transient）生命周期服务在它们每次请求时被创建。这一生命周期适合轻量级的，无状态的服务。
@@ -82,53 +71,6 @@ namespace HappyDog.Api
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();
             #endregion
-
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    //options.Cookie.Name = ".net";
-            //    options.SlidingExpiration = true;
-            //    options.Events.OnRedirectToLogin = async context =>
-            //    {
-            //        context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //        context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-            //        string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
-            //        await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
-            //    };
-            //});
-
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.Events.OnRedirectToLogin = context =>
-            //    {
-            //        //if (context.Request.Path.StartsWithSegments("/api"))
-            //        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //        return Task.CompletedTask;
-            //    };
-            //});
-
-            /*
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
-
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-
-                options.User.RequireUniqueEmail = true;
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                // 如果没有设置LoginPath， ASP.NET Core 默认登录路径是 /Account/Login
-                options.LoginPath = "/Account/Login";
-                // 如果没有设置AccessDeniedPath，ASP.NET Core 默认访问失败路径是 /Account/AccessDenied
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.SlidingExpiration = true;
-            });
-            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,6 +80,23 @@ namespace HappyDog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            //else if (env.IsProduction())
+            //{
+            //    if (bool.Parse(Configuration["ShowError"]))
+            //    {
+            //        app.UseExceptionHandler(options =>
+            //        {
+            //            options.Run(async context =>
+            //            {
+            //                var ex = context.Features.Get<IExceptionHandlerFeature>();
+            //                if (ex != null)
+            //                {
+            //                    await context.Response.WriteAsync(ex.Error.ToString());
+            //                }
+            //            });
+            //        });
+            //    }
+            //}
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "http://www.doghappy.wang")
                 .AllowAnyMethod()
