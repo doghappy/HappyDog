@@ -48,6 +48,7 @@ namespace HappyDog.Api
             {
                 options.SlidingExpiration = true;
                 options.Cookie.HttpOnly = false;
+                options.Cookie.Domain = Configuration["CookieDomain"];
                 options.Events.OnRedirectToLogin = async context =>
                 {
                     context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
