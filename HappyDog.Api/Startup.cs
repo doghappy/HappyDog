@@ -138,7 +138,7 @@ namespace HappyDog.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "http://www.doghappy.wang")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());

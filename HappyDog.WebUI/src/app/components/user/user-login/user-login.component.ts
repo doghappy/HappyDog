@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CodeResult } from '../../../models/results/codeResult';
 import { HttpBaseResult } from '../../../models/results/httpBaseResult';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +11,9 @@ import { HttpBaseResult } from '../../../models/results/httpBaseResult';
 })
 export class UserLoginComponent {
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private location: Location) {
   }
 
   @Input()
@@ -30,7 +33,7 @@ export class UserLoginComponent {
       .subscribe(r => {
         this.loginResult = r;
         if (r.code == CodeResult.OK) {
-          history.back();
+          this.location.back();
         }
       });
   }
