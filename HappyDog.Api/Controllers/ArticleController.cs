@@ -14,7 +14,7 @@ using HappyDog.Api.Filters;
 namespace HappyDog.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/article")]
+    [Route("article")]
     [Authorize]
     public class ArticleController : Controller
     {
@@ -42,6 +42,7 @@ namespace HappyDog.Api.Controllers
             return Json(mapper.Map<Article, ArticleDto>(article));
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Get(int? cid, int page = 1)
         {

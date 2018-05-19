@@ -1,19 +1,14 @@
 ﻿using AutoMapper;
 using HappyDog.Api.Filters;
 using HappyDog.Domain.DataTransferObjects.User;
-using HappyDog.Domain;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
-using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -22,7 +17,7 @@ using System.Threading.Tasks;
 namespace HappyDog.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/user")]
+    [Route("user")]
     [Authorize]
     public class UserController : Controller
     {
@@ -81,11 +76,6 @@ namespace HappyDog.Api.Controllers
                 Message = result.Message,
                 Notify = NotifyResult.Warning
             };
-        }
-
-        public string Get()
-        {
-            return "get";
         }
 
         /*
