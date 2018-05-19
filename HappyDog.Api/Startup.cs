@@ -143,25 +143,28 @@ namespace HappyDog.Api
                 .AllowAnyHeader()
                 .AllowCredentials());
 
-            //app.UseStatusCodePages(async context =>
-            //{
-            //    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-            //    HttpBaseResult result = null;
-            //    switch (context.HttpContext.Response.StatusCode)
-            //    {
-            //        case StatusCodes.Status401Unauthorized:
-            //            result = HttpBaseResult.Unauthorized;
-            //            break;
-            //        case StatusCodes.Status404NotFound:
-            //            result = HttpBaseResult.NotFound;
-            //            break;
-            //    }
-            //    if (result != null)
-            //    {
-            //        string content = JsonConvert.SerializeObject(result, jsonSerializerSettings);
-            //        await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
-            //    }
-            //});
+            app.UseStatusCodePages(async context =>
+            {
+                context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+                HttpBaseResult result = null;
+                switch (context.HttpContext.Response.StatusCode)
+                {
+                    case StatusCodes.Status401Unauthorized:
+                        result = HttpBaseResult.Unauthorized;
+                        break;
+                    case StatusCodes.Status404NotFound:
+                        result = HttpBaseResult.NotFound;
+                        break;
+                    case StatusCodes.Status500InternalServerError:
+                        result = HttpBaseResult.InternalServerError;
+                        break;
+                }
+                if (result != null)
+                {
+                    string content = JsonConvert.SerializeObject(result, jsonSerializerSettings);
+                    await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
+                }
+            });
 
             app.UseAuthentication();
             app.UseMvc();

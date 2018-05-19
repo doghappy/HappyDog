@@ -14,10 +14,10 @@ export class UserLoginComponent {
   }
 
   @Input()
-  public userName: string = 'herowong';
+  public userName: string;
 
   @Input()
-  public password: string = 'devenv';
+  public password: string;
 
   @Input()
   public rememberMe: boolean = false;
