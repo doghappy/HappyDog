@@ -2,7 +2,6 @@ import { ArticleSummary } from "../models/articleSummary";
 import { Pagination } from "../models/pagination";
 import { ArticleService } from "../services/article.service";
 import { OnInit } from '@angular/core';
-//import { Router } from "@angular/router";
 
 export abstract class ArticleBaseComponent implements OnInit {
 
@@ -13,15 +12,6 @@ export abstract class ArticleBaseComponent implements OnInit {
   protected abstract categoryId?: number;
   protected target: string;
 
-  //private _pageNumber: number;
-  //get pageNumber(): number {
-  //  return this._pageNumber;
-  //}
-  //set pageNumber(value: number) {
-  //  console.log(value)
-  //  this._pageNumber = value;
-  //  this.getPageArticles();
-  //}
   public pageNumber: number;
 
   public pageArticles: Pagination<ArticleSummary>;

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server: 'http://www.doghappy.wang'
+  server: 'http://api.doghappy.wang'
 };

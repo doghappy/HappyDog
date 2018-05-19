@@ -15,7 +15,7 @@ export class ArticleService extends BaseService {
     super();
   }
 
-  private url = `${this.server}/api/article`;
+  private url = `${this.server}/article`;
 
   getPageArticles(page: number, cid?: number): Observable<Pagination<ArticleSummary>> {
     let params = new HttpParams();

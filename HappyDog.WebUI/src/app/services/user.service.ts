@@ -12,7 +12,7 @@ export class UserService extends BaseService {
     super();
   }
 
-  private url: string = `${this.server}/api/user`;
+  private url: string = `${this.server}/user`;
 
   public login(userName: string, password: string, rememberMe: boolean): Observable<HttpBaseResult> {
     const url: string = `${this.url}/login`;
