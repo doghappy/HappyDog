@@ -9,7 +9,7 @@ namespace HappyDog.Domain.DataTransferObjects.User
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(12)]
+        [StringLength(16)]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

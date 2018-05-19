@@ -5,7 +5,7 @@ import { HttpBaseResult } from '../../../models/results/httpBaseResult';
 import { Location } from '@angular/common'
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-login-in',
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
