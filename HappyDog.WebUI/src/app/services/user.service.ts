@@ -19,7 +19,7 @@ export class UserService extends BaseService {
     var data = {
       UserName: userName,
       Password: password,
-      Remember: rememberMe
+      RememberMe: rememberMe
     };
     return this.client.post<HttpBaseResult>(url, data, { withCredentials: true });
   }
