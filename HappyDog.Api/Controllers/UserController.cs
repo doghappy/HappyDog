@@ -53,17 +53,6 @@ namespace HappyDog.Api.Controllers
                     claims.Add(new Claim(ClaimTypes.Role, item.Name));
                 }
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                //AuthenticationProperties authProps = new AuthenticationProperties();
-                //if (dto.RememberMe)
-                //{
-                //    authProps.IsPersistent = true;
-                //}
-                //else
-                //{
-                //    authProps.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(20);
-                //    authProps.oli
-                //}
-
                 await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = dto.RememberMe });
                 return new HttpBaseResult
                 {
