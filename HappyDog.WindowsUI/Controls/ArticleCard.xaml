@@ -1,0 +1,47 @@
+﻿<UserControl
+    x:Class="HappyDog.WindowsUI.Controls.ArticleCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HappyDog.WindowsUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
+    mc:Ignorable="d"
+    Height="156"
+    d:DesignHeight="156"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Windows"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       LineHeight="24"/>
+            <TextBlock Grid.Row="1" Text="Win10 Edge 快捷键"
+                       Foreground="#343A40"
+                       FontSize="20"
+                       LineHeight="24"
+                       Margin="0,0,0,12"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Height="24" Margin="0,0,0,4">
+                <fa:FontAwesome Icon="Calendar" Foreground="{StaticResource TextMuted}"/>
+                <TextBlock Margin="4,2,0,0" Text="2018/05/21" Foreground="{StaticResource TextMuted}"/>
+            </StackPanel>
+            <StackPanel CornerRadius="4" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Background="#28a745" Padding="3">
+                <fa:FontAwesome Icon="LineChart" Foreground="White" FontSize="12"/>
+                <TextBlock Grid.Row="3" Text="1" Foreground="White" FontWeight="Bold" Margin="2,-1,0,0" FontSize="12"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

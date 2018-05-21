@@ -23,6 +23,25 @@ namespace HappyDog.WindowsUI.Views
             InitializeComponent();
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Navigate(typeof(HomePage));
+            var firstItem = NavView.MenuItems[0] as NavigationViewItem;
+            firstItem.IsSelected = true;
+
+            NavView.SelectionChanged += NavView_SelectionChanged;
+            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+        }
+
+        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (ContentFrame.CanGoBack && !e.Handled)
+            {
+                e.Handled = true;
+                ContentFrame.GoBack();
+            }
+        }
+
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
             //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ContentFrame.CanGoBack
