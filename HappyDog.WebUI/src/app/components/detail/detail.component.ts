@@ -30,10 +30,15 @@ export class DetailComponent implements OnInit {
   article: Article;
   categories: Category[];
   hasAuthCookie: boolean;
+  loading: boolean = false;
 
   ngOnInit() {
-    this.route.params.subscribe(p => this.id = p.id)
-    this.articleService.getArticle(this.id).subscribe(d => this.article = d);
+    this.route.params.subscribe(p => this.id = p.id);
+    this.loading = true;
+    this.articleService.getArticle(this.id).subscribe(d => {
+      this.article = d;
+      this.loading = false;
+    });
   }
 
   update(): void {
