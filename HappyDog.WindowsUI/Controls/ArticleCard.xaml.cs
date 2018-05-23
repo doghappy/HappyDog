@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using HappyDog.WindowsUI.Models;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
 namespace HappyDog.WindowsUI.Controls
 {
-    public sealed partial class ArticleCard : UserControl
+    public sealed partial class ArticleCard : UserControl, INotifyPropertyChanged
     {
         public ArticleCard()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Article article;
+        public Article Article
+        {
+            get => article;
+            set
+            {
+                article = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Article)));
+            }
         }
     }
 }

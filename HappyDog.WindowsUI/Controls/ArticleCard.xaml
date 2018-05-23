@@ -25,22 +25,23 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Windows"
+            <TextBlock Text="{x:Bind Article.Category.Label, Mode=OneWay}"
                        FontSize="16"
+                       Foreground="{x:Bind Article.Category.Color, Mode=OneWay}"
                        FontWeight="Bold"
                        LineHeight="24"/>
-            <TextBlock Grid.Row="1" Text="Win10 Edge 快捷键"
+            <TextBlock Grid.Row="1" Text="{x:Bind Article.Title, Mode=OneWay}"
                        Foreground="#343A40"
                        FontSize="20"
                        LineHeight="24"
                        Margin="0,0,0,12"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" Height="24" Margin="0,0,0,4">
                 <fa:FontAwesome Icon="Calendar" Foreground="{StaticResource TextMuted}"/>
-                <TextBlock Margin="4,2,0,0" Text="2018/05/21" Foreground="{StaticResource TextMuted}"/>
+                <TextBlock Margin="4,2,0,0" Text="{x:Bind Article.CreateTime, Mode=OneWay}" Foreground="{StaticResource TextMuted}"/>
             </StackPanel>
             <StackPanel CornerRadius="4" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Background="#28a745" Padding="3">
                 <fa:FontAwesome Icon="LineChart" Foreground="White" FontSize="12"/>
-                <TextBlock Grid.Row="3" Text="1" Foreground="White" FontWeight="Bold" Margin="2,-1,0,0" FontSize="12"/>
+                <TextBlock Grid.Row="3" Text="{x:Bind Article.ViewCount, Mode=OneWay}" Foreground="White" FontWeight="Bold" Margin="2,-1,0,0" FontSize="12"/>
             </StackPanel>
         </Grid>
     </Grid>

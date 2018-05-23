@@ -84,7 +84,8 @@ namespace HappyDog.Infrastructure
             return new Pagination<T>
             {
                 Data = query.Skip(Skip).Take(Size),
-                TotalItems = TotalItems
+                TotalItems = TotalItems,
+                TotalPages = TotalPages
             };
         }
     }

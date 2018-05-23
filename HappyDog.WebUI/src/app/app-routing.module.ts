@@ -11,6 +11,7 @@ import { EssaysComponent } from './components/nav/essays/essays.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { ArticlePostComponent } from './components/article/article-post/article-post.component';
 import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
   { path: 'post', component: ArticlePostComponent },
   { path: 'edit/:id', component: ArticleEditComponent },
+  { path: '**', component: PageNotFoundComponent },
 ]
 
 @NgModule({

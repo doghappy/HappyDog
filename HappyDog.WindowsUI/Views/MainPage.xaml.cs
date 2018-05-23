@@ -72,29 +72,19 @@ namespace HappyDog.WindowsUI.Views
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            //if (args.IsSettingsSelected)
-            //{
-
-            //}
-            //else
-            //{
-            //    var item = args.SelectedItem as NavigationViewItem;
-            //    switch (item.Tag)
-            //    {
-            //        case "Home":
-            //            ContentFrame.Navigate(typeof(HomePage));
-            //            break;
-            //        case "Explore":
-            //            ContentFrame.Navigate(typeof(ExplorePage));
-            //            break;
-            //        case "Topic":
-            //            ContentFrame.Navigate(typeof(TopicPage));
-            //            break;
-            //        case "Me":
-            //            ContentFrame.Navigate(typeof(MePage));
-            //            break;
-            //    }
-            //}
+            if (!args.IsSettingsSelected)
+            {
+                var item = args.SelectedItem as NavigationViewItem;
+                switch (item.Tag)
+                {
+                    case "Home":
+                        ContentFrame.Navigate(typeof(HomePage));
+                        break;
+                    case ".net":
+                        ContentFrame.Navigate(typeof(DotNetPage));
+                        break;
+                }
+            }
         }
     }
 }

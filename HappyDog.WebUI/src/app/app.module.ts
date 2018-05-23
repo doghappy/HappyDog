@@ -23,6 +23,8 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { AuthenticationService } from './services/authentication.service';
 import { ArticlePostComponent } from './components/article/article-post/article-post.component';
+import { LoadingModule } from 'ngx-loading';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ArticlePostComponent } from './components/article/article-post/article-
     UserLoginComponent,
     ArticleEditComponent,
     ArticlePostComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { ArticlePostComponent } from './components/article/article-post/article-
     CookieModule.forRoot(),
     PaginationModule.forRoot(),
     AlertModule.forRoot(),
-    LMarkdownEditorModule
+    LMarkdownEditorModule,
+    LoadingModule
   ],
   providers: [ArticleService, UserService, AuthenticationService],
   bootstrap: [AppComponent]

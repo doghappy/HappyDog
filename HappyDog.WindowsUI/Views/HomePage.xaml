@@ -7,14 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:HappyDog.WindowsUI.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel>
-        <StackPanel Style="{StaticResource JumbotronStackPanel}">
-            <StackPanel Style="{StaticResource StackPanelContainer}">
-                <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
-                <TextBlock Style="{StaticResource JumbotronLead}">
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                <StackPanel Style="{StaticResource StackPanelContainer}">
+                    <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
+                    <TextBlock Style="{StaticResource JumbotronLead}">
                     <Run Text="Don't ever let somebody tell you"/>
                     <LineBreak/>
                     <Run Text="You can't do something..."/>
@@ -25,24 +27,27 @@
                     <Run Text="People can't do somethin' themselves, they wanna tell you, you can't do it."/>
                     <LineBreak/>
                     <Run Text="If you want somethin', go get it."/>
-                </TextBlock>
+                    </TextBlock>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <StackPanel Style="{StaticResource StackPanelContainer}">
-            <controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
-                                        ItemHeight="200"
-                                        DesiredWidth="300">
-                <controls:AdaptiveGridView.ItemTemplate>
-                    <DataTemplate>
-                        <hc:ArticleCard/>
-                    </DataTemplate>
-                </controls:AdaptiveGridView.ItemTemplate>
-            </controls:AdaptiveGridView>
-            <!--<GridView>
+            <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
+                <controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
+                                        DesiredWidth="400"
+                                        ItemsSource="{x:Bind ViewModel.Articles}">
+                    <controls:AdaptiveGridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Article">
+                            <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                <hc:ArticleCard Article="{x:Bind}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </controls:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView>
+                <!--<GridView>
                 <GridViewItem Background="{ThemeResource SystemControlAcrylicElementBrush}">
                     <hc:ArticleCard/>
                 </GridViewItem>
             </GridView>-->
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

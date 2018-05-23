@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HappyDog.Infrastructure
+namespace HappyDog.WindowsUI.Models
 {
     public class Pagination<T>
     {

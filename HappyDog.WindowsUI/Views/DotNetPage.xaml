@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="HappyDog.WindowsUI.Views.DotNetPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HappyDog.WindowsUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                <StackPanel Style="{StaticResource StackPanelContainer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Assets/Images/swimlane-dotnet-core.svg"/>
+                        <Image Grid.Column="1" Source="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"/>
+                        <!--<StackPanel Grid.Column="1">
+                            <TextBlock Text=".Net"
+                                       Style="{StaticResource JumbotronH1}"
+                                       Foreground="#7014e8"/>
+                        </StackPanel>-->
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

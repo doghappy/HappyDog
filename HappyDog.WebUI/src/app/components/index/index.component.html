@@ -17,11 +17,12 @@
   </div>
 </div>
 
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop:true}"></ngx-loading>
 <div class="container">
   <app-article-list [pageArticles]="pageArticles" [categoryLinkEnable]="true"></app-article-list>
   <div class="clearfix">
     <pagination class="pull-right" previousText="上一页" nextText="下一页"
-                [totalItems]="pageArticles?.totalItems" [itemsPerPage]="20" [maxSize]="5" [(ngModel)]="pageNumber"
+                [totalItems]="pageArticles?.totalItems" [itemsPerPage]="20" [maxSize]="5" [ngModel]="pageNumber"
                 (pageChanged)="pageChanged($event)"></pagination>
   </div>
 </div>
