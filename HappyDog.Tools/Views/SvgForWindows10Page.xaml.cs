@@ -46,12 +46,12 @@ namespace HappyDog.Tools.Views
 
         private async Task<string> SvgParse(string source)
         {
-            int start = source.IndexOf("<style>");
+            int start = source.IndexOf("<style>")+7;
             int end = source.LastIndexOf("</style>");
-            string style = source.Substring(start + 7, end);
+            string style = source.Substring(start, end - start);
             if (start != -1 && end != -1)
             {
-                var builder = new StringBuilder();
+                style = Regex.Replace(style, "\\s+", string.Empty);
                 Regex styleGroupReg = new Regex(@"(\.[\w,\.]+){([\w:;-]+)}");
                 var matchces = styleGroupReg.Matches(style);
                 foreach (Match match in matchces)
@@ -60,7 +60,7 @@ namespace HappyDog.Tools.Views
                     string value = match.Groups[1].Value.TrimEnd(';').Replace(':', '=');
                     foreach (var cls in classes)
                     {
-                        source.Replace($"class=\"{cls.TrimStart('.')}\"", value);
+                        source = source.Replace($"class=\"{cls.TrimStart('.')}\"", value);
                     }
                 }
                 return source;
