@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -46,24 +47,30 @@ namespace HappyDog.Tools.Views
 
         private async Task<string> SvgParse(string source)
         {
-            int start = source.IndexOf("<style>")+7;
+            int start = source.IndexOf("<style>") + 7;
             int end = source.LastIndexOf("</style>");
-            string style = source.Substring(start, end - start);
             if (start != -1 && end != -1)
             {
+                string style = source.Substring(start, end - start);
                 style = Regex.Replace(style, "\\s+", string.Empty);
-                Regex styleGroupReg = new Regex(@"(\.[\w,\.]+){([\w:;-]+)}");
+                Regex styleGroupReg = new Regex(@"(\.[\w,\.]+){([\w#:;-]+)}");
                 var matchces = styleGroupReg.Matches(style);
                 foreach (Match match in matchces)
                 {
                     string[] classes = match.Groups[1].Value.Split(',');
-                    string value = match.Groups[1].Value.TrimEnd(';').Replace(':', '=');
+                    string value = match.Groups[2].Value.TrimEnd(';').Replace(':', '=');
+                    int eqStart = value.IndexOf('=');
+                    value = value.Insert(eqStart + 1, "\"");
+                    value += "\"";
                     foreach (var cls in classes)
                     {
-                        source = source.Replace($"class=\"{cls.TrimStart('.')}\"", value);
+                        source = source.Replace($"class=\"{cls.TrimStart('.')}\"", value + $" class=\"{cls.TrimStart('.')}\"");
                     }
                 }
-                return source;
+                source = Regex.Replace(source, "\\sclass=\"[\\w-]+\"", string.Empty);
+                start = source.IndexOf("<style>");
+                end = source.LastIndexOf("</style>") + 8;
+                return source.Remove(start, end - start);
             }
             else
             {
@@ -76,6 +83,33 @@ namespace HappyDog.Tools.Views
                 await dialog.ShowAsync();
             }
             return string.Empty;
+        }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            DataPackage dataPackage = new DataPackage
+            {
+                RequestedOperation = DataPackageOperation.Copy
+            };
+            Output.Document.GetText(TextGetOptions.None, out string text);
+            dataPackage.SetText(text);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private async void Save_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new FileSavePicker
+            {
+                SuggestedStartLocation = PickerLocationId.Downloads
+            };
+            picker.FileTypeChoices.Add("", new List<string> { ".svg" });
+            var file = await picker.PickSaveFileAsync();
+            if (file != null)
+            {
+                Output.Document.GetText(TextGetOptions.None, out string text);
+                CachedFileManager.DeferUpdates(file);
+                await FileIO.WriteTextAsync(file, text);
+            }
         }
     }
 }

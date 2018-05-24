@@ -19,8 +19,8 @@
                         OverflowButtonVisibility="Collapsed"
                         HorizontalAlignment="Left">
                 <AppBarButton Icon="OpenFile" x:Name="OpenFile" Label="浏览" Click="OpenFile_Click"/>
-                <AppBarButton Icon="Copy" x:Name="Copy" Label="复制"/>
-                <AppBarButton Icon="Save" x:Name="Save" Label="保存"/>
+                <AppBarButton Icon="Copy" x:Name="Copy" Label="复制" Click="Copy_Click"/>
+                <AppBarButton Icon="Save" x:Name="Save" Label="保存" Click="Save_Click"/>
             </CommandBar>
             <RichEditBox Grid.Row="1" x:Name="Output"/>
         </Grid>

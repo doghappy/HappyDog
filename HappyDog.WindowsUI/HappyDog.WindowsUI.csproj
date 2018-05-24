@@ -124,7 +124,6 @@
     <None Include="HappyDog.WindowsUI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\swimlane-dotnet-core - 复制.svg" />
     <Content Include="Assets\Images\swimlane-dotnet-core.svg" />
     <Content Include="Assets\Images\Windows_10_Logo.svg" />
     <Content Include="Properties\Default.rd.xml" />

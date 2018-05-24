@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
@@ -21,10 +22,23 @@ namespace HappyDog.WindowsUI.ViewModels
         private async Task LoadArticleAsync()
         {
             var svc = new ArticleService();
-            var articles = await svc.GetArticlesAsync(1);
-            foreach (var item in articles.Data)
+            try
             {
-                Articles.Add(item);
+                var articles = await svc.GetArticlesAsync(1);
+                foreach (var item in articles.Data)
+                {
+                    Articles.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                var dialog = new ContentDialog
+                {
+                    PrimaryButtonText = "确定",
+                    Title = "错误",
+                    Content = ex.Message
+                };
+                await dialog.ShowAsync();
             }
         }
 

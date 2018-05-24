@@ -18,12 +18,18 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Image Source="/Assets/Images/swimlane-dotnet-core.svg"/>
-                        <Image Grid.Column="1" Source="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"/>
-                        <!--<StackPanel Grid.Column="1">
+                        <StackPanel Grid.Column="1">
                             <TextBlock Text=".Net"
                                        Style="{StaticResource JumbotronH1}"
                                        Foreground="#7014e8"/>
-                        </StackPanel>-->
+                            <TextBlock Style="{StaticResource JumbotronLead}" TextWrapping="Wrap">
+                                <Run Text="免费、跨平台、开源"/>
+                                <LineBreak/>
+                                <Run Text="一个用于构建"/>
+                                <Run Foreground="#e83e8c" Text="Web、 手机、 桌面、 游戏、 机器学习 &amp; AI、 物联网、 和其它所有应用"/>
+                                <Run Text="的开发平台"/>
+                            </TextBlock>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
             </StackPanel>
