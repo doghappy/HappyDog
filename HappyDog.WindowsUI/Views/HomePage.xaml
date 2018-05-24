@@ -11,12 +11,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <ScrollViewer>
-        <StackPanel>
-            <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                <StackPanel Style="{StaticResource StackPanelContainer}">
-                    <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
-                    <TextBlock Style="{StaticResource JumbotronLead}">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                        <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
+                        <TextBlock Style="{StaticResource JumbotronLead}">
                     <Run Text="Don't ever let somebody tell you"/>
                     <LineBreak/>
                     <Run Text="You can't do something..."/>
@@ -27,27 +28,29 @@
                     <Run Text="People can't do somethin' themselves, they wanna tell you, you can't do it."/>
                     <LineBreak/>
                     <Run Text="If you want somethin', go get it."/>
-                    </TextBlock>
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                <controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
+                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
+                    <!--<controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
                                         DesiredWidth="400"
                                         ItemsSource="{x:Bind ViewModel.Articles}">
-                    <controls:AdaptiveGridView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Article">
-                            <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">
-                                <hc:ArticleCard Article="{x:Bind}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </controls:AdaptiveGridView.ItemTemplate>
-                </controls:AdaptiveGridView>
-                <!--<GridView>
-                <GridViewItem Background="{ThemeResource SystemControlAcrylicElementBrush}">
-                    <hc:ArticleCard/>
-                </GridViewItem>
-            </GridView>-->
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Article">
+                                <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                    <hc:ArticleCard Article="{x:Bind}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>-->
+                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
+                </StackPanel>
+                <hc:PaginationBar PageNumber="{x:Bind ViewModel.PageNumber, Mode=OneWay}"
+                                  TotalPages="{x:Bind ViewModel.TotalPages, Mode=OneWay}"/>
             </StackPanel>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
+            <ProgressRing IsActive="True" Width="60" Height="60"/>
+        </controls:Loading>
+    </Grid>
 </Page>

@@ -77,7 +77,7 @@ namespace HappyDog.WindowsUI.Views
                 var item = args.SelectedItem as NavigationViewItem;
                 switch (item.Tag)
                 {
-                    case "Home":
+                    case "home":
                         ContentFrame.Navigate(typeof(HomePage));
                         break;
                     case ".net":

@@ -98,6 +98,12 @@
     <Compile Include="Controls\ArticleCard.xaml.cs">
       <DependentUpon>ArticleCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ArticleList.xaml.cs">
+      <DependentUpon>ArticleList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PaginationBar.xaml.cs">
+      <DependentUpon>PaginationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Enums\BaseState.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Category.cs" />
@@ -106,6 +112,8 @@
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\HttpClient.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\DotNetViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Views\DotNetPage.xaml.cs">
       <DependentUpon>DotNetPage.xaml</DependentUpon>
@@ -157,6 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ArticleCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ArticleList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PaginationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

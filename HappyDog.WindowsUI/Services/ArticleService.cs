@@ -6,12 +6,12 @@ namespace HappyDog.WindowsUI.Services
 {
     public class ArticleService : BaseService
     {
-        public async Task<Pagination<Article>> GetArticlesAsync(int page, int? cid = null)
+        public async Task<Pagination<Article>> GetArticlesAsync(int page, int cid)
         {
             string url = $"article?page={page}";
-            if (cid.HasValue)
+            if (cid > 0)
             {
-                url += $"cid={cid.Value}";
+                url += $"&cid={cid}";
             }
             string json = await HttpClient.GetStringAsync(url);
             return JsonConvert.DeserializeObject<Pagination<Article>>(json);

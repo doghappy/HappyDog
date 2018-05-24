@@ -5,34 +5,54 @@
     xmlns:local="using:HappyDog.WindowsUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:hc="using:HappyDog.WindowsUI.Controls"
+    xmlns:models="using:HappyDog.WindowsUI.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <ScrollViewer>
-        <StackPanel>
-            <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                <StackPanel Style="{StaticResource StackPanelContainer}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="/Assets/Images/swimlane-dotnet-core.svg"/>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Text=".Net"
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Assets/Images/swimlane-dotnet-core.svg"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text=".Net"
                                        Style="{StaticResource JumbotronH1}"
                                        Foreground="#7014e8"/>
-                            <TextBlock Style="{StaticResource JumbotronLead}" TextWrapping="Wrap">
+                                <TextBlock Style="{StaticResource JumbotronLead}" TextWrapping="Wrap">
                                 <Run Text="免费、跨平台、开源"/>
                                 <LineBreak/>
                                 <Run Text="一个用于构建"/>
                                 <Run Foreground="#e83e8c" Text="Web、 手机、 桌面、 游戏、 机器学习 &amp; AI、 物联网、 和其它所有应用"/>
                                 <Run Text="的开发平台"/>
-                            </TextBlock>
-                        </StackPanel>
-                    </Grid>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
+                    <!--<controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
+                                        DesiredWidth="400"
+                                        ItemsSource="{x:Bind ViewModel.Articles}">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Article">
+                                <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                    <hc:ArticleCard Article="{x:Bind}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>-->
+                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Width="60" Height="60"/>
+    </Grid>
 </Page>

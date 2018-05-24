@@ -20,7 +20,10 @@ namespace HappyDog.WindowsUI.Services
         {
             get
             {
-                Services.HttpClient.Instance.BaseAddress = new Uri(BaseUrl);
+                if (Services.HttpClient.Instance.BaseAddress == null)
+                {
+                    Services.HttpClient.Instance.BaseAddress = new Uri(BaseUrl);
+                }
                 return Services.HttpClient.Instance;
             }
         }
