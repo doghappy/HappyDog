@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="HappyDog.WindowsUI.Views.DatabasePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:hc="using:HappyDog.WindowsUI.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Assets/Images/db.jpg"/>
+                    </StackPanel.Background>
+                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                        <TextBlock Text="数据库" Foreground="#f8f9fa" Style="{StaticResource JumbotronH1}"/>
+                        <TextBlock Style="{StaticResource JumbotronLead}"
+                                   Foreground="#f8f9fa"
+                                   Text="SQL: 关系型数据库，是一种成熟的数据库，对数据结构有着严谨的要求，因此它的数据具有高度的一致性。但是它的读写性能没有NoSQL好。"/>
+                        <TextBlock Style="{StaticResource JumbotronLead}"
+                                   Foreground="#f8f9fa"
+                                   Text="NoSQL： 非关系型数据库，近十年来发展迅速，灵活的数据模型，读写性能好，易于扩展。但是不支持事务，在复杂的统计面前力不从心，没有SQL成熟。"/>
+                        <TextBlock Style="{StaticResource JumbotronLead}"
+                                   Foreground="#f8f9fa"
+                                   Text="SQL 与 NoSQL 优劣互补，它们的应用场景是不同的。"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
+                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
+            <ProgressRing IsActive="True" Width="60" Height="60"/>
+        </controls:Loading>
+    </Grid>
+</Page>

@@ -38,17 +38,6 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <!--<controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
-                                        DesiredWidth="400"
-                                        ItemsSource="{x:Bind ViewModel.Articles}">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Article">
-                                <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">
-                                    <hc:ArticleCard Article="{x:Bind}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>-->
                     <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
                 </StackPanel>
             </StackPanel>

@@ -83,6 +83,9 @@ namespace HappyDog.WindowsUI.Views
                     case ".net":
                         ContentFrame.Navigate(typeof(DotNetPage));
                         break;
+                    case "db":
+                        ContentFrame.Navigate(typeof(DatabasePage));
+                        break;
                 }
             }
         }

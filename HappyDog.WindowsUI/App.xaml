@@ -18,6 +18,7 @@
                 <Setter Property="LineHeight" Value="30"/>
                 <Setter Property="Margin" Value="0,0,0,16"/>
                 <Setter Property="FontWeight" Value="SemiLight"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
             <Style x:Key="JumbotronStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="{StaticResource JumbotronBackgroundColor}"/>
