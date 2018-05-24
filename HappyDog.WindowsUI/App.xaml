@@ -22,11 +22,12 @@
             </Style>
             <Style x:Key="JumbotronStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="{StaticResource JumbotronBackgroundColor}"/>
-                <Setter Property="Padding" Value="32,64"/>
+                <Setter Property="Padding" Value="32,32"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
             </Style>
             <Style x:Key="StackPanelContainer" TargetType="StackPanel">
                 <Setter Property="MaxWidth" Value="1140"/>
+                <Setter Property="Padding" Value="32"/>
             </Style>
             <SolidColorBrush x:Key="TextMuted" Color="#6c757d"/>
         </ResourceDictionary>
