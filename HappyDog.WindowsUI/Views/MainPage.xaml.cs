@@ -30,44 +30,50 @@ namespace HappyDog.WindowsUI.Views
             firstItem.IsSelected = true;
 
             NavView.SelectionChanged += NavView_SelectionChanged;
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+            //SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
         }
 
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (ContentFrame.CanGoBack && !e.Handled)
-            {
-                e.Handled = true;
-                ContentFrame.GoBack();
-            }
-        }
+        //private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        //{
+        //    if (ContentFrame.CanGoBack && !e.Handled)
+        //    {
+        //        e.Handled = true;
+        //        ContentFrame.GoBack();
+        //    }
+        //}
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
             //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ContentFrame.CanGoBack
             //    ? AppViewBackButtonVisibility.Visible
             //    : AppViewBackButtonVisibility.Collapsed;
-            //if (e.NavigationMode == NavigationMode.Back)
-            //{
-            //    NavigationViewItem item = null;
-            //    switch (e.SourcePageType)
-            //    {
-            //        case Type t when e.SourcePageType == typeof(HomePage):
-            //        case Type u when e.SourcePageType == typeof(QuestionDetailPage):
-            //            item = NavView.MenuItems[0] as NavigationViewItem;
-            //            break;
-            //        case Type t when e.SourcePageType == typeof(ExplorePage):
-            //            item = NavView.MenuItems[1] as NavigationViewItem;
-            //            break;
-            //        case Type t when e.SourcePageType == typeof(TopicPage):
-            //            item = NavView.MenuItems[2] as NavigationViewItem;
-            //            break;
-            //        case Type t when e.SourcePageType == typeof(MePage):
-            //            item = NavView.MenuItems[3] as NavigationViewItem;
-            //            break;
-            //    }
-            //    item.IsSelected = true;
-            //}
+            NavView.IsBackEnabled = ContentFrame.CanGoBack;
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                NavigationViewItem item = null;
+                switch (e.SourcePageType)
+                {
+                    case Type t when e.SourcePageType == typeof(HomePage):
+                        item = NavView.MenuItems[0] as NavigationViewItem;
+                        break;
+                    case Type t when e.SourcePageType == typeof(DotNetPage):
+                        item = NavView.MenuItems[1] as NavigationViewItem;
+                        break;
+                    case Type t when e.SourcePageType == typeof(DatabasePage):
+                        item = NavView.MenuItems[2] as NavigationViewItem;
+                        break;
+                    case Type t when e.SourcePageType == typeof(WindowsPage):
+                        item = NavView.MenuItems[3] as NavigationViewItem;
+                        break;
+                    case Type t when e.SourcePageType == typeof(ReadPage):
+                        item = NavView.MenuItems[4] as NavigationViewItem;
+                        break;
+                    case Type t when e.SourcePageType == typeof(EssaysPage):
+                        item = NavView.MenuItems[5] as NavigationViewItem;
+                        break;
+                }
+                item.IsSelected = true;
+            }
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -96,6 +102,14 @@ namespace HappyDog.WindowsUI.Views
                         ContentFrame.Navigate(typeof(EssaysPage));
                         break;
                 }
+            }
+        }
+
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (ContentFrame.CanGoBack)
+            {
+                ContentFrame.GoBack();
             }
         }
     }
