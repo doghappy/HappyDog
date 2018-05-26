@@ -5,13 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
+        <hc:CategoryOutlet Articles="{x:Bind ViewModel.Articles}" IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
+            <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/db.jpg"/>
@@ -29,13 +28,7 @@
                                    Text="SQL 与 NoSQL 优劣互补，它们的应用场景是不同的。"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
-        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
-            <ProgressRing IsActive="True" Width="60" Height="60"/>
-        </controls:Loading>
+            </hc:CategoryOutlet.Jumbotron>
+        </hc:CategoryOutlet>
     </Grid>
 </Page>

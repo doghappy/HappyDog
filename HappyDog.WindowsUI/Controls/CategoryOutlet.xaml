@@ -15,7 +15,7 @@
             <StackPanel>
                 <ContentPresenter Content="{x:Bind Jumbotron}"/>
                 <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <local:ArticleList Articles="{x:Bind Articles, Mode=OneWay}"/>
+                    <local:ArticleList Articles="{x:Bind Articles}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

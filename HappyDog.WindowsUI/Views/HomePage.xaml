@@ -5,37 +5,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
-            <StackPanel>
+        <hc:CategoryOutlet Articles="{x:Bind ViewModel.Articles}" IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
+            <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
                     <StackPanel Style="{StaticResource StackPanelContainer}">
                         <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
                         <TextBlock Style="{StaticResource JumbotronLead}">
-                    <Run Text="Don't ever let somebody tell you"/>
-                    <LineBreak/>
-                    <Run Text="You can't do something..."/>
-                    <LineBreak/>
-                    <LineBreak/>
-                    <Run Text="You got a dream… You gotta protect it."/>
-                    <LineBreak/>
-                    <Run Text="People can't do somethin' themselves, they wanna tell you, you can't do it."/>
-                    <LineBreak/>
-                    <Run Text="If you want somethin', go get it."/>
+                            <Run Text="Don't ever let somebody tell you"/>
+                            <LineBreak/>
+                            <Run Text="You can't do something..."/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="You got a dream… You gotta protect it."/>
+                            <LineBreak/>
+                            <Run Text="People can't do somethin' themselves, they wanna tell you, you can't do it."/>
+                            <LineBreak/>
+                            <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
-        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
-            <ProgressRing IsActive="True" Width="60" Height="60"/>
-        </controls:Loading>
+            </hc:CategoryOutlet.Jumbotron>
+        </hc:CategoryOutlet>
     </Grid>
 </Page>

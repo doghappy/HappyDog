@@ -2,17 +2,15 @@
     x:Class="HappyDog.WindowsUI.Views.ReadPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HappyDog.WindowsUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
+        <hc:CategoryOutlet Articles="{x:Bind ViewModel.Articles}" IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
+            <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/Office_8x3.jpg"/>
@@ -24,13 +22,7 @@
                                    Text="自中原板荡，夷狄交侵，余发愤河朔，起自相台，总发从军，历二百余战。虽未能远入荒夷，洗荡巢穴，亦且快国雠之万一。今又提一旅孤军，振起宜兴。建康之战，一鼓败虏，恨未能使匹马不回耳。故且养兵休卒，蓄锐待敌，嗣当激励士卒，功期再战，北逾沙漠，喋血虏廷，尽屠夷种，迎二圣归京阙，取故土下版图，朝廷无虞，主上奠枕，余之愿也。"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
-        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
-            <ProgressRing IsActive="True" Width="60" Height="60"/>
-        </controls:Loading>
+            </hc:CategoryOutlet.Jumbotron>
+        </hc:CategoryOutlet>
     </Grid>
 </Page>
