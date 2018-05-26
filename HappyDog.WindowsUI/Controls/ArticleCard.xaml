@@ -25,11 +25,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="{x:Bind Article.Category.Label, Mode=OneWay}"
-                       FontSize="16"
-                       Foreground="{x:Bind Article.Category.Color, Mode=OneWay}"
-                       FontWeight="Bold"
-                       LineHeight="24"/>
+            <Button Content="{x:Bind Article.Category.Label, Mode=OneWay}"
+                    FontSize="16"
+                    Foreground="{x:Bind Article.Category.Color,Mode=OneWay}"
+                    FontWeight="Bold"
+                    Padding="0"
+                    Style="{ThemeResource TextBlockButtonStyle}"/>
             <TextBlock Grid.Row="1" Text="{x:Bind Article.Title, Mode=OneWay}"
                        Foreground="#343A40"
                        FontSize="20"
