@@ -1,5 +1,4 @@
 ﻿using HappyDog.WindowsUI.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +23,11 @@ namespace HappyDog.WindowsUI.Controls
                 articles = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Articles)));
             }
+        }
+
+        private void AdaptiveGridViewControl_DataContextChanged(Windows.UI.Xaml.FrameworkElement sender, Windows.UI.Xaml.DataContextChangedEventArgs args)
+        {
+            var aa = args;
         }
     }
 }

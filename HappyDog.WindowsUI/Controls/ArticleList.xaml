@@ -13,8 +13,8 @@
 
     <Grid>
         <controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
-                                        DesiredWidth="400"
-                                        ItemsSource="{x:Bind Articles}">
+                                    DesiredWidth="400"
+                                    ItemsSource="{x:Bind Articles}">
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
                     <StackPanel Background="{ThemeResource SystemControlAcrylicElementBrush}">

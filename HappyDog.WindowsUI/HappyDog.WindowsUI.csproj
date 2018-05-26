@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\IncrementalCollection.cs" />
+    <Compile Include="Common\UiExtension.cs" />
     <Compile Include="Controls\ArticleCard.xaml.cs">
       <DependentUpon>ArticleCard.xaml</DependentUpon>
     </Compile>
