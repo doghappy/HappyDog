@@ -102,6 +102,9 @@
     <Compile Include="Controls\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CategoryOutlet.xaml.cs">
+      <DependentUpon>CategoryOutlet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Enums\BaseState.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Category.cs" />
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ArticleList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CategoryOutlet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
