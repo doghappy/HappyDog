@@ -95,14 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\IncrementalCollection.cs" />
     <Compile Include="Controls\ArticleCard.xaml.cs">
       <DependentUpon>ArticleCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PaginationBar.xaml.cs">
-      <DependentUpon>PaginationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\BaseState.cs" />
     <Compile Include="Models\Article.cs" />
@@ -188,10 +186,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ArticleList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PaginationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

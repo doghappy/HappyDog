@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
             <StackPanel>
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
                     <StackPanel Style="{StaticResource StackPanelContainer}">
@@ -32,8 +32,6 @@
                 <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
                     <hc:ArticleList Articles="{x:Bind ViewModel.Articles, Mode=OneWay}"/>
                 </StackPanel>
-                <hc:PaginationBar PageNumber="{x:Bind ViewModel.PageNumber, Mode=OneWay}"
-                                  TotalPages="{x:Bind ViewModel.TotalPages, Mode=OneWay}"/>
             </StackPanel>
         </ScrollViewer>
         <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">

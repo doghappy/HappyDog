@@ -1,19 +1,20 @@
 ﻿using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.Services;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
     public abstract class ArticleViewModel : INotifyPropertyChanged
     {
+        readonly ArticleService articleService;
+
         public ArticleViewModel()
         {
+            articleService = new ArticleService(CategoryId);
             Articles = new ObservableCollection<Article>();
-            PageNumber = 1;
+            HasMoreArticles = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -55,38 +56,27 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        protected async Task LoadArticleAsync()
+        public bool HasMoreArticles { get; private set; }
+        public async Task LoadArticleAsync()
         {
-            IsLoading = true;
-            var svc = new ArticleService();
-            try
+            if (HasMoreArticles)
             {
-                var articles = await svc.GetArticlesAsync(PageNumber, CategoryId);
-                Articles.Clear();
+                PageNumber++;
+                var articles = await articleService.GetArticlesAsync(PageNumber);
                 foreach (var item in articles.Data)
                 {
                     Articles.Add(item);
                 }
-            }
-            catch (Exception ex)
-            {
-                var dialog = new ContentDialog
-                {
-                    PrimaryButtonText = "确定",
-                    Title = "错误",
-                    Content = ex.Message
-                };
-                await dialog.ShowAsync();
-            }
-            finally
-            {
-                IsLoading = false;
+                TotalPages = articles.TotalPages;
+                HasMoreArticles = PageNumber != TotalPages;
             }
         }
 
         public async virtual Task InitializeAsync()
         {
+            IsLoading = true;
             await LoadArticleAsync();
+            IsLoading = false;
         }
     }
 }

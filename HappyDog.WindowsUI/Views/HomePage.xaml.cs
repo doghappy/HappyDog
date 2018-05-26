@@ -1,18 +1,6 @@
 ﻿using HappyDog.WindowsUI.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
@@ -41,7 +29,19 @@ namespace HappyDog.WindowsUI.Views
         {
             base.OnNavigatedTo(e);
             ViewModel = new HomeViewModel();
-            await ViewModel.InitializeAsync();
+            await viewModel.InitializeAsync();
+        }
+
+        private async void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = sender as ScrollViewer;
+            if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset <= 140)
+            {
+                if (!e.IsIntermediate && ViewModel.HasMoreArticles)
+                {
+                    await ViewModel.LoadArticleAsync();
+                }
+            }
         }
     }
 }

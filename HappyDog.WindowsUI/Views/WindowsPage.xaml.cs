@@ -29,7 +29,7 @@ namespace HappyDog.WindowsUI.Views
         {
             base.OnNavigatedTo(e);
             ViewModel = new WindowsViewModel();
-            await ViewModel.InitializeAsync();
+            await viewModel.InitializeAsync();
         }
     }
 }
