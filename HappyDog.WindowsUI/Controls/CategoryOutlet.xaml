@@ -15,11 +15,11 @@
             <StackPanel>
                 <ContentPresenter Content="{x:Bind Jumbotron}"/>
                 <StackPanel Style="{StaticResource StackPanelContainer}" Padding="0,20,0,0">
-                    <local:ArticleList Articles="{x:Bind Articles}"/>
+                    <local:ArticleList Articles="{x:Bind ViewModel.Articles}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <controls:Loading IsLoading="{x:Bind IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
+        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading,Mode=OneWay}" Background="Black" Opacity=".6">
             <ProgressRing IsActive="True" Width="60" Height="60"/>
         </controls:Loading>
     </Grid>

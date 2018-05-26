@@ -31,17 +31,5 @@ namespace HappyDog.WindowsUI.Views
             ViewModel = new HomeViewModel();
             await viewModel.InitializeAsync();
         }
-
-        private async void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            var scrollViewer = sender as ScrollViewer;
-            if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset <= 140)
-            {
-                if (!e.IsIntermediate && ViewModel.HasMoreArticles)
-                {
-                    await ViewModel.LoadArticleAsync();
-                }
-            }
-        }
     }
 }

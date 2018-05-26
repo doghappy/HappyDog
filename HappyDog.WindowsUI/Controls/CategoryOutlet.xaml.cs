@@ -1,19 +1,15 @@
-﻿using HappyDog.WindowsUI.Models;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using HappyDog.WindowsUI.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.Controls
 {
-    public sealed partial class CategoryOutlet : UserControl, INotifyPropertyChanged
+    public sealed partial class CategoryOutlet : UserControl
     {
         public CategoryOutlet()
         {
             InitializeComponent();
         }
-
-       public event PropertyChangedEventHandler PropertyChanged;
 
         public static readonly DependencyProperty JumbotronProperty =
             DependencyProperty.Register("Jumbotron", typeof(UIElement), typeof(CategoryOutlet), new PropertyMetadata(null));
@@ -24,22 +20,18 @@ namespace HappyDog.WindowsUI.Controls
             set => SetValue(JumbotronProperty, value);
         }
 
-        private bool isLoading;
-        public bool IsLoading
+        public ArticleViewModel ViewModel { get; set; }
+
+        private async void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            get => isLoading;
-            set
+            var scrollViewer = sender as ScrollViewer;
+            if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset <= 140)
             {
-                isLoading = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
+                if (!e.IsIntermediate && ViewModel.HasMoreArticles)
+                {
+                    await ViewModel.LoadArticleAsync();
+                }
             }
-        }
-
-        public ObservableCollection<Article> Articles { get; set; }
-
-        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-
         }
     }
 }
