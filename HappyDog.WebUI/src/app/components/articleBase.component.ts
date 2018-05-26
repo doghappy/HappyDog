@@ -35,10 +35,10 @@ export abstract class ArticleBaseComponent implements OnInit {
   public pageChanged({ page, itemsPerPage }): void {
     this.pageNumber = page;
     this.getPageArticles();
-    //if (this.target && this.target.length > 0) {
-    //  try {
-    //    document.querySelector(this.target).scrollIntoView();
-    //  } catch (e) { }
-    //}
+    if (this.target && this.target.length > 0) {
+      try {
+        document.querySelector(this.target).scrollIntoView();
+      } catch (e) { }
+    }
   }
 }
