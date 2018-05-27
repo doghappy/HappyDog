@@ -5,6 +5,9 @@
     xmlns:local="using:HappyDog.WindowsUI">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Markdown.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="JumbotronBackgroundColor" Color="#e9ecef"/>
             <Style x:Key="JumbotronH1" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="#212529"/>

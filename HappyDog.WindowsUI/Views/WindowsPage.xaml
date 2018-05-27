@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -21,6 +22,7 @@
                         <HyperlinkButton FontSize="20"
                                          Margin="0,0,0,16"
                                          FontWeight="SemiLight"
+                                         Click="HyperlinkButton_Click"
                                          Content="升级到 Windows 10 的理由"/>
                     </StackPanel>
                 </StackPanel>

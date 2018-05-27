@@ -1,5 +1,7 @@
 ﻿using HappyDog.WindowsUI.ViewModels;
+using System;
 using System.ComponentModel;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -30,6 +32,12 @@ namespace HappyDog.WindowsUI.Views
             base.OnNavigatedTo(e);
             ViewModel = new WindowsViewModel();
             await viewModel.InitializeAsync();
+        }
+
+        private async void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Uri uri = new Uri("https://www.microsoft.com/zh-cn/windows/reasons-to-upgrade-to-a-new-windows-10-pc");
+            await Launcher.LaunchUriAsync(uri);
         }
     }
 }

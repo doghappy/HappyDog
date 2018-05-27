@@ -1,6 +1,9 @@
 ﻿using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.ViewModels;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using System.ComponentModel;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -37,6 +40,15 @@ namespace HappyDog.WindowsUI.Views
                     await ViewModel.InitializeAsync();
                 }
             }
+        }
+
+        private async void MarkdownTextBlock_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            try
+            {
+                await Launcher.LaunchUriAsync(new Uri(e.Link));
+            }
+            catch { }
         }
     }
 }
