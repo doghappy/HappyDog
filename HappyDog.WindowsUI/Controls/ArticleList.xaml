@@ -14,6 +14,8 @@
     <Grid>
         <controls:AdaptiveGridView  Name="AdaptiveGridViewControl"
                                     DesiredWidth="400"
+                                    IsItemClickEnabled="True"
+                                    ItemClick="AdaptiveGridViewControl_ItemClick"
                                     ItemsSource="{x:Bind Articles}">
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">

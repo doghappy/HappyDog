@@ -1,4 +1,5 @@
 ﻿using HappyDog.WindowsUI.Enums;
+using HappyDog.WindowsUI.Views;
 using System;
 
 namespace HappyDog.WindowsUI.Models

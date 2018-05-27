@@ -1,4 +1,6 @@
-﻿using HappyDog.WindowsUI.Models;
+﻿using HappyDog.WindowsUI.Common;
+using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
@@ -25,9 +27,13 @@ namespace HappyDog.WindowsUI.Controls
             }
         }
 
-        private void AdaptiveGridViewControl_DataContextChanged(Windows.UI.Xaml.FrameworkElement sender, Windows.UI.Xaml.DataContextChangedEventArgs args)
+        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var aa = args;
+            Frame frame = this.GetParent<Frame>("ContentFrame");
+            if (frame != null)
+            {
+                frame.Navigate(typeof(DetailPage), e.ClickedItem);
+            }
         }
     }
 }
