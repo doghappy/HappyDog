@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="HappyDog.WindowsUI.Views.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HappyDog.WindowsUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:appmodel="using:Windows.ApplicationModel"
+    xmlns:fa="using:FontAwesome.UWP"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="40">
+        <StackPanel>
+            <TextBlock Text="关于" Style="{StaticResource HeaderTextBlockStyle}" Margin="0,0,0,16"/>
+            <TextBlock>
+                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Major}"/>
+                <Run Text="."/>
+                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Minor}"/>
+                <Run Text="."/>
+                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Build}"/>
+                <Run Text="."/>
+                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Revision}"/>
+            </TextBlock>
+            <HyperlinkButton Content="doghappy.wang" Click="DogHappy_Click"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="Black" Click="EmailIcon_Click">
+                    <Viewbox Width="40" HorizontalAlignment="Left">
+                        <SymbolIcon Symbol="Mail" HorizontalAlignment="Left"/>
+                    </Viewbox>
+                </Button>
+                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="Black" Click="GithubIcon_Click">
+                    <Viewbox Width="40" HorizontalAlignment="Left">
+                        <fa:FontAwesome Icon="Github" HorizontalAlignment="Left"/>
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

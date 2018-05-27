@@ -67,7 +67,11 @@ namespace HappyDog.WindowsUI.Views
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (!args.IsSettingsSelected)
+            if (args.IsSettingsSelected)
+            {
+                ContentFrame.Navigate(typeof(AboutPage));
+            }
+            else
             {
                 var item = args.SelectedItem as NavigationViewItem;
                 switch (item.Tag)

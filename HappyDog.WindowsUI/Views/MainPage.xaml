@@ -11,7 +11,6 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <NavigationView x:Name="NavView" 
-                        IsSettingsVisible="False"
                         IsBackButtonVisible="Visible"
                         BackRequested="NavView_BackRequested"
                         Header="{Binding Path=Content.NavTitile, ElementName=ContentFrame}"
