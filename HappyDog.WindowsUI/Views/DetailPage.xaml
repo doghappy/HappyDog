@@ -5,10 +5,50 @@
     xmlns:local="using:HappyDog.WindowsUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="fa:FontAwesome">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                <Setter Property="Margin" Value="0,0,4,0"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
-        <TextBlock Text="detail"/>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                        <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
+                           FontSize="40"
+                           Foreground="#1E2529"
+                           Margin="0,0,0,24"
+                           LineHeight="48"/>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Calendar"/>
+                            <TextBlock Text="{x:Bind ViewModel.Article.CreateTime, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="LineChart"/>
+                            <TextBlock Text="{x:Bind ViewModel.Article.ViewCount, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource StackPanelContainer}">
+                    <controls:MarkdownTextBlock Text="{x:Bind ViewModel.Article.Content, Mode=OneWay}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
+            <ProgressRing IsActive="True" Width="60" Height="60"/>
+        </controls:Loading>
     </Grid>
 </Page>

@@ -1,30 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.ViewModels;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
 namespace HappyDog.WindowsUI.Views
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    public sealed partial class DetailPage : Page
+    public sealed partial class DetailPage : Page, INotifyPropertyChanged
     {
         public DetailPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private DetailViewModel viewModel;
+        public DetailViewModel ViewModel
+        {
+            get => viewModel;
+            set
+            {
+                viewModel = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
+            }
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                if (e.Parameter is Article article)
+                {
+                    ViewModel = new DetailViewModel(article.Id);
+                    await ViewModel.InitializeAsync();
+                }
+            }
         }
     }
 }

@@ -26,5 +26,12 @@ namespace HappyDog.WindowsUI.Services
             string json = await HttpClient.GetStringAsync(url);
             return JsonConvert.DeserializeObject<Pagination<Article>>(json);
         }
+
+        public async Task<Article> GetArticleAsync(int id)
+        {
+            string url = $"article/{id}";
+            string json = await HttpClient.GetStringAsync(url);
+            return JsonConvert.DeserializeObject<Article>(json);
+        }
     }
 }

@@ -19,6 +19,11 @@ namespace HappyDog.WindowsUI.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(sender, e);
+        }
+
         public ObservableCollection<Article> Articles { get; }
 
         private int pageNumber;
@@ -77,6 +82,11 @@ namespace HappyDog.WindowsUI.ViewModels
             IsLoading = true;
             await LoadArticleAsync();
             IsLoading = false;
+        }
+
+        protected async Task<Article> LoadArticleAsync(int id)
+        {
+            return await articleService.GetArticleAsync(id);
         }
     }
 }

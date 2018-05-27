@@ -116,6 +116,7 @@
     <Compile Include="Services\HttpClient.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\DatabaseViewModel.cs" />
+    <Compile Include="ViewModels\DetailViewModel.cs" />
     <Compile Include="ViewModels\DotNetViewModel.cs" />
     <Compile Include="ViewModels\EssaysViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
