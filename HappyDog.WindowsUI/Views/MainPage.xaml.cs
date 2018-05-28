@@ -105,5 +105,13 @@ namespace HappyDog.WindowsUI.Views
                 ContentFrame.GoBack();
             }
         }
+
+        private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.QueryText == "cmd>login();")
+            {
+                ContentFrame.Navigate(typeof(LoginPage));
+            }
+        }
     }
 }

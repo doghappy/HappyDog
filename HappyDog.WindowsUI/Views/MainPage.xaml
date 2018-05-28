@@ -17,7 +17,9 @@
                         AlwaysShowHeader="False">
 
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="ASB" QueryIcon="Find"/>
+                <AutoSuggestBox x:Name="SearchBox"
+                                QueryIcon="Find"
+                                QuerySubmitted="SearchBox_QuerySubmitted"/>
             </NavigationView.AutoSuggestBox>
 
             <NavigationView.MenuItems>
