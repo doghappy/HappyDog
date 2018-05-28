@@ -1,12 +1,13 @@
 ﻿using HappyDog.WindowsUI.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Services
 {
     public static class Configuration
     {
-        public static List<Category> Categories => new List<Category>
+        public static ObservableCollection<Category> Categories => new ObservableCollection<Category>
         {
             new Category { Id = 1, Label = ".Net", Value = ".net", Color = "#7014e8" },
             new Category { Id = 2, Label = "数据库", Value = "db", Color = "#f65314" },

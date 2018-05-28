@@ -1,7 +1,7 @@
 ﻿using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.Models.Results;
 using HappyDog.WindowsUI.Services;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
@@ -18,7 +18,7 @@ namespace HappyDog.WindowsUI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         readonly ArticleService articleService;
 
-        public List<Category> Categories => Configuration.Categories;
+        public ObservableCollection<Category> Categories => Configuration.Categories;
 
         public int ArticleId { get; }
 

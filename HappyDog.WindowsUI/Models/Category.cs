@@ -11,6 +11,24 @@ namespace HappyDog.WindowsUI.Models
         public string Value { get; set; }
         public string Color { get; set; }
         public BaseState State { get; set; }
-        public List<Article> Article { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Category category)
+            {
+                return category.Id == Id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

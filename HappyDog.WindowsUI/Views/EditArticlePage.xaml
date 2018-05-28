@@ -39,12 +39,7 @@
                           OnContent="显示"
                           IsOn="{x:Bind ViewModel.Article.State, Mode=TwoWay, Converter={StaticResource StateConverter}}"
                           Margin="0,0,0,16"/>
-            <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Put_Click">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Save"/>
-                    <TextBlock Text="保存"/>
-                </StackPanel>
-            </Button>
+            <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Put_Click" Content="保存"/>
         </Grid>
     </Grid>
 </Page>

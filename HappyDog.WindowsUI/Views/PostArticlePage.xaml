@@ -31,20 +31,15 @@
                       Margin="0,0,0,16"
                       DisplayMemberPath="Label"
                       SelectedValuePath="Id"
-                      SelectedItem="{x:Bind ViewModel.Article.Category, Mode=TwoWay}"
-                      ItemsSource="{x:Bind ViewModel.Categories}"/>
+                      ItemsSource="{x:Bind ViewModel.Categories}"
+                      SelectedItem="{x:Bind ViewModel.Article.Category, Mode=TwoWay}"/>
             <ToggleSwitch Grid.Row="3"
                           Header="状态"
                           OffContent="隐藏"
                           OnContent="显示"
                           IsOn="{x:Bind ViewModel.Article.State, Mode=TwoWay, Converter={StaticResource StateConverter}}"
                           Margin="0,0,0,16"/>
-            <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Post_Click">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Save"/>
-                    <TextBlock Text="保存"/>
-                </StackPanel>
-            </Button>
+            <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Post_Click" Content="保存" />
         </Grid>
     </Grid>
 </Page>

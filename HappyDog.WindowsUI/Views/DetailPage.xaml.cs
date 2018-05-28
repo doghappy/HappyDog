@@ -32,13 +32,10 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
+            if (e.Parameter is int articleId)
             {
-                if (e.Parameter is int articleId)
-                {
-                    ViewModel = new DetailViewModel(articleId);
-                    await ViewModel.InitializeAsync();
-                }
+                ViewModel = new DetailViewModel(articleId);
+                await ViewModel.InitializeAsync();
             }
         }
 
