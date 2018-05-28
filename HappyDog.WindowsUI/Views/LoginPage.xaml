@@ -8,8 +8,18 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <AcrylicBrush x:Key="CustomAcrylicBrush" BackgroundSource="Backdrop"
+                TintOpacity="0" TintColor="#FF000000" FallbackColor="#FF008000" />
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
-        <StackPanel VerticalAlignment="Center" Width="340">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Images/desktop-2.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" Padding="40" Width="400" Background="{StaticResource CustomAcrylicBrush}">
             <Image Source="/Assets/StoreLogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
             <TextBox Margin="0,0,0,16" PlaceholderText="请输入用户名"/>
             <TextBox Margin="0,0,0,16" PlaceholderText="请输入密码"/>
