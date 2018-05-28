@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class ReadPage : Page, INotifyPropertyChanged
+    public sealed partial class ReadPage : ArticleListBasePage, INotifyPropertyChanged
     {
         public ReadPage()
         {
@@ -29,19 +29,8 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NavigationCacheMode = Configuration.ArticlePageCache;
             ViewModel = new ReadViewModel();
             await viewModel.InitializeAsync();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            if (Configuration.ArticlePageCache == NavigationCacheMode.Disabled)
-            {
-                NavigationCacheMode = NavigationCacheMode.Enabled;
-                Configuration.ArticlePageCache = NavigationCacheMode;
-            }
         }
     }
 }

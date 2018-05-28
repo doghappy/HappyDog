@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class WindowsPage : Page, INotifyPropertyChanged
+    public sealed partial class WindowsPage : ArticleListBasePage, INotifyPropertyChanged
     {
         public WindowsPage()
         {
@@ -31,19 +31,8 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NavigationCacheMode = Configuration.ArticlePageCache;
             ViewModel = new WindowsViewModel();
             await viewModel.InitializeAsync();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            if (Configuration.ArticlePageCache == NavigationCacheMode.Disabled)
-            {
-                NavigationCacheMode = NavigationCacheMode.Enabled;
-                Configuration.ArticlePageCache = NavigationCacheMode;
-            }
         }
 
         private async void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
