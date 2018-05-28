@@ -1,8 +1,10 @@
-﻿using HappyDog.WindowsUI.Views;
+﻿using HappyDog.WindowsUI.Services;
+using HappyDog.WindowsUI.Views;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -85,6 +87,18 @@ namespace HappyDog.WindowsUI
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
+            }
+
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("AuthCookie"))
+            {
+                string cookie = ApplicationData.Current.LocalSettings.Values["AuthCookie"].ToString();
+                int index = cookie.IndexOf(';');
+                HttpClient.Instance.DefaultRequestHeaders.Add("Cookie", cookie.Substring(0, index));
+                //string cookie = ApplicationData.Current.LocalSettings.Values["AuthCookie"].ToString();
+                //int index = cookie.IndexOf('=');
+                //string name = cookie.Substring(0, index);
+                //string value = cookie.Substring(index + 1);
+                //HttpClient.Instance.DefaultRequestHeaders.Add(name, value);
             }
         }
 

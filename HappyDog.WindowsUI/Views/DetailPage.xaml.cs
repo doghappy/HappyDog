@@ -34,9 +34,9 @@ namespace HappyDog.WindowsUI.Views
             base.OnNavigatedTo(e);
             if (e.NavigationMode == NavigationMode.New)
             {
-                if (e.Parameter is Article article)
+                if (e.Parameter is int articleId)
                 {
-                    ViewModel = new DetailViewModel(article.Id);
+                    ViewModel = new DetailViewModel(articleId);
                     await ViewModel.InitializeAsync();
                 }
             }

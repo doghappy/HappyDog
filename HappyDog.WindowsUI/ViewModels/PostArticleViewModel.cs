@@ -1,4 +1,5 @@
 ﻿using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.Models.Results;
 using HappyDog.WindowsUI.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,11 @@ namespace HappyDog.WindowsUI.ViewModels
             {
                 Category = Categories.FirstOrDefault()
             };
+            articleService = new ArticleService();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        readonly ArticleService articleService;
 
         public List<Category> Categories => Configuration.Categories;
 
@@ -32,9 +35,10 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        public async Task PostAsync()
+        public async Task<HttpDataResult<int>> PostAsync()
         {
             Article.CategoryId = Article.Category.Id;
+            return await articleService.PostAsync(Article);
         }
     }
 }

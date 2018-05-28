@@ -32,7 +32,8 @@ namespace HappyDog.WindowsUI.Controls
             Frame frame = this.GetParent<Frame>("ContentFrame");
             if (frame != null)
             {
-                frame.Navigate(typeof(DetailPage), e.ClickedItem);
+                var article = e.ClickedItem as Article;
+                frame.Navigate(typeof(DetailPage), article.Id);
             }
         }
     }

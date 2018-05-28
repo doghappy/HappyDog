@@ -25,10 +25,11 @@
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
                     <StackPanel Style="{StaticResource StackPanelContainer}">
                         <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
-                           FontSize="40"
-                           Foreground="#1E2529"
-                           Margin="0,0,0,24"
-                           LineHeight="48"/>
+                                   FontSize="40"
+                                   Foreground="#1E2529"
+                                   Margin="0,0,0,24"
+                                   TextWrapping="Wrap"
+                                   LineHeight="48"/>
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Calendar"/>
                             <TextBlock Text="{x:Bind ViewModel.Article.CreateTime, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>

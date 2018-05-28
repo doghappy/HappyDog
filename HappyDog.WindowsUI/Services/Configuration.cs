@@ -1,5 +1,6 @@
 ﻿using HappyDog.WindowsUI.Models;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Services
 {
@@ -13,5 +14,7 @@ namespace HappyDog.WindowsUI.Services
             new Category { Id = 4, Label = "阅读", Value = "read", Color = "#7cbb00" },
             new Category { Id = 5, Label = "随笔", Value = "essays", Color = "#ffbb00" }
         };
+
+        public static NavigationCacheMode ArticlePageCache = NavigationCacheMode.Enabled;
     }
 }

@@ -61,7 +61,10 @@ namespace HappyDog.WindowsUI.Views
                         item = NavView.MenuItems[5] as NavigationViewItem;
                         break;
                 }
-                item.IsSelected = true;
+                if (item != null)
+                {
+                    item.IsSelected = true;
+                }
             }
         }
 

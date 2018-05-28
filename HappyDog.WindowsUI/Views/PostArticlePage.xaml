@@ -5,8 +5,15 @@
     xmlns:local="using:HappyDog.WindowsUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cvt="using:HappyDog.WindowsUI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <cvt:StateConverter x:Key="StateConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid Padding="40">
@@ -17,9 +24,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox Header="标题" Margin="0,0,0,16" Text="{x:Bind ViewModel.Article.Title}"/>
+            <TextBox Header="标题" Margin="0,0,0,16" Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"/>
             <StackPanel Padding="0,0,0,16"></StackPanel>
-            <RichEditBox Grid.Row="1" Header="内容" Margin="0,0,0,16"/>
+            <TextBox Grid.Row="1" AcceptsReturn="True" Text="{x:Bind ViewModel.Article.Content, Mode=TwoWay}" Margin="0,0,0,16" Header="内容"/>
             <ComboBox Grid.Row="2"
                       Header="分类"
                       Margin="0,0,0,16"
@@ -27,7 +34,12 @@
                       SelectedValuePath="Id"
                       SelectedItem="{x:Bind ViewModel.Article.Category, Mode=TwoWay}"
                       ItemsSource="{x:Bind ViewModel.Categories}"/>
-            <ToggleSwitch Grid.Row="3" Header="状态" OffContent="隐藏" OnContent="显示" Margin="0,0,0,16"/>
+            <ToggleSwitch Grid.Row="3"
+                          Header="状态"
+                          OffContent="隐藏"
+                          OnContent="显示"
+                          IsOn="{x:Bind ViewModel.Article.State, Mode=TwoWay, Converter={StaticResource StateConverter}}"
+                          Margin="0,0,0,16"/>
             <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Post_Click">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Symbol="Save"/>
