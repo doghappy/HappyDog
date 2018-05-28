@@ -5,17 +5,17 @@ using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class HomePage : Page, INotifyPropertyChanged
+    public sealed partial class PostArticlePage : Page, INotifyPropertyChanged
     {
-        public HomePage()
+        public PostArticlePage()
         {
             InitializeComponent();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private HomeViewModel viewModel;
-        public HomeViewModel ViewModel
+        private PostArticleViewModel viewModel;
+        public PostArticleViewModel ViewModel
         {
             get => viewModel;
             set
@@ -25,16 +25,15 @@ namespace HappyDog.WindowsUI.Views
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new HomeViewModel();
-            await viewModel.InitializeAsync();
+            ViewModel = new PostArticleViewModel();
         }
 
-        private void PostArticle_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Post_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PostArticlePage));
+            await ViewModel.PostAsync();
         }
     }
 }

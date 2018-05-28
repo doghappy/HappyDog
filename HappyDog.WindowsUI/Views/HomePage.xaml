@@ -27,7 +27,9 @@
                             <LineBreak/>
                             <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
-                        <Button Style="{StaticResource PrimaryButton}" Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}">
+                        <Button Style="{StaticResource PrimaryButton}"
+                                Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}"
+                                Click="PostArticle_Click">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Edit"/>
                                 <TextBlock Text="写文章"/>
