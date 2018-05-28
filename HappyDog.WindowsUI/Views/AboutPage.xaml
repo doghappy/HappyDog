@@ -13,7 +13,7 @@
     <Grid Padding="40">
         <StackPanel>
             <TextBlock Text="关于" Style="{StaticResource HeaderTextBlockStyle}" Margin="0,0,0,16"/>
-            <TextBlock>
+            <!--<TextBlock>
                 <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Major}"/>
                 <Run Text="."/>
                 <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Minor}"/>
@@ -21,7 +21,8 @@
                 <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Build}"/>
                 <Run Text="."/>
                 <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Revision}"/>
-            </TextBlock>
+            </TextBlock>-->
+            <TextBlock Text="{x:Bind Version}"/>
             <HyperlinkButton Content="doghappy.wang" Click="DogHappy_Click"/>
             <StackPanel Orientation="Horizontal">
                 <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="Black" Click="EmailIcon_Click">
