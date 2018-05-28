@@ -2,6 +2,7 @@
 using HappyDog.WindowsUI.Enums;
 using HappyDog.WindowsUI.ViewModels;
 using System.ComponentModel;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HappyDog.WindowsUI.Services;
@@ -34,7 +35,7 @@ namespace HappyDog.WindowsUI.Views
             ViewModel = new PostArticleViewModel();
         }
 
-        private async void Post_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Post_Click(object sender, RoutedEventArgs e)
         {
             var result = await ViewModel.PostAsync();
             if (result.Code == CodeResult.OK)
