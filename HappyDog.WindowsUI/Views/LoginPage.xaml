@@ -23,8 +23,7 @@
             <Image Source="/Assets/StoreLogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
             <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" PlaceholderText="请输入用户名"/>
             <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.Password, Mode=TwoWay}"
-                     PlaceholderText="请输入密码"
-                     KeyDown="Password_KeyDown"/>
+                     PlaceholderText="请输入密码"/>
             <Button x:Name="LoginButton"
                     Content="登录"
                     Style="{StaticResource PrimaryButton}"

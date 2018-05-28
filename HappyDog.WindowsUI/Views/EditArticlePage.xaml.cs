@@ -1,45 +1,48 @@
-﻿using HappyDog.WindowsUI.Enums;
+﻿using System;
+using HappyDog.WindowsUI.Enums;
 using HappyDog.WindowsUI.ViewModels;
-using System;
 using System.ComponentModel;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using HappyDog.WindowsUI.Services;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class LoginPage : Page, INotifyPropertyChanged
+    public sealed partial class EditArticlePage : Page, INotifyPropertyChanged
     {
-        public LoginPage()
+        public EditArticlePage()
         {
             InitializeComponent();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private LoginViewModel viewModel;
-        public LoginViewModel ViewModel
+        private EditArticleViewModel viewModel;
+        public EditArticleViewModel ViewModel
         {
             get => viewModel;
-            private set
+            set
             {
                 viewModel = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new LoginViewModel();
+            int articleId = int.Parse(e.Parameter.ToString());
+            ViewModel = new EditArticleViewModel(articleId);
+            await ViewModel.InitializeAsync();
         }
 
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void Put_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var result = await ViewModel.LoginAsync();
+            var result = await ViewModel.PutAsync();
             if (result.Code == CodeResult.OK)
             {
-                Frame.Navigate(typeof(HomePage));
+                Configuration.ArticlePageCache = NavigationCacheMode.Disabled;
+                Frame.Navigate(typeof(DetailPage), ViewModel.ArticleId);
             }
             else
             {

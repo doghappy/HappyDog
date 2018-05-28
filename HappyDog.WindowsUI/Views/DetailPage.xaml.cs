@@ -50,5 +50,10 @@ namespace HappyDog.WindowsUI.Views
             }
             catch { }
         }
+
+        private void Edit_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(EditArticlePage), ViewModel.Article.Id);
+        }
     }
 }

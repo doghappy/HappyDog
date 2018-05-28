@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\DetailViewModel.cs" />
     <Compile Include="ViewModels\DotNetViewModel.cs" />
+    <Compile Include="ViewModels\EditArticleViewModel.cs" />
     <Compile Include="ViewModels\EssaysViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -155,6 +156,9 @@
     </Compile>
     <Compile Include="Views\DotNetPage.xaml.cs">
       <DependentUpon>DotNetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditArticlePage.xaml.cs">
+      <DependentUpon>EditArticlePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EssaysPage.xaml.cs">
       <DependentUpon>EssaysPage.xaml</DependentUpon>
@@ -295,6 +299,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DotNetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditArticlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

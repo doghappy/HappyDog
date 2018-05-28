@@ -48,5 +48,15 @@ namespace HappyDog.WindowsUI.Services
             string resJson = await resMsg.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<HttpDataResult<int>>(resJson);
         }
+
+        public async Task<HttpBaseResult> PutAsync(Article article)
+        {
+            string url = $"article/" + article.Id;
+            string json = JsonConvert.SerializeObject(article);
+            var content = new StringContent(json, Encoding.UTF8, ApplicationJson);
+            var resMsg = await HttpClient.PutAsync(url, content);
+            string resJson = await resMsg.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<HttpBaseResult>(resJson);
+        }
     }
 }
