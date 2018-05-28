@@ -27,5 +27,9 @@ namespace HappyDog.WindowsUI.Services
                 return Services.HttpClient.Instance;
             }
         }
+
+        protected string ApplicationJson => "application/json";
+
+        const string test = "sdf";
     }
 }

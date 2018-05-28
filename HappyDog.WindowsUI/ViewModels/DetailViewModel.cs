@@ -1,10 +1,11 @@
 ﻿using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.ViewModels.Abstract;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class DetailViewModel : ArticleViewModel
+    public class DetailViewModel : ArticleAuthViewModel
     {
         public DetailViewModel(int articleId)
         {

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HappyDog.WindowsUI.Enums;
+using HappyDog.WindowsUI.ViewModels.Abstract;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class EssaysViewModel : ArticleViewModel
+    public class EssaysViewModel : ArticleAuthViewModel
     {
-        protected override int CategoryId => 5;
+        protected override Category Category => Category.Essays;
     }
 }

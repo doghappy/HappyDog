@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using HappyDog.WindowsUI.Enums;
+using HappyDog.WindowsUI.ViewModels.Abstract;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class DotNetViewModel : ArticleViewModel
+    public class DotNetViewModel : ArticleAuthViewModel
     {
-        protected override int CategoryId => 1;
+        protected override Category Category => Category.DotNet;
     }
 }

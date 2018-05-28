@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace HappyDog.WindowsUI.ViewModels
+namespace HappyDog.WindowsUI.ViewModels.Abstract
 {
     public abstract class ArticleViewModel : INotifyPropertyChanged
     {
@@ -12,7 +12,7 @@ namespace HappyDog.WindowsUI.ViewModels
 
         public ArticleViewModel()
         {
-            articleService = new ArticleService(CategoryId);
+            articleService = new ArticleService((int)Category);
             Articles = new ObservableCollection<Article>();
             HasMoreArticles = true;
         }
@@ -48,7 +48,7 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        protected virtual int CategoryId { get; }
+        protected virtual Enums.Category Category { get; }
 
         private bool isLoading;
         public bool IsLoading

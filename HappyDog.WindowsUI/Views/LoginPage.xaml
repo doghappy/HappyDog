@@ -21,11 +21,14 @@
         </Grid.Background>
         <StackPanel VerticalAlignment="Center" Padding="40" Width="400" Background="{StaticResource CustomAcrylicBrush}">
             <Image Source="/Assets/StoreLogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
-            <TextBox Margin="0,0,0,16" PlaceholderText="请输入用户名"/>
-            <TextBox Margin="0,0,0,16" PlaceholderText="请输入密码"/>
-            <Button Content="登录"
-                    Background="#007bff"
-                    Foreground="White"
+            <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" PlaceholderText="请输入用户名"/>
+            <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.Password, Mode=TwoWay}"
+                     PlaceholderText="请输入密码"
+                     KeyDown="Password_KeyDown"/>
+            <Button x:Name="LoginButton"
+                    Content="登录"
+                    Style="{StaticResource PrimaryButton}"
+                    Click="LoginButton_Click"
                     HorizontalAlignment="Stretch"/>
         </StackPanel>
     </Grid>

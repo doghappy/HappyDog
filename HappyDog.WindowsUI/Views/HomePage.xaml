@@ -27,6 +27,12 @@
                             <LineBreak/>
                             <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
+                        <Button Style="{StaticResource PrimaryButton}" Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Edit"/>
+                                <TextBlock Text="写文章"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </hc:CategoryOutlet.Jumbotron>

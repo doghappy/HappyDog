@@ -37,6 +37,12 @@
                             <fa:FontAwesome Icon="LineChart"/>
                             <TextBlock Text="{x:Bind ViewModel.Article.ViewCount, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>
                         </StackPanel>
+                        <Button Style="{StaticResource PrimaryButton}" Margin="0,12,0,0" Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Edit"/>
+                                <TextBlock Text="编辑"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
 
