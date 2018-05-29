@@ -5,7 +5,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Api.Controllers;
-using Microsoft.AspNetCore.Identity;
+using Moq;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using System;
+using Microsoft.AspNetCore.Mvc;
+using HappyDog.Domain.Enums;
 
 namespace HappyDog.Api.Test
 {
@@ -13,12 +19,9 @@ namespace HappyDog.Api.Test
     public class UserControllerTest : TestBase
     {
         #region post: api/user/login
-
-        //暂时不会模拟signInManager对象
-        //它不好被mock，并且登录中并没有很多逻辑
-        //先暂时放下
-        //[TestMethod]
-        public async Task LoginTest()
+        
+        [TestMethod]
+        public async Task ErrorLoginInfoLoginTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
@@ -26,17 +29,57 @@ namespace HappyDog.Api.Test
 
             var svc = new UserService(db);
             var dto = new LoginDto();
-            //var dto = new LoginDto { UserName = "HeroWong", Password = "000" };
+            var authServiceMock = new Mock<IAuthenticationService>();
+            authServiceMock.Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
+                .Returns(Task.CompletedTask);
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            serviceProviderMock.Setup(s => s.GetService(typeof(IServiceProvider)))
+                .Returns(authServiceMock.Object);
 
-            var userManagerMock = MockHelpers.MockUserManager<User>();
-            var signInManager = new SignInManager<User>(userManagerMock.Object, null, null, null, null, null);
-
-
-            var controller = new UserController(svc, Mapper);
+            var controller = new UserController(svc, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        RequestServices = serviceProviderMock.Object
+                    }
+                }
+            };
 
             var result = await controller.Login(dto);
+            Assert.AreEqual(CodeResult.Unauthorized, result.Code);
+        }
 
-            Assert.AreEqual(401, result.Code);
+        [TestMethod]
+        public async Task CorrectInfoLoginTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
+            await db.SaveChangesAsync();
+
+            var svc = new UserService(db);
+            var dto = new LoginDto { UserName = "HeroWong", Password = "111" };
+            var authServiceMock = new Mock<IAuthenticationService>();
+            authServiceMock
+                .Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
+                .Returns(Task.CompletedTask);
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            serviceProviderMock.Setup(s => s.GetService(typeof(IAuthenticationService))).Returns(authServiceMock.Object);
+
+            var controller = new UserController(svc, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        RequestServices = serviceProviderMock.Object
+                    }
+                }
+            };
+
+            var result = await controller.Login(dto);
+            Assert.AreEqual(CodeResult.OK, result.Code);
         }
         #endregion
     }
