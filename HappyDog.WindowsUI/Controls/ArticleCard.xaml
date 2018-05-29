@@ -5,18 +5,29 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fa="using:FontAwesome.UWP"
+    xmlns:cvt="using:HappyDog.WindowsUI.Converters"
     mc:Ignorable="d"
     Height="156"
+    RequestedTheme="Dark"
     d:DesignHeight="156"
     d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
-
+            <cvt:StateThemeConverter x:Key="StateThemeConverter"/>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="TitleColor" Color="#343A40"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="TitleColor" Color="White"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid RequestedTheme="{x:Bind Article.State, Mode=OneWay, Converter={StaticResource StateThemeConverter}}"
+          Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <Grid Padding="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -32,7 +43,7 @@
                     Click="Button_Click"
                     Style="{ThemeResource TextBlockButtonStyle}"/>
             <TextBlock Grid.Row="1" Text="{x:Bind Article.Title, Mode=OneWay}"
-                       Foreground="#343A40"
+                       Foreground="{ThemeResource TitleColor}"
                        FontSize="20"
                        LineHeight="24"
                        Margin="0,0,0,12"/>

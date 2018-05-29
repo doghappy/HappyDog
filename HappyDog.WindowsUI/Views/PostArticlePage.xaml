@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <cvt:StateConverter x:Key="StateConverter"/>
+            <cvt:StateBoolConverter x:Key="StateConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
