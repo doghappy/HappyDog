@@ -12,8 +12,8 @@ using System;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180517124827_InitSqlite")]
-    partial class InitSqlite
+    [Migration("20180531093800_SyncDb")]
+    partial class SyncDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

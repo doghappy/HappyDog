@@ -9,12 +9,12 @@ namespace HappyDog.Domain.Services
 {
     public class UserService
     {
-        readonly HappyDogContext db;
-
         public UserService(HappyDogContext db)
         {
             this.db = db;
         }
+
+        readonly HappyDogContext db;
 
         public async Task<BaseResult> LoginAsync(LoginDto dto)
         {

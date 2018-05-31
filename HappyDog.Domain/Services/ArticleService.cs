@@ -10,12 +10,12 @@ namespace HappyDog.Domain.Services
 {
     public class ArticleService
     {
-        readonly HappyDogContext db;
-
         public ArticleService(HappyDogContext db)
         {
             this.db = db;
         }
+
+        readonly HappyDogContext db;
 
         public async Task<Article> GetAsync(int id, bool isAuthenticated)
         {
