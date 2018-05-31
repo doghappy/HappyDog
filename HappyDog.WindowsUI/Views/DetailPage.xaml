@@ -23,7 +23,7 @@
         <ScrollViewer>
             <StackPanel>
                 <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                    <StackPanel x:Name="DetailHeader" Style="{StaticResource StackPanelContainer}">
                         <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
                                    FontSize="40"
                                    Foreground="#1E2529"
