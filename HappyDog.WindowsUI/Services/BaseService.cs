@@ -29,7 +29,5 @@ namespace HappyDog.WindowsUI.Services
         }
 
         protected string ApplicationJson => "application/json";
-
-        const string test = "sdf";
     }
 }
