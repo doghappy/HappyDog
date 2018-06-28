@@ -46,7 +46,6 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Get(int? cid, int page = 1)
         {
-            bool flag = svc == null;
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, cid)
                 .ProjectTo<ArticleSummaryDto>();

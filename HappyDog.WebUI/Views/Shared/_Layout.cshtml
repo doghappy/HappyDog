@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 开心狗</title>
+
+    @*<environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="javascript:void(0)">
+            <img src="favicon.ico" width="30" height="30" class="d-inline-block align-top" />
+            开心狗
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/net" routerLinkActive="active">
+                        <i class="fa fa-cubes"></i>
+                        .Net
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/db" routerLinkActive="active">
+                        <i class="fa fa-database"></i>
+                        数据库
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/windows" routerLinkActive="active">
+                        <i class="fa fa-windows"></i>
+                        Windows
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/read" routerLinkActive="active">
+                        <i class="fa fa-bookmark"></i>
+                        阅读
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/essays" routerLinkActive="active">
+                        <i class="fa fa-pencil"></i>
+                        随笔
+                    </a>
+                </li>
+                <!--<li class="nav-item d-block d-sm-none">
+                  <a class="nav-link">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    搜索
+                  </a>
+                </li>-->
+            </ul>
+            <!--<form class="form-inline d-none d-md-block d-lg-block">
+              <div class="input-group">
+                <input type="text" class="form-control" />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary">搜索</button>
+                </div>
+              </div>
+            </form>-->
+        </div>
+    </nav>
+
+    @*<partial name="_CookieConsentPartial" />*@
+
+    @RenderBody()
+    @*<div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2018 - HappyDog.WebUI</p>
+            </footer>
+        </div>*@
+
+    <footer class="footer bg-dark">
+        <ul class="text-center">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="https://github.com/doghappy" style="padding:0 8px" target="_blank">
+                    <i class="fa fa-github fa-2x"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="mailto:hero_wong@outlook.com" style="padding:0 8px" target="_blank">
+                    <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+        <p class="text-center">
+            <span class="text-light">&copy; 2018 - 开心狗</span>
+            <a class="text-light" target="_blank" href="http://www.miitbeian.gov.cn/">鄂icp备17019876号</a>
+        </p>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

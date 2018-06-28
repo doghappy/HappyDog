@@ -52,7 +52,10 @@ namespace HappyDog.WebUI
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Article}/{action=Index}/{id?}");
+            });
         }
     }
 }
