@@ -12,18 +12,19 @@ namespace HappyDog.WebUI.Controllers
     {
         readonly ArticleService articleService;
 
-        public ArticleController()
+        public ArticleController(ArticleService articleService)
         {
             PageSize = 20;
+            this.articleService = articleService;
         }
 
         public int PageSize { get; set; }
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            var query = articleService.Get(User.Identity.IsAuthenticated, null);
             var pager = new Pager(page, PageSize);
-            var data = await pager.GetPaginationAsync(query);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, null);
+            ViewBag.Pager = pager;
             return View(data);
         }
     }

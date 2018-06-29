@@ -1,8 +1,10 @@
 ﻿using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
+using HappyDog.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +39,13 @@ namespace HappyDog.Domain.Services
                     && (!cid.HasValue || a.CategoryId == cid.Value)
                 )
                 .OrderByDescending(a => a.Id);
+        }
+
+        public async Task<List<Article>> Get(bool isAuthenticated, Pager pager, int? cid)
+        {
+            var query = Get(isAuthenticated, cid);
+            pager.TotalItems = await query.CountAsync();
+            return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }
 
         public async Task UpdateAsync(int id, PutArticleDto dto)
