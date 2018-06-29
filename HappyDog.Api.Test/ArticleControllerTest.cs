@@ -20,7 +20,7 @@ namespace HappyDog.Api.Test
         #region get: api/article/{id}
 
         [TestMethod]
-        public async Task NonAdminGetDisableTest()
+        public async Task NonAuthGetDisableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable });
@@ -47,7 +47,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAdminGetEnableTest()
+        public async Task NonAuthGetEnableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -76,7 +76,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task AdminGetDisableTest()
+        public async Task GetDisableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -105,7 +105,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task AdminGetEnableTest()
+        public async Task GetEnableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -137,9 +137,9 @@ namespace HappyDog.Api.Test
 
         #region get: api/article
 
-        #region Non Admin
+        #region Non Auth
         [TestMethod]
-        public async Task NonAdminGetManyWithNoCidAndDefaultPageIndex()
+        public async Task NonAuthGetManyWithNoCidAndDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -176,7 +176,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAdminGetManyWithNoCidAndPageIndexEq4()
+        public async Task NonAuthGetManyWithNoCidAndPageIndexEq4()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -213,7 +213,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAdminGetManyWithCidEq1AndDefaultPageIndex()
+        public async Task NonAuthGetManyWithCidEq1AndDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             var c1 = new Category { Id = 1 };
@@ -252,7 +252,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAdminGetManyWithCidEq1AndPageIndexEq2()
+        public async Task NonAuthGetManyWithCidEq1AndPageIndexEq2()
         {
             var db = new HappyDogContext(GetOptions());
             var c1 = new Category { Id = 1 };
@@ -291,9 +291,9 @@ namespace HappyDog.Api.Test
         }
         #endregion
 
-        #region Admin
+        #region Has Auth
         [TestMethod]
-        public async Task AdminGetManyWithNoCidAndDefaultPageIndex()
+        public async Task GetManyWithNoCidAndDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -330,7 +330,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task AdminGetManyWithNoCidAndPageIndexEq4()
+        public async Task GetManyWithNoCidAndPageIndexEq4()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", State = BaseState.Disable, Category = new Category() });
@@ -367,7 +367,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task AdminGetManyWithCidEq1AndDefaultPageIndex()
+        public async Task GetManyWithCidEq1AndDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             var c1 = new Category { Id = 1 };
@@ -406,7 +406,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task AdminGetManyWithCidEq1AndPageIndexEq2()
+        public async Task GetManyWithCidEq1AndPageIndexEq2()
         {
             var db = new HappyDogContext(GetOptions());
             var c1 = new Category { Id = 1 };
