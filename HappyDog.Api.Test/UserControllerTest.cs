@@ -28,7 +28,7 @@ namespace HappyDog.Api.Test
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);
-            var dto = new LoginDto();
+            var dto = new SignInDto();
             var authServiceMock = new Mock<IAuthenticationService>();
             authServiceMock.Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
                 .Returns(Task.CompletedTask);
@@ -59,7 +59,7 @@ namespace HappyDog.Api.Test
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);
-            var dto = new LoginDto { UserName = "HeroWong", Password = "111" };
+            var dto = new SignInDto { UserName = "HeroWong", Password = "111" };
             var authServiceMock = new Mock<IAuthenticationService>();
             authServiceMock
                 .Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))

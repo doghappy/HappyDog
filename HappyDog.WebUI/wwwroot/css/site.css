@@ -21,6 +21,8 @@ body { padding-top: 56px; padding-bottom: 20px; }
     .carousel-caption { display: none; }
 }
 
+div.jumbotron { border-radius: unset; }
+
 /* footer */
 html { position: relative; min-height: 100vh; }
 body { /* Margin bottom by footer height */ margin-bottom: 169px; }

@@ -16,7 +16,7 @@ namespace HappyDog.Domain.Services
 
         readonly HappyDogContext db;
 
-        public async Task<BaseResult> LoginAsync(LoginDto dto)
+        public async Task<BaseResult> LoginAsync(SignInDto dto)
         {
             var user = await db.Users.AsNoTracking()
                 .Include(u=>u.UserRoles)
