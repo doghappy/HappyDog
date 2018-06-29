@@ -30,28 +30,28 @@ namespace HappyDog.Infrastructure
             StringBuilder builder = new StringBuilder();
             builder.Append("<nav><ul class=\"pagination\">");
             if (Page == 1)
-                builder.Append("<li class=\"disabled\"><span>&laquo;</span></li>");
+                builder.Append("<li class=\"page-item disabled\"><span class=\"page-link\">&laquo;</span></li>");
             else
-                builder.Append("<li><a href=\"")
+                builder.Append("<li class=\"page-item\"><a class=\"page-link\" href=\"")
                     .Append(pageUrl(Page - 1))
                     .Append("\">&laquo;</a></li>");
             for (int i = 1; i <= TotalPages; i++)
             {
                 if (Page == i)
-                    builder.Append("<li class=\"active\"><span>")
+                    builder.Append("<li class=\"page-item active\"><span class=\"page-link\">")
                         .Append(i)
                         .Append("</span></li>");
                 else
-                    builder.Append("<li><a href=\"")
+                    builder.Append("<li class=\"page-item\"><a class=\"page-link\" href=\"")
                         .Append(pageUrl(i))
                         .Append("\">")
                         .Append(i)
                         .Append("</a></li>");
             }
             if (Page == TotalPages)
-                builder.Append("<li class=\"disabled\"><span>&raquo;</span></li>");
+                builder.Append("<li class=\"page-item disabled\"><span class=\"page-link\">&raquo;</span></li>");
             else
-                builder.Append("<li><a href=\"")
+                builder.Append("<li class=\"page-item\"><a class=\"page-link\" href=\"")
                     .Append(pageUrl(Page + 1))
                     .Append("\">&raquo;</a></li>");
             builder.Append("</ul></nav>");

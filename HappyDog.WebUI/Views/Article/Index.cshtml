@@ -26,6 +26,6 @@
 
 <div class="container body-content">
     @await Component.InvokeAsync("ArticleList", new { articles = Model })
-</div>
 
-@pager.GetPageNumberLinks(p => Url.Action("Index", new { page = p }))
+    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
+</div>

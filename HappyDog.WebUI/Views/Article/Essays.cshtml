@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "随笔";
+    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 @section Styles{
@@ -25,4 +26,6 @@
 
 <div class="container body-content">
     @await Component.InvokeAsync("ArticleList", new { articles = Model })
+
+    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Essays", new { page = p })))
 </div>

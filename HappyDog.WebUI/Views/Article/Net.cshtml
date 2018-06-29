@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = ".Net";
+    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 <div class="jumbotron" id="paginationTarget">
@@ -35,4 +36,6 @@
 
 <div class="container body-content">
     @await Component.InvokeAsync("ArticleList", new { articles = Model })
+
+    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Net", new { page = p })))
 </div>
