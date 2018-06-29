@@ -22,8 +22,8 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="javascript:void(0)">
-            <img src="favicon.ico" width="30" height="30" class="d-inline-block align-top" />
+        <a class="navbar-brand" href="@Url.Action("Index","Article")">
+            <img src="~/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
             开心狗
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,32 +31,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/net" routerLinkActive="active">
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "net" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Net","Article")">
                         <i class="fa fa-cubes"></i>
                         .Net
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/db" routerLinkActive="active">
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "database" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Database","Article")">
                         <i class="fa fa-database"></i>
                         数据库
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/windows" routerLinkActive="active">
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "windows" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Windows","Article")">
                         <i class="fa fa-windows"></i>
                         Windows
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/read" routerLinkActive="active">
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "read" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Read","Article")">
                         <i class="fa fa-bookmark"></i>
                         阅读
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/essays" routerLinkActive="active">
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "essays" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Essays","Article")">
                         <i class="fa fa-pencil"></i>
                         随笔
                     </a>
