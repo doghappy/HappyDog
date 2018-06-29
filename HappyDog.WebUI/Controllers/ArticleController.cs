@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
 using HeyRed.MarkdownSharp;
@@ -44,9 +42,44 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        public async Task<IActionResult> Net()
+        public async Task<IActionResult> Net(int page = 1)
         {
-            return View();
+            var pager = new Pager(page, PageSize);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Net);
+            ViewBag.Pager = pager;
+            return View(data);
+        }
+
+        public async Task<IActionResult> Database(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Database);
+            ViewBag.Pager = pager;
+            return View(data);
+        }
+
+        public async Task<IActionResult> Windows(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Windows);
+            ViewBag.Pager = pager;
+            return View(data);
+        }
+
+        public async Task<IActionResult> Read(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Read);
+            ViewBag.Pager = pager;
+            return View(data);
+        }
+
+        public async Task<IActionResult> Essays(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Essays);
+            ViewBag.Pager = pager;
+            return View(data);
         }
     }
 }

@@ -31,17 +31,17 @@ namespace HappyDog.Domain.Services
             return article;
         }
 
-        public IQueryable<Article> Get(bool isAuthenticated, int? cid)
+        public IQueryable<Article> Get(bool isAuthenticated, Enums.ArticleCategory? cid)
         {
             return db.Articles.Include(a => a.Category).AsNoTracking()
                 .Where(a =>
                     (isAuthenticated || a.State == BaseState.Enable)
-                    && (!cid.HasValue || a.CategoryId == cid.Value)
+                    && (!cid.HasValue || a.CategoryId == (int?)cid.Value)
                 )
                 .OrderByDescending(a => a.Id);
         }
 
-        public async Task<List<Article>> Get(bool isAuthenticated, Pager pager, int? cid)
+        public async Task<List<Article>> Get(bool isAuthenticated, Pager pager, Enums.ArticleCategory? cid)
         {
             var query = Get(isAuthenticated, cid);
             pager.TotalItems = await query.CountAsync();
