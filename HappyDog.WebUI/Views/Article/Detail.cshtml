@@ -5,7 +5,7 @@
 }
 
 <div class="jumbotron">
-    <div class="container body-content">
+    <div class="container body-content animated fadeIn">
         <h1 class="display-6 mb-4">@Model.Title</h1>
         <p class="lead text-muted mb-1">
             <i class="fa fa-calendar"></i>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container body-content animated fadeInLeft">
     <div class="markdown-body" style="padding-bottom:3rem">
         @Html.Raw(Model.Content)
     </div>

@@ -6,7 +6,7 @@
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content">
+    <div class="container body-content animated slideInDown">
         <h1 class="display-4">开心狗</h1>
         <p class="lead">
             Don't ever let somebody tell you<br />
@@ -15,16 +15,16 @@
             People can’t do somethin’ themselves, they wanna tell you, you can’t do it.<br />
             If you want somethin’, go get it.
         </p>
-        @*<p class="lead">
+        <p class="lead">
             <a class="btn btn-primary" href="javascript:void(0)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 写文章
             </a>
-        </p>*@
+        </p>
     </div>
 </div>
 
-<div class="container body-content">
+<div class="container body-content animated fadeIn">
     @await Component.InvokeAsync("ArticleList", new { articles = Model })
 
     @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))

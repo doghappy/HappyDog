@@ -10,7 +10,7 @@
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content">
+    <div class="container body-content animated fadeInLeft">
         <h1 class="display-4 text-light">数据库</h1>
         <p class="lead text-light">
             SQL: 关系型数据库，是一种成熟的数据库，对数据结构有着严谨的要求，因此它的数据具有高度的一致性。但是它的读写性能没有NoSQL好。
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="container body-content">
+<div class="container body-content animated fadeIn">
     @await Component.InvokeAsync("ArticleList", new { articles = Model })
 
     @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Database", new { page = p })))
