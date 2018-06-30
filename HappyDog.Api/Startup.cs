@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using AutoMapper;
-using HappyDog.Api.Infrastructure;
 using HappyDog.Domain;
+using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;

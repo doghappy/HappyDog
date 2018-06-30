@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
+using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
@@ -12,10 +14,12 @@ namespace HappyDog.WebUI.Controllers
     {
         readonly ArticleService articleService;
         readonly CategoryService categoryService;
+        readonly IMapper mapper;
 
-        public ArticleController(ArticleService articleService, CategoryService categoryService)
+        public ArticleController(IMapper mapper, ArticleService articleService, CategoryService categoryService)
         {
             PageSize = 20;
+            this.mapper = mapper;
             this.articleService = articleService;
             this.categoryService = categoryService;
         }
@@ -96,7 +100,25 @@ namespace HappyDog.WebUI.Controllers
             else
             {
                 ViewBag.Categories = await categoryService.GetCategoriesAsync();
-                return View(article);
+                var model = mapper.Map<EditArticleDto>(article);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [FromForm]EditArticleDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                await articleService.UpdateAsync(id, dto);
+                return RedirectToAction("Detail", new { id });
+            }
+            else
+            {
+                ViewBag.Categories = await categoryService.GetCategoriesAsync();
+                return View(dto);
             }
         }
     }

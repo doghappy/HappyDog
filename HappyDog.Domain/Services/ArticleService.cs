@@ -48,7 +48,7 @@ namespace HappyDog.Domain.Services
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }
 
-        public async Task UpdateAsync(int id, PutArticleDto dto)
+        public async Task UpdateAsync(int id, EditArticleDto dto)
         {
             var article = await db.Articles.FindAsync(id);
             if (article != null)

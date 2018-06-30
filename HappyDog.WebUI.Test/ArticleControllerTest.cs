@@ -1,4 +1,5 @@
 using HappyDog.Domain;
+using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
@@ -35,7 +36,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -74,7 +75,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -110,7 +111,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -137,7 +138,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -164,7 +165,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -192,7 +193,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc, null)
+            var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -208,5 +209,26 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Id);
         }
         #endregion
+
+        [TestMethod]
+        public async Task PutTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var article = new Article { Id = 1, Title = "title1", Content = "content1", CategoryId = 1, State = BaseState.Disable };
+            await db.AddAsync(article);
+            await db.SaveChangesAsync();
+
+            var svc = new ArticleService(db);
+            var controller = new ArticleController(Mapper, svc, null);
+
+            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
+            await controller.Edit(1, dto);
+
+            Assert.AreEqual(1, article.Id);
+            Assert.AreEqual("title2", article.Title);
+            Assert.AreEqual("content2", article.Content);
+            Assert.AreEqual(BaseState.Enable, article.State);
+            Assert.AreEqual(2, article.CategoryId);
+        }
     }
 }

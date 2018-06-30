@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
-using HappyDog.Api.Infrastructure;
 using HappyDog.Domain;
+using HappyDog.Domain.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 

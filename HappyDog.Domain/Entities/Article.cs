@@ -10,13 +10,11 @@ namespace HappyDog.Domain.Entities
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "请输入标题")]
-        [MaxLength(200, ErrorMessage = "标题长度不能超过200个字符")]
-        [Display(Name = "标题")]
+        [Required]
+        [MaxLength(200)]
         public string Title { get; set; }
 
         [Column(TypeName = "ntext")]
-        [Display(Name = "内容")]
         public string Content { get; set; }
 
         public int CategoryId { get; set; }

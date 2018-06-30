@@ -1,4 +1,5 @@
 using HappyDog.Domain;
+using AutoMapper;
 using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using HappyDog.Domain.DataTransferObjects;
 
 namespace HappyDog.WebUI
 {
@@ -32,7 +34,7 @@ namespace HappyDog.WebUI
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {

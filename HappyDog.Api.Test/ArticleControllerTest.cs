@@ -243,7 +243,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(1, 1);
+            var result = await controller.Get(ArticleCategory.Net, 1);
             Assert.AreEqual(3, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -282,7 +282,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(1, 2);
+            var result = await controller.Get(ArticleCategory.Net, 2);
             Assert.AreEqual(3, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -397,7 +397,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(1, 1);
+            var result = await controller.Get(ArticleCategory.Net, 1);
             Assert.AreEqual(4, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -436,7 +436,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(1, 2);
+            var result = await controller.Get(ArticleCategory.Net, 2);
             Assert.AreEqual(4, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -459,7 +459,7 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var dto = new PutArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
+            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseState.Enable };
             await controller.Put(1, dto);
 
             Assert.AreEqual(1, article.Id);

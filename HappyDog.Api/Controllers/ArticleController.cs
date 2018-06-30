@@ -44,7 +44,7 @@ namespace HappyDog.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Get(int? cid, int page = 1)
+        public async Task<Pagination<ArticleSummaryDto>> Get(ArticleCategory? cid, int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, cid)
@@ -54,7 +54,7 @@ namespace HappyDog.Api.Controllers
 
         [HttpPut("{id}")]
         [ValidateModel]
-        public async Task<HttpBaseResult> Put(int id, [FromBody]PutArticleDto dto)
+        public async Task<HttpBaseResult> Put(int id, [FromBody]EditArticleDto dto)
         {
             await svc.UpdateAsync(id, dto);
             return new HttpBaseResult
