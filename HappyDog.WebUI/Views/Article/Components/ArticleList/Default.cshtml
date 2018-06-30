@@ -7,7 +7,7 @@
         <div class="col-md-6 mb-3">
             <div class="card@(item.State == BaseState.Disable ? " text-white bg-secondary" : "")">
                 <div class="card-body">
-                    <a href="javascript:void(0)">
+                    <a href="@Url.Action(item.Category.Value, "Article")">
                         <strong style="color:@item.Category.Color">@item.Category.Label</strong>
                     </a>
                     <h5 class="card-title">

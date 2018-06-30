@@ -22,6 +22,12 @@ body { padding-top: 56px; padding-bottom: 20px; }
 }
 
 div.jumbotron { border-radius: unset; }
+.validation-message { font-size: 14px; }
+.netColor { color: #7014e8; }
+.dbColor { color: #f65314; }
+.windowsColor { color: #00a1f1; }
+.readColor { color: #7cbb00; }
+.essaysColor { color: #ffbb00; }
 
 /* footer */
 html { position: relative; min-height: 100vh; }

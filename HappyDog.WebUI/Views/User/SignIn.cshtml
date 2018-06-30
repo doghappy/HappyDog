@@ -11,15 +11,18 @@
         <div class="form-group">
             @Html.LabelFor(m => m.UserName)
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger validation-message" })
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Password)
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger validation-message" })
         </div>
         <div class="form-group">
             @Html.CheckBoxFor(m => m.RememberMe)
             @Html.LabelFor(m => m.RememberMe)
         </div>
+        <p class="text-danger validation-message">@ViewBag.Message</p>
         <button class="btn btn-primary">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             登录

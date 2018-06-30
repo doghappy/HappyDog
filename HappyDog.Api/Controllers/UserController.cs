@@ -21,14 +21,12 @@ namespace HappyDog.Api.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        readonly UserService svc;
+        readonly UserService userService;
         readonly IMapper mapper;
 
-        public UserController(
-            UserService svc,
-            IMapper mapper)
+        public UserController(UserService userService, IMapper mapper)
         {
-            this.svc = svc;
+            this.userService = userService;
             this.mapper = mapper;
         }
 
@@ -37,7 +35,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<HttpBaseResult> Login([FromBody]SignInDto dto)
         {
-            var result = await svc.LoginAsync(dto);
+            var result = await userService.LoginAsync(dto);
             if (result.Result)
             {
                 var dataResult = result as DataResult<User>;
