@@ -3,6 +3,7 @@ using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
 using HeyRed.MarkdownSharp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.WebUI.Controllers
@@ -10,11 +11,13 @@ namespace HappyDog.WebUI.Controllers
     public class ArticleController : Controller
     {
         readonly ArticleService articleService;
+        readonly CategoryService categoryService;
 
-        public ArticleController(ArticleService articleService)
+        public ArticleController(ArticleService articleService, CategoryService categoryService)
         {
             PageSize = 20;
             this.articleService = articleService;
+            this.categoryService = categoryService;
         }
 
         public int PageSize { get; set; }
@@ -80,6 +83,21 @@ namespace HappyDog.WebUI.Controllers
             var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Essays);
             ViewBag.Pager = pager;
             return View(data);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var article = await articleService.GetAsync(id, User.Identity.IsAuthenticated);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewBag.Categories = await categoryService.GetCategoriesAsync();
+                return View(article);
+            }
         }
     }
 }

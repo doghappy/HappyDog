@@ -1,0 +1,38 @@
+﻿@model HappyDog.Domain.Entities.Article
+@{
+    ViewData["Title"] = "编辑:" + Model.Title;
+    var categories = (List<HappyDog.Domain.Entities.Category>)ViewBag.Categories;
+}
+
+<div class="container body-content">
+    <h2 class="mt-4">编辑：@Model.Title</h2>
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger validation-message" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Content)
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "height:24rem" })
+            @Html.ValidationMessageFor(m => m.Content, null, new { @class = "text-danger validation-message" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Category)
+            @Html.DropDownListFor(m => m.Category, new SelectList(categories, "Id", "Label"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Category, null, new { @class = "text-danger validation-message" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.State, "是否显示")
+            @Html.CheckBox("State", Model.State == Domain.Enums.BaseState.Enable)
+            @Html.ValidationMessageFor(m => m.State, null, new { @class = "text-danger validation-message" })
+        </div>
+        <p class="text-danger validation-message">@ViewBag.Message</p>
+        <button class="btn btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            更新
+        </button>
+    }
+</div>

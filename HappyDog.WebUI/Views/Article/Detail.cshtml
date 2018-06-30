@@ -15,10 +15,13 @@
             <i class="fa fa-line-chart" aria-hidden="true"></i>
             @Model.ViewCount
         </p>
-        @*<a class="btn btn-outline-primary" href="@Url.Action("Edit", new { Id = Model.Id })">
-            <i class="fa fa-pencil"></i>
-            编辑
-        </a>*@
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-outline-primary" href="@Url.Action("Edit", new { Id = Model.Id })">
+                <i class="fa fa-pencil"></i>
+                编辑
+            </a>
+        }
     </div>
 </div>
 

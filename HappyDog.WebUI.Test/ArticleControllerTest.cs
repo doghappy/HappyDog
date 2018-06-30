@@ -35,7 +35,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -74,7 +74,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -110,7 +110,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -137,7 +137,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -164,7 +164,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -192,7 +192,7 @@ namespace HappyDog.WebUI.Test
 
             var mockPrincipal = new Mock<ClaimsPrincipal>();
             mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc)
+            var controller = new ArticleController(svc, null)
             {
                 ControllerContext = new ControllerContext
                 {

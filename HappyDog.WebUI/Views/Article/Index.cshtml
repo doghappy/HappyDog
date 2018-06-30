@@ -15,12 +15,15 @@
             People can’t do somethin’ themselves, they wanna tell you, you can’t do it.<br />
             If you want somethin’, go get it.
         </p>
-        <p class="lead">
-            <a class="btn btn-primary" href="javascript:void(0)">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                写文章
-            </a>
-        </p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p class="lead">
+                <a class="btn btn-primary" href="javascript:void(0)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    写文章
+                </a>
+            </p>
+        }
     </div>
 </div>
 
