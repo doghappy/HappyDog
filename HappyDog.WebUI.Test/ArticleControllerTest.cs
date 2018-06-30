@@ -7,9 +7,11 @@ using HappyDog.Infrastructure;
 using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -229,6 +231,26 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual("content2", article.Content);
             Assert.AreEqual(BaseState.Enable, article.State);
             Assert.AreEqual(2, article.CategoryId);
+        }
+
+        [TestMethod]
+        public async Task PostAsync()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var svc = new ArticleService(db);
+            var controller = new ArticleController(Mapper, svc, null);
+
+            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, State = BaseState.Enable };
+            await controller.Post(dto);
+
+            var list = await db.Articles.ToListAsync();
+            Assert.AreEqual(1, list.Count);
+
+            var article = list.FirstOrDefault();
+            Assert.AreEqual("title", article.Title);
+            Assert.AreEqual("content", article.Content);
+            Assert.AreEqual(1, article.CategoryId);
+            Assert.AreEqual(BaseState.Enable, article.State);
         }
     }
 }

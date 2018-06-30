@@ -20,7 +20,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <p class="lead">
-                <a class="btn btn-primary" href="javascript:void(0)">
+                <a class="btn btn-primary" href="@Url.Action("Post")">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                     写文章
                 </a>

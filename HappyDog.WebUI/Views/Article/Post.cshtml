@@ -1,7 +1,7 @@
-﻿@model HappyDog.Domain.DataTransferObjects.Article.EditArticleDto
+﻿@model HappyDog.Domain.DataTransferObjects.Article.PostArticleDto
 
 @{
-    ViewData["Title"] = "编辑:" + Model.Title;
+    ViewData["Title"] = "发布新文章";
     var categories = (List<HappyDog.Domain.Entities.Category>)ViewBag.Categories;
 }
 
@@ -18,7 +18,7 @@
 }
 
 <div class="container body-content">
-    <h2 class="mt-4">编辑：@Model.Title</h2>
+    <h2 class="mt-4">发布新文章</h2>
     @using (Html.BeginForm(FormMethod.Post))
     {
         @Html.AntiForgeryToken()
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Content)
-            @Html.HiddenFor(m=>m.Content)
+            @Html.HiddenFor(m => m.Content)
             @Html.ValidationMessageFor(m => m.Content, null, new { @class = "text-danger validation-message" })
         </div>
         <div class="form-group col-md-3" style="padding:0">
@@ -47,7 +47,7 @@
         <p class="text-danger validation-message">@ViewBag.Message</p>
         <button class="btn btn-primary">
             <i class="fa fa-check" aria-hidden="true"></i>
-            更新
+            发布
         </button>
     }
 </div>

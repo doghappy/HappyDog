@@ -121,5 +121,29 @@ namespace HappyDog.WebUI.Controllers
                 return View(dto);
             }
         }
+
+        [Authorize]
+        public async Task<IActionResult> Post()
+        {
+            ViewBag.Categories = await categoryService.GetCategoriesAsync();
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Post([FromForm]PostArticleDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var article = await articleService.InsertAsync(dto);
+                return RedirectToAction("Detail", new { id = article.Id });
+            }
+            else
+            {
+                ViewBag.Categories = await categoryService.GetCategoriesAsync();
+                return View(dto);
+            }
+        }
     }
 }
