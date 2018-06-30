@@ -22,14 +22,14 @@ namespace HappyDog.WebUI.Controllers
 
         readonly UserService userService;
 
-        public IActionResult SignIn()
+        public IActionResult SignIn(string returnUrl)
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignIn(SignInDto dto)
+        public async Task<IActionResult> SignIn(string returnUrl, SignInDto dto)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +49,14 @@ namespace HappyDog.WebUI.Controllers
                     }
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = dto.RememberMe });
-                    return RedirectToAction("Index", "Article");
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Article");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
                 else
                 {

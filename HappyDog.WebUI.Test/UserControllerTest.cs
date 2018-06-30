@@ -45,7 +45,7 @@ namespace HappyDog.WebUI.Test
                 }
             };
 
-            var result = (await controller.SignIn(dto)) as ViewResult;
+            var result = (await controller.SignIn("", dto)) as ViewResult;
             Assert.AreEqual("密码错误", result.ViewData["Message"].ToString());
         }
 
@@ -76,7 +76,7 @@ namespace HappyDog.WebUI.Test
                 }
             };
 
-            var result = (await controller.SignIn(dto)) as RedirectToActionResult;
+            var result = (await controller.SignIn("", dto)) as RedirectToActionResult;
             Assert.IsNotNull(result);
         }
         #endregion

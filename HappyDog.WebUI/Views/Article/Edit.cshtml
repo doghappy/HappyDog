@@ -1,7 +1,20 @@
 ﻿@model HappyDog.Domain.DataTransferObjects.Article.EditArticleDto
+
 @{
     ViewData["Title"] = "编辑:" + Model.Title;
     var categories = (List<HappyDog.Domain.Entities.Category>)ViewBag.Categories;
+}
+
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+}
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE({ element: $("#Content")[0] });
+        simplemde.value($("#Content").val())
+    </script>
 }
 
 <div class="container body-content">
@@ -16,7 +29,8 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Content)
-            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "height:24rem" })
+            @*@Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "height:24rem" })*@
+            @Html.HiddenFor(m=>m.Content)
             @Html.ValidationMessageFor(m => m.Content, null, new { @class = "text-danger validation-message" })
         </div>
         <div class="form-group col-md-3" style="padding:0">
