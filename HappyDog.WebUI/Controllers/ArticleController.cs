@@ -4,7 +4,6 @@ using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
-using HeyRed.MarkdownSharp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
