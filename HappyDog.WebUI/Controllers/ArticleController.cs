@@ -43,8 +43,6 @@ namespace HappyDog.WebUI.Controllers
             }
             else
             {
-                var markdown = new Markdown();
-                article.Content = markdown.Transform(article.Content);
                 return View(article);
             }
         }

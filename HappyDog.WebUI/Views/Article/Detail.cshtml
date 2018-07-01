@@ -10,6 +10,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet" />
 }
 
+@section Scripts{
+    <script src="https://cdn.bootcss.com/showdown/1.8.6/showdown.min.js"></script>
+    <script>
+        var converter = new showdown.Converter();
+        $('.markdown-body').html(converter.makeHtml($('#Content').val()))
+    </script>
+}
+
 <div class="jumbotron">
     <div class="container body-content animated fadeInLeft">
         <h1 class="display-6 mb-4">@Model.Title</h1>
@@ -32,7 +40,6 @@
 </div>
 
 <div class="container body-content animated fadeIn">
-    <div class="markdown-body" style="padding-bottom:3rem">
-        @Html.Raw(Model.Content)
-    </div>
+    @Html.HiddenFor(m => m.Content)
+    <div class="markdown-body" style="padding-bottom:3rem"></div>
 </div>
