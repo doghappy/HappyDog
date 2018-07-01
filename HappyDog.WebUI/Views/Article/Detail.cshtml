@@ -13,7 +13,7 @@
 @section Scripts{
     <script src="//cdn.bootcss.com/showdown/1.8.6/showdown.min.js"></script>
     <script>
-        var converter = new showdown.Converter();
+        var converter = new showdown.Converter({ tables: true, strikethrough: true });
         $('.markdown-body').html(converter.makeHtml($('#Content').val()))
     </script>
 }
