@@ -9,9 +9,9 @@ namespace HappyDog.WindowsUI.Services
             get
             {
 #if DEBUG
-                return "http://localhost:56149";
+                return "https://localhost:44334";
 #else
-                return "http://api.doghappy.wang";
+                return "https://doghappy.wang";
 # endif
             }
         }
