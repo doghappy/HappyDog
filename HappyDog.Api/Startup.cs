@@ -98,7 +98,7 @@ namespace HappyDog.Api
             //    }
             //}
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "http://www.doghappy.wang","http://doghappy.wang")
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://angular.doghappy.wang")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());

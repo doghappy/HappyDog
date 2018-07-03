@@ -20,7 +20,7 @@ namespace HappyDog.WindowsUI.Services
 
         public async Task<Pagination<Article>> GetArticlesAsync(int page)
         {
-            string url = $"api/article?page={page}";
+            string url = $"article?page={page}";
             if (CategoryId > 0)
             {
                 url += $"&cid={CategoryId}";
@@ -31,14 +31,14 @@ namespace HappyDog.WindowsUI.Services
 
         public async Task<Article> GetArticleAsync(int id)
         {
-            string url = $"api/article/{id}";
+            string url = $"article/{id}";
             string json = await HttpClient.GetStringAsync(url);
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
         public async Task<HttpDataResult<int>> PostAsync(Article article)
         {
-            string url = $"api/article";
+            string url = $"article";
             string json = JsonConvert.SerializeObject(article);
             var content = new StringContent(json, Encoding.UTF8, ApplicationJson);
             var resMsg = await HttpClient.PostAsync(url, content);
@@ -48,7 +48,7 @@ namespace HappyDog.WindowsUI.Services
 
         public async Task<HttpBaseResult> PutAsync(Article article)
         {
-            string url = $"api/article/" + article.Id;
+            string url = $"article/" + article.Id;
             string json = JsonConvert.SerializeObject(article);
             var content = new StringContent(json, Encoding.UTF8, ApplicationJson);
             var resMsg = await HttpClient.PutAsync(url, content);
