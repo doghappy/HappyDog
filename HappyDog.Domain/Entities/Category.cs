@@ -13,14 +13,17 @@ namespace HappyDog.Domain.Entities
 
         [Required]
         [MaxLength(20)]
+        [Column(TypeName = "nvarchar(20)")]
         public string Label { get; set; }
 
         [Required]
         [MaxLength(20)]
+        [Column(TypeName = "varchar(20)")]
         public string Value { get; set; }
 
         [Required]
         [MaxLength(10)]
+        [Column(TypeName = "varchar(10)")]
         public string Color { get; set; }
 
         [Required]

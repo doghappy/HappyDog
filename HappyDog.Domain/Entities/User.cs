@@ -10,11 +10,13 @@ namespace HappyDog.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(12, MinimumLength = 4)]
+        [MaxLength(12)]
+        [Column(TypeName = "varchar(12)")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(16)]
+        [MaxLength(16)]
+        [Column(TypeName = "varchar(16)")]
         public string Password { get; set; }
 
         public List<UserRole> UserRoles { get; set; }

@@ -12,6 +12,7 @@ namespace HappyDog.Domain.Entities
 
         [Required]
         [MaxLength(200)]
+        [Column(TypeName = "nvarchar(200)")]
         public string Title { get; set; }
 
         [Column(TypeName = "ntext")]
@@ -25,7 +26,6 @@ namespace HappyDog.Domain.Entities
 
         public BaseState State { get; set; }
 
-        [Display(Name = "分类")]
         public Category Category { get; set; }
     }
 }
