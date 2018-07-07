@@ -11,10 +11,6 @@ namespace HappyDog.WebUI.Controllers
 {
     public class ArticleController : Controller
     {
-        readonly ArticleService articleService;
-        readonly CategoryService categoryService;
-        readonly IMapper mapper;
-
         public ArticleController(IMapper mapper, ArticleService articleService, CategoryService categoryService)
         {
             PageSize = 20;
@@ -22,6 +18,10 @@ namespace HappyDog.WebUI.Controllers
             this.articleService = articleService;
             this.categoryService = categoryService;
         }
+
+        readonly ArticleService articleService;
+        readonly CategoryService categoryService;
+        readonly IMapper mapper;
 
         public int PageSize { get; set; }
 

@@ -4,12 +4,14 @@ using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HappyDog.Domain.DataTransferObjects;
+using HappyDog.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using HappyDog.Domain.Identity;
 
 namespace HappyDog.WebUI
 {
@@ -46,6 +48,10 @@ namespace HappyDog.WebUI
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
+
+            services.AddIdentity<User, Role>().AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddTransient<IRoleStore<Role>, RoleStore>();
 
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();

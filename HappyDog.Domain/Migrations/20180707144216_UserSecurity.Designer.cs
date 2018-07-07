@@ -3,14 +3,16 @@ using System;
 using HappyDog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    partial class HappyDogContextModelSnapshot : ModelSnapshot
+    [Migration("20180707144216_UserSecurity")]
+    partial class UserSecurity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -22,7 +22,7 @@ namespace HappyDog.WebUI.Test
         public async Task ErrorLoginInfoLoginTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
+            await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);
@@ -34,7 +34,7 @@ namespace HappyDog.WebUI.Test
             //serviceProviderMock.Setup(s => s.GetService(typeof(IServiceProvider)))
             //    .Returns(authServiceMock.Object);
 
-            var controller = new UserController(svc)
+            var controller = new UserController(svc, null, null, Mapper)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -53,7 +53,7 @@ namespace HappyDog.WebUI.Test
         public async Task CorrectInfoLoginTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
+            await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
             await db.SaveChangesAsync();
 
             var userService = new UserService(db);
@@ -65,7 +65,7 @@ namespace HappyDog.WebUI.Test
             //var serviceProviderMock = new Mock<IServiceProvider>();
             //serviceProviderMock.Setup(s => s.GetService(typeof(IAuthenticationService))).Returns(authServiceMock.Object);
 
-            var controller = new UserController(userService)
+            var controller = new UserController(userService, null, null, Mapper)
             {
                 ControllerContext = new ControllerContext
                 {

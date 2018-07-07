@@ -19,10 +19,10 @@ namespace HappyDog.Domain.Services
         public async Task<BaseResult> LoginAsync(SignInDto dto)
         {
             var user = await db.Users.AsNoTracking()
-                .Include(u=>u.UserRoles)
-                .SingleOrDefaultAsync(u => 
+                .Include(u => u.UserRoles)
+                .SingleOrDefaultAsync(u =>
                     u.UserName.Equals(dto.UserName, StringComparison.CurrentCultureIgnoreCase)
-                    && u.Password == dto.Password);
+                    && u.PasswordHash == dto.Password);
             if (user == null)
             {
                 return new BaseResult
@@ -40,6 +40,12 @@ namespace HappyDog.Domain.Services
                     Message = "登录成功"
                 };
             }
+        }
+
+        public async Task<User> GetUserAsync(string userName)
+        {
+            return await db.Users
+                .FirstOrDefaultAsync(u => u.UserName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

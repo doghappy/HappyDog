@@ -24,7 +24,7 @@ namespace HappyDog.Api.Test
         public async Task ErrorLoginInfoLoginTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
+            await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);
@@ -55,7 +55,7 @@ namespace HappyDog.Api.Test
         public async Task CorrectInfoLoginTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Users.AddAsync(new User { UserName = "HeroWong", Password = "111" });
+            await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
             await db.SaveChangesAsync();
 
             var svc = new UserService(db);

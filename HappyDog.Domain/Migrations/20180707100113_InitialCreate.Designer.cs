@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180707093610_Init")]
-    partial class Init
+    [Migration("20180707100113_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,7 @@ namespace HappyDog.Domain.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<int>("ViewCount");
@@ -51,16 +52,19 @@ namespace HappyDog.Domain.Migrations
 
                     b.Property<string>("Color")
                         .IsRequired()
+                        .HasColumnType("varchar(10)")
                         .HasMaxLength(10);
 
                     b.Property<string>("Label")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<int>("State");
 
                     b.Property<string>("Value")
                         .IsRequired()
+                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
@@ -89,10 +93,12 @@ namespace HappyDog.Domain.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("varchar(16)")
                         .HasMaxLength(16);
 
                     b.Property<string>("UserName")
                         .IsRequired()
+                        .HasColumnType("varchar(12)")
                         .HasMaxLength(12);
 
                     b.HasKey("Id");
