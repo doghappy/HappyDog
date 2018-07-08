@@ -1,5 +1,7 @@
 ﻿using HappyDog.Domain.Entities;
+using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,9 +19,13 @@ namespace HappyDog.Domain.Identity
 
         readonly HappyDogContext db;
 
-        public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.SecurityStamp = Guid.NewGuid().ToString().ToLower().Replace("-", "");
+            user.PasswordHash = HashEncryptor.HmacSha1(user.SecurityStamp, user.PasswordHash);
+            await db.Users.AddAsync(user);
+            await db.SaveChangesAsync();
+            return IdentityResult.Success;
         }
 
         public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
@@ -34,9 +40,10 @@ namespace HappyDog.Domain.Identity
             throw new NotImplementedException();
         }
 
-        public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await db.Users.AsNoTracking()
+                .FirstOrDefaultAsync(u => u.UserName.Equals(normalizedUserName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
@@ -51,12 +58,12 @@ namespace HappyDog.Domain.Identity
 
         public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(user.UserName);
         }
 
         public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)

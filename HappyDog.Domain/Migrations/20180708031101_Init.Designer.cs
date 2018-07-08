@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180707100113_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180708031101_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,9 +77,15 @@ namespace HappyDog.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -91,10 +97,25 @@ namespace HappyDog.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Password")
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(16)")
-                        .HasMaxLength(16);
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("SecurityStamp")
+                        .IsRequired()
+                        .HasColumnType("char(32)")
+                        .HasMaxLength(32);
 
                     b.Property<string>("UserName")
                         .IsRequired()

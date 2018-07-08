@@ -13,12 +13,12 @@ namespace HappyDog.Domain.DataTransferObjects.User
 
         [Required(ErrorMessage = "请输入密码")]
         [Display(Name = "密码")]
-        [StringLength(16, MinimumLength = 8, ErrorMessage = "密码长度8-16位")]
+        [StringLength(16, MinimumLength = 6, ErrorMessage = "密码长度6-16位")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "请确认密码")]
         [Display(Name = "确认密码")]
-        [StringLength(16, MinimumLength = 8, ErrorMessage = "密码长度8-16位")]
+        [StringLength(16, MinimumLength = 6, ErrorMessage = "密码长度6-16位")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "请输入邮箱")]

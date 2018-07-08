@@ -75,9 +75,15 @@ namespace HappyDog.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -99,16 +105,15 @@ namespace HappyDog.Domain.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("NormalizedEmail")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
-                        .HasMaxLength(16);
+                        .HasMaxLength(50);
 
-                    b.Property<Guid>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .IsRequired()
+                        .HasColumnType("char(32)")
+                        .HasMaxLength(32);
 
                     b.Property<string>("UserName")
                         .IsRequired()
