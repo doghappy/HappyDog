@@ -29,7 +29,7 @@
             <i class="fa fa-line-chart" aria-hidden="true"></i>
             @Model.ViewCount
         </p>
-        @if (User.Identity.IsAuthenticated)
+        @if (User.IsInRole("Owner"))
         {
             <a class="btn btn-outline-primary" href="@Url.Action("Edit", new { Id = Model.Id })">
                 <i class="fa fa-pencil"></i>
