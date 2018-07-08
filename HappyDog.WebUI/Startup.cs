@@ -12,6 +12,7 @@ using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Identity;
+using System;
 
 namespace HappyDog.WebUI
 {
@@ -37,14 +38,14 @@ namespace HappyDog.WebUI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.SlidingExpiration = true;
-                    options.LoginPath = "/User/SignIn";
-                    options.LogoutPath = "/User/SignOut";
-                    options.AccessDeniedPath = "/AccessDenied.html";
-                });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options =>
+            //    {
+            //        options.SlidingExpiration = true;
+            //        options.LoginPath = "/User/SignIn";
+            //        options.LogoutPath = "/User/SignOut";
+            //        options.AccessDeniedPath = "/AccessDenied.html";
+            //    });
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
@@ -52,6 +53,22 @@ namespace HappyDog.WebUI
             services.AddIdentity<User, Role>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<Role>, RoleStore>();
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
+                options.Lockout.MaxFailedAccessAttempts = 9;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/User/SignIn";
+                options.AccessDeniedPath = "/User/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();

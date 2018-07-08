@@ -32,8 +32,6 @@ namespace HappyDog.Domain.Entities
 
         public int AccessFailedCount { get; set; }
 
-        public bool LockoutEnabled { get; set; }
-
         public DateTimeOffset? LockoutEnd { get; set; }
 
         public List<UserRole> UserRoles { get; set; }

@@ -28,14 +28,14 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, null);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, null);
             ViewBag.Pager = pager;
             return View(data);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await articleService.GetAsync(id, User.Identity.IsAuthenticated);
+            var article = await articleService.GetAsync(id, User.IsInRole("Owner"));
             if (article == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Net(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Net);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Net);
             ViewBag.Pager = pager;
             return View(data);
         }
@@ -57,7 +57,7 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Database(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Database);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Database);
             ViewBag.Pager = pager;
             return View(data);
         }
@@ -65,7 +65,7 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Windows(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Windows);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Windows);
             ViewBag.Pager = pager;
             return View(data);
         }
@@ -73,7 +73,7 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Read(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Read);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Read);
             ViewBag.Pager = pager;
             return View(data);
         }
@@ -81,15 +81,15 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Essays(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.Identity.IsAuthenticated, pager, ArticleCategory.Essays);
+            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Essays);
             ViewBag.Pager = pager;
             return View(data);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Edit(int id)
         {
-            var article = await articleService.GetAsync(id, User.Identity.IsAuthenticated);
+            var article = await articleService.GetAsync(id, true);
             if (article == null)
             {
                 return NotFound();
@@ -102,8 +102,8 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [FromForm]EditArticleDto dto)
         {
@@ -119,15 +119,15 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Post()
         {
             ViewBag.Categories = await categoryService.GetCategoriesAsync();
             return View();
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post([FromForm]PostArticleDto dto)
         {

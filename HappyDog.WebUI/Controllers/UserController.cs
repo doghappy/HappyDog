@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
-using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -79,17 +72,23 @@ namespace HappyDog.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await userService.GetUserAsync(dto.UserName);
-                var result = await signInManager.PasswordSignInAsync(user, dto.Password, dto.RememberMe, true);
+                var result = await signInManager.PasswordSignInAsync(dto.UserName, dto.Password, dto.RememberMe, true);
                 if (result.Succeeded)
                 {
                     if (string.IsNullOrWhiteSpace(returnUrl))
-                    {
                         return RedirectToAction("Index", "Article");
+                    else
+                        return Redirect(returnUrl);
+                }
+                else
+                {
+                    if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError(nameof(dto.Password), "账号已锁定20分钟");
                     }
                     else
                     {
-                        return Redirect(returnUrl);
+                        ModelState.AddModelError(nameof(dto.Password), "密码错误");
                     }
                 }
             }
@@ -113,7 +112,7 @@ namespace HappyDog.WebUI.Controllers
                 {
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        return RedirectToAction("Index", "Article");
+                        return RedirectToAction("SignIn");
                     }
                     else
                     {
@@ -121,6 +120,11 @@ namespace HappyDog.WebUI.Controllers
                     }
                 }
             }
+            return View();
+        }
+
+        public IActionResult AccessDenied(string returnUrl)
+        {
             return View();
         }
     }

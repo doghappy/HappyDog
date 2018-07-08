@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "拒绝访问";
+}
+
+@section Styles{
+    <style>
+        #svg { display: block; margin: 0 auto; margin-top: 4rem; }
+        @@media (min-width: 768px) {
+            #svg { width: 50%; height: 50%; }
+        }
+        .container, .body-content { position: relative; overflow-y: hidden; }
+    </style>
+}
+
+<div class="container body-content">
+    <div style="position:absolute;">
+        <h2 class="mt-4">拒绝访问</h2>
+        <i class="fa fa-frown-o fa-5x"></i>
+    </div>
+    <img id="svg" class="img-fluid" src="~/images/moonRobot.svg" />
+</div>

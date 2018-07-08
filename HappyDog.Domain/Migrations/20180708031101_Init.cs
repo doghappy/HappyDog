@@ -47,7 +47,6 @@ namespace HappyDog.Domain.Migrations
                     SecurityStamp = table.Column<string>(type: "char(32)", maxLength: 32, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true)
                 },
                 constraints: table =>

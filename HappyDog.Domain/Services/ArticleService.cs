@@ -19,10 +19,10 @@ namespace HappyDog.Domain.Services
 
         readonly HappyDogContext db;
 
-        public async Task<Article> GetAsync(int id, bool isAuthenticated)
+        public async Task<Article> GetAsync(int id, bool isOwner)
         {
             var article = await db.Articles.Include(a => a.Category)
-                .SingleOrDefaultAsync(a => a.Id == id && (isAuthenticated || a.State == BaseState.Enable));
+                .SingleOrDefaultAsync(a => a.Id == id && (isOwner || a.State == BaseState.Enable));
             if (article?.State == BaseState.Enable)
             {
                 article.ViewCount++;
@@ -31,19 +31,19 @@ namespace HappyDog.Domain.Services
             return article;
         }
 
-        public IQueryable<Article> Get(bool isAuthenticated, Enums.ArticleCategory? cid)
+        public IQueryable<Article> Get(bool isOwner, Enums.ArticleCategory? cid)
         {
             return db.Articles.Include(a => a.Category).AsNoTracking()
                 .Where(a =>
-                    (isAuthenticated || a.State == BaseState.Enable)
+                    (isOwner || a.State == BaseState.Enable)
                     && (!cid.HasValue || a.CategoryId == (int?)cid.Value)
                 )
                 .OrderByDescending(a => a.Id);
         }
 
-        public async Task<List<Article>> Get(bool isAuthenticated, Pager pager, Enums.ArticleCategory? cid)
+        public async Task<List<Article>> Get(bool isOwner, Pager pager, Enums.ArticleCategory? cid)
         {
-            var query = Get(isAuthenticated, cid);
+            var query = Get(isOwner, cid);
             pager.TotalItems = await query.CountAsync();
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }
