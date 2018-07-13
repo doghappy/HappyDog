@@ -123,6 +123,12 @@ namespace HappyDog.WebUI.Controllers
             return View();
         }
 
+        public async Task<IActionResult> SignOut()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Article");
+        }
+
         public IActionResult AccessDenied(string returnUrl)
         {
             return View();

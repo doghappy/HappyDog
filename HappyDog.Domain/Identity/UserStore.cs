@@ -3,12 +3,14 @@ using HappyDog.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace HappyDog.Domain.Identity
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserLockoutStore<User>
+    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserLockoutStore<User>, IUserRoleStore<User>
     {
         public UserStore(HappyDogContext db)
         {
@@ -40,7 +42,9 @@ namespace HappyDog.Domain.Identity
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            return await db.Users.FirstOrDefaultAsync(u => u.UserName.Equals(normalizedUserName, StringComparison.InvariantCultureIgnoreCase));
+            return await db.Users
+                .Include(u => u.UserRoles).ThenInclude(r => r.Role)
+                .FirstOrDefaultAsync(u => u.UserName.Equals(normalizedUserName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
@@ -124,6 +128,32 @@ namespace HappyDog.Domain.Identity
         public Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
+        }
+
+        public Task AddToRoleAsync(User user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveFromRoleAsync(User user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<string>> GetRolesAsync(User user, CancellationToken cancellationToken)
+        {
+            var roles = user.UserRoles.Select(r => r.Role.Name).ToList();
+            return Task.FromResult<IList<string>>(roles);
+        }
+
+        public Task<bool> IsInRoleAsync(User user, string roleName, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.UserRoles.Any(ur => ur.Role.Name == roleName));
+        }
+
+        public Task<IList<User>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
