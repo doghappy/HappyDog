@@ -13,6 +13,8 @@ using HappyDog.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Identity;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace HappyDog.WebUI
 {
@@ -84,7 +86,7 @@ namespace HappyDog.WebUI
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
@@ -92,6 +94,15 @@ namespace HappyDog.WebUI
             app.UseStaticFiles();
             app.UseAuthentication();
             //app.UseCookiePolicy();
+
+            app.UseStatusCodePages(async context =>
+            {
+                if (context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    context.HttpContext.Request.Path = "/Home/NotFound";
+                    await context.Next(context.HttpContext);
+                }
+            });
 
             app.UseMvc(routes =>
             {
