@@ -152,7 +152,7 @@ namespace HappyDog.WebUI.Controllers
             else
             {
                 var pager = new Pager(page, PageSize);
-                var data = await articleService.Search(User.IsInRole("Owner"), q, pager, null);
+                var data = await articleService.Search(User.IsInRole("Owner"), q, pager);
                 ViewBag.Pager = pager;
                 ViewBag.SearchValue = q;
                 return View(data);

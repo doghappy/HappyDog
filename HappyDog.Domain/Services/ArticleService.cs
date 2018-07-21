@@ -1,6 +1,8 @@
 ﻿using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
+using HappyDog.Domain.Search;
+using HappyDog.Domain.Search.Article;
 using HappyDog.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -48,9 +50,16 @@ namespace HappyDog.Domain.Services
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }
 
-        public async Task<List<Article>> Search(bool isOwner, string keyword, Pager pager, ArticleCategory? cid)
+        public async Task<List<Article>> Search(bool isOwner, string keyword, Pager pager)
         {
-            var query = Get(isOwner, cid).Where(a => a.Title.Contains(keyword));
+            var searcher = new HappySearcher<IOrderedQueryable<Article>>();
+            searcher.Register(new NetSearcher(db, isOwner));
+            searcher.Register(new DatabaseSearcher(db, isOwner));
+            searcher.Register(new WindowsSearcher(db, isOwner));
+            searcher.Register(new ReadSearcher(db, isOwner));
+            searcher.Register(new EssaysSearcher(db, isOwner));
+            searcher.Register(new ArticleSearcher(db, isOwner));
+            var query = searcher.Search(keyword);
             pager.TotalItems = await query.CountAsync();
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }

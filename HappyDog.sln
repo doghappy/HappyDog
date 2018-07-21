@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.WebUI.Test", "Happ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{EDD60591-CBF6-4123-B289-553D7482B34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.RecoverData", "HappyDog.RecoverData\HappyDog.RecoverData.csproj", "{29A3B2C4-EAC3-4D5A-A78F-44EEC18EFC8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.RecoverData", "HappyDog.RecoverData\HappyDog.RecoverData.csproj", "{29A3B2C4-EAC3-4D5A-A78F-44EEC18EFC8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{18B2B344-9C47-43FA-A95E-487B59419747}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

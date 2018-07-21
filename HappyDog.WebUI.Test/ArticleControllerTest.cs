@@ -234,7 +234,7 @@ namespace HappyDog.WebUI.Test
         }
 
         [TestMethod]
-        public async Task PostAsync()
+        public async Task PostTest()
         {
             var db = new HappyDogContext(GetOptions());
             var svc = new ArticleService(db);
@@ -251,6 +251,26 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual("content", article.Content);
             Assert.AreEqual(1, article.CategoryId);
             Assert.AreEqual(BaseState.Enable, article.State);
+        }
+
+        [TestMethod]
+        public async Task EmptySearchTest()
+        {
+            var controller = new ArticleController(null, null, null);
+            var result = await controller.Search(" ");
+            var viewResult = result as ViewResult;
+
+            Assert.AreEqual(viewResult.ViewName, "EmptySearch");
+        }
+
+        [TestMethod]
+        public async Task NetSearchTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Category = new Category() });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            ///
         }
     }
 }
