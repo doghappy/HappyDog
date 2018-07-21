@@ -8,7 +8,7 @@ namespace HappyDog.Domain.Search.Article
     {
         public WindowsSearcher(HappyDogContext db, bool isOwner) : base(db, isOwner) { }
 
-        protected override ArticleCategory Category => ArticleCategory.Net;
+        protected override ArticleCategory Category => ArticleCategory.Windows;
 
         public override Regex Regex => new Regex(@"^windows:(.+)$");
 

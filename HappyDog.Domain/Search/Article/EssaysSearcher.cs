@@ -8,7 +8,7 @@ namespace HappyDog.Domain.Search.Article
     {
         public EssaysSearcher(HappyDogContext db, bool isOwner) : base(db, isOwner) { }
 
-        protected override ArticleCategory Category => ArticleCategory.Net;
+        protected override ArticleCategory Category => ArticleCategory.Essays;
 
         public override Regex Regex => new Regex(@"^essays:(.+)$");
 
