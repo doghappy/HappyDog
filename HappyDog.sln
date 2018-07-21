@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{EDD6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.RecoverData", "HappyDog.RecoverData\HappyDog.RecoverData.csproj", "{29A3B2C4-EAC3-4D5A-A78F-44EEC18EFC8E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{18B2B344-9C47-43FA-A95E-487B59419747}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
