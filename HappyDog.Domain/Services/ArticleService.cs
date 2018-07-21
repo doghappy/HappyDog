@@ -91,5 +91,14 @@ namespace HappyDog.Domain.Services
             await db.SaveChangesAsync();
             return article;
         }
+
+        public async Task<List<Article>> GetHotAsync(int count)
+        {
+            return await db.Articles.Include(a => a.Category).AsNoTracking()
+                .Where(a => a.Status == BaseStatus.Enable)
+                .OrderByDescending(a => a.ViewCount)
+                .Take(count)
+                .ToListAsync();
+        }
     }
 }

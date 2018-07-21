@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.WebUI.Controllers
 {
-    public class ArticleController : Controller, ISearchable
+    public class ArticleController : Controller
     {
         public ArticleController(IMapper mapper, ArticleService articleService, CategoryService categoryService)
         {
@@ -145,17 +145,28 @@ namespace HappyDog.WebUI.Controllers
 
         public async Task<IActionResult> Search(string q, int page = 1)
         {
+            ViewBag.SearchValue = q;
             if (string.IsNullOrWhiteSpace(q))
             {
-                return View("EmptySearch");
+                ViewBag.Message = "请输入关键词";
+                var hotData = await articleService.GetHotAsync(20);
+                return View("EmptySearch", hotData);
             }
             else
             {
                 var pager = new Pager(page, PageSize);
                 var data = await articleService.Search(User.IsInRole("Owner"), q, pager);
-                ViewBag.Pager = pager;
-                ViewBag.SearchValue = q;
-                return View(data);
+                if (data.Count == 0)
+                {
+                    ViewBag.Message = "未找到相关数据";
+                    var hotData = await articleService.GetHotAsync(20);
+                    return View("EmptySearch", hotData);
+                }
+                else
+                {
+                    ViewBag.Pager = pager;
+                    return View(data);
+                }
             }
         }
     }

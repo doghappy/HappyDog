@@ -1,7 +1,16 @@
 ﻿@{
     ViewData["Title"] = "搜索";
+    ViewData["SearchValue"] = ViewBag.SearchValue;
 }
 
-<div class="container body-content animated fadeIn mt-5">
-    空
+<div class="container body-content animated fadeIn">
+    <div class="alert alert-primary mt-5" role="alert">
+        @ViewBag.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <h2 class="mt-4 mb-4">Top 20</h2>
+    @await Component.InvokeAsync("ArticleList", new { articles = Model })
 </div>
