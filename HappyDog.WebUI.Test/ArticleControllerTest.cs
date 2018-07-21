@@ -265,7 +265,7 @@ namespace HappyDog.WebUI.Test
         }
 
         [TestMethod]
-        public async Task NetSearchTest()
+        public async Task NetSearchWithoutOwnerTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Categories.AddAsync(new Category { Id = 1 });
@@ -275,14 +275,7 @@ namespace HappyDog.WebUI.Test
             await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
-
-            //var claims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Role, "User"),
-            //    new Claim()
-            //}
             var identity = new ClaimsIdentity(new List<Claim>());
-
             var controller = new ArticleController(null, articleService, null)
             {
                 ControllerContext = new ControllerContext
@@ -296,7 +289,44 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Search("net:est");
             var viewReuslt = result as ViewResult;
-            Assert.AreEqual(viewReuslt.ViewName, string.Empty);
+            var model = viewReuslt.Model as List<Article>;
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(1, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task NetSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(null, articleService, null)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("net:est");
+            var viewReuslt = result as ViewResult;
+            var model = viewReuslt.Model as List<Article>;
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
         }
         #endregion
     }
