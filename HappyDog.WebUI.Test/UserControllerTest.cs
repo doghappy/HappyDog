@@ -2,9 +2,11 @@
 using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
+using HappyDog.Domain.Identity;
 using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -33,6 +35,11 @@ namespace HappyDog.WebUI.Test
             //var serviceProviderMock = new Mock<IServiceProvider>();
             //serviceProviderMock.Setup(s => s.GetService(typeof(IServiceProvider)))
             //    .Returns(authServiceMock.Object);
+
+            //var userStore = new UserStore(db);
+            //var passwordHasher = new PasswordHasher();
+            //var userManager=new UserManager(userStore,null,passwordHasher,null,null,null,)
+            //var signInManager =new SignInManager()
 
             var controller = new UserController(svc, null, null, Mapper)
             {

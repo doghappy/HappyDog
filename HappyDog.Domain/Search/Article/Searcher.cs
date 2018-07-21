@@ -26,7 +26,7 @@ namespace HappyDog.Domain.Search.Article
         {
             return db.Articles.Include(a => a.Category).AsNoTracking()
                    .Where(a =>
-                       (isOwner || a.State == BaseState.Enable)
+                       (isOwner || a.Status == BaseStatus.Enable)
                        && a.CategoryId == (int)Category
                        && a.Title.Contains(Keyword)
                    )

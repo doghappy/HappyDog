@@ -24,7 +24,7 @@ namespace HappyDog.Domain.Entities
 
         public int ViewCount { get; set; }
 
-        public BaseState State { get; set; }
+        public BaseStatus Status { get; set; }
 
         public Category Category { get; set; }
     }

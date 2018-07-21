@@ -1,6 +1,6 @@
 ﻿namespace HappyDog.Domain.Enums
 {
-    public enum BaseState
+    public enum BaseStatus
     {
         Disable,
         Enable

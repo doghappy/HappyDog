@@ -24,8 +24,8 @@ namespace HappyDog.Domain.Services
         public async Task<Article> GetAsync(int id, bool isOwner)
         {
             var article = await db.Articles.Include(a => a.Category)
-                .SingleOrDefaultAsync(a => a.Id == id && (isOwner || a.State == BaseState.Enable));
-            if (article?.State == BaseState.Enable)
+                .SingleOrDefaultAsync(a => a.Id == id && (isOwner || a.Status == BaseStatus.Enable));
+            if (article?.Status == BaseStatus.Enable)
             {
                 article.ViewCount++;
                 await db.SaveChangesAsync();
@@ -37,7 +37,7 @@ namespace HappyDog.Domain.Services
         {
             return db.Articles.Include(a => a.Category).AsNoTracking()
                 .Where(a =>
-                    (isOwner || a.State == BaseState.Enable)
+                    (isOwner || a.Status == BaseStatus.Enable)
                     && (!cid.HasValue || a.CategoryId == (int?)cid.Value)
                 )
                 .OrderByDescending(a => a.Id);
@@ -72,7 +72,7 @@ namespace HappyDog.Domain.Services
                 article.CategoryId = dto.CategoryId;
                 article.Title = dto.Title;
                 article.Content = dto.Content;
-                article.State = dto.State;
+                article.Status = dto.State;
                 await db.SaveChangesAsync();
             }
         }
@@ -84,7 +84,7 @@ namespace HappyDog.Domain.Services
                 CategoryId = dto.CategoryId,
                 Content = dto.Content,
                 CreateTime = DateTime.Now,
-                State = dto.State,
+                Status = dto.State,
                 Title = dto.Title
             };
             await db.Articles.AddAsync(article);

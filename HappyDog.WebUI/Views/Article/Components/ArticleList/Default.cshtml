@@ -5,17 +5,17 @@
     @foreach (var item in Model)
     {
         <div class="col-md-6 mb-3">
-            <div class="card@(item.State == BaseState.Disable ? " text-white bg-secondary" : "")">
+            <div class="card@(item.Status == BaseStatus.Disable ? " text-white bg-secondary" : "")">
                 <div class="card-body">
                     <a href="@Url.Action(item.Category.Value, "Article")">
                         <strong style="color:@item.Category.Color">@item.Category.Label</strong>
                     </a>
                     <h5 class="card-title">
-                        <a class="@(item.State == BaseState.Enable ? "text-dark" : "text-white")" href="@Url.Action("Detail",new { id = item.Id })">
+                        <a class="@(item.Status == BaseStatus.Enable ? "text-dark" : "text-white")" href="@Url.Action("Detail",new { id = item.Id })">
                             @item.Title
                         </a>
                     </h5>
-                    <p class="mb-1 @(item.State == BaseState.Enable ? "text-muted" : "text-light")">
+                    <p class="mb-1 @(item.Status == BaseStatus.Enable ? "text-muted" : "text-light")">
                         <i class="fa fa-calendar"></i>
                         @item.CreateTime.ToShortDateString()
                     </p>

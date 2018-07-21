@@ -16,6 +16,6 @@ namespace HappyDog.Domain.DataTransferObjects.Article
 
         public int CategoryId { get; set; }
 
-        public BaseState State { get; set; }
+        public BaseStatus State { get; set; }
     }
 }
