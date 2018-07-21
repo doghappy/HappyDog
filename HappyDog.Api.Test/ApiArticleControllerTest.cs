@@ -459,7 +459,7 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseStatus.Enable };
+            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
             await controller.Put(1, dto);
 
             Assert.AreEqual(1, article.Id);
@@ -478,7 +478,7 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, State = BaseStatus.Enable };
+            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
             await controller.Post(dto);
 
             var list = db.Articles.ToList();

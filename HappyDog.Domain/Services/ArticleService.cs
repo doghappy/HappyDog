@@ -72,7 +72,7 @@ namespace HappyDog.Domain.Services
                 article.CategoryId = dto.CategoryId;
                 article.Title = dto.Title;
                 article.Content = dto.Content;
-                article.Status = dto.State;
+                article.Status = dto.Status;
                 await db.SaveChangesAsync();
             }
         }
@@ -84,7 +84,7 @@ namespace HappyDog.Domain.Services
                 CategoryId = dto.CategoryId,
                 Content = dto.Content,
                 CreateTime = DateTime.Now,
-                Status = dto.State,
+                Status = dto.Status,
                 Title = dto.Title
             };
             await db.Articles.AddAsync(article);

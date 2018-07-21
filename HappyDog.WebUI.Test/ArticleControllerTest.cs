@@ -234,7 +234,7 @@ namespace HappyDog.WebUI.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(Mapper, svc, null);
 
-            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, State = BaseStatus.Enable };
+            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
             await controller.Edit(1, dto);
 
             Assert.AreEqual(1, article.Id);
@@ -251,7 +251,7 @@ namespace HappyDog.WebUI.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(Mapper, svc, null);
 
-            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, State = BaseStatus.Enable };
+            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
             await controller.Post(dto);
 
             var list = await db.Articles.ToListAsync();
