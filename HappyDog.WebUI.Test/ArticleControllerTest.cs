@@ -358,6 +358,41 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
+
+        [TestMethod]
+        public async Task DatabaseSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Categories.AddAsync(new Category { Id = 3 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(null, articleService, null)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("db:est");
+            var viewReuslt = result as ViewResult;
+            var model = viewReuslt.Model as List<Article>;
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
+        }
         #endregion
     }
 }
