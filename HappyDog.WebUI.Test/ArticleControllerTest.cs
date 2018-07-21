@@ -268,11 +268,22 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EmptySearchTest()
         {
-            var controller = new ArticleController(null, null, null);
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var controller = new ArticleController(null, articleService, null);
+
             var result = await controller.Search(" ");
             var viewResult = result as ViewResult;
+            var model=viewResult.Model as List<Article>;
 
             Assert.AreEqual(viewResult.ViewName, "EmptySearch");
+            Assert.AreEqual(2, model.Count);
         }
 
         [TestMethod]
