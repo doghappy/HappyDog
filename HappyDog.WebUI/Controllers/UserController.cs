@@ -95,33 +95,33 @@ namespace HappyDog.WebUI.Controllers
             return View(dto);
         }
 
-        //public IActionResult SignUp(string returnUrl)
-        //{
-        //    return View();
-        //}
+        public IActionResult SignUp(string returnUrl)
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> SignUp(string returnUrl, SignUpDto dto)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = mapper.Map<User>(dto);
-        //        var result = await userManager.CreateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-        //            if (string.IsNullOrWhiteSpace(returnUrl))
-        //            {
-        //                return RedirectToAction("SignIn");
-        //            }
-        //            else
-        //            {
-        //                return Redirect(returnUrl);
-        //            }
-        //        }
-        //    }
-        //    return View();
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUp(string returnUrl, SignUpDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = mapper.Map<User>(dto);
+                var result = await userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return RedirectToAction("SignIn");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
+                }
+            }
+            return View();
+        }
 
         public async Task<IActionResult> SignOut()
         {

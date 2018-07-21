@@ -12,6 +12,6 @@ namespace HappyDog.Domain.DataTransferObjects.Article
         public int ViewCount { get; set; }
         public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
-        public BaseStatus State { get; set; }
+        public BaseStatus Status { get; set; }
     }
 }
