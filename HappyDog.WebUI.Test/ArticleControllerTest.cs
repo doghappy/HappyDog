@@ -75,15 +75,19 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
-            var mockPrincipal = new Mock<ClaimsPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
             var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = new DefaultHttpContext
                     {
-                        User = mockPrincipal.Object
+                        User = new ClaimsPrincipal(identity)
                     }
                 },
                 PageSize = 2
@@ -160,20 +164,24 @@ namespace HappyDog.WebUI.Test
         public async Task DetailDisableTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Category = new Category(), Status = BaseStatus.Disable });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Category = new Category(), Status = BaseStatus.Enable });
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", CategoryId = 1, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", CategoryId = 1, Status = BaseStatus.Enable });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
-            var mockPrincipal = new Mock<ClaimsPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
             var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = new DefaultHttpContext
                     {
-                        User = mockPrincipal.Object
+                        User = new ClaimsPrincipal(identity)
                     }
                 }
             };
@@ -193,15 +201,18 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
-            var mockPrincipal = new Mock<ClaimsPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
             var controller = new ArticleController(Mapper, svc, null)
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = new DefaultHttpContext
                     {
-                        User = mockPrincipal.Object
+                        User = new ClaimsPrincipal(identity)
                     }
                 }
             };
