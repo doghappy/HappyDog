@@ -8,13 +8,16 @@
 
 @section Styles{
     <link href="//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet" />
+    <link href="~/lib/highlight/styles/vs.css" rel="stylesheet" />
 }
 
 @section Scripts{
     <script src="//cdn.bootcss.com/showdown/1.8.6/showdown.min.js"></script>
+    <script src="~/lib/highlight/highlight.pack.js"></script>
     <script>
         var converter = new showdown.Converter({ tables: true, strikethrough: true });
         $('.markdown-body').html(converter.makeHtml($('#Content').val()))
+        hljs.initHighlightingOnLoad();
     </script>
 }
 

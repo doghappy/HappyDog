@@ -158,7 +158,7 @@ namespace HappyDog.WebUI.Controllers
                 var data = await articleService.Search(User.IsInRole("Owner"), q, pager);
                 if (data.Count == 0)
                 {
-                    ViewBag.Message = "未找到相关数据";
+                    ViewBag.Message = $"未找到与 \"{q}\" 相关的数据";
                     var hotData = await articleService.GetHotAsync(20);
                     return View("EmptySearch", hotData);
                 }
