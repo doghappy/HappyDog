@@ -35,9 +35,11 @@ namespace HappyDog.Domain.Identity
 
         public void Dispose() { }
 
-        public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await db.Users
+                //.Include(u => u.UserRoles).ThenInclude(r => r.Role)
+                .SingleOrDefaultAsync(u => u.Id == int.Parse(userId));
         }
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)

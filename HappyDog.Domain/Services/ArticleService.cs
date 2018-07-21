@@ -31,7 +31,7 @@ namespace HappyDog.Domain.Services
             return article;
         }
 
-        public IQueryable<Article> Get(bool isOwner, Enums.ArticleCategory? cid)
+        public IQueryable<Article> Get(bool isOwner, ArticleCategory? cid)
         {
             return db.Articles.Include(a => a.Category).AsNoTracking()
                 .Where(a =>
@@ -41,9 +41,16 @@ namespace HappyDog.Domain.Services
                 .OrderByDescending(a => a.Id);
         }
 
-        public async Task<List<Article>> Get(bool isOwner, Pager pager, Enums.ArticleCategory? cid)
+        public async Task<List<Article>> Get(bool isOwner, Pager pager, ArticleCategory? cid)
         {
             var query = Get(isOwner, cid);
+            pager.TotalItems = await query.CountAsync();
+            return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
+        }
+
+        public async Task<List<Article>> Search(bool isOwner, string keyword, Pager pager, ArticleCategory? cid)
+        {
+            var query = Get(isOwner, cid).Where(a => a.Title.Contains(keyword));
             pager.TotalItems = await query.CountAsync();
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }

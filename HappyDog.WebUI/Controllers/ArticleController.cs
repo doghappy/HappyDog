@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.WebUI.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticleController : Controller, ISearchable
     {
         public ArticleController(IMapper mapper, ArticleService articleService, CategoryService categoryService)
         {
@@ -140,6 +140,22 @@ namespace HappyDog.WebUI.Controllers
             {
                 ViewBag.Categories = await categoryService.GetCategoriesAsync();
                 return View(dto);
+            }
+        }
+
+        public async Task<IActionResult> Search(string q, int page = 1)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return View("EmptySearch");
+            }
+            else
+            {
+                var pager = new Pager(page, PageSize);
+                var data = await articleService.Search(User.IsInRole("Owner"), q, pager, null);
+                ViewBag.Pager = pager;
+                ViewBag.SearchValue = q;
+                return View(data);
             }
         }
     }

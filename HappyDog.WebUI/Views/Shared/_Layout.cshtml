@@ -80,6 +80,14 @@
                 </div>
               </div>
             </form>-->
+            <form class="form-inline col-sm-2" method="get"
+                  asp-controller="@ViewContext.RouteData.Values["controller"]"
+                  asp-action="Search" style="padding:0;">
+                <input type="text" name="q" class="form-control form-control-sm"
+                       style="width:100%; max-width:unset;"
+                       placeholder="搜索一下"
+                       value="@ViewData["SearchValue"]" />
+            </form>
         </div>
     </nav>
 
