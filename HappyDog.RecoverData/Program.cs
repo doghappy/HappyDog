@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace HappyDog.RecoverData
 {
@@ -36,20 +38,26 @@ namespace HappyDog.RecoverData
             //Console.WriteLine("Recover data success");
             //Console.WriteLine("Press any key to exit");
 
-    int a = 12;
-    int b = 4;
-    Console.WriteLine($"{nameof(a)} = {a}");
-    Console.WriteLine($"{nameof(b)} = {b}");
-    
-    Console.WriteLine();
-    Console.WriteLine("method 1:");
-    Console.WriteLine($"a + b - a: {nameof(a)} = {a + b - a}");
-    Console.WriteLine($"a + b - b: {nameof(b)} = {a + b - b}");
-    
-    Console.WriteLine();
-    Console.WriteLine("method 2:");
-    Console.WriteLine($"(a ^ b) ^ a: {nameof(a)} = {(a ^ b) ^ a}");
-    Console.WriteLine($"(a ^ b) ^ b: {nameof(b)} = {(a ^ b) ^ b}");
+            string[] cultureNames = { "en-US", "se-SE" };
+            string[] strings1 = { "case", "encyclopædia", "encyclopædia", "Archæology" };
+            string[] strings2 = { "Case", "encyclopaedia", "encyclopedia", "ARCHÆOLOGY" };
+            StringComparison[] comparisons = (StringComparison[])Enum.GetValues(typeof(StringComparison));
+
+            foreach (var cultureName in cultureNames)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
+                Console.WriteLine("Current Culture: {0}", CultureInfo.CurrentCulture.Name);
+                for (int ctr = 0; ctr <= strings1.GetUpperBound(0); ctr++)
+                {
+                    foreach (var comparison in comparisons)
+                        Console.WriteLine("   {0} = {1} ({2}): {3}", strings1[ctr],
+                                          strings2[ctr], comparison,
+                                          String.Equals(strings1[ctr], strings2[ctr], comparison));
+
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
 
             Console.ReadKey();
         }
