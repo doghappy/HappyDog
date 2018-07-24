@@ -36,7 +36,7 @@ namespace HappyDog.RecoverData
             //}
 
             //Console.WriteLine("Recover data success");
-            //Console.WriteLine("Press any key to exit");
+            //Console.WriteLine("Press any key to exit");we
 
             string[] cultureNames = { "en-US", "se-SE" };
             string[] strings1 = { "case", "encyclopædia", "encyclopædia", "Archæology" };
