@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Text.RegularExpressions;
 using HappyDog.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +26,7 @@ namespace HappyDog.Domain.Search.Article
                 return db.Articles.Include(a => a.Category).AsNoTracking()
                     .Where(a =>
                         (isOwner || a.Status == BaseStatus.Enable)
-                        && a.Title.Contains(keyword)
+                        && EF.Functions.Like(a.Title, $"%{keyword}%")
                     )
                     .OrderByDescending(a => a.Id);
             }
