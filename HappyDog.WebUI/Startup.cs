@@ -66,7 +66,7 @@ namespace HappyDog.WebUI
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = TimeSpan.FromDays(7),
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
                 options.LoginPath = "/User/SignIn";
                 options.AccessDeniedPath = "/User/AccessDenied";
                 options.SlidingExpiration = true;
