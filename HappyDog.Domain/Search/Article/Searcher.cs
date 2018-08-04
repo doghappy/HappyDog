@@ -1,5 +1,4 @@
-﻿using System;
-using HappyDog.Domain.Enums;
+﻿using HappyDog.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
