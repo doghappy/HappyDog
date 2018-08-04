@@ -123,7 +123,11 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Post()
         {
             ViewBag.Categories = await categoryService.GetCategoriesAsync();
-            return View();
+            var article = new PostArticleDto
+            {
+                Status = BaseStatus.Disable
+            };
+            return View(article);
         }
 
         [HttpPost]

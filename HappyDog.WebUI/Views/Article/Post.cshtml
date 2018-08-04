@@ -5,18 +5,6 @@
     var categories = (List<HappyDog.Domain.Entities.Category>)ViewBag.Categories;
 }
 
-@section Styles{
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-}
-
-@section Scripts{
-    <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE({ element: $("#Content")[0] });
-        simplemde.value($("#Content").val())
-    </script>
-}
-
 <div class="container body-content">
     <h2 class="mt-4">发布新文章</h2>
     @using (Html.BeginForm(FormMethod.Post))
@@ -29,7 +17,7 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Content)
-            @Html.HiddenFor(m => m.Content)
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "height:24rem;" })
             @Html.ValidationMessageFor(m => m.Content, null, new { @class = "text-danger validation-message" })
         </div>
         <div class="form-group col-md-3" style="padding:0">
