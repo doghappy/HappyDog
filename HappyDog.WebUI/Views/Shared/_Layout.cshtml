@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -21,6 +21,7 @@
     <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/iconfont.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     @RenderSection("Styles", required: false)
 </head>
@@ -37,7 +38,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "net" ? " active" : "")">
                     <a class="nav-link" href="@Url.Action("Net","Article")">
-                        <i class="fa fa-cubes"></i>
+                        <i class="iconfont icon-net"></i>
                         .Net
                     </a>
                 </li>
@@ -55,7 +56,7 @@
                 </li>
                 <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "read" ? " active" : "")">
                     <a class="nav-link" href="@Url.Action("Read","Article")">
-                        <i class="fa fa-bookmark"></i>
+                        <i class="iconfont icon-book"></i>
                         阅读
                     </a>
                 </li>
