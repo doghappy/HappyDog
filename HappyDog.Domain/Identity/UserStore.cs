@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HappyDog.Domain.Identity
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserLockoutStore<User>, IUserRoleStore<User>
+    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserLockoutStore<User>, IUserRoleStore<User>, IUserSecurityStampStore<User>
     {
         public UserStore(HappyDogContext db)
         {
@@ -156,6 +156,17 @@ namespace HappyDog.Domain.Identity
         public Task<IList<User>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task SetSecurityStampAsync(User user, string stamp, CancellationToken cancellationToken)
+        {
+            user.SecurityStamp = stamp;
+            await db.SaveChangesAsync();
+        }
+
+        public Task<string> GetSecurityStampAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.SecurityStamp);
         }
     }
 }
