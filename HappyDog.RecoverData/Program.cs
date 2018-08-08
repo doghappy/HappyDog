@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HappyDog.RecoverData
 {
@@ -59,9 +60,20 @@ namespace HappyDog.RecoverData
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            Console.WriteLine("1");
+            TestAsync();
+            Console.WriteLine("2");
+
 
             Console.ReadKey();
+        }
+
+        static Task TestAsync()
+        {
+            Console.WriteLine("start delay");
+            Task.Delay(2000);
+            Console.WriteLine("end delay");
+            return Task.CompletedTask;
         }
     }
 }

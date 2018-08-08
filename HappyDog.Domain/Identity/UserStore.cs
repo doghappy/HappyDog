@@ -38,7 +38,7 @@ namespace HappyDog.Domain.Identity
         public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             return await db.Users
-                //.Include(u => u.UserRoles).ThenInclude(r => r.Role)
+                .Include(u => u.UserRoles).ThenInclude(r => r.Role)
                 .SingleOrDefaultAsync(u => u.Id == int.Parse(userId));
         }
 

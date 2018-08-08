@@ -37,7 +37,6 @@ namespace HappyDog.WebUI
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
