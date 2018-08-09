@@ -20,7 +20,7 @@ namespace HappyDog.Api.Test
         #region get: api/article/{id}
 
         [TestMethod]
-        public async Task NonAuthGetDisableTest()
+        public async Task OwerGetDisableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable });
@@ -41,13 +41,13 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = (await controller.Get(1)) as NotFoundResult;
+            var result = (await controller.Detail(1)) as NotFoundResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(404, result.StatusCode);
         }
 
         [TestMethod]
-        public async Task NonAuthGetEnableTest()
+        public async Task OwerGetEnableTest()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
@@ -68,7 +68,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = (await controller.Get(2)) as JsonResult;
+            var result = (await controller.Detail(2)) as JsonResult;
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
@@ -97,7 +97,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = (await controller.Get(1)) as JsonResult;
+            var result = (await controller.Detail(1)) as JsonResult;
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Id);
@@ -126,7 +126,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = (await controller.Get(2)) as JsonResult;
+            var result = (await controller.Detail(2)) as JsonResult;
             var data = result.Value as ArticleDto;
             Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
@@ -137,9 +137,9 @@ namespace HappyDog.Api.Test
 
         #region get: api/article
 
-        #region Non Auth
+        #region Non Onwer Get
         [TestMethod]
-        public async Task NonAuthGetManyWithNoCidAndDefaultPageIndex()
+        public async Task OwerGetListWithDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
@@ -167,7 +167,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(null);
+            var result = await controller.List();
             Assert.AreEqual(7, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -176,7 +176,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAuthGetManyWithNoCidAndPageIndexEq4()
+        public async Task OwerGetListWithPageIndexEq4()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
@@ -204,7 +204,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(null, 4);
+            var result = await controller.List(4);
             Assert.AreEqual(7, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -213,19 +213,17 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task NonAuthGetManyWithCidEq1AndDefaultPageIndex()
+        public async Task OwerGetListWithOutRangePageIndex()
         {
             var db = new HappyDogContext(GetOptions());
-            var c1 = new Category { Id = 1 };
-            var c2 = new Category { Id = 2 };
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = new Category() });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
@@ -243,16 +241,15 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(ArticleCategory.Net, 1);
-            Assert.AreEqual(3, result.TotalItems);
+            var result = await controller.List(5);
+            Assert.AreEqual(7, result.TotalItems);
 
             var data = result.Data.ToList();
-            Assert.AreEqual(2, data.Count);
-            Assert.AreEqual(7, data[0].Id);
+            Assert.AreEqual(0, data.Count);
         }
 
         [TestMethod]
-        public async Task NonAuthGetManyWithCidEq1AndPageIndexEq2()
+        public async Task OwerGetNet()
         {
             var db = new HappyDogContext(GetOptions());
             var c1 = new Category { Id = 1 };
@@ -260,11 +257,7 @@ namespace HappyDog.Api.Test
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c1 });
             await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c2 });
             await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c1 });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
@@ -282,18 +275,158 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(ArticleCategory.Net, 2);
-            Assert.AreEqual(3, result.TotalItems);
+            var result = await controller.Net();
+            Assert.AreEqual(2, result.TotalItems);
 
             var data = result.Data.ToList();
-            Assert.AreEqual(1, data.Count);
-            Assert.AreEqual(3, data[0].Id);
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task OwerGetDatabase()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c2 = new Category { Id = 2 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Database();
+            Assert.AreEqual(2, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task OwerGetWindows()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c3 = new Category { Id = 3 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c3 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c3 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c3 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Windows();
+            Assert.AreEqual(2, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task OwerGetRead()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c4 = new Category { Id = 4 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c4 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c4 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c4 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Read();
+            Assert.AreEqual(2, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task OwerGetEssays()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c5 = new Category { Id = 5 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c5 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c5 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c5 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Essays();
+            Assert.AreEqual(2, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
         }
         #endregion
 
-        #region Has Auth
+        #region Onwer Get
         [TestMethod]
-        public async Task GetManyWithNoCidAndDefaultPageIndex()
+        public async Task GetListWithDefaultPageIndex()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
@@ -321,7 +454,7 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(null);
+            var result = await controller.List();
             Assert.AreEqual(8, result.TotalItems);
 
             var data = result.Data.ToList();
@@ -330,7 +463,7 @@ namespace HappyDog.Api.Test
         }
 
         [TestMethod]
-        public async Task GetManyWithNoCidAndPageIndexEq4()
+        public async Task GetListWithPageIndexEq4()
         {
             var db = new HappyDogContext(GetOptions());
             await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
@@ -358,90 +491,223 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var result = await controller.Get(null, 4);
+            var result = await controller.List(4);
             Assert.AreEqual(8, result.TotalItems);
-
-            var data = result.Data.ToList();
-            Assert.AreEqual(2, data.Count);
-            Assert.AreEqual(2, data[0].Id);
-        }
-
-        [TestMethod]
-        public async Task GetManyWithCidEq1AndDefaultPageIndex()
-        {
-            var db = new HappyDogContext(GetOptions());
-            var c1 = new Category { Id = 1 };
-            var c2 = new Category { Id = 2 };
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = c2 });
-            await db.SaveChangesAsync();
-            var svc = new ArticleService(db);
-
-            var mockPrincipal = new Mock<ClaimsPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc, Mapper)
-            {
-                PageSize = 2,
-                ControllerContext = new ControllerContext
-                {
-                    HttpContext = new DefaultHttpContext
-                    {
-                        User = mockPrincipal.Object
-                    }
-                }
-            };
-
-            var result = await controller.Get(ArticleCategory.Net, 1);
-            Assert.AreEqual(4, result.TotalItems);
-
-            var data = result.Data.ToList();
-            Assert.AreEqual(2, data.Count);
-            Assert.AreEqual(7, data[0].Id);
-        }
-
-        [TestMethod]
-        public async Task GetManyWithCidEq1AndPageIndexEq2()
-        {
-            var db = new HappyDogContext(GetOptions());
-            var c1 = new Category { Id = 1 };
-            var c2 = new Category { Id = 2 };
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = c2 });
-            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = c1 });
-            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = c2 });
-            await db.SaveChangesAsync();
-            var svc = new ArticleService(db);
-
-            var mockPrincipal = new Mock<ClaimsPrincipal>();
-            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
-            var controller = new ArticleController(svc, Mapper)
-            {
-                PageSize = 2,
-                ControllerContext = new ControllerContext
-                {
-                    HttpContext = new DefaultHttpContext
-                    {
-                        User = mockPrincipal.Object
-                    }
-                }
-            };
-
-            var result = await controller.Get(ArticleCategory.Net, 2);
-            Assert.AreEqual(4, result.TotalItems);
 
             var data = result.Data.ToList();
             Assert.AreEqual(2, data.Count);
             Assert.AreEqual(1, data[1].Id);
+        }
+
+        [TestMethod]
+        public async Task GetListWithOutRangePageIndex()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 5, Title = "article 5", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 6, Title = "article 6", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 7, Title = "article 7", Status = BaseStatus.Enable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 8, Title = "article 8", Status = BaseStatus.Enable, Category = new Category() });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.List(5);
+            Assert.AreEqual(8, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(0, data.Count);
+        }
+
+        [TestMethod]
+        public async Task GetNet()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c2 = new Category { Id = 2 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c1 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Net();
+            Assert.AreEqual(3, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task GetDatabase()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c2 = new Category { Id = 2 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c2 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c2 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Database();
+            Assert.AreEqual(3, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task GetWindows()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c3 = new Category { Id = 3 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c3 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c3 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c3 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Windows();
+            Assert.AreEqual(3, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task GetRead()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c4 = new Category { Id = 4 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c4 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c4 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c4 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Read();
+            Assert.AreEqual(3, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
+        }
+
+        [TestMethod]
+        public async Task GetEssays()
+        {
+            var db = new HappyDogContext(GetOptions());
+            var c1 = new Category { Id = 1 };
+            var c5 = new Category { Id = 5 };
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = c5 });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = c1 });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enable, Category = c5 });
+            await db.Articles.AddAsync(new Article { Id = 4, Title = "article 4", Status = BaseStatus.Enable, Category = c5 });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+
+            var mockPrincipal = new Mock<ClaimsPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(true);
+            var controller = new ArticleController(svc, Mapper)
+            {
+                PageSize = 2,
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = mockPrincipal.Object
+                    }
+                }
+            };
+
+            var result = await controller.Essays();
+            Assert.AreEqual(3, result.TotalItems);
+
+            var data = result.Data.ToList();
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(4, data[0].Id);
         }
         #endregion
 

@@ -32,7 +32,7 @@ namespace HappyDog.Api.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             var article = await svc.GetAsync(id, User.Identity.IsAuthenticated);
             if (article == null)
@@ -44,10 +44,10 @@ namespace HappyDog.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Get(ArticleCategory? cid, int page = 1)
+        public async Task<Pagination<ArticleSummaryDto>> List(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, cid)
+            var query = svc.Get(User.Identity.IsAuthenticated, null)
                 .ProjectTo<ArticleSummaryDto>();
             return await pager.GetPaginationAsync(query);
         }
@@ -77,6 +77,56 @@ namespace HappyDog.Api.Controllers
                 Notify = NotifyResult.Success,
                 Message = "添加成功"
             };
+        }
+
+        [HttpGet("net/{id}")]
+        [AllowAnonymous]
+        public async Task<Pagination<ArticleSummaryDto>> Net(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Net)
+                .ProjectTo<ArticleSummaryDto>();
+            return await pager.GetPaginationAsync(query);
+        }
+
+        [HttpGet("db/{id}")]
+        [AllowAnonymous]
+        public async Task<Pagination<ArticleSummaryDto>> Database(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Database)
+                .ProjectTo<ArticleSummaryDto>();
+            return await pager.GetPaginationAsync(query);
+        }
+
+        [HttpGet("windows/{id}")]
+        [AllowAnonymous]
+        public async Task<Pagination<ArticleSummaryDto>> Windows(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Windows)
+                .ProjectTo<ArticleSummaryDto>();
+            return await pager.GetPaginationAsync(query);
+        }
+
+        [HttpGet("read/{id}")]
+        [AllowAnonymous]
+        public async Task<Pagination<ArticleSummaryDto>> Read(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Read)
+                .ProjectTo<ArticleSummaryDto>();
+            return await pager.GetPaginationAsync(query);
+        }
+
+        [HttpGet("essays/{id}")]
+        [AllowAnonymous]
+        public async Task<Pagination<ArticleSummaryDto>> Essays(int page = 1)
+        {
+            var pager = new Pager(page, PageSize);
+            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Essays)
+                .ProjectTo<ArticleSummaryDto>();
+            return await pager.GetPaginationAsync(query);
         }
     }
 }
