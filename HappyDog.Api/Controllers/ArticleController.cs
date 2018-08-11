@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Api.Filters;
+using System.Net;
 
 namespace HappyDog.Api.Controllers
 {
@@ -59,7 +60,7 @@ namespace HappyDog.Api.Controllers
             await svc.UpdateAsync(id, dto);
             return new HttpBaseResult
             {
-                Code = CodeResult.OK,
+                Status = HttpStatusCode.OK,
                 Notify = NotifyResult.Success,
                 Message = "修改成功"
             };
@@ -72,7 +73,7 @@ namespace HappyDog.Api.Controllers
             var article = await svc.InsertAsync(dto);
             return new HttpDataResult<int>
             {
-                Code = CodeResult.OK,
+                Status = HttpStatusCode.OK,
                 Data = article.Id,
                 Notify = NotifyResult.Success,
                 Message = "添加成功"

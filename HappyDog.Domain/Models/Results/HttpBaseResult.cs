@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using HappyDog.Domain.Enums;
 
 namespace HappyDog.Domain.Models.Results
@@ -24,7 +25,7 @@ namespace HappyDog.Domain.Models.Results
 
         protected bool autoMsg;
 
-        public CodeResult Code { get; set; }
+        public HttpStatusCode Status { get; set; }
         public NotifyResult Notify { get; set; }
 
         private string message;
@@ -42,21 +43,23 @@ namespace HappyDog.Domain.Models.Results
 
         public string GetAutoMessage()
         {
-            switch (Code)
+            switch (Status)
             {
-                case CodeResult.OK:
+                case HttpStatusCode.OK:
                     return "请求已成功，请求所希望的响应头或数据体将随此响应返回。";
-                case CodeResult.BadRequest:
+                case HttpStatusCode.BadRequest:
                     return "请求参数有误。";
-                case CodeResult.Unauthorized:
+                case HttpStatusCode.Unauthorized:
                     return "当前请求需要用户验证。";
-                case CodeResult.Forbidden:
+                case HttpStatusCode.Forbidden:
                     return "服务器已经理解请求，但是拒绝执行它。";
-                case CodeResult.NotFound:
+                case HttpStatusCode.NotFound:
                     return "所请求的资源不在服务器上。";
-                case CodeResult.InternalServerError:
+                case HttpStatusCode.UnsupportedMediaType:
+                    return "该请求是不受支持的类型。";
+                case HttpStatusCode.InternalServerError:
                     return "服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。";
-                case CodeResult.NotImplemented:
+                case HttpStatusCode.NotImplemented:
                     return "服务器不支持所请求的功能。";
                 default:
                     throw new NotImplementedException();
@@ -65,26 +68,32 @@ namespace HappyDog.Domain.Models.Results
 
         public static HttpBaseResult NotImplemented => new HttpBaseResult(true)
         {
-            Code = CodeResult.NotImplemented,
+            Status = HttpStatusCode.NotImplemented,
             Notify = NotifyResult.Danger
         };
 
         public static HttpBaseResult InternalServerError => new HttpBaseResult(true)
         {
-            Code = CodeResult.InternalServerError,
+            Status = HttpStatusCode.InternalServerError,
             Notify = NotifyResult.Danger
         };
 
         public static HttpBaseResult Unauthorized => new HttpBaseResult(true)
         {
-            Code = CodeResult.Unauthorized,
+            Status = HttpStatusCode.Unauthorized,
             Notify = NotifyResult.Warning
         };
 
         public static HttpBaseResult NotFound => new HttpBaseResult(true)
         {
-            Code = CodeResult.NotFound,
-            Notify = NotifyResult.Warning
+            Status = HttpStatusCode.NotFound,
+            Notify = NotifyResult.Info
+        };
+
+        public static HttpBaseResult UnsupportedMediaType => new HttpBaseResult(true)
+        {
+            Status = HttpStatusCode.UnsupportedMediaType,
+            Notify = NotifyResult.Danger
         };
     }
 }

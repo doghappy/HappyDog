@@ -139,6 +139,9 @@ namespace HappyDog.Api
                     case StatusCodes.Status404NotFound:
                         result = HttpBaseResult.NotFound;
                         break;
+                    case StatusCodes.Status415UnsupportedMediaType:
+                        result = HttpBaseResult.UnsupportedMediaType;
+                        break;
                     case StatusCodes.Status500InternalServerError:
                         result = HttpBaseResult.InternalServerError;
                         break;

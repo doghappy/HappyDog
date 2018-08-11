@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Enums;
+using System.Net;
 
 namespace HappyDog.Api.Controllers
 {
@@ -73,7 +74,7 @@ namespace HappyDog.Api.Controllers
             {
                 return new HttpBaseResult
                 {
-                    Code = CodeResult.OK,
+                    Status = HttpStatusCode.OK,
                     Message = "登录成功",
                     Notify = NotifyResult.Success
                 };
@@ -84,7 +85,7 @@ namespace HappyDog.Api.Controllers
                 {
                     return new HttpBaseResult
                     {
-                        Code = CodeResult.Forbidden,
+                        Status = HttpStatusCode.Forbidden,
                         Message = "账号已锁定20分钟",
                         Notify= NotifyResult.Warning
                     };
@@ -93,7 +94,7 @@ namespace HappyDog.Api.Controllers
                 {
                     return new HttpBaseResult
                     {
-                        Code = CodeResult.Forbidden,
+                        Status = HttpStatusCode.Forbidden,
                         Message = "密码错误",
                         Notify = NotifyResult.Info
                     };
