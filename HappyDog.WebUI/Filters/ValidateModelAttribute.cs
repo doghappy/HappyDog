@@ -3,6 +3,7 @@ using HappyDog.Domain.Models.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
+using System.Net;
 
 namespace HappyDog.WebUI.Filters
 {
@@ -26,7 +27,7 @@ namespace HappyDog.WebUI.Filters
                 }
                 context.Result = new JsonResult(new HttpDataResult<List<string>>(true)
                 {
-                    Code = CodeResult.BadRequest,
+                    Status = HttpStatusCode.BadRequest,
                     Notify = NotifyResult.Warning,
                     Data = msg
                 });
