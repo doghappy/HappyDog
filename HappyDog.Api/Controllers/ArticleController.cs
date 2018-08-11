@@ -48,7 +48,7 @@ namespace HappyDog.Api.Controllers
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, null)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
 
@@ -79,53 +79,53 @@ namespace HappyDog.Api.Controllers
             };
         }
 
-        [HttpGet("net/{id}")]
+        [HttpGet("net")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Net(int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Net)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
 
-        [HttpGet("db/{id}")]
+        [HttpGet("db")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Database(int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Database)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
 
-        [HttpGet("windows/{id}")]
+        [HttpGet("windows")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Windows(int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Windows)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
 
-        [HttpGet("read/{id}")]
+        [HttpGet("read")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Read(int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Read)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
 
-        [HttpGet("essays/{id}")]
+        [HttpGet("essays")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Essays(int page = 1)
         {
             var pager = new Pager(page, PageSize);
             var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Essays)
-                .ProjectTo<ArticleSummaryDto>();
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
     }

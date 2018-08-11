@@ -1,7 +1,6 @@
 using HappyDog.Domain;
 using AutoMapper;
 using HappyDog.Domain.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Identity;
 using System;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 
 namespace HappyDog.WebUI
 {
