@@ -1,7 +1,9 @@
 ﻿using HappyDog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -60,20 +62,10 @@ namespace HappyDog.RecoverData
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine("1");
-            TestAsync();
-            Console.WriteLine("2");
+            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss"));
 
 
             Console.ReadKey();
-        }
-
-        static Task TestAsync()
-        {
-            Console.WriteLine("start delay");
-            Task.Delay(2000);
-            Console.WriteLine("end delay");
-            return Task.CompletedTask;
         }
     }
 }
