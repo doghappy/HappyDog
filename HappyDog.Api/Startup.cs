@@ -1,13 +1,17 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using AutoMapper;
 using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects;
+using HappyDog.Domain.Entities;
+using HappyDog.Domain.Identity;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,19 +46,39 @@ namespace HappyDog.Api
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            services.AddIdentity<User, Role>().AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddTransient<IRoleStore<Role>, RoleStore>();
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
+
+            services.Configure<IdentityOptions>(options =>
             {
-                options.SlidingExpiration = true;
-                options.Cookie.HttpOnly = false;
-                options.Cookie.Domain = Configuration["CookieDomain"];
-                options.Events.OnRedirectToLogin = async context =>
-                {
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-                    string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
-                    await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
-                };
+                options.Password.RequiredLength = 6;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
+                options.Lockout.MaxFailedAccessAttempts = 9;
             });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                options.LoginPath = "/User/SignIn";
+                options.AccessDeniedPath = "/User/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            //{
+            //    options.SlidingExpiration = true;
+            //    options.Cookie.HttpOnly = false;
+            //    options.Cookie.Domain = Configuration["CookieDomain"];
+            //    options.Events.OnRedirectToLogin = async context =>
+            //    {
+            //        context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //        context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+            //        string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
+            //        await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
+            //    };
+            //});
 
             #region IoC Service
             // Transient：瞬时（Transient）生命周期服务在它们每次请求时被创建。这一生命周期适合轻量级的，无状态的服务。

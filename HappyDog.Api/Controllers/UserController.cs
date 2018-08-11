@@ -2,17 +2,13 @@
 using HappyDog.Api.Filters;
 using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
-using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using HappyDog.Domain.Enums;
 
 namespace HappyDog.Api.Controllers
 {
@@ -21,48 +17,88 @@ namespace HappyDog.Api.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        readonly UserService userService;
-        readonly IMapper mapper;
-
-        public UserController(UserService userService, IMapper mapper)
+        public UserController(
+            UserService userService,
+            SignInManager<User> signInManager,
+            UserManager<User> userManager,
+            IMapper mapper)
         {
             this.userService = userService;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
             this.mapper = mapper;
         }
 
-        [HttpPost("login")]
+        readonly UserService userService;
+        readonly SignInManager<User> signInManager;
+        readonly UserManager<User> userManager;
+        readonly IMapper mapper;
+
+        [HttpPost("signIn")]
         [ValidateModel]
         [AllowAnonymous]
         public async Task<HttpBaseResult> Login([FromBody]SignInDto dto)
         {
-            var result = await userService.LoginAsync(dto);
-            if (result.Result)
+            //var result = await userService.LoginAsync(dto);
+            //if (result.Result)
+            //{
+            //    var dataResult = result as DataResult<User>;
+            //    var claims = new List<Claim>
+            //    {
+            //        new Claim(ClaimTypes.NameIdentifier, dataResult.Data.Id.ToString()),
+            //        new Claim(ClaimTypes.Name, dataResult.Data.UserName)
+            //    };
+            //    var roles = dataResult.Data.UserRoles.Select(u => u.Role);
+            //    foreach (var item in roles)
+            //    {
+            //        claims.Add(new Claim(ClaimTypes.Role, item.Name));
+            //    }
+            //    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //    await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = dto.RememberMe });
+            //    return new HttpBaseResult
+            //    {
+            //        Code = CodeResult.OK,
+            //        Message = result.Message
+            //    };
+            //}
+            //return new HttpBaseResult
+            //{
+            //    Code = CodeResult.Unauthorized,
+            //    Message = result.Message,
+            //    Notify = NotifyResult.Warning
+            //};
+
+            var result = await signInManager.PasswordSignInAsync(dto.UserName, dto.Password, dto.RememberMe, true);
+            if (result.Succeeded)
             {
-                var dataResult = result as DataResult<User>;
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, dataResult.Data.Id.ToString()),
-                    new Claim(ClaimTypes.Name, dataResult.Data.UserName)
-                };
-                var roles = dataResult.Data.UserRoles.Select(u => u.Role);
-                foreach (var item in roles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, item.Name));
-                }
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = dto.RememberMe });
                 return new HttpBaseResult
                 {
                     Code = CodeResult.OK,
-                    Message = result.Message
+                    Message = "登录成功",
+                    Notify = NotifyResult.Success
                 };
             }
-            return new HttpBaseResult
+            else
             {
-                Code = CodeResult.Unauthorized,
-                Message = result.Message,
-                Notify = NotifyResult.Warning
-            };
+                if (result.IsLockedOut)
+                {
+                    return new HttpBaseResult
+                    {
+                        Code = CodeResult.Forbidden,
+                        Message = "账号已锁定20分钟",
+                        Notify= NotifyResult.Warning
+                    };
+                }
+                else
+                {
+                    return new HttpBaseResult
+                    {
+                        Code = CodeResult.Forbidden,
+                        Message = "密码错误",
+                        Notify = NotifyResult.Info
+                    };
+                }
+            }
         }
 
         /*
