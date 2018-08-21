@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.WebUI.Controllers
@@ -10,7 +7,16 @@ namespace HappyDog.WebUI.Controllers
     {
         public IActionResult Error()
         {
-            return View();
+            var ex = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            if (ex == null)
+            {
+                return base.NotFound();
+            }
+            else
+            {
+                // log ex
+                return View();
+            }
         }
 
         public new IActionResult NotFound()

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Identity;
 using System;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace HappyDog.WebUI
 {
@@ -77,7 +78,7 @@ namespace HappyDog.WebUI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
