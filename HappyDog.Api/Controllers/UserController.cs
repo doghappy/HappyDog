@@ -74,29 +74,28 @@ namespace HappyDog.Api.Controllers
             {
                 return new HttpBaseResult
                 {
-                    Status = HttpStatusCode.OK,
                     Message = "登录成功",
-                    Notify = NotifyResult.Success
+                    NoticeMode = NoticeMode.Success
                 };
             }
             else
             {
                 if (result.IsLockedOut)
                 {
+                    Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     return new HttpBaseResult
                     {
-                        Status = HttpStatusCode.Forbidden,
                         Message = "账号已锁定20分钟",
-                        Notify= NotifyResult.Warning
+                        NoticeMode= NoticeMode.Warning
                     };
                 }
                 else
                 {
+                    Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     return new HttpBaseResult
                     {
-                        Status = HttpStatusCode.Forbidden,
                         Message = "密码错误",
-                        Notify = NotifyResult.Info
+                        NoticeMode = NoticeMode.Info
                     };
                 }
             }

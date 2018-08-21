@@ -28,7 +28,7 @@ namespace HappyDog.WebUI.Filters
                 context.Result = new JsonResult(new HttpDataResult<List<string>>(true)
                 {
                     Status = HttpStatusCode.BadRequest,
-                    Notify = NotifyResult.Warning,
+                    NoticeMode = NoticeMode.Warning,
                     Data = msg
                 });
             }

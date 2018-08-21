@@ -1,6 +1,6 @@
 ﻿namespace HappyDog.Domain.Enums
 {
-    public enum NotifyResult
+    public enum NoticeMode
     {
         Success,
         Info,

@@ -4,10 +4,10 @@ using AutoMapper;
 using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
+using HappyDog.Domain.Enums;
 using HappyDog.Domain.Identity;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -104,29 +104,17 @@ namespace HappyDog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else if (env.IsProduction())
-            //{
-            //    if (bool.Parse(Configuration["ShowError"]))
-            //    {
-            //        app.UseExceptionHandler(options =>
-            //        {
-            //            options.Run(async context =>
-            //            {
-            //                var ex = context.Features.Get<IExceptionHandlerFeature>();
-            //                if (ex != null)
-            //                {
-            //                    await context.Response.WriteAsync(ex.Error.ToString());
-            //                }
-            //            });
-            //        });
-            //    }
-            //}
+            else
+            {
+                app.UseExceptionHandler("/home/error");
+            }
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://angular.doghappy.wang")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
 
+            app.UseAuthentication();
             app.UseStatusCodePages(async context =>
             {
                 context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
@@ -134,16 +122,25 @@ namespace HappyDog.Api
                 switch (context.HttpContext.Response.StatusCode)
                 {
                     case StatusCodes.Status401Unauthorized:
-                        result = HttpBaseResult.Unauthorized;
+                        result = new HttpBaseResult
+                        {
+                            Message = "所请求的资源需要身份验证。",
+                            NoticeMode = NoticeMode.Info
+                        };
                         break;
                     case StatusCodes.Status404NotFound:
-                        result = HttpBaseResult.NotFound;
+                        result = new HttpBaseResult
+                        {
+                            Message = "所请求的资源不在服务器上。",
+                            NoticeMode = NoticeMode.Info
+                        };
                         break;
                     case StatusCodes.Status415UnsupportedMediaType:
-                        result = HttpBaseResult.UnsupportedMediaType;
-                        break;
-                    case StatusCodes.Status500InternalServerError:
-                        result = HttpBaseResult.InternalServerError;
+                        result = new HttpBaseResult
+                        {
+                            Message = "该请求是不受支持的类型。",
+                            NoticeMode = NoticeMode.Warning
+                        };
                         break;
                 }
                 if (result != null)
@@ -152,8 +149,6 @@ namespace HappyDog.Api
                     await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
                 }
             });
-
-            app.UseAuthentication();
             app.UseMvc();
         }
     }

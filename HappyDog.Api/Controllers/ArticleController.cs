@@ -60,8 +60,7 @@ namespace HappyDog.Api.Controllers
             await svc.UpdateAsync(id, dto);
             return new HttpBaseResult
             {
-                Status = HttpStatusCode.OK,
-                Notify = NotifyResult.Success,
+                NoticeMode = NoticeMode.Success,
                 Message = "修改成功"
             };
         }
@@ -73,9 +72,8 @@ namespace HappyDog.Api.Controllers
             var article = await svc.InsertAsync(dto);
             return new HttpDataResult<int>
             {
-                Status = HttpStatusCode.OK,
                 Data = article.Id,
-                Notify = NotifyResult.Success,
+                NoticeMode = NoticeMode.Success,
                 Message = "添加成功"
             };
         }
@@ -139,14 +137,13 @@ namespace HappyDog.Api.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return new HttpBaseResult
                 {
-                    Status = HttpStatusCode.BadRequest,
-                    Notify = NotifyResult.Info,
+                    NoticeMode = NoticeMode.Info,
                     Message = "请输入关键词"
                 };
             }
             else
             {
-
+                throw new System.Exception("test");
             }
         }
     }
