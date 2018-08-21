@@ -11,6 +11,9 @@ using Moq;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using HappyDog.Domain.Models.Results;
+using HappyDog.Infrastructure;
 
 namespace HappyDog.Api.Test
 {
@@ -755,6 +758,369 @@ namespace HappyDog.Api.Test
             Assert.AreEqual("content", article.Content);
             Assert.AreEqual(1, article.CategoryId);
             Assert.AreEqual(BaseStatus.Enable, article.Status);
+        }
+        #endregion
+
+        #region Search
+        [TestMethod]
+        public async Task EmptySearchTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
+
+            var result = await controller.Search(" ");
+
+            Assert.AreEqual(StatusCodes.Status400BadRequest, controller.Response.StatusCode);
+            Assert.AreEqual(NoticeMode.Info, result.NoticeMode);
+            Assert.AreEqual("«Î ‰»Îπÿº¸¥ ", result.Message);
+        }
+
+        [TestMethod]
+        public async Task NetSearchWithoutOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var identity = new ClaimsIdentity(new List<Claim>());
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("net:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task NetSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("net:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
+        }
+
+        [TestMethod]
+        public async Task DatabaseSearchWithoutOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Categories.AddAsync(new Category { Id = 3 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var identity = new ClaimsIdentity(new List<Claim>());
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("db:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task DatabaseSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 2 });
+            await db.Categories.AddAsync(new Category { Id = 3 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("db:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
+        }
+
+        [TestMethod]
+        public async Task WindowsSearchWithoutOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 3 });
+            await db.Categories.AddAsync(new Category { Id = 4 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var identity = new ClaimsIdentity(new List<Claim>());
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("windows:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task WindowsSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 3 });
+            await db.Categories.AddAsync(new Category { Id = 4 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("windows:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
+        }
+
+        [TestMethod]
+        public async Task ReadSearchWithoutOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 4 });
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var identity = new ClaimsIdentity(new List<Claim>());
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("read:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task ReadSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 4 });
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("read:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
+        }
+
+        [TestMethod]
+        public async Task EssaysSearchWithoutOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var identity = new ClaimsIdentity(new List<Claim>());
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("essays:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(1, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+        }
+
+        [TestMethod]
+        public async Task EssaysSearchWithOwnerTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 5 });
+            await db.Categories.AddAsync(new Category { Id = 1 });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Owner"),
+            };
+            var identity = new ClaimsIdentity(claims);
+            var controller = new ArticleController(articleService, Mapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(identity)
+                    }
+                }
+            };
+
+            var result = await controller.Search("essays:est");
+            var data = result as HttpDataResult<Pagination<ArticleSummaryDto>>;
+            var model = data.Data.Data.ToList();
+
+            Assert.AreEqual(2, model.Count);
+            Assert.AreEqual(2, model[0].Id);
+            Assert.AreEqual(1, model[1].Id);
         }
         #endregion
     }

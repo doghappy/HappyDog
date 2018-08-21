@@ -83,7 +83,7 @@ namespace HappyDog.Infrastructure
             TotalItems = await query.CountAsync();
             return new Pagination<T>
             {
-                Data = query.Skip(Skip).Take(Size),
+                Data = await query.Skip(Skip).Take(Size).ToListAsync(),
                 TotalItems = TotalItems,
                 TotalPages = TotalPages
             };

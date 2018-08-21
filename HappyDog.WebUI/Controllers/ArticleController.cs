@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
@@ -159,8 +160,10 @@ namespace HappyDog.WebUI.Controllers
             else
             {
                 var pager = new Pager(page, PageSize);
-                var data = await articleService.Search(User.IsInRole("Owner"), q, pager);
-                if (data.Count == 0)
+                var query = articleService.Search(User.IsInRole("Owner"), q, pager)
+                    .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+                var data = await pager.GetPaginationAsync(query);
+                if (data.TotalItems == 0)
                 {
                     ViewBag.Message = $"未找到与 \"{q}\" 相关的数据";
                     var hotData = await articleService.GetHotAsync(20);
@@ -169,7 +172,7 @@ namespace HappyDog.WebUI.Controllers
                 else
                 {
                     ViewBag.Pager = pager;
-                    return View(data);
+                    return View(data.Data);
                 }
             }
         }
