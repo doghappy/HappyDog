@@ -50,7 +50,7 @@ namespace HappyDog.Domain.Services
             return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
         }
 
-        public async Task<List<Article>> Search(bool isOwner, string keyword, Pager pager)
+        public IQueryable<Article> Search(bool isOwner, string keyword, Pager pager)
         {
             var searcher = new HappySearcher<IOrderedQueryable<Article>>();
             searcher.Register(new NetSearcher(db, isOwner));
@@ -59,9 +59,7 @@ namespace HappyDog.Domain.Services
             searcher.Register(new ReadSearcher(db, isOwner));
             searcher.Register(new EssaysSearcher(db, isOwner));
             searcher.Register(new ArticleSearcher(db, isOwner));
-            var query = searcher.Search(keyword);
-            pager.TotalItems = await query.CountAsync();
-            return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
+            return searcher.Search(keyword);
         }
 
         public async Task UpdateAsync(int id, EditArticleDto dto)

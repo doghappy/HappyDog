@@ -11,6 +11,7 @@ using HappyDog.Domain.Enums;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Api.Filters;
 using System.Net;
+using System.Collections.Generic;
 
 namespace HappyDog.Api.Controllers
 {
@@ -19,12 +20,12 @@ namespace HappyDog.Api.Controllers
     [Authorize]
     public class ArticleController : Controller
     {
-        readonly ArticleService svc;
+        readonly ArticleService articleService;
         readonly IMapper mapper;
 
-        public ArticleController(ArticleService svc, IMapper mapper)
+        public ArticleController(ArticleService articleService, IMapper mapper)
         {
-            this.svc = svc;
+            this.articleService = articleService;
             this.mapper = mapper;
             PageSize = 20;
         }
@@ -35,7 +36,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await svc.GetAsync(id, User.Identity.IsAuthenticated);
+            var article = await articleService.GetAsync(id, User.Identity.IsAuthenticated);
             if (article == null)
             {
                 return NotFound();
@@ -48,7 +49,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> List(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, null)
+            var query = articleService.Get(User.Identity.IsAuthenticated, null)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -57,7 +58,7 @@ namespace HappyDog.Api.Controllers
         [ValidateModel]
         public async Task<HttpBaseResult> Put(int id, [FromBody]EditArticleDto dto)
         {
-            await svc.UpdateAsync(id, dto);
+            await articleService.UpdateAsync(id, dto);
             return new HttpBaseResult
             {
                 NoticeMode = NoticeMode.Success,
@@ -69,7 +70,7 @@ namespace HappyDog.Api.Controllers
         [ValidateModel]
         public async Task<HttpDataResult<int>> Post([FromBody]PostArticleDto dto)
         {
-            var article = await svc.InsertAsync(dto);
+            var article = await articleService.InsertAsync(dto);
             return new HttpDataResult<int>
             {
                 Data = article.Id,
@@ -83,7 +84,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> Net(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Net)
+            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Net)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -93,7 +94,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> Database(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Database)
+            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Database)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -103,7 +104,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> Windows(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Windows)
+            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Windows)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -113,7 +114,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> Read(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Read)
+            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Read)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -123,7 +124,7 @@ namespace HappyDog.Api.Controllers
         public async Task<Pagination<ArticleSummaryDto>> Essays(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var query = svc.Get(User.Identity.IsAuthenticated, ArticleCategory.Essays)
+            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Essays)
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
@@ -143,7 +144,14 @@ namespace HappyDog.Api.Controllers
             }
             else
             {
-                throw new System.Exception("test");
+                var pager = new Pager(page, PageSize);
+                var query = articleService.Search(User.IsInRole("Owner"), q, pager)
+                    .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+                var data =await pager.GetPaginationAsync(query);
+                return new HttpDataResult<Pagination<ArticleSummaryDto>>
+                {
+                    Data = data
+                };
             }
         }
     }
