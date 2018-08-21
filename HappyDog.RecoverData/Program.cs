@@ -62,7 +62,10 @@ namespace HappyDog.RecoverData
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss"));
+            Console.WriteLine((1 * 1.0 / 1029).ToString("p"));
+
+            Console.WriteLine(((0 + 1) * 1.0 / 1029).ToString("p"));
+
 
 
             Console.ReadKey();

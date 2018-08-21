@@ -129,5 +129,25 @@ namespace HappyDog.Api.Controllers
                 .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
             return await pager.GetPaginationAsync(query);
         }
+
+        [HttpGet("search")]
+        [AllowAnonymous]
+        public async Task<HttpBaseResult> Search(string q, int page = 1)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return new HttpBaseResult
+                {
+                    Status = HttpStatusCode.BadRequest,
+                    Notify = NotifyResult.Info,
+                    Message = "请输入关键词"
+                };
+            }
+            else
+            {
+
+            }
+        }
     }
 }
