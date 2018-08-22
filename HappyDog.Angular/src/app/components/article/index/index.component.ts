@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../services/article.service';
-import { Pagination } from '../../models/pagination';
-import { ArticleSummary } from '../../models/articleSummary';
+import { ArticleService } from '../../../services/article.service';
 import { ArticleBaseComponent } from '../articleBase.component';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-index',

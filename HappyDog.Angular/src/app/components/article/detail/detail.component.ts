@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { ArticleService } from '../../services/article.service';
-import { Article } from '../../models/article';
-import { Category } from '../../models/category';
-import { Configuration } from '../../data/configuration';
-import { AuthenticationService } from '../../services/authentication.service';
+import { ArticleService } from '../../../services/article.service';
+import { Article } from '../../../models/article';
+import { Category } from '../../../models/category';
+import { Configuration } from '../../../data/configuration';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-detail',
