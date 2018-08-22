@@ -1,4 +1,5 @@
 ﻿using System;
+using NSwag;
 using System.Text;
 using AutoMapper;
 using NJsonSchema;
@@ -162,7 +163,8 @@ namespace HappyDog.Api
                     document.Info.Title = "开心狗API";
                     document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
                     document.Info.TermsOfService = "None";
-                    document.Info.Contact = new NSwag.SwaggerContact
+                    document.Schemes.Add(SwaggerSchema.Https);
+                    document.Info.Contact = new SwaggerContact
                     {
                         Name = "HeroWong",
                         Email = "hero_wong@outlook.com",
