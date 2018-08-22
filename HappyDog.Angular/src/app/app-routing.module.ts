@@ -16,7 +16,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'detail/:id', component: DetailComponent },
-  { path: '.net', component: NetComponent },
+  { path: 'net', component: NetComponent },
   { path: 'db', component: DbComponent },
   { path: 'windows', component: WindowsComponent },
   { path: 'read', component: ReadComponent },
