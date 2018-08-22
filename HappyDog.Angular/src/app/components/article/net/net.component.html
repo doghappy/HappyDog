@@ -1,5 +1,5 @@
 <div class="jumbotron" id="paginationTarget">
-  <div class="container body-content">
+  <div class="container body-content animated zoomIn">
     <div class="row">
       <div class="col-md-6">
         <img src="https://www.microsoft.com/net/images/redesign/shared/developers-at-desk.svg?v=zmyD_fnoax3vsHlb11A9hjWhtNicdVy1Lk3i6KclMzU" />
@@ -31,7 +31,7 @@
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{fullScreenBackdrop:true}"></ngx-loading>
-<div class="container">
+<div class="container body-content animated fadeIn">
   <app-article-list [pageArticles]="pageArticles"></app-article-list>
   <div class="clearfix">
     <pagination class="pull-right" previousText="上一页" nextText="下一页"

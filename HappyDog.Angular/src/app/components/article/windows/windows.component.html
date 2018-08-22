@@ -1,5 +1,5 @@
 <div class="jumbotron" id="paginationTarget">
-  <div class="container body-content">
+  <div class="container body-content animated rollIn">
     <p>
       <img src="assets/Windows_10_Logo.svg" class="img-fluid" />
     </p>
@@ -15,7 +15,7 @@
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{fullScreenBackdrop:true}"></ngx-loading>
-<div class="container">
+<div class="container body-content animated fadeIn">
   <app-article-list [pageArticles]="pageArticles"></app-article-list>
   <div class="clearfix">
     <pagination class="pull-right" previousText="上一页" nextText="下一页"

@@ -1,5 +1,5 @@
 <div class="jumbotron" id="paginationTarget">
-  <div class="container body-content">
+  <div class="container body-content animated slideInDown">
     <h1 class="display-4">开心狗</h1>
     <p class="lead">
       Don't ever let somebody tell you<br />
@@ -18,7 +18,7 @@
 </div>
 
 <ngx-loading [show]="loading" [config]="{fullScreenBackdrop:true}"></ngx-loading>
-<div class="container">
+<div class="container body-content animated fadeIn">
   <app-article-list [pageArticles]="pageArticles" [categoryLinkEnable]="true"></app-article-list>
   <div class="clearfix">
     <pagination class="pull-right" previousText="上一页" nextText="下一页"

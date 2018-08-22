@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <div class="container body-content">
+  <div class="container body-content animated fadeInLeft">
     <h1 class="display-6 mb-4">{{article?.title}}</h1>
     <p class="lead text-muted mb-1">
       <i class="fa fa-calendar"></i>
@@ -16,7 +16,7 @@
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{fullScreenBackdrop:true}"></ngx-loading>
-<div class="container">
+<div class="container body-content animated fadeIn">
   <div class="markdown-body" style="padding-bottom:3rem">
     <markdown [data]="article?.content"></markdown>
   </div>
