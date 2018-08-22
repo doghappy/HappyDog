@@ -8,7 +8,7 @@ import { DbComponent } from './components/article/db/db.component';
 import { WindowsComponent } from './components/article/windows/windows.component';
 import { ReadComponent } from './components/article/read/read.component';
 import { EssaysComponent } from './components/article/essays/essays.component';
-import { UserLoginComponent } from './components/user/user-login/user-login.component';
+import { SignInComponent } from './components/user/sign-in/sign-in.component';
 import { ArticlePostComponent } from './components/article/post/post.component';
 import { ArticleEditComponent } from './components/article/edit/edit.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'windows', component: WindowsComponent },
   { path: 'read', component: ReadComponent },
   { path: 'essays', component: EssaysComponent },
-  { path: 'login', component: UserLoginComponent },
+  { path: 'signIn', component: SignInComponent },
   { path: 'post', component: ArticlePostComponent },
   { path: 'edit/:id', component: ArticleEditComponent },
   { path: '**', component: PageNotFoundComponent },

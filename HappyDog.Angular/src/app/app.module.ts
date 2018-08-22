@@ -16,7 +16,7 @@ import { ReadComponent } from './components/article/read/read.component';
 import { EssaysComponent } from './components/article/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ArticleListComponent } from './components/article/list/list.component';
-import { UserLoginComponent } from './components/user/user-login/user-login.component';
+import { SignInComponent } from './components/user/sign-in/sign-in.component';
 import { ArticleEditComponent } from './components/article/edit/edit.component';
 import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -37,7 +37,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ReadComponent,
     EssaysComponent,
     ArticleListComponent,
-    UserLoginComponent,
+    SignInComponent,
     ArticleEditComponent,
     ArticlePostComponent,
     PageNotFoundComponent,

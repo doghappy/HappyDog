@@ -5,11 +5,11 @@ import { HttpBaseResult } from '../../../models/results/httpBaseResult';
 import { Location } from '@angular/common'
 
 @Component({
-  selector: 'app-login-in',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class UserLoginComponent {
+export class SignInComponent {
 
   constructor(
     private userService: UserService,
