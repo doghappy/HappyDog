@@ -9,7 +9,7 @@ import { ArticleService } from '../../../services/article.service';
 })
 export class WindowsComponent extends ArticleBaseComponent {
 
-  protected categoryId?: number = 3;
+  protected categoryValue = "windows";
 
   constructor(articleService: ArticleService) {
     super(articleService);

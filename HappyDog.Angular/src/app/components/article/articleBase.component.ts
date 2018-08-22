@@ -9,7 +9,7 @@ export abstract class ArticleBaseComponent implements OnInit {
     this.target = '#paginationTarget';
   }
 
-  protected abstract categoryId?: number;
+  protected abstract categoryValue: string;
   protected target: string;
 
   public pageNumber: number;
@@ -25,7 +25,7 @@ export abstract class ArticleBaseComponent implements OnInit {
 
   protected getPageArticles(): void {
     this.loading = true;
-    this.articleService.getPageArticles(this.pageNumber, this.categoryId)
+    this.articleService.getPageArticles(this.pageNumber, this.categoryValue)
       .subscribe(d => {
         this.pageArticles = d;
         this.loading = false;

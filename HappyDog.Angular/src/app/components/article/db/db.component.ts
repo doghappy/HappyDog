@@ -9,7 +9,7 @@ import { ArticleService } from '../../../services/article.service';
 })
 export class DbComponent extends ArticleBaseComponent {
 
-  protected categoryId?: number = 2;
+  protected categoryValue = "db";
 
   constructor(articleService: ArticleService) {
     super(articleService);

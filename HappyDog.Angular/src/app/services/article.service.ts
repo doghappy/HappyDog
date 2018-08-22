@@ -7,6 +7,7 @@ import { Article } from '../models/article';
 import { BaseService } from './base.service';
 import { HttpBaseResult } from '../models/results/httpBaseResult';
 import { HttpDataResult } from '../models/results/httpDataResult';
+import { Category } from '../enums/category';
 
 @Injectable()
 export class ArticleService extends BaseService {
@@ -17,15 +18,16 @@ export class ArticleService extends BaseService {
 
   private url = `${this.server}/article`;
 
-  getPageArticles(page: number, cid?: number): Observable<Pagination<ArticleSummary>> {
+  getPageArticles(page: number, categoryValue: string): Observable<Pagination<ArticleSummary>> {
     let params = new HttpParams();
+    let url = this.url;
     if (page > 1) {
       params = params.set("page", page.toString());
     }
-    if (cid) {
-      params = params.append("cid", cid.toString());
+    if (categoryValue) {
+      url += `/${categoryValue}`;
     }
-    return this.client.get<Pagination<ArticleSummary>>(this.url, { params, withCredentials: true });
+    return this.client.get<Pagination<ArticleSummary>>(url, { params, withCredentials: true });
   }
 
   getArticle(id: number): Observable<Article> {

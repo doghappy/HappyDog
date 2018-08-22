@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../../services/article.service';
 import { ArticleBaseComponent } from '../articleBase.component';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { Category } from '../../../enums/category';
 
 @Component({
   selector: 'app-index',
@@ -18,6 +19,6 @@ export class IndexComponent extends ArticleBaseComponent {
     this.hasAuthCookie = authService.hasAuthCookie;
   }
 
-  protected categoryId?: number;
+  protected category?: Category;
   public hasAuthCookie: boolean;
 }
