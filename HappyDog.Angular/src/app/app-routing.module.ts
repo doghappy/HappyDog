@@ -9,8 +9,8 @@ import { WindowsComponent } from './components/article/windows/windows.component
 import { ReadComponent } from './components/article/read/read.component';
 import { EssaysComponent } from './components/article/essays/essays.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
-import { ArticlePostComponent } from './components/article/article-post/article-post.component';
-import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
+import { ArticlePostComponent } from './components/article/post/post.component';
+import { ArticleEditComponent } from './components/article/edit/edit.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 const routes: Routes = [

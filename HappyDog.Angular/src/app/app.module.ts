@@ -15,14 +15,14 @@ import { WindowsComponent } from './components/article/windows/windows.component
 import { ReadComponent } from './components/article/read/read.component';
 import { EssaysComponent } from './components/article/essays/essays.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { ArticleListComponent } from './components/article/article-list/article-list.component';
+import { ArticleListComponent } from './components/article/list/list.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
-import { ArticleEditComponent } from './components/article/article-edit/article-edit.component';
+import { ArticleEditComponent } from './components/article/edit/edit.component';
 import { UserService } from './services/user.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { AuthenticationService } from './services/authentication.service';
-import { ArticlePostComponent } from './components/article/article-post/article-post.component';
+import { ArticlePostComponent } from './components/article/post/post.component';
 import { LoadingModule } from 'ngx-loading';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 

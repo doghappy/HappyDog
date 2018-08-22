@@ -3,7 +3,7 @@ import { ArticleBaseComponent } from '../articleBase.component';
 import { ArticleService } from '../../../services/article.service';
 
 @Component({
-  selector: 'app-essays',
+  selector: 'app-article-essays',
   templateUrl: './essays.component.html',
   styleUrls: ['./essays.component.css']
 })

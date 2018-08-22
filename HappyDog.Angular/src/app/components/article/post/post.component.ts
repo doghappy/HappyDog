@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-post',
-  templateUrl: './article-post.component.html',
-  styleUrls: ['./article-post.component.css']
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css']
 })
 export class ArticlePostComponent implements OnInit {
 

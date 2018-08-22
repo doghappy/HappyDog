@@ -8,8 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-edit',
-  templateUrl: './article-edit.component.html',
-  styleUrls: ['./article-edit.component.css']
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
 export class ArticleEditComponent implements OnInit {
 

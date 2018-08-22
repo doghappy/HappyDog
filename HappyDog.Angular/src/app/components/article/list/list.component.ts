@@ -4,8 +4,8 @@ import { ArticleSummary } from '../../../models/articleSummary';
 
 @Component({
   selector: 'app-article-list',
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.css']
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
 export class ArticleListComponent {
 

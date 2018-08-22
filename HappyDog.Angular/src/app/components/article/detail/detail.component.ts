@@ -7,7 +7,7 @@ import { Configuration } from '../../../data/configuration';
 import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-article-detail',
   templateUrl: './detail.component.html',
   styles: ['@import "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css";'],
   styleUrls: [

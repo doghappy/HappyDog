@@ -3,7 +3,7 @@ import { ArticleBaseComponent } from '../articleBase.component';
 import { ArticleService } from '../../../services/article.service';
 
 @Component({
-  selector: 'app-windows',
+  selector: 'app-article-windows',
   templateUrl: './windows.component.html',
   styleUrls: ['./windows.component.css']
 })
