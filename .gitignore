@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /HappyDog.Api/appsettings.Production.json
 *.db
+/HappyDog.WebUI/appsettings.Production.json
