@@ -159,11 +159,11 @@ namespace HappyDog.Api
                 settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
                 settings.PostProcess = document =>
                 {
+                    document.Schemes.Add(SwaggerSchema.Https);
                     document.Info.Version = "v1";
                     document.Info.Title = "开心狗API";
                     document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
                     document.Info.TermsOfService = "None";
-                    document.Schemes.Add(SwaggerSchema.Https);
                     document.Info.Contact = new SwaggerContact
                     {
                         Name = "HeroWong",
