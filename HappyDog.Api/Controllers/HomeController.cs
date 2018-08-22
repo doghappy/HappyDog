@@ -1,5 +1,4 @@
-﻿using System;
-using HappyDog.Domain.Enums;
+﻿using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Infrastructure.Email;
 using Microsoft.AspNetCore.Diagnostics;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using HappyDog.Infrastructure.Handler;
 
@@ -75,14 +73,14 @@ namespace HappyDog.Api.Controllers
             };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("throw")]
-        public HttpBaseResult Throw()
-        {
-            throw new NotImplementedException();
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet("throw")]
+        //public HttpBaseResult Throw()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
