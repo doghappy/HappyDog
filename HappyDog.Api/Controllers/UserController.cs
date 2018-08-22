@@ -13,11 +13,21 @@ using System.Net;
 
 namespace HappyDog.Api.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Produces("application/json")]
     [Route("user")]
     [Authorize]
     public class UserController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="userManager"></param>
+        /// <param name="mapper"></param>
         public UserController(
             UserService userService,
             SignInManager<User> signInManager,
@@ -35,10 +45,15 @@ namespace HappyDog.Api.Controllers
         readonly UserManager<User> userManager;
         readonly IMapper mapper;
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost("signIn")]
         [ValidateModel]
         [AllowAnonymous]
-        public async Task<HttpBaseResult> Login([FromBody]SignInDto dto)
+        public async Task<HttpBaseResult> SignIn([FromBody]SignInDto dto)
         {
             //var result = await userService.LoginAsync(dto);
             //if (result.Result)

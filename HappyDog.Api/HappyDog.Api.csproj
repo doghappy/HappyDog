@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>1d0ab0bc-cbd7-432e-ae88-c9af5fc96ce0</UserSecretsId>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.3" />
+    <PackageReference Include="NSwag.AspNetCore" Version="11.18.6" />
   </ItemGroup>
 
   <ItemGroup>

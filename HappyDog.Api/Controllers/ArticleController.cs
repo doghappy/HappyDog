@@ -11,10 +11,12 @@ using HappyDog.Domain.Enums;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Api.Filters;
 using System.Net;
-using System.Collections.Generic;
 
 namespace HappyDog.Api.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Produces("application/json")]
     [Route("article")]
     [Authorize]
@@ -23,6 +25,11 @@ namespace HappyDog.Api.Controllers
         readonly ArticleService articleService;
         readonly IMapper mapper;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="articleService"></param>
+        /// <param name="mapper"></param>
         public ArticleController(ArticleService articleService, IMapper mapper)
         {
             this.articleService = articleService;
@@ -30,8 +37,16 @@ namespace HappyDog.Api.Controllers
             PageSize = 20;
         }
 
+        /// <summary>
+        /// 页码
+        /// </summary>
         public int PageSize { get; set; }
 
+        /// <summary>
+        /// 文章详情
+        /// </summary>
+        /// <param name="id">文章id</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
@@ -44,6 +59,11 @@ namespace HappyDog.Api.Controllers
             return Json(mapper.Map<Article, ArticleDto>(article));
         }
 
+        /// <summary>
+        /// 文章列表
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> List(int page = 1)
@@ -54,6 +74,12 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// 修改文章
+        /// </summary>
+        /// <param name="id">文章id</param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ValidateModel]
         public async Task<HttpBaseResult> Put(int id, [FromBody]EditArticleDto dto)
@@ -66,6 +92,11 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// 添加文章
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateModel]
         public async Task<HttpDataResult<int>> Post([FromBody]PostArticleDto dto)
@@ -79,6 +110,11 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// .Net
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("net")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Net(int page = 1)
@@ -89,6 +125,11 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// 数据库
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("db")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Database(int page = 1)
@@ -99,6 +140,11 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// Windows
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("windows")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Windows(int page = 1)
@@ -109,6 +155,11 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// 阅读
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("read")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Read(int page = 1)
@@ -119,6 +170,11 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// 随笔
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("essays")]
         [AllowAnonymous]
         public async Task<Pagination<ArticleSummaryDto>> Essays(int page = 1)
@@ -129,6 +185,12 @@ namespace HappyDog.Api.Controllers
             return await pager.GetPaginationAsync(query);
         }
 
+        /// <summary>
+        /// 文章搜索
+        /// </summary>
+        /// <param name="q">搜索关键词，也可有分类（db:sql, windows:win10）</param>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
         [HttpGet("search")]
         [AllowAnonymous]
         public async Task<HttpBaseResult> Search(string q, int page = 1)

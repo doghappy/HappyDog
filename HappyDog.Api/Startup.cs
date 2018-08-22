@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Text;
 using AutoMapper;
+using NJsonSchema;
+using NSwag.AspNetCore;
+using System.Reflection;
 using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
@@ -149,6 +152,25 @@ namespace HappyDog.Api
                     await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
                 }
             });
+
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+                settings.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "开心狗API";
+                    document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.SwaggerContact
+                    {
+                        Name = "HeroWong",
+                        Email = "hero_wong@outlook.com",
+                        Url = "https://doghappy.wang"
+                    };
+                };
+            });
+
             app.UseMvc();
         }
     }

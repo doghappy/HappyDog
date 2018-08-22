@@ -6,10 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.Api.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("home")]
     [ApiController]
     public class HomeController : ControllerBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("error")]
         public HttpBaseResult Error()
         {
@@ -29,6 +36,10 @@ namespace HappyDog.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("notfound")]
         public new HttpBaseResult NotFound()
         {
