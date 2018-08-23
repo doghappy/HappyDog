@@ -1,10 +1,7 @@
-﻿using HappyDog.WindowsUI.Enums;
-using HappyDog.WindowsUI.ViewModels.Abstract;
-
-namespace HappyDog.WindowsUI.ViewModels
+﻿namespace HappyDog.WindowsUI.ViewModels
 {
-    public class EssaysViewModel : ArticleAuthViewModel
+    public class EssaysViewModel : ArticleViewModel
     {
-        protected override Category Category => Category.Essays;
+        protected override string Url => "article/essays";
     }
 }

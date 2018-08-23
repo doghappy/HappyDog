@@ -1,4 +1,4 @@
-﻿using HappyDog.WindowsUI.Services;
+﻿using HappyDog.WindowsUI.Common;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

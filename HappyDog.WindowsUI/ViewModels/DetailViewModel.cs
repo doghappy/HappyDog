@@ -1,11 +1,10 @@
 ﻿using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.ViewModels.Abstract;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class DetailViewModel : ArticleAuthViewModel
+    public class DetailViewModel:INotifyPropertyChanged
     {
         public DetailViewModel(int articleId)
         {
@@ -14,6 +13,8 @@ namespace HappyDog.WindowsUI.ViewModels
 
         readonly int articleId;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private Article article;
         public Article Article
         {
@@ -21,15 +22,19 @@ namespace HappyDog.WindowsUI.ViewModels
             set
             {
                 article = value;
-                OnPropertyChanged(this, new PropertyChangedEventArgs(nameof(Article)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Article)));
             }
         }
 
-        public async override Task InitializeAsync()
+        public bool IsLogged => true;
+        public bool IsLoading => false;
+
+        public Task InitializeAsync()
         {
-            IsLoading = true;
-            Article = await LoadArticleAsync(articleId);
-            IsLoading = false;
+            //IsLoading = true;
+            //Article = await LoadArticleAsync(articleId);
+            //IsLoading = false;
+            return null;
         }
     }
 }

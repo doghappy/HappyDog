@@ -1,18 +1,15 @@
 ﻿using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.Services;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace HappyDog.WindowsUI.ViewModels.Abstract
+namespace HappyDog.WindowsUI.ViewModels
 {
-    public abstract class ArticleViewModel : INotifyPropertyChanged
+    public abstract class ArticleViewModel : ViewModel, INotifyPropertyChanged
     {
-        readonly ArticleService articleService;
-
         public ArticleViewModel()
         {
-            articleService = new ArticleService((int)Category);
             Articles = new ObservableCollection<Article>();
             HasMoreArticles = true;
         }
@@ -48,7 +45,7 @@ namespace HappyDog.WindowsUI.ViewModels.Abstract
             }
         }
 
-        protected virtual Enums.Category Category { get; }
+        protected abstract string Url { get; }
 
         private bool isLoading;
         public bool IsLoading
@@ -62,18 +59,29 @@ namespace HappyDog.WindowsUI.ViewModels.Abstract
         }
 
         public bool HasMoreArticles { get; private set; }
+
         public async Task LoadArticleAsync()
         {
             if (HasMoreArticles)
             {
                 PageNumber++;
-                var articles = await articleService.GetArticlesAsync(PageNumber);
-                foreach (var item in articles.Data)
+                string url = $"{BaseAddress}/{Url}?page={PageNumber}";
+                var resMsg = await HttpClient.GetAsync(url);
+                if (resMsg.IsSuccessStatusCode)
                 {
-                    Articles.Add(item);
+                    string json = await resMsg.Content.ReadAsStringAsync();
+                    var pagingData = JsonConvert.DeserializeObject<Pagination<Article>>(json);
+                    TotalPages = pagingData.TotalPages;
+                    HasMoreArticles = PageNumber < TotalPages;
+                    foreach (var item in pagingData.Data)
+                    {
+                        Articles.Add(item);
+                    }
                 }
-                TotalPages = articles.TotalPages;
-                HasMoreArticles = PageNumber != TotalPages;
+                else
+                {
+                    await ParseStatusCodeAsync(resMsg);
+                }
             }
         }
 
@@ -86,7 +94,7 @@ namespace HappyDog.WindowsUI.ViewModels.Abstract
 
         protected async Task<Article> LoadArticleAsync(int id)
         {
-            return await articleService.GetArticleAsync(id);
+            return null;
         }
     }
 }

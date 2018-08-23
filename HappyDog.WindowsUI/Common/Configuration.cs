@@ -1,9 +1,13 @@
 ﻿using HappyDog.WindowsUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 
-namespace HappyDog.WindowsUI.Services
+namespace HappyDog.WindowsUI.Common
 {
     public static class Configuration
     {

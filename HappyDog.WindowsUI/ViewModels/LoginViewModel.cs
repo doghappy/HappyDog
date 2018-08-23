@@ -1,6 +1,5 @@
 ﻿using HappyDog.WindowsUI.Enums;
 using HappyDog.WindowsUI.Models.Results;
-using HappyDog.WindowsUI.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +13,8 @@ namespace HappyDog.WindowsUI.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        readonly UserService userService;
-
         public LoginViewModel()
         {
-            userService = new UserService();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -47,7 +43,8 @@ namespace HappyDog.WindowsUI.ViewModels
 
         public async Task<HttpBaseResult> LoginAsync()
         {
-            return await userService.LoginAsync(UserName, Password);
+            //return await userService.LoginAsync(UserName, Password);
+            return null;
         }
     }
 }

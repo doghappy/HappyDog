@@ -1,4 +1,4 @@
-﻿using HappyDog.WindowsUI.ViewModels.Abstract;
+﻿using HappyDog.WindowsUI.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

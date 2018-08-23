@@ -1,6 +1,6 @@
-﻿using HappyDog.WindowsUI.Models;
+﻿using HappyDog.WindowsUI.Common;
+using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.Models.Results;
-using HappyDog.WindowsUI.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -12,11 +12,9 @@ namespace HappyDog.WindowsUI.ViewModels
         public EditArticleViewModel(int articleId)
         {
             ArticleId = articleId;
-            articleService = new ArticleService();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        readonly ArticleService articleService;
 
         public ObservableCollection<Category> Categories => Configuration.Categories;
 
@@ -35,13 +33,13 @@ namespace HappyDog.WindowsUI.ViewModels
 
         public async Task InitializeAsync()
         {
-            Article = await articleService.GetArticleAsync(ArticleId);
         }
 
         public async Task<HttpBaseResult> PutAsync()
         {
-            Article.CategoryId = Article.Category.Id;
-            return await articleService.PutAsync(Article);
+            //Article.CategoryId = Article.Category.Id;
+            //return await articleService.PutAsync(Article);
+            return null;
         }
     }
 }

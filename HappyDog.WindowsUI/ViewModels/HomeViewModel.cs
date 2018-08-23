@@ -1,10 +1,9 @@
-﻿using HappyDog.WindowsUI.Enums;
-using HappyDog.WindowsUI.ViewModels.Abstract;
-
-namespace HappyDog.WindowsUI.ViewModels
+﻿namespace HappyDog.WindowsUI.ViewModels
 {
-    public class HomeViewModel : ArticleAuthViewModel
+    public class HomeViewModel : ArticleViewModel
     {
-        protected override Category Category => Category.None;
+        protected override string Url => "article";
+
+        public bool IsLogged => true;
     }
 }

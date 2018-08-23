@@ -1,5 +1,6 @@
-﻿using HappyDog.WindowsUI.Services;
+﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Views;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -29,16 +30,20 @@ namespace HappyDog.WindowsUI
             UnhandledException += App_UnhandledException;
         }
 
-        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            var dialog = new ContentDialog
-            {
-                Title = "发生异常了",
-                Content = e.Message,
-                PrimaryButtonText = "确定"
-            };
-            await dialog.ShowAsync();
+            //var dialog = new ContentDialog
+            //{
+            //    Title = "发生异常了",
+            //    Content = e.Message,
+            //    PrimaryButtonText = "确定"
+            //};
+            //await dialog.ShowAsync();
+
+            var fe = Window.Current.Content as FrameworkElement;
+            var notification = fe.GetChild<InAppNotification>("MainNotification");
+            notification.Show(e.Message, 4000);
         }
 
         /// <summary>
@@ -87,18 +92,6 @@ namespace HappyDog.WindowsUI
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
-            }
-
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("AuthCookie"))
-            {
-                string cookie = ApplicationData.Current.LocalSettings.Values["AuthCookie"].ToString();
-                int index = cookie.IndexOf(';');
-                HttpClient.Instance.DefaultRequestHeaders.Add("Cookie", cookie.Substring(0, index));
-                //string cookie = ApplicationData.Current.LocalSettings.Values["AuthCookie"].ToString();
-                //int index = cookie.IndexOf('=');
-                //string name = cookie.Substring(0, index);
-                //string value = cookie.Substring(index + 1);
-                //HttpClient.Instance.DefaultRequestHeaders.Add(name, value);
             }
         }
 

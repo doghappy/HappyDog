@@ -36,21 +36,21 @@ namespace HappyDog.WindowsUI.Views
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = await ViewModel.LoginAsync();
-            if (result.Code == CodeResult.OK)
-            {
-                Frame.Navigate(typeof(HomePage));
-            }
-            else
-            {
-                var dialog = new ContentDialog
-                {
-                    Title = "提示",
-                    Content = result.Message,
-                    PrimaryButtonText = "确定"
-                };
-                await dialog.ShowAsync();
-            }
+            //var result = await ViewModel.LoginAsync();
+            //if (result.Code == CodeResult.OK)
+            //{
+            //    Frame.Navigate(typeof(HomePage));
+            //}
+            //else
+            //{
+            //    var dialog = new ContentDialog
+            //    {
+            //        Title = "提示",
+            //        Content = result.Message,
+            //        PrimaryButtonText = "确定"
+            //    };
+            //    await dialog.ShowAsync();
+            //}
         }
     }
 }
