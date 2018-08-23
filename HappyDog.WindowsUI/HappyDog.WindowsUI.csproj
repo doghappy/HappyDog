@@ -187,6 +187,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Fonts\iconfont.ttf" />
     <None Include="HappyDog.WindowsUI_StoreKey.pfx" />
     <None Include="HappyDog.WindowsUI_TemporaryKey.pfx" />
   </ItemGroup>

@@ -71,4 +71,28 @@ namespace HappyDog.RecoverData
             Console.ReadKey();
         }
     }
+
+    class Team
+    {
+        public bool IsTrial { get; set; }
+        public int UserLimit { get; set; }
+    }
+
+    class ContractService
+    {
+        public void NewBuy()
+        {
+
+        }
+
+        public void RenewBuy()
+        {
+
+        }
+
+        public void IncrementBuy()
+        {
+
+        }
+    }
 }

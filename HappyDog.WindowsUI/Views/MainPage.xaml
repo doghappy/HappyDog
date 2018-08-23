@@ -30,7 +30,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Tag=".net" Content=".Net">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Cubes"/>
+                        <FontIcon FontFamily="/Assets/Fonts/iconfont.ttf#iconfont" Glyph="&#xe6cd;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Tag="db" Content="数据库">
@@ -45,7 +45,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Tag="read" Content="阅读">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Bookmark"/>
+                        <FontIcon FontFamily="/Assets/Fonts/iconfont.ttf#iconfont" Glyph="&#xe633;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Tag="essays" Content="随笔">
