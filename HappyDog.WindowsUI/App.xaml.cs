@@ -43,7 +43,7 @@ namespace HappyDog.WindowsUI
 
             var fe = Window.Current.Content as FrameworkElement;
             var notification = fe.GetChild<InAppNotification>("MainNotification");
-            notification.Show(e.Message, 4000);
+            notification.Show(e.Message, 0);
         }
 
         /// <summary>

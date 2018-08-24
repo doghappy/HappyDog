@@ -8,42 +8,87 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Markdown.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="JumbotronBackgroundColor" Color="#e9ecef"/>
-            <Style x:Key="JumbotronH1" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#212529"/>
-                <Setter Property="FontSize" Value="56"/>
-                <Setter Property="LineHeight" Value="67.2"/>
-                <Setter Property="Margin" Value="0,0,0,8"/>
-            </Style>
-            <Style x:Key="JumbotronLead" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#212529"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="LineHeight" Value="30"/>
-                <Setter Property="Margin" Value="0,0,0,16"/>
-                <Setter Property="FontWeight" Value="SemiLight"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-            </Style>
-            <Style x:Key="JumbotronP" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="LineHeight" Value="30"/>
-                <Setter Property="FontWeight" Value="SemiLight"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-            </Style>
-            <Style x:Key="JumbotronStackPanel" TargetType="StackPanel">
-                <Setter Property="Background" Value="{StaticResource JumbotronBackgroundColor}"/>
-                <Setter Property="Padding" Value="32,32"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-            </Style>
-            <Style x:Key="StackPanelContainer" TargetType="StackPanel">
-                <Setter Property="MaxWidth" Value="1140"/>
-                <Setter Property="Padding" Value="32"/>
-            </Style>
-            <SolidColorBrush x:Key="TextMuted" Color="#6c757d"/>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="JumbotronBackgroundColor" Color="#e9ecef"/>
+                    <SolidColorBrush x:Key="JumbotronForegroundColor" Color="#212529"/>
+                    <Style x:Key="JumbotronH1" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{ThemeResource JumbotronForegroundColor}"/>
+                        <Setter Property="FontSize" Value="56"/>
+                        <Setter Property="LineHeight" Value="67.2"/>
+                        <Setter Property="Margin" Value="0,0,0,8"/>
+                    </Style>
+                    <Style x:Key="JumbotronLead" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{ThemeResource JumbotronForegroundColor}"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="LineHeight" Value="30"/>
+                        <Setter Property="Margin" Value="0,0,0,16"/>
+                        <Setter Property="FontWeight" Value="SemiLight"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style x:Key="JumbotronP" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="LineHeight" Value="30"/>
+                        <Setter Property="FontWeight" Value="SemiLight"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style x:Key="JumbotronStackPanel" TargetType="StackPanel">
+                        <Setter Property="Background" Value="{StaticResource JumbotronBackgroundColor}"/>
+                        <Setter Property="Padding" Value="32,32"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                    </Style>
+                    <Style x:Key="StackPanelContainer" TargetType="StackPanel">
+                        <Setter Property="MaxWidth" Value="1140"/>
+                        <Setter Property="Padding" Value="32"/>
+                    </Style>
+                    <SolidColorBrush x:Key="TextMuted" Color="#6c757d"/>
 
-            <Style x:Key="PrimaryButton" TargetType="Button">
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="#007bff"/>
-            </Style>
+                    <Style x:Key="PrimaryButton" TargetType="Button">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="#007bff"/>
+                    </Style>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="JumbotronBackgroundColor" Color="#484848"/>
+                    <SolidColorBrush x:Key="JumbotronForegroundColor" Color="White"/>
+                    <Style x:Key="JumbotronH1" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{ThemeResource JumbotronForegroundColor}"/>
+                        <Setter Property="FontSize" Value="56"/>
+                        <Setter Property="LineHeight" Value="67.2"/>
+                        <Setter Property="Margin" Value="0,0,0,8"/>
+                    </Style>
+                    <Style x:Key="JumbotronLead" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{ThemeResource JumbotronForegroundColor}"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="LineHeight" Value="30"/>
+                        <Setter Property="Margin" Value="0,0,0,16"/>
+                        <Setter Property="FontWeight" Value="SemiLight"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style x:Key="JumbotronP" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="LineHeight" Value="30"/>
+                        <Setter Property="FontWeight" Value="SemiLight"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style x:Key="JumbotronStackPanel" TargetType="StackPanel">
+                        <Setter Property="Background" Value="{StaticResource JumbotronBackgroundColor}"/>
+                        <Setter Property="Padding" Value="32,32"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                    </Style>
+                    <Style x:Key="StackPanelContainer" TargetType="StackPanel">
+                        <Setter Property="MaxWidth" Value="1140"/>
+                        <Setter Property="Padding" Value="32"/>
+                    </Style>
+                    <SolidColorBrush x:Key="TextMuted" Color="#6c757d"/>
+
+                    <Style x:Key="PrimaryButton" TargetType="Button">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="#007bff"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
