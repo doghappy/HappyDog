@@ -1,10 +1,11 @@
 ﻿using HappyDog.WindowsUI.Models;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class DetailViewModel:INotifyPropertyChanged
+    public class DetailViewModel : ViewModel, INotifyPropertyChanged
     {
         public DetailViewModel(int articleId)
         {
@@ -26,15 +27,35 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        public bool IsLogged => true;
-        public bool IsLoading => false;
+        public bool IsLogged { get; private set; }
 
-        public Task InitializeAsync()
+        private bool isLoading;
+        public bool IsLoading
         {
-            //IsLoading = true;
-            //Article = await LoadArticleAsync(articleId);
-            //IsLoading = false;
-            return null;
+            get => isLoading;
+            set
+            {
+                isLoading = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
+            }
+        }
+
+
+        public async Task InitializeAsync()
+        {
+            IsLoading = true;
+            string url = $"{BaseAddress}/article/{articleId}";
+            var resMsg = await HttpClient.GetAsync(url);
+            if (resMsg.IsSuccessStatusCode)
+            {
+                string json = await resMsg.Content.ReadAsStringAsync();
+                Article = JsonConvert.DeserializeObject<Article>(json);
+            }
+            else
+            {
+                await ParseStatusCodeAsync(resMsg);
+            }
+            IsLoading = false;
         }
     }
 }
