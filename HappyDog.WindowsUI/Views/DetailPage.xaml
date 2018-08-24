@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <Style TargetType="fa:FontAwesome">
                 <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                <Setter Property="Foreground" Value="{ThemeResource TextMuted}"/>
                 <Setter Property="Margin" Value="0,0,4,0"/>
             </Style>
         </ResourceDictionary>
@@ -26,7 +26,6 @@
                     <StackPanel x:Name="DetailHeader" Style="{StaticResource StackPanelContainer}">
                         <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
                                    FontSize="40"
-                                   Foreground="#1E2529"
                                    Margin="0,0,0,24"
                                    TextWrapping="Wrap"
                                    LineHeight="48"/>

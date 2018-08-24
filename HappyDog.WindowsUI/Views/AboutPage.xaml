@@ -25,12 +25,12 @@
             <TextBlock Text="{x:Bind Version}"/>
             <HyperlinkButton Content="doghappy.wang" Click="DogHappy_Click"/>
             <StackPanel Orientation="Horizontal">
-                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="Black" Click="EmailIcon_Click">
+                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="{ThemeResource DefaultTextForegroundThemeBrush}" Click="EmailIcon_Click">
                     <Viewbox Width="40" HorizontalAlignment="Left">
                         <SymbolIcon Symbol="Mail" HorizontalAlignment="Left"/>
                     </Viewbox>
                 </Button>
-                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="Black" Click="GithubIcon_Click">
+                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="{ThemeResource DefaultTextForegroundThemeBrush}" Click="GithubIcon_Click">
                     <Viewbox Width="40" HorizontalAlignment="Left">
                         <fa:FontAwesome Icon="Github" HorizontalAlignment="Left"/>
                     </Viewbox>
