@@ -10,7 +10,7 @@ namespace HappyDog.WindowsUI.Models
         public string Label { get; set; }
         public string Value { get; set; }
         public string Color { get; set; }
-        public BaseState State { get; set; }
+        public BaseStatus State { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -13,10 +13,10 @@
     <Grid>
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}" x:Name="CategoryOutlet">
             <hc:CategoryOutlet.Jumbotron>
-                <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                    <StackPanel Style="{StaticResource StackPanelContainer}">
-                        <TextBlock Text="开心狗" Style="{StaticResource JumbotronH1}"/>
-                        <TextBlock Style="{StaticResource JumbotronLead}">
+                <StackPanel Style="{ThemeResource JumbotronStackPanel}">
+                    <StackPanel Style="{ThemeResource StackPanelContainer}">
+                        <TextBlock Text="开心狗" Style="{ThemeResource JumbotronH1}"/>
+                        <TextBlock Style="{ThemeResource JumbotronLead}">
                             <Run Text="Don't ever let somebody tell you"/>
                             <LineBreak/>
                             <Run Text="You can't do something..."/>
@@ -28,7 +28,7 @@
                             <LineBreak/>
                             <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
-                        <Button Style="{StaticResource PrimaryButton}"
+                        <Button Style="{ThemeResource PrimaryButton}"
                                 Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}"
                                 Click="PostArticle_Click">
                             <StackPanel Orientation="Horizontal">

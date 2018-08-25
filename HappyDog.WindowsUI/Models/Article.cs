@@ -11,7 +11,7 @@ namespace HappyDog.WindowsUI.Models
         public int CategoryId { get; set; }
         public DateTime CreateTime { get; set; }
         public int ViewCount { get; set; }
-        public BaseState State { get; set; }
+        public BaseStatus Status { get; set; }
         public Category Category { get; set; }
     }
 }

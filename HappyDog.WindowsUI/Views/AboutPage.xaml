@@ -12,20 +12,21 @@
 
     <Grid Padding="40">
         <StackPanel>
-            <TextBlock Text="关于" Style="{StaticResource HeaderTextBlockStyle}" Margin="0,0,0,16"/>
-            <!--<TextBlock>
-                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Major}"/>
-                <Run Text="."/>
-                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Minor}"/>
-                <Run Text="."/>
-                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Build}"/>
-                <Run Text="."/>
-                <Run Text="{x:Bind appmodel:Package.Current.Id.Version.Revision}"/>
-            </TextBlock>-->
+            <TextBlock Text="设置" Style="{StaticResource HeaderTextBlockStyle}" Margin="0,0,0,16"/>
+            <StackPanel>
+                <TextBlock Text="主题" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <RadioButton Checked="OnThemeChanged" Tag="Default" Content="默认"/>
+                <RadioButton Checked="OnThemeChanged" Tag="Light" Content="亮"/>
+                <RadioButton Checked="OnThemeChanged" Tag="Dark" Content="暗"/>
+            </StackPanel>
+            <TextBlock Text="关于" Style="{StaticResource TitleTextBlockStyle}" Margin="0,32,0,16"/>
             <TextBlock Text="{x:Bind Version}"/>
             <HyperlinkButton Content="doghappy.wang" Click="DogHappy_Click"/>
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{ThemeResource TextBlockButtonStyle}" Foreground="{ThemeResource DefaultTextForegroundThemeBrush}" Click="EmailIcon_Click">
+
+            <StackPanel Orientation="Horizontal" Margin="0,32,0,16">
+                <Button Style="{ThemeResource TextBlockButtonStyle}"
+                        Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                        Click="EmailIcon_Click">
                     <Viewbox Width="40" HorizontalAlignment="Left">
                         <SymbolIcon Symbol="Mail" HorizontalAlignment="Left"/>
                     </Viewbox>

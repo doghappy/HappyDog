@@ -1,6 +1,6 @@
 ﻿namespace HappyDog.WindowsUI.Enums
 {
-    public enum BaseState
+    public enum BaseStatus
     {
         Disable,
         Enable

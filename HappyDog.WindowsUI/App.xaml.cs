@@ -2,6 +2,7 @@
 using HappyDog.WindowsUI.Views;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -28,6 +29,77 @@ namespace HappyDog.WindowsUI
             InitializeComponent();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
+            ApplicationData.Current.DataChanged += Current_DataChanged;
+
+
+        }
+
+        const string AppThemeKey = "AppTheme";
+
+        public static ElementTheme RootTheme
+        {
+            get
+            {
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    return rootElement.RequestedTheme;
+                }
+                return ElementTheme.Default;
+            }
+            set
+            {
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    rootElement.RequestedTheme = value;
+                }
+                ApplicationData.Current.RoamingSettings.Values[AppThemeKey] = value.ToString();
+            }
+        }
+
+        private void EnsureWindow(IActivatedEventArgs args)
+        {
+            string appTheme = ApplicationData.Current.RoamingSettings.Values[AppThemeKey]?.ToString();
+            if (appTheme != null)
+            {
+                RootTheme = Enum.Parse<ElementTheme>(appTheme);
+            }
+
+            //draw into the title bar
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            ////remove the solid-colored backgrounds behind the caption controls and system back button
+            //var viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+            //viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
+            //viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            //viewTitleBar.ButtonForegroundColor = (Color)Resources["SystemBaseHighColor"];
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            if (RootTheme == ElementTheme.Default)
+            {
+                if (Current.RequestedTheme == ApplicationTheme.Light)
+                {
+                    titleBar.ButtonForegroundColor = Colors.Black;
+                }
+                else
+                {
+                    titleBar.ButtonForegroundColor = Colors.White;
+                }
+            }
+            else if (RootTheme == ElementTheme.Light)
+            {
+                titleBar.ButtonForegroundColor = Colors.Black;
+            }
+            else if (RootTheme == ElementTheme.Dark)
+            {
+                titleBar.ButtonForegroundColor = Colors.White;
+            }
+        }
+
+        private void Current_DataChanged(ApplicationData sender, object args)
+        {
+            // TODO: Refresh your data
         }
 
         private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -53,16 +125,6 @@ namespace HappyDog.WindowsUI
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            //draw into the title bar
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
-
-            //remove the solid-colored backgrounds behind the caption controls and system back button
-            var viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
-            viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
-            viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            viewTitleBar.ButtonForegroundColor = (Color)Resources["SystemBaseHighColor"];
-
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (!(Window.Current.Content is Frame rootFrame))
@@ -93,6 +155,8 @@ namespace HappyDog.WindowsUI
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
+
+            EnsureWindow(e);
         }
 
         /// <summary>

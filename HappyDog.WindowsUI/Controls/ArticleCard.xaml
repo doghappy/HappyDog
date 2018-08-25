@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <cvt:StateThemeConverter x:Key="StateThemeConverter"/>
+            <cvt:StatusThemeConverter x:Key="StatusThemeConverter"/>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="TitleColor" Color="#343A40"/>
@@ -26,7 +26,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid RequestedTheme="{x:Bind Article.State, Mode=OneWay, Converter={StaticResource StateThemeConverter}}"
+    <Grid RequestedTheme="{x:Bind Article.Status, Mode=OneWay, Converter={ThemeResource StatusThemeConverter}}"
           Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <Grid Padding="20">
             <Grid.RowDefinitions>
@@ -48,8 +48,8 @@
                        LineHeight="24"
                        Margin="0,0,0,12"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" Height="24" Margin="0,0,0,4">
-                <fa:FontAwesome Icon="Calendar" Foreground="{StaticResource TextMuted}"/>
-                <TextBlock Margin="4,2,0,0" Text="{x:Bind Article.CreateTime, Mode=OneWay}" Foreground="{StaticResource TextMuted}"/>
+                <fa:FontAwesome Icon="Calendar" Foreground="{ThemeResource TextMuted}"/>
+                <TextBlock Margin="4,2,0,0" Text="{x:Bind Article.CreateTime, Mode=OneWay}" Foreground="{ThemeResource TextMuted}"/>
             </StackPanel>
             <StackPanel CornerRadius="4" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Background="#28a745" Padding="3">
                 <fa:FontAwesome Icon="LineChart" Foreground="White" FontSize="12"/>

@@ -1,6 +1,8 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,5 +33,33 @@ namespace HappyDog.WindowsUI.Views
         }
 
         public string Version { get; }
+
+        private void OnThemeChanged(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as RadioButton;
+            ElementTheme theme = Enum.Parse<ElementTheme>(btn.Tag.ToString());
+            App.RootTheme = theme;
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            if (theme == ElementTheme.Default)
+            {
+                if (Application.Current.RequestedTheme == ApplicationTheme.Light)
+                {
+                    titleBar.ButtonForegroundColor = Colors.Black;
+                }
+                else
+                {
+                    titleBar.ButtonForegroundColor = Colors.White;
+                }
+            }
+            else if (theme == ElementTheme.Light)
+            {
+                titleBar.ButtonForegroundColor = Colors.Black;
+            }
+            else if (theme == ElementTheme.Dark)
+            {
+                titleBar.ButtonForegroundColor = Colors.White;
+            }
+        }
     }
 }

@@ -115,8 +115,8 @@
       <DependentUpon>CategoryOutlet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\StateBoolConverter.cs" />
-    <Compile Include="Converters\StateThemeConverter.cs" />
-    <Compile Include="Enums\BaseState.cs" />
+    <Compile Include="Converters\StatusThemeConverter.cs" />
+    <Compile Include="Enums\BaseStatus.cs" />
     <Compile Include="Enums\Category.cs" />
     <Compile Include="Enums\CodeResult.cs" />
     <Compile Include="Enums\NoticeMode.cs" />

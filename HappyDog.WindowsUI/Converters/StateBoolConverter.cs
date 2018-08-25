@@ -8,9 +8,9 @@ namespace HappyDog.WindowsUI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is BaseState state)
+            if (value is BaseStatus state)
             {
-                return state == BaseState.Enable;
+                return state == BaseStatus.Enable;
             }
             return false;
         }
@@ -18,8 +18,8 @@ namespace HappyDog.WindowsUI.Converters
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return bool.Parse(value.ToString())
-                ? BaseState.Enable
-                : BaseState.Disable;
+                ? BaseStatus.Enable
+                : BaseStatus.Disable;
         }
     }
 }
