@@ -15,7 +15,7 @@
             <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel Style="{ThemeResource StackPanelContainer}">
-                        <Image Source="/Assets/Images/Windows_10_Logo.svg" Height="100" HorizontalAlignment="Left" Stretch="Fill"/>
+                        <Image Source="/Assets/Images/Windows_10_Logo.svg" Height="100" HorizontalAlignment="Left"/>
                         <TextBlock Style="{ThemeResource JumbotronLead}"
                                    Text="Windows 10 是一款优秀的系统。"/>
                         <TextBlock Style="{ThemeResource JumbotronLead}"

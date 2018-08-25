@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HappyDog.WindowsUI.Views.LoginPage"
+    x:Class="HappyDog.WindowsUI.Views.SignInPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HappyDog.WindowsUI.Views"
@@ -20,14 +20,24 @@
             <ImageBrush ImageSource="/Assets/Images/desktop-2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <StackPanel VerticalAlignment="Center" Padding="40" Width="400" Background="{StaticResource CustomAcrylicBrush}">
-            <Image Source="/Assets/StoreLogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
+            <!--<Image Source="/Assets/Images/Dog_Happy.svg"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Stretch="None"
+                   Height="100" Width="100" Margin="0,-0,0,16"/>-->
+            <Image Width="100" Stretch="Uniform" Margin="0,0,0,16" VerticalAlignment="Center">
+                <Image.Source>
+                    <SvgImageSource UriSource="/Assets/Images/Dog_Happy.svg"
+                                    RasterizePixelHeight="200"
+                                    RasterizePixelWidth="200" />
+                </Image.Source>
+            </Image>
             <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" PlaceholderText="请输入用户名"/>
-            <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.Password, Mode=TwoWay}"
+            <PasswordBox Margin="0,0,0,16" Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
                      PlaceholderText="请输入密码"/>
             <Button x:Name="LoginButton"
                     Content="登录"
                     Style="{StaticResource PrimaryButton}"
-                    Click="LoginButton_Click"
+                    Click="SignInButton_Click"
                     HorizontalAlignment="Stretch"/>
         </StackPanel>
     </Grid>

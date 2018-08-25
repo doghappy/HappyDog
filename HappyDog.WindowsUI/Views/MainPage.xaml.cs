@@ -97,6 +97,9 @@ namespace HappyDog.WindowsUI.Views
                     case "essays":
                         ContentFrame.Navigate(typeof(EssaysPage));
                         break;
+                    case "user":
+                        ContentFrame.Navigate(typeof(SignInPage));
+                        break;
                 }
             }
         }
@@ -113,7 +116,7 @@ namespace HappyDog.WindowsUI.Views
         {
             if (args.QueryText == "cmd>login();")
             {
-                ContentFrame.Navigate(typeof(LoginPage));
+                ContentFrame.Navigate(typeof(SignInPage));
             }
         }
     }

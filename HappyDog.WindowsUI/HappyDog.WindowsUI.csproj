@@ -159,8 +159,8 @@
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
+    <Compile Include="Views\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -186,6 +186,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\db.jpg" />
     <Content Include="Assets\Images\desktop-2.jpg" />
+    <Content Include="Assets\Images\Dog_Happy.svg" />
     <Content Include="Assets\Images\Ink_4x3.png" />
     <Content Include="Assets\Images\Office_8x3.jpg" />
     <Content Include="Assets\Images\swimlane-dotnet-core.svg" />
@@ -304,7 +305,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginPage.xaml">
+    <Page Include="Views\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

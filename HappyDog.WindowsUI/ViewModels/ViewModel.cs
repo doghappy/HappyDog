@@ -31,14 +31,22 @@ namespace HappyDog.WindowsUI.ViewModels
 
         protected string BaseAddress => "http://localhost:56149";
 
-        protected async Task ParseStatusCodeAsync(HttpResponseMessage resMsg)
+        protected string ApplicationJson => "application/json";
+
+        protected async virtual Task HandleErrorStatusCodeAsync(HttpResponseMessage resMsg)
         {
-            switch (resMsg.StatusCode)
-            {
-                case HttpStatusCode.NotFound:
-                    await OnNotFoundAsync(resMsg);
-                    break;
-            }
+            //switch (resMsg.StatusCode)
+            //{
+            //    case HttpStatusCode.NotFound:
+            //        await OnNotFoundAsync(resMsg);
+            //        break;
+            //    case HttpStatusCode.BadRequest:
+            //        await OnBadRequestAsync(resMsg);
+            //        break;
+            //}  
+            var notification = GetNotification();
+            var result = await ReadHttpResponseMessageAsync(resMsg);
+            notification.Show(result.Message, 4000);
         }
 
         protected virtual InAppNotification GetNotification()
@@ -53,11 +61,18 @@ namespace HappyDog.WindowsUI.ViewModels
             return JsonConvert.DeserializeObject<HttpBaseResult>(json);
         }
 
-        protected async virtual Task OnNotFoundAsync(HttpResponseMessage resMsg)
-        {
-            var notification = GetNotification();
-            var result = await ReadHttpResponseMessageAsync(resMsg);
-            notification.Show(result.Message, 4000);
-        }
+        //protected async virtual Task OnNotFoundAsync(HttpResponseMessage resMsg)
+        //{
+        //    var notification = GetNotification();
+        //    var result = await ReadHttpResponseMessageAsync(resMsg);
+        //    notification.Show(result.Message, 4000);
+        //}
+
+        //protected async virtual Task OnBadRequestAsync(HttpResponseMessage resMsg)
+        //{
+        //    var notification = GetNotification();
+        //    var result = await ReadHttpResponseMessageAsync(resMsg);
+        //    notification.Show(result.Message, 4000);
+        //}
     }
 }

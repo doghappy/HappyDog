@@ -3,6 +3,7 @@ using HappyDog.Domain.Models.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace HappyDog.Api.Filters
@@ -26,10 +27,10 @@ namespace HappyDog.Api.Filters
                     }
                 }
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                context.Result = new JsonResult(new HttpDataResult<List<string>>
+                context.Result = new JsonResult(new HttpBaseResult
                 {
                     NoticeMode = NoticeMode.Warning,
-                    Data = msg
+                    Message = string.Join('\t', msg)
                 });
             }
         }

@@ -53,7 +53,7 @@ namespace HappyDog.WindowsUI.ViewModels
             }
             else
             {
-                await ParseStatusCodeAsync(resMsg);
+                await HandleErrorStatusCodeAsync(resMsg);
             }
             IsLoading = false;
         }

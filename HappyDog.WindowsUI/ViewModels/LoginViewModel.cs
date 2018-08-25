@@ -1,9 +1,11 @@
 ﻿using HappyDog.WindowsUI.Enums;
 using HappyDog.WindowsUI.Models.Results;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
@@ -11,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : ViewModel, INotifyPropertyChanged
     {
         public LoginViewModel()
         {
@@ -41,10 +43,36 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        public async Task<HttpBaseResult> LoginAsync()
+        public async Task SignInAsync()
         {
-            //return await userService.LoginAsync(UserName, Password);
-            return null;
+            string url = BaseAddress + "/user/signIn";
+            var dto = new
+            {
+                UserName,
+                Password,
+                RememberMe = true
+            };
+            string json = JsonConvert.SerializeObject(dto);
+            var resMsg = await HttpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, ApplicationJson));
+            if (resMsg.IsSuccessStatusCode)
+            {
+                var vault = new PasswordVault();
+                var credentialList = vault.FindAllByResource("doghappy");
+                foreach (var item in credentialList)
+                {
+                    vault.Remove(item);
+                }
+                vault.Add(new PasswordCredential
+                {
+                    Resource = "doghappy",
+                    UserName = UserName,
+                    Password = Password
+                });
+            }
+            else
+            {
+                await HandleErrorStatusCodeAsync(resMsg);
+            }
         }
     }
 }
