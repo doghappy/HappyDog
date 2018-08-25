@@ -1,11 +1,12 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.ViewModels;
 using System.ComponentModel;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class EssaysPage : ArticleListBasePage, INotifyPropertyChanged
+    public sealed partial class EssaysPage : Page, INotifyPropertyChanged
     {
         public EssaysPage()
         {

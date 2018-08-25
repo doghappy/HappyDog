@@ -56,6 +56,7 @@ namespace HappyDog.WindowsUI.Views
             App.RootTheme = theme;
             App.UpdateTitleBar();
             Configuration.CachedPages.ForEach(p => p.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Disabled);
+            Configuration.CachedPages.Clear();
         }
     }
 }

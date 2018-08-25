@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class HomePage : ArticleListBasePage, INotifyPropertyChanged
+    public sealed partial class HomePage : Page, INotifyPropertyChanged
     {
         public HomePage()
         {

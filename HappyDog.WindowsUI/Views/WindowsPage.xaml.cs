@@ -3,11 +3,12 @@ using HappyDog.WindowsUI.ViewModels;
 using System;
 using System.ComponentModel;
 using Windows.System;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class WindowsPage : ArticleListBasePage, INotifyPropertyChanged
+    public sealed partial class WindowsPage : Page, INotifyPropertyChanged
     {
         public WindowsPage()
         {
