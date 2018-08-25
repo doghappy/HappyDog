@@ -26,7 +26,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid RequestedTheme="{x:Bind Article.Status, Mode=OneWay, Converter={ThemeResource StatusThemeConverter}}"
+    <Grid RequestedTheme="{x:Bind Article.Status, Mode=OneWay, Converter={StaticResource StatusThemeConverter}}"
           Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <Grid Padding="20">
             <Grid.RowDefinitions>

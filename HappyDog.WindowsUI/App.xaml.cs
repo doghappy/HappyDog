@@ -56,14 +56,8 @@ namespace HappyDog.WindowsUI
             }
         }
 
-        private void EnsureWindow(IActivatedEventArgs args)
+        public static void UpdateTitleBar()
         {
-            string appTheme = ApplicationData.Current.RoamingSettings.Values[AppThemeKey]?.ToString();
-            if (appTheme != null)
-            {
-                RootTheme = Enum.Parse<ElementTheme>(appTheme);
-            }
-
             //draw into the title bar
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
@@ -76,6 +70,7 @@ namespace HappyDog.WindowsUI
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             if (RootTheme == ElementTheme.Default)
             {
                 if (Current.RequestedTheme == ApplicationTheme.Light)
@@ -95,6 +90,17 @@ namespace HappyDog.WindowsUI
             {
                 titleBar.ButtonForegroundColor = Colors.White;
             }
+        }
+
+        private void EnsureWindow(IActivatedEventArgs args)
+        {
+            string appTheme = ApplicationData.Current.RoamingSettings.Values[AppThemeKey]?.ToString();
+            if (appTheme != null)
+            {
+                RootTheme = Enum.Parse<ElementTheme>(appTheme);
+                Current.RequestedTheme = Enum.Parse<ApplicationTheme>(RootTheme.ToString());
+            }
+            UpdateTitleBar();
         }
 
         private void Current_DataChanged(ApplicationData sender, object args)
