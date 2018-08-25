@@ -7,17 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:appmodel="using:Windows.ApplicationModel"
     xmlns:fa="using:FontAwesome.UWP"
+    xmlns:cvt="using:HappyDog.WindowsUI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <cvt:ThemeIsCheckedConverter x:Key="ThemeIsCheckedConverter"/>
+    </Page.Resources>
 
     <Grid Padding="40">
         <StackPanel>
             <TextBlock Text="设置" Style="{StaticResource HeaderTextBlockStyle}" Margin="0,0,0,16"/>
             <StackPanel>
                 <TextBlock Text="主题" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                <RadioButton Checked="OnThemeChanged" Tag="Default" Content="默认"/>
-                <RadioButton Checked="OnThemeChanged" Tag="Light" Content="亮"/>
-                <RadioButton Checked="OnThemeChanged" Tag="Dark" Content="暗"/>
+                <RadioButton IsChecked="{x:Bind Theme, Mode=TwoWay, Converter={StaticResource ThemeIsCheckedConverter}, ConverterParameter='Default'}" Content="默认"/>
+                <RadioButton IsChecked="{x:Bind Theme, Mode=TwoWay, Converter={StaticResource ThemeIsCheckedConverter}, ConverterParameter='Light'}" Content="亮"/>
+                <RadioButton IsChecked="{x:Bind Theme, Mode=TwoWay, Converter={StaticResource ThemeIsCheckedConverter}, ConverterParameter='Dark'}" Content="暗"/>
             </StackPanel>
             <TextBlock Text="关于" Style="{StaticResource TitleTextBlockStyle}" Margin="0,32,0,16"/>
             <TextBlock Text="{x:Bind Version}"/>

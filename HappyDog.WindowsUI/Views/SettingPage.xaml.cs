@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.ApplicationModel;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -6,14 +7,17 @@ using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class SettingPage : Page
+    public sealed partial class SettingPage : Page, INotifyPropertyChanged
     {
         public SettingPage()
         {
             InitializeComponent();
             var version = Package.Current.Id.Version;
             Version = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            Theme = App.RootTheme;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private async void EmailIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -32,12 +36,20 @@ namespace HappyDog.WindowsUI.Views
 
         public string Version { get; }
 
-        private void OnThemeChanged(object sender, RoutedEventArgs e)
+        private ElementTheme theme;
+        public ElementTheme Theme
         {
-            var btn = sender as RadioButton;
-            ElementTheme theme = Enum.Parse<ElementTheme>(btn.Tag.ToString());
-            App.RootTheme = theme;
-            App.UpdateTitleBar();
+            get => theme;
+            set
+            {
+                if (theme != value)
+                {
+                    theme = value;
+                    App.RootTheme = theme;
+                    App.UpdateTitleBar();
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Theme)));
+                }
+            }
         }
     }
 }
