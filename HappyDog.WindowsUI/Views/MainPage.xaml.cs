@@ -72,7 +72,7 @@ namespace HappyDog.WindowsUI.Views
         {
             if (args.IsSettingsSelected)
             {
-                ContentFrame.Navigate(typeof(AboutPage));
+                ContentFrame.Navigate(typeof(SettingPage));
             }
             else
             {

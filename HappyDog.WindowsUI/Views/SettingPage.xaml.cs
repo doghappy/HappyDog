@@ -1,16 +1,14 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.System;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class AboutPage : Page
+    public sealed partial class SettingPage : Page
     {
-        public AboutPage()
+        public SettingPage()
         {
             InitializeComponent();
             var version = Package.Current.Id.Version;
