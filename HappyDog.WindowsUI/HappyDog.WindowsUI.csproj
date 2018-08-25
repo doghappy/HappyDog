@@ -116,7 +116,6 @@
     </Compile>
     <Compile Include="Converters\StateBoolConverter.cs" />
     <Compile Include="Converters\StatusThemeConverter.cs" />
-    <Compile Include="Converters\ThemeIsCheckedConverter.cs" />
     <Compile Include="Enums\BaseStatus.cs" />
     <Compile Include="Enums\Category.cs" />
     <Compile Include="Enums\CodeResult.cs" />

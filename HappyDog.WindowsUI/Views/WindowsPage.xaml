@@ -13,12 +13,12 @@
     <Grid>
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
             <hc:CategoryOutlet.Jumbotron>
-                <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                <StackPanel Style="{ThemeResource JumbotronStackPanel}">
+                    <StackPanel Style="{ThemeResource StackPanelContainer}">
                         <Image Source="/Assets/Images/Windows_10_Logo.svg" Height="100" HorizontalAlignment="Left" Stretch="Fill"/>
-                        <TextBlock Style="{StaticResource JumbotronLead}"
+                        <TextBlock Style="{ThemeResource JumbotronLead}"
                                    Text="Windows 10 是一款优秀的系统。"/>
-                        <TextBlock Style="{StaticResource JumbotronLead}"
+                        <TextBlock Style="{ThemeResource JumbotronLead}"
                                    Text="它逐渐成为了智能手机、PC、平板、Xbox One、物联网和其他各种办公设备的心脏，使设备之间提供无缝的操作体验。 "/>
                         <HyperlinkButton FontSize="20"
                                          Margin="0,0,0,16"

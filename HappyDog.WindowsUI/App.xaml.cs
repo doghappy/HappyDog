@@ -98,7 +98,6 @@ namespace HappyDog.WindowsUI
             if (appTheme != null)
             {
                 RootTheme = Enum.Parse<ElementTheme>(appTheme);
-                //Current.RequestedTheme = Enum.Parse<ApplicationTheme>(RootTheme.ToString());
             }
             UpdateTitleBar();
         }

@@ -15,17 +15,17 @@ namespace HappyDog.WindowsUI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NavigationCacheMode = Configuration.ArticlePageCache;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            if (Configuration.ArticlePageCache == NavigationCacheMode.Disabled)
-            {
-                NavigationCacheMode = NavigationCacheMode.Enabled;
-                Configuration.ArticlePageCache = NavigationCacheMode;
-            }
-        }
+        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedFrom(e);
+        //    if (Configuration.ArticlePageCache == NavigationCacheMode.Disabled)
+        //    {
+        //        NavigationCacheMode = NavigationCacheMode.Enabled;
+        //        Configuration.ArticlePageCache = NavigationCacheMode;
+        //    }
+        //}
     }
 }

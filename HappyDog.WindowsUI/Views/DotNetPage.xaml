@@ -13,8 +13,8 @@
     <Grid>
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
             <hc:CategoryOutlet.Jumbotron>
-                <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                    <StackPanel Style="{StaticResource StackPanelContainer}">
+                <StackPanel Style="{ThemeResource JumbotronStackPanel}">
+                    <StackPanel Style="{ThemeResource StackPanelContainer}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>

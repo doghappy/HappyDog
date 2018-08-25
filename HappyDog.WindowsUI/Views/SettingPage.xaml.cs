@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HappyDog.WindowsUI.Common;
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -7,17 +9,28 @@ using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.Views
 {
-    public sealed partial class SettingPage : Page, INotifyPropertyChanged
+    public sealed partial class SettingPage : Page
     {
         public SettingPage()
         {
             InitializeComponent();
             var version = Package.Current.Id.Version;
             Version = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
-            Theme = App.RootTheme;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            string tag = App.RootTheme.ToString();
+            var rBtns = this.GetChildren<RadioButton>();
+            foreach (var item in rBtns)
+            {
+                if (item.Tag.ToString()==tag)
+                {
+                    item.IsChecked = true;
+                }
+                item.Checked += OnThemeChanged;
+            }
+        }
 
         private async void EmailIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -36,20 +49,13 @@ namespace HappyDog.WindowsUI.Views
 
         public string Version { get; }
 
-        private ElementTheme theme;
-        public ElementTheme Theme
+        private void OnThemeChanged(object sender, RoutedEventArgs e)
         {
-            get => theme;
-            set
-            {
-                if (theme != value)
-                {
-                    theme = value;
-                    App.RootTheme = theme;
-                    App.UpdateTitleBar();
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Theme)));
-                }
-            }
+            var btn = sender as RadioButton;
+            ElementTheme theme = Enum.Parse<ElementTheme>(btn.Tag.ToString());
+            App.RootTheme = theme;
+            App.UpdateTitleBar();
+            Configuration.CachedPages.ForEach(p => p.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Disabled);
         }
     }
 }

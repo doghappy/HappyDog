@@ -1,8 +1,8 @@
-﻿using HappyDog.WindowsUI.ViewModels;
+﻿using HappyDog.WindowsUI.Common;
+using HappyDog.WindowsUI.ViewModels;
 using System;
 using System.ComponentModel;
 using Windows.System;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views
@@ -12,6 +12,7 @@ namespace HappyDog.WindowsUI.Views
         public WindowsPage()
         {
             InitializeComponent();
+            Configuration.CachedPages.Add(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

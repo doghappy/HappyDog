@@ -13,15 +13,15 @@
     <Grid>
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
             <hc:CategoryOutlet.Jumbotron>
-                <StackPanel Style="{StaticResource JumbotronStackPanel}">
+                <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/Ink_4x3.png" Stretch="Uniform" AlignmentX="Right"/>
                     </StackPanel.Background>
-                    <StackPanel Style="{StaticResource StackPanelContainer}" Background="#1A000000">
+                    <StackPanel Style="{ThemeResource StackPanelContainer}" Background="#1A000000">
                         <TextBlock Text="随笔" Foreground="#fb0" Style="{StaticResource JumbotronH1}"/>
-                        <TextBlock Style="{StaticResource JumbotronLead}"
+                        <TextBlock Style="{ThemeResource JumbotronLead}"
                                    Text="夫运筹帷幄之中，决胜千里之外，吾不如子房；镇国家，抚百姓，给饷馈，不绝粮道，吾不如萧何；连百万之众，战必胜，攻必取，吾不如韩信。三者皆人杰，吾能用之，此吾所以取天下者也。"/>
-                        <TextBlock Style="{StaticResource JumbotronLead}"
+                        <TextBlock Style="{ThemeResource JumbotronLead}"
                                    HorizontalAlignment="Right"
                                    Text="——刘邦"/>
                     </StackPanel>
