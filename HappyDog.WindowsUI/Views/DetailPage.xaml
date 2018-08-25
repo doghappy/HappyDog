@@ -22,8 +22,8 @@
     <Grid>
         <ScrollViewer>
             <StackPanel>
-                <StackPanel Style="{StaticResource JumbotronStackPanel}">
-                    <StackPanel x:Name="DetailHeader" Style="{StaticResource StackPanelContainer}">
+                <StackPanel Style="{ThemeResource JumbotronStackPanel}">
+                    <StackPanel x:Name="DetailHeader" Style="{ThemeResource StackPanelContainer}">
                         <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
                                    FontSize="40"
                                    Margin="0,0,0,24"
@@ -31,13 +31,13 @@
                                    LineHeight="48"/>
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Calendar"/>
-                            <TextBlock Text="{x:Bind ViewModel.Article.CreateTime, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>
+                            <TextBlock Text="{x:Bind ViewModel.Article.CreateTime, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="LineChart"/>
-                            <TextBlock Text="{x:Bind ViewModel.Article.ViewCount, Mode=OneWay}" Foreground="{StaticResource TextMuted}" Style="{StaticResource JumbotronP}"/>
+                            <TextBlock Text="{x:Bind ViewModel.Article.ViewCount, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
                         </StackPanel>
-                        <Button Style="{StaticResource PrimaryButton}"
+                        <Button Style="{ThemeResource PrimaryButton}"
                                 Margin="0,12,0,0"
                                 Click="Edit_Click"
                                 Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}">
@@ -49,8 +49,9 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Style="{StaticResource StackPanelContainer}">
+                <StackPanel Style="{ThemeResource StackPanelContainer}">
                     <controls:MarkdownTextBlock Text="{x:Bind ViewModel.Article.Content, Mode=OneWay}"
+                                                Style="{ThemeResource Markdown}"
                                                 LinkClicked="MarkdownTextBlock_LinkClicked"/>
                 </StackPanel>
             </StackPanel>
