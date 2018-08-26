@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace HappyDog.WindowsUI.ViewModels
+namespace HappyDog.WindowsUI.ViewModels.Article
 {
     public abstract class ArticleViewModel : ViewModel, INotifyPropertyChanged
     {
         public ArticleViewModel()
         {
-            Articles = new ObservableCollection<Article>();
+            Articles = new ObservableCollection<Models.Article>();
             HasMoreArticles = true;
         }
 
@@ -21,7 +21,7 @@ namespace HappyDog.WindowsUI.ViewModels
             PropertyChanged?.Invoke(sender, e);
         }
 
-        public ObservableCollection<Article> Articles { get; }
+        public ObservableCollection<Models.Article> Articles { get; }
 
         private int pageNumber;
         public int PageNumber
@@ -70,7 +70,7 @@ namespace HappyDog.WindowsUI.ViewModels
                 if (resMsg.IsSuccessStatusCode)
                 {
                     string json = await resMsg.Content.ReadAsStringAsync();
-                    var pagingData = JsonConvert.DeserializeObject<Pagination<Article>>(json);
+                    var pagingData = JsonConvert.DeserializeObject<Pagination<Models.Article>>(json);
                     TotalPages = pagingData.TotalPages;
                     HasMoreArticles = PageNumber < TotalPages;
                     foreach (var item in pagingData.Data)
@@ -90,11 +90,6 @@ namespace HappyDog.WindowsUI.ViewModels
             IsLoading = true;
             await LoadArticleAsync();
             IsLoading = false;
-        }
-
-        protected async Task<Article> LoadArticleAsync(int id)
-        {
-            return null;
         }
     }
 }

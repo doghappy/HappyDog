@@ -1,5 +1,5 @@
 ﻿using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.ViewModels;
+using HappyDog.WindowsUI.ViewModels.User;
 using HappyDog.WindowsUI.Views;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;

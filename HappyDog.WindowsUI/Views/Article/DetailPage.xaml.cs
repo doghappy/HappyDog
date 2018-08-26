@@ -1,4 +1,4 @@
-﻿using HappyDog.WindowsUI.ViewModels;
+﻿using HappyDog.WindowsUI.ViewModels.Article;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.ComponentModel;

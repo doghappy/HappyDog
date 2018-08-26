@@ -126,18 +126,18 @@
     <Compile Include="Models\Results\HttpBaseResult.cs" />
     <Compile Include="Models\Results\HttpDataResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\Article\ArticleViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\DatabaseViewModel.cs" />
-    <Compile Include="ViewModels\DetailViewModel.cs" />
-    <Compile Include="ViewModels\DotNetViewModel.cs" />
-    <Compile Include="ViewModels\EditArticleViewModel.cs" />
-    <Compile Include="ViewModels\EssaysViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\SignInViewModel.cs" />
-    <Compile Include="ViewModels\PostArticleViewModel.cs" />
-    <Compile Include="ViewModels\ReadViewModel.cs" />
-    <Compile Include="ViewModels\WindowsViewModel.cs" />
+    <Compile Include="ViewModels\Article\DatabaseViewModel.cs" />
+    <Compile Include="ViewModels\Article\DetailViewModel.cs" />
+    <Compile Include="ViewModels\Article\DotNetViewModel.cs" />
+    <Compile Include="ViewModels\Article\EditArticleViewModel.cs" />
+    <Compile Include="ViewModels\Article\EssaysViewModel.cs" />
+    <Compile Include="ViewModels\Article\HomeViewModel.cs" />
+    <Compile Include="ViewModels\User\SignInViewModel.cs" />
+    <Compile Include="ViewModels\Article\PostArticleViewModel.cs" />
+    <Compile Include="ViewModels\Article\ReadViewModel.cs" />
+    <Compile Include="ViewModels\Article\WindowsViewModel.cs" />
     <Compile Include="Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>

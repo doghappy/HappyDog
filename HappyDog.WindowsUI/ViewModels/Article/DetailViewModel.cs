@@ -1,9 +1,8 @@
-﻿using HappyDog.WindowsUI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace HappyDog.WindowsUI.ViewModels
+namespace HappyDog.WindowsUI.ViewModels.Article
 {
     public class DetailViewModel : ViewModel, INotifyPropertyChanged
     {
@@ -16,8 +15,8 @@ namespace HappyDog.WindowsUI.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Article article;
-        public Article Article
+        private Models.Article article;
+        public Models.Article Article
         {
             get => article;
             set
@@ -49,7 +48,7 @@ namespace HappyDog.WindowsUI.ViewModels
             if (resMsg.IsSuccessStatusCode)
             {
                 string json = await resMsg.Content.ReadAsStringAsync();
-                Article = JsonConvert.DeserializeObject<Article>(json);
+                Article = JsonConvert.DeserializeObject<Models.Article>(json);
             }
             else
             {

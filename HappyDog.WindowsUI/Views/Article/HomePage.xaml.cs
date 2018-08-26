@@ -1,5 +1,5 @@
 ﻿using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.ViewModels;
+using HappyDog.WindowsUI.ViewModels.Article;
 using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;

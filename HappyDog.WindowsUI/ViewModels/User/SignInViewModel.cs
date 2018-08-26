@@ -13,7 +13,7 @@ using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace HappyDog.WindowsUI.ViewModels
+namespace HappyDog.WindowsUI.ViewModels.User
 {
     public class SignInViewModel : ViewModel, INotifyPropertyChanged
     {

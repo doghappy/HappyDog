@@ -1,4 +1,4 @@
-﻿namespace HappyDog.WindowsUI.ViewModels
+﻿namespace HappyDog.WindowsUI.ViewModels.Article
 {
     public class HomeViewModel : ArticleViewModel
     {

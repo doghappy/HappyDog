@@ -1,6 +1,5 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.Models.Results;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,13 +8,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HappyDog.WindowsUI.ViewModels
+namespace HappyDog.WindowsUI.ViewModels.Article
 {
     public class PostArticleViewModel : ViewModel, INotifyPropertyChanged
     {
         public PostArticleViewModel()
         {
-            Article = new Article
+            Article = new Models.Article
             {
                 Category = Categories.FirstOrDefault()
             };
@@ -38,8 +37,8 @@ namespace HappyDog.WindowsUI.ViewModels
         }
 
 
-        private Article article;
-        public Article Article
+        private Models.Article article;
+        public Models.Article Article
         {
             get => article;
             set
