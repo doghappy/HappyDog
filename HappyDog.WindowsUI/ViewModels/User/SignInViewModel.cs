@@ -1,24 +1,17 @@
 ﻿using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.Enums;
-using HappyDog.WindowsUI.Models.Results;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.ViewModels.User
 {
     public class SignInViewModel : ViewModel, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         private string userName;
         public string UserName
@@ -93,6 +86,11 @@ namespace HappyDog.WindowsUI.ViewModels.User
             {
                 await HandleErrorStatusCodeAsync(resMsg);
             }
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

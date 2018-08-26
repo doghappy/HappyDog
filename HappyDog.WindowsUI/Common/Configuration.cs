@@ -1,4 +1,6 @@
 ﻿using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.Views.Article;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -26,7 +28,23 @@ namespace HappyDog.WindowsUI.Common
 
         static List<Page> CachedPages { get; }
 
-        public static bool IsAuthorized { get; set; }
+        static bool isAuthorized;
+        public static bool IsAuthorized
+        {
+            get => isAuthorized;
+            set
+            {
+                isAuthorized = value;
+                if (value)
+                {
+                    var page = CachedPages.FirstOrDefault(p => p.GetType() == typeof(HomePage));
+                    if (page != null && page is HomePage homePage)
+                    {
+                        homePage.ViewModel.IsAuthorized = value;
+                    }
+                }
+            }
+        }
 
         public static void ClearCache()
         {

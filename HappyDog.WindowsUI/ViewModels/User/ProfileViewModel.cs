@@ -1,12 +1,14 @@
 ﻿using HappyDog.WindowsUI.Common;
+using System.ComponentModel;
 using System.Linq;
 using Windows.Security.Credentials;
-using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.ViewModels.User
 {
-    public class ProfileViewModel : ViewModel
+    public class ProfileViewModel : ViewModel, INotifyPropertyChanged
     {
+        public new event PropertyChangedEventHandler PropertyChanged;
+
         public ProfileViewModel()
         {
             vault = new PasswordVault();
@@ -32,6 +34,11 @@ namespace HappyDog.WindowsUI.ViewModels.User
             Configuration.ClearCache();
             Configuration.IsAuthorized = false;
             GoBack();
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

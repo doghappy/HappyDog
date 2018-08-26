@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models.Results;
@@ -12,10 +14,16 @@ using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public abstract class ViewModel
+    public abstract class ViewModel : INotifyPropertyChanged
     {
-        static HttpClient httpClient;
+        public ViewModel()
+        {
+            IsAuthorized = Configuration.IsAuthorized;
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        static HttpClient httpClient;
         protected static HttpClient HttpClient
         {
             get
@@ -38,7 +46,18 @@ namespace HappyDog.WindowsUI.ViewModels
 
         protected string DogHappy => "doghappy";
 
-        public bool IsAuthorized => Configuration.IsAuthorized;
+        private bool isAuthorized;
+        public bool IsAuthorized
+        {
+            get => isAuthorized;
+            set
+            {
+                isAuthorized = value;
+                OnPropertyChanged(nameof(IsAuthorized));
+            }
+        }
+
+        protected abstract void OnPropertyChanged([CallerMemberName]string propertyName = null);
 
         protected void GoBack()
         {

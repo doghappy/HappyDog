@@ -17,7 +17,7 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             Article = article;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Category> Categories => Configuration.Categories;
 
@@ -32,8 +32,14 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             }
         }
 
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public async Task PutAsync()
         {
+            Article.CategoryId = Article.Category.Id;
             string url = BaseAddress + "/article/" + Article.Id;
             string json = JsonConvert.SerializeObject(Article);
             var content = new StringContent(json, Encoding.UTF8, ApplicationJson);

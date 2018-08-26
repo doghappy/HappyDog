@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <cvt:StateBoolConverter x:Key="StateConverter"/>
+            <cvt:StatusBoolConverter x:Key="StatusBoolConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -37,7 +37,7 @@
                           Header="状态"
                           OffContent="隐藏"
                           OnContent="显示"
-                          IsOn="{x:Bind ViewModel.Article.Status, Mode=TwoWay, Converter={StaticResource StateConverter}}"
+                          IsOn="{x:Bind ViewModel.Article.Status, Mode=TwoWay, Converter={StaticResource StatusBoolConverter}}"
                           Margin="0,0,0,16"/>
             <Button Grid.Row="4" Style="{StaticResource PrimaryButton}" Click="Put_Click" Content="保存"/>
         </Grid>

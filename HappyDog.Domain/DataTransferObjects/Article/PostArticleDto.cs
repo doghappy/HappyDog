@@ -1,20 +1,11 @@
 ﻿using HappyDog.Domain.Enums;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace HappyDog.Domain.DataTransferObjects.Article
 {
     public class PostArticleDto : IValidatableObject
     {
-        public PostArticleDto(HappyDogContext db)
-        {
-            this.db = db;
-        }
-
-        readonly HappyDogContext db;
-
         [Display(Name = "标题")]
         [Required(ErrorMessage = "请输入标题")]
         [MaxLength(200, ErrorMessage = "标题长度不能超过200个字符")]
@@ -30,11 +21,9 @@ namespace HappyDog.Domain.DataTransferObjects.Article
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            bool isValidCateId = db.Categories.AsNoTracking()
-                   .Any(c => c.Status == BaseStatus.Enable && c.Id == CategoryId);
-            if (!isValidCateId)
+            if (CategoryId < 1 || CategoryId > 5)
             {
-                yield return new ValidationResult(nameof(CategoryId), new[] { "无效的分类" });
+                yield return new ValidationResult("无效的分类", new[] { nameof(CategoryId) });
             }
         }
     }

@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
+    xmlns:cvt="using:HappyDog.WindowsUI.Converters"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <cvt:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
+    </Page.Resources>
 
     <Grid>
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}" x:Name="CategoryOutlet">
@@ -29,7 +34,7 @@
                             <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
                         <Button Style="{ThemeResource PrimaryButton}"
-                                Visibility="{x:Bind ViewModel.IsAuthorized, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.IsAuthorized, Mode=OneWay, Converter={StaticResource BoolVisibilityConverter}}"
                                 Click="PostArticle_Click">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Edit"/>

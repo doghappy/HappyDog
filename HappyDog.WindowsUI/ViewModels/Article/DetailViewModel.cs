@@ -6,14 +6,14 @@ namespace HappyDog.WindowsUI.ViewModels.Article
 {
     public class DetailViewModel : ViewModel, INotifyPropertyChanged
     {
+        public new event PropertyChangedEventHandler PropertyChanged;
+
         public DetailViewModel(int articleId)
         {
             this.articleId = articleId;
         }
 
         readonly int articleId;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private Models.Article article;
         public Models.Article Article
@@ -37,6 +37,10 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             }
         }
 
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public async Task InitializeAsync()
         {

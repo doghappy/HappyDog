@@ -1,12 +1,11 @@
 ﻿using HappyDog.WindowsUI.Models;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels.Article
 {
-    public abstract class ArticleViewModel : ViewModel, INotifyPropertyChanged
+    public abstract class ArticleViewModel : ViewModel
     {
         public ArticleViewModel()
         {
@@ -14,36 +13,11 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             HasMoreArticles = true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(sender, e);
-        }
-
         public ObservableCollection<Models.Article> Articles { get; }
 
-        private int pageNumber;
-        public int PageNumber
-        {
-            get => pageNumber;
-            set
-            {
-                pageNumber = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNumber)));
-            }
-        }
+        private int PageNumber { get; set; }
 
-        private int totalPages;
-        public int TotalPages
-        {
-            get => totalPages;
-            set
-            {
-                totalPages = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalPages)));
-            }
-        }
+        private int TotalPages { get; set; }
 
         protected abstract string Url { get; }
 
@@ -54,7 +28,7 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             set
             {
                 isLoading = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
+                OnPropertyChanged();
             }
         }
 

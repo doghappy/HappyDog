@@ -114,7 +114,8 @@
     <Compile Include="Controls\CategoryOutlet.xaml.cs">
       <DependentUpon>CategoryOutlet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\StateBoolConverter.cs" />
+    <Compile Include="Converters\BoolVisibilityConverter.cs" />
+    <Compile Include="Converters\StatusBoolConverter.cs" />
     <Compile Include="Converters\StatusThemeConverter.cs" />
     <Compile Include="Enums\BaseStatus.cs" />
     <Compile Include="Enums\Category.cs" />
