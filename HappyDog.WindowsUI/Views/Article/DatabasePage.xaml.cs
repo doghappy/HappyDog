@@ -11,7 +11,7 @@ namespace HappyDog.WindowsUI.Views.Article
         public DatabasePage()
         {
             InitializeComponent();
-            Configuration.CachedPages.Add(this);
+            Configuration.AddPageCache(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

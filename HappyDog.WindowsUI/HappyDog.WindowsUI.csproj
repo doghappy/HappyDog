@@ -127,6 +127,7 @@
     <Compile Include="Models\Results\HttpDataResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Article\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\Article\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\Article\DetailViewModel.cs" />

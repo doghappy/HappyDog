@@ -1,7 +1,9 @@
 ﻿using HappyDog.WindowsUI.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Common
 {
@@ -22,8 +24,22 @@ namespace HappyDog.WindowsUI.Common
 
         public static ObservableCollection<Category> Categories { get; }
 
-        public static List<Page> CachedPages { get; }
+        static List<Page> CachedPages { get; }
 
         public static bool IsAuthorized { get; set; }
+
+        public static void ClearCache()
+        {
+            CachedPages.ForEach(p => p.NavigationCacheMode = NavigationCacheMode.Disabled);
+            CachedPages.Clear();
+        }
+
+        public static void AddPageCache(Page page)
+        {
+            if (!CachedPages.Any(a => a.GetType() == page.GetType()))
+            {
+                CachedPages.Add(page);
+            }
+        }
     }
 }

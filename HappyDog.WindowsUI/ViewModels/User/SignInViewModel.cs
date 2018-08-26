@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.ViewModels.User
 {
@@ -81,11 +82,12 @@ namespace HappyDog.WindowsUI.ViewModels.User
                     UserName = UserName,
                     Password = Password
                 });
+                Configuration.IsAuthorized = true;
+                Configuration.ClearCache();
                 if (!isAuto)
                 {
                     GoBack();
                 }
-                Configuration.IsAuthorized = true;
             }
             else
             {

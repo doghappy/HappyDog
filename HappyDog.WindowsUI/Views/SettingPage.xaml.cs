@@ -55,8 +55,7 @@ namespace HappyDog.WindowsUI.Views
             ElementTheme theme = Enum.Parse<ElementTheme>(btn.Tag.ToString());
             App.RootTheme = theme;
             App.UpdateTitleBar();
-            Configuration.CachedPages.ForEach(p => p.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Disabled);
-            Configuration.CachedPages.Clear();
+            Configuration.ClearCache();
         }
     }
 }

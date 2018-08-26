@@ -13,7 +13,7 @@ namespace HappyDog.WindowsUI.Views.Article
         public WindowsPage()
         {
             InitializeComponent();
-            Configuration.CachedPages.Add(this);
+            Configuration.AddPageCache(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models.Results;
-using HappyDog.WindowsUI.Views.Article;
+using HappyDog.WindowsUI.Views.User;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Newtonsoft.Json;
 using Windows.UI.Xaml;
@@ -25,6 +25,10 @@ namespace HappyDog.WindowsUI.ViewModels
                     httpClient = new HttpClient();
                 }
                 return httpClient;
+            }
+            set
+            {
+                httpClient = value;
             }
         }
 

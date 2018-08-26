@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HappyDog.WindowsUI.Views.Article.SignInPage"
+    x:Class="HappyDog.WindowsUI.Views.User.SignInPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HappyDog.WindowsUI.Views"

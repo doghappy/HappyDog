@@ -3,6 +3,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HappyDog.WindowsUI.Views.Article;
+using HappyDog.WindowsUI.Common;
+using HappyDog.WindowsUI.Views.User;
 
 namespace HappyDog.WindowsUI.Views
 {
@@ -99,7 +101,12 @@ namespace HappyDog.WindowsUI.Views
                         ContentFrame.Navigate(typeof(EssaysPage));
                         break;
                     case "user":
-                        ContentFrame.Navigate(typeof(SignInPage));
+                        {
+                            if (Configuration.IsAuthorized)
+                                ContentFrame.Navigate(typeof(ProfilePage));
+                            else
+                                ContentFrame.Navigate(typeof(SignInPage));
+                        }
                         break;
                 }
             }

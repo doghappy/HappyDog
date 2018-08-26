@@ -8,7 +8,34 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <AcrylicBrush x:Key="CustomAcrylicBrush" BackgroundSource="Backdrop"
+                TintOpacity="0" TintColor="#FF000000" FallbackColor="#FF008000" />
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
-
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Images/desktop-2.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" Padding="40" Width="400" Background="{StaticResource CustomAcrylicBrush}">
+            <Image Width="100" Stretch="Uniform" Margin="0,0,0,16" VerticalAlignment="Center">
+                <Image.Source>
+                    <SvgImageSource UriSource="/Assets/Images/Dog_Happy.svg"
+                                    RasterizePixelHeight="200"
+                                    RasterizePixelWidth="200" />
+                </Image.Source>
+            </Image>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                <TextBlock Text="当前登录账号："/>
+                <TextBlock Text="{x:Bind ViewModel.UserName, Mode=OneWay}"/>
+            </StackPanel>
+            <Button x:Name="LoginButton"
+                    Content="注销"
+                    Style="{StaticResource PrimaryButton}"
+                    Click="SignOutButton_Click"
+                    HorizontalAlignment="Stretch"/>
+        </StackPanel>
     </Grid>
 </Page>
