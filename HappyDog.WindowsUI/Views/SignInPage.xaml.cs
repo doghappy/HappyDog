@@ -32,18 +32,19 @@ namespace HappyDog.WindowsUI.Views
         {
             base.OnNavigatedTo(e);
             ViewModel = new SignInViewModel();
+            ViewModel.Initialize();
         }
 
         private async void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.SignInAsync();
+            await ViewModel.SignInAsync(false);
         }
 
         private async void PasswordBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                await ViewModel.SignInAsync();
+                await ViewModel.SignInAsync(false);
             }
         }
     }

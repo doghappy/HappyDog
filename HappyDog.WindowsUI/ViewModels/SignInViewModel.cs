@@ -41,7 +41,19 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        public async Task SignInAsync()
+        public void Initialize()
+        {
+            var vault = new PasswordVault();
+            if (vault.RetrieveAll().Any(v => v.Resource == DogHappy))
+            {
+                var credential = vault.FindAllByResource(DogHappy).FirstOrDefault();
+                credential.RetrievePassword();
+                UserName = credential.UserName;
+                Password = credential.Password;
+            }
+        }
+
+        public async Task SignInAsync(bool isAuto)
         {
             string url = BaseAddress + "/user/signIn";
             var dto = new
@@ -69,7 +81,10 @@ namespace HappyDog.WindowsUI.ViewModels
                     UserName = UserName,
                     Password = Password
                 });
-                GoBack();
+                if (!isAuto)
+                {
+                    GoBack();
+                }
             }
             else
             {

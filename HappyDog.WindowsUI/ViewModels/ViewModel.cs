@@ -66,9 +66,6 @@ namespace HappyDog.WindowsUI.ViewModels
                     await OnDefaultAsync(resMsg);
                     break;
             }
-            var notification = GetNotification();
-            var result = await ReadHttpResponseMessageAsync(resMsg);
-            notification.Show(result.Message, 4000);
         }
 
         protected virtual InAppNotification GetNotification()
@@ -92,9 +89,9 @@ namespace HappyDog.WindowsUI.ViewModels
 
         protected async virtual Task OnUnauthorizedAsync(HttpResponseMessage resMsg)
         {
+            await OnDefaultAsync(resMsg);
             var fe = Window.Current.Content as FrameworkElement;
             fe.GetChild<Frame>("ContentFrame").Navigate(typeof(SignInPage));
-            await Task.CompletedTask;
         }
     }
 }

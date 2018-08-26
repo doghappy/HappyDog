@@ -46,6 +46,7 @@ namespace HappyDog.Api.Controllers
             }
             else
             {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
                 if (env.IsProduction())
                 {
                     var sender = new OutlookSender(configuration);
@@ -66,6 +67,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("notfound")]
         public new HttpBaseResult NotFound()
         {
+            Response.StatusCode = StatusCodes.Status404NotFound;
             return new HttpBaseResult
             {
                 Message = "所请求的资源不在服务器上。",
@@ -82,6 +84,7 @@ namespace HappyDog.Api.Controllers
         {
             if (Request.Query.ContainsKey("returnUrl"))
             {
+                Response.StatusCode = StatusCodes.Status401Unauthorized;
                 return new HttpBaseResult
                 {
                     Message = "所请求的资源需要身份验证。",
