@@ -38,15 +38,7 @@ namespace HappyDog.WindowsUI.ViewModels
 
         protected string DogHappy => "doghappy";
 
-        public bool IsAuthorized
-        {
-            get
-            {
-                //var vault = new PasswordVault();
-                //return vault.RetrieveAll().Any(v => v.Resource == DogHappy);
-                return true;
-            }
-        }
+        public bool IsAuthorized => Configuration.IsAuthorized;
 
         protected void GoBack()
         {

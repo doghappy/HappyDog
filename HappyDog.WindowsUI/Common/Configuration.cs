@@ -23,5 +23,7 @@ namespace HappyDog.WindowsUI.Common
         public static ObservableCollection<Category> Categories { get; }
 
         public static List<Page> CachedPages { get; }
+
+        public static bool IsAuthorized { get; set; }
     }
 }

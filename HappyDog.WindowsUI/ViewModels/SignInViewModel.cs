@@ -85,6 +85,7 @@ namespace HappyDog.WindowsUI.ViewModels
                 {
                     GoBack();
                 }
+                Configuration.IsAuthorized = true;
             }
             else
             {
