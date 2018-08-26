@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HappyDog.WindowsUI.Views.DatabasePage"
+    x:Class="HappyDog.WindowsUI.Views.Article.DatabasePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HappyDog.WindowsUI.Views"

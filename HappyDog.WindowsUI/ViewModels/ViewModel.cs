@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models.Results;
-using HappyDog.WindowsUI.Views;
+using HappyDog.WindowsUI.Views.Article;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Newtonsoft.Json;
-using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

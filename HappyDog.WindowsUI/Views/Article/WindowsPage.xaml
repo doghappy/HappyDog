@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HappyDog.WindowsUI.Views.ReadPage"
+    x:Class="HappyDog.WindowsUI.Views.Article.WindowsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HappyDog.WindowsUI.Views"
@@ -14,14 +14,17 @@
         <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
             <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/Assets/Images/Office_8x3.jpg"/>
-                    </StackPanel.Background>
                     <StackPanel Style="{ThemeResource StackPanelContainer}">
-                        <TextBlock Text="阅读" Foreground="#7cbb00" Style="{StaticResource JumbotronH1}"/>
+                        <Image Source="/Assets/Images/Windows_10_Logo.svg" Height="100" HorizontalAlignment="Left"/>
                         <TextBlock Style="{ThemeResource JumbotronLead}"
-                                   Foreground="#f8f9fa"
-                                   Text="自中原板荡，夷狄交侵，余发愤河朔，起自相台，总发从军，历二百余战。虽未能远入荒夷，洗荡巢穴，亦且快国雠之万一。今又提一旅孤军，振起宜兴。建康之战，一鼓败虏，恨未能使匹马不回耳。故且养兵休卒，蓄锐待敌，嗣当激励士卒，功期再战，北逾沙漠，喋血虏廷，尽屠夷种，迎二圣归京阙，取故土下版图，朝廷无虞，主上奠枕，余之愿也。"/>
+                                   Text="Windows 10 是一款优秀的系统。"/>
+                        <TextBlock Style="{ThemeResource JumbotronLead}"
+                                   Text="它逐渐成为了智能手机、PC、平板、Xbox One、物联网和其他各种办公设备的心脏，使设备之间提供无缝的操作体验。 "/>
+                        <HyperlinkButton FontSize="20"
+                                         Margin="0,0,0,16"
+                                         FontWeight="SemiLight"
+                                         Click="HyperlinkButton_Click"
+                                         Content="升级到 Windows 10 的理由"/>
                     </StackPanel>
                 </StackPanel>
             </hc:CategoryOutlet.Jumbotron>

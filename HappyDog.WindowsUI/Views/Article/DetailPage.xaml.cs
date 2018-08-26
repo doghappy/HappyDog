@@ -1,5 +1,4 @@
-﻿using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.ViewModels;
+﻿using HappyDog.WindowsUI.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.ComponentModel;
@@ -7,7 +6,7 @@ using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace HappyDog.WindowsUI.Views
+namespace HappyDog.WindowsUI.Views.Article
 {
     public sealed partial class DetailPage : Page, INotifyPropertyChanged
     {

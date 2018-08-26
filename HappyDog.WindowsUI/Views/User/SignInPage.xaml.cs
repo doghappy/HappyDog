@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Input;
 
-namespace HappyDog.WindowsUI.Views
+namespace HappyDog.WindowsUI.Views.Article
 {
     public sealed partial class SignInPage : Page, INotifyPropertyChanged
     {

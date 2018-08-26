@@ -1,16 +1,14 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.ViewModels;
-using System;
 using System.ComponentModel;
-using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace HappyDog.WindowsUI.Views
+namespace HappyDog.WindowsUI.Views.Article
 {
-    public sealed partial class WindowsPage : Page, INotifyPropertyChanged
+    public sealed partial class DotNetPage : Page, INotifyPropertyChanged
     {
-        public WindowsPage()
+        public DotNetPage()
         {
             InitializeComponent();
             Configuration.CachedPages.Add(this);
@@ -18,8 +16,8 @@ namespace HappyDog.WindowsUI.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private WindowsViewModel viewModel;
-        public WindowsViewModel ViewModel
+        private DotNetViewModel viewModel;
+        public DotNetViewModel ViewModel
         {
             get => viewModel;
             set
@@ -32,14 +30,8 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new WindowsViewModel();
+            ViewModel = new DotNetViewModel();
             await viewModel.InitializeAsync();
-        }
-
-        private async void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Uri uri = new Uri("https://www.microsoft.com/zh-cn/windows/reasons-to-upgrade-to-a-new-windows-10-pc");
-            await Launcher.LaunchUriAsync(uri);
         }
     }
 }

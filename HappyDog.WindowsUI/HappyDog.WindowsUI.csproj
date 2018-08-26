@@ -141,37 +141,37 @@
     <Compile Include="Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DatabasePage.xaml.cs">
+    <Compile Include="Views\Article\DatabasePage.xaml.cs">
       <DependentUpon>DatabasePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DetailPage.xaml.cs">
+    <Compile Include="Views\Article\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DotNetPage.xaml.cs">
+    <Compile Include="Views\Article\DotNetPage.xaml.cs">
       <DependentUpon>DotNetPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditArticlePage.xaml.cs">
+    <Compile Include="Views\Article\EditArticlePage.xaml.cs">
       <DependentUpon>EditArticlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EssaysPage.xaml.cs">
+    <Compile Include="Views\Article\EssaysPage.xaml.cs">
       <DependentUpon>EssaysPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePage.xaml.cs">
+    <Compile Include="Views\Article\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SignInPage.xaml.cs">
+    <Compile Include="Views\User\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PostArticlePage.xaml.cs">
+    <Compile Include="Views\Article\PostArticlePage.xaml.cs">
       <DependentUpon>PostArticlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReadPage.xaml.cs">
+    <Compile Include="Views\Article\ReadPage.xaml.cs">
       <DependentUpon>ReadPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowsPage.xaml.cs">
+    <Compile Include="Views\Article\WindowsPage.xaml.cs">
       <DependentUpon>WindowsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -281,31 +281,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DatabasePage.xaml">
+    <Page Include="Views\Article\DatabasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DetailPage.xaml">
+    <Page Include="Views\Article\DetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DotNetPage.xaml">
+    <Page Include="Views\Article\DotNetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditArticlePage.xaml">
+    <Page Include="Views\Article\EditArticlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EssaysPage.xaml">
+    <Page Include="Views\Article\EssaysPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePage.xaml">
+    <Page Include="Views\Article\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SignInPage.xaml">
+    <Page Include="Views\User\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,15 +313,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PostArticlePage.xaml">
+    <Page Include="Views\Article\PostArticlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ReadPage.xaml">
+    <Page Include="Views\Article\ReadPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowsPage.xaml">
+    <Page Include="Views\Article\WindowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

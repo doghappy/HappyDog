@@ -1,6 +1,6 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.Views;
+using HappyDog.WindowsUI.Views.Article;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;

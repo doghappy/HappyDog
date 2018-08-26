@@ -1,23 +1,27 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.ViewModels;
 using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace HappyDog.WindowsUI.Views
+namespace HappyDog.WindowsUI.Views.Article
 {
-    public sealed partial class DatabasePage : Page, INotifyPropertyChanged
+    public sealed partial class HomePage : Page, INotifyPropertyChanged
     {
-        public DatabasePage()
+        public HomePage()
         {
             InitializeComponent();
-            Configuration.CachedPages.Add(this);
+            if (!Configuration.CachedPages.Any(a => a.GetType() == GetType()))
+            {
+                Configuration.CachedPages.Add(this);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DatabaseViewModel viewModel;
-        public DatabaseViewModel ViewModel
+        private HomeViewModel viewModel;
+        public HomeViewModel ViewModel
         {
             get => viewModel;
             set
@@ -30,8 +34,13 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new DatabaseViewModel();
+            ViewModel = new HomeViewModel();
             await viewModel.InitializeAsync();
+        }
+
+        private void PostArticle_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PostArticlePage));
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HappyDog.WindowsUI.Views.EssaysPage"
+    x:Class="HappyDog.WindowsUI.Views.Article.ReadPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HappyDog.WindowsUI.Views"
@@ -15,15 +15,13 @@
             <hc:CategoryOutlet.Jumbotron>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel.Background>
-                        <ImageBrush ImageSource="/Assets/Images/Ink_4x3.png" Stretch="Uniform" AlignmentX="Right"/>
+                        <ImageBrush ImageSource="/Assets/Images/Office_8x3.jpg"/>
                     </StackPanel.Background>
-                    <StackPanel Style="{ThemeResource StackPanelContainer}" Background="#1A000000">
-                        <TextBlock Text="随笔" Foreground="#fb0" Style="{StaticResource JumbotronH1}"/>
+                    <StackPanel Style="{ThemeResource StackPanelContainer}">
+                        <TextBlock Text="阅读" Foreground="#7cbb00" Style="{StaticResource JumbotronH1}"/>
                         <TextBlock Style="{ThemeResource JumbotronLead}"
-                                   Text="夫运筹帷幄之中，决胜千里之外，吾不如子房；镇国家，抚百姓，给饷馈，不绝粮道，吾不如萧何；连百万之众，战必胜，攻必取，吾不如韩信。三者皆人杰，吾能用之，此吾所以取天下者也。"/>
-                        <TextBlock Style="{ThemeResource JumbotronLead}"
-                                   HorizontalAlignment="Right"
-                                   Text="——刘邦"/>
+                                   Foreground="#f8f9fa"
+                                   Text="自中原板荡，夷狄交侵，余发愤河朔，起自相台，总发从军，历二百余战。虽未能远入荒夷，洗荡巢穴，亦且快国雠之万一。今又提一旅孤军，振起宜兴。建康之战，一鼓败虏，恨未能使匹马不回耳。故且养兵休卒，蓄锐待敌，嗣当激励士卒，功期再战，北逾沙漠，喋血虏廷，尽屠夷种，迎二圣归京阙，取故土下版图，朝廷无虞，主上奠枕，余之愿也。"/>
                     </StackPanel>
                 </StackPanel>
             </hc:CategoryOutlet.Jumbotron>

@@ -4,11 +4,11 @@ using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace HappyDog.WindowsUI.Views
+namespace HappyDog.WindowsUI.Views.Article
 {
-    public sealed partial class DotNetPage : Page, INotifyPropertyChanged
+    public sealed partial class DatabasePage : Page, INotifyPropertyChanged
     {
-        public DotNetPage()
+        public DatabasePage()
         {
             InitializeComponent();
             Configuration.CachedPages.Add(this);
@@ -16,8 +16,8 @@ namespace HappyDog.WindowsUI.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DotNetViewModel viewModel;
-        public DotNetViewModel ViewModel
+        private DatabaseViewModel viewModel;
+        public DatabaseViewModel ViewModel
         {
             get => viewModel;
             set
@@ -30,7 +30,7 @@ namespace HappyDog.WindowsUI.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new DotNetViewModel();
+            ViewModel = new DatabaseViewModel();
             await viewModel.InitializeAsync();
         }
     }
