@@ -1,4 +1,5 @@
-﻿using HappyDog.WindowsUI.Enums;
+﻿using HappyDog.WindowsUI.Common;
+using HappyDog.WindowsUI.Enums;
 using HappyDog.WindowsUI.Models.Results;
 using Newtonsoft.Json;
 using System;
@@ -9,16 +10,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class LoginViewModel : ViewModel, INotifyPropertyChanged
+    public class SignInViewModel : ViewModel, INotifyPropertyChanged
     {
-        public LoginViewModel()
-        {
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string userName;
@@ -57,17 +55,21 @@ namespace HappyDog.WindowsUI.ViewModels
             if (resMsg.IsSuccessStatusCode)
             {
                 var vault = new PasswordVault();
-                var credentialList = vault.FindAllByResource("doghappy");
-                foreach (var item in credentialList)
+                if (vault.RetrieveAll().Any(v => v.Resource == DogHappy))
                 {
-                    vault.Remove(item);
+                    var credentialList = vault.FindAllByResource(DogHappy);
+                    foreach (var item in credentialList)
+                    {
+                        vault.Remove(item);
+                    }
                 }
                 vault.Add(new PasswordCredential
                 {
-                    Resource = "doghappy",
+                    Resource = DogHappy,
                     UserName = UserName,
                     Password = Password
                 });
+                GoBack();
             }
             else
             {

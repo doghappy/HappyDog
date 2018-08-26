@@ -1,6 +1,4 @@
-﻿using System;
-using HappyDog.WindowsUI.Enums;
-using HappyDog.WindowsUI.ViewModels;
+﻿using HappyDog.WindowsUI.ViewModels;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,22 +34,7 @@ namespace HappyDog.WindowsUI.Views
 
         private async void Post_Click(object sender, RoutedEventArgs e)
         {
-            //var result = await ViewModel.PostAsync();
-            //if (result.Code == CodeResult.OK)
-            //{
-            //    Configuration.ArticlePageCache = NavigationCacheMode.Disabled;
-            //    Frame.Navigate(typeof(DetailPage), result.Data);
-            //}
-            //else
-            //{
-            //    var dialog = new ContentDialog
-            //    {
-            //        Title = "提示",
-            //        Content = result.Message,
-            //        PrimaryButtonText = "确定"
-            //    };
-            //    await dialog.ShowAsync();
-            //}
+            await ViewModel.PostAsync();
         }
     }
 }

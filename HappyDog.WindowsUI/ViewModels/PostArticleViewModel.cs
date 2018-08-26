@@ -1,14 +1,17 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.Models.Results;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels
 {
-    public class PostArticleViewModel : INotifyPropertyChanged
+    public class PostArticleViewModel : ViewModel, INotifyPropertyChanged
     {
         public PostArticleViewModel()
         {
@@ -46,9 +49,19 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        public async Task<HttpDataResult<int>> PostAsync()
+        public async Task PostAsync()
         {
-            return null;
+            string url = BaseAddress + "/article";
+            string json = JsonConvert.SerializeObject(Article);
+            var resMsg = await HttpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, ApplicationJson));
+            if (resMsg.IsSuccessStatusCode)
+            {
+                GoBack();
+            }
+            else
+            {
+                await HandleErrorStatusCodeAsync(resMsg);
+            }
         }
     }
 }

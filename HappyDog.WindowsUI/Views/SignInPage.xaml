@@ -33,7 +33,8 @@
             </Image>
             <TextBox Margin="0,0,0,16" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" PlaceholderText="请输入用户名"/>
             <PasswordBox Margin="0,0,0,16" Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
-                     PlaceholderText="请输入密码"/>
+                         KeyUp="PasswordBox_KeyUp"
+                         PlaceholderText="请输入密码"/>
             <Button x:Name="LoginButton"
                     Content="登录"
                     Style="{StaticResource PrimaryButton}"

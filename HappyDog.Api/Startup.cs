@@ -65,8 +65,8 @@ namespace HappyDog.Api
             services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                options.LoginPath = "/User/SignIn";
-                options.AccessDeniedPath = "/User/AccessDenied";
+                options.LoginPath = "/home/unauth";
+                //options.AccessDeniedPath = "/User/AccessDenied";
                 options.SlidingExpiration = true;
             });
 
@@ -125,13 +125,6 @@ namespace HappyDog.Api
                 HttpBaseResult result = null;
                 switch (context.HttpContext.Response.StatusCode)
                 {
-                    case StatusCodes.Status401Unauthorized:
-                        result = new HttpBaseResult
-                        {
-                            Message = "所请求的资源需要身份验证。",
-                            NoticeMode = NoticeMode.Info
-                        };
-                        break;
                     case StatusCodes.Status404NotFound:
                         result = new HttpBaseResult
                         {

@@ -1,8 +1,10 @@
 ﻿using HappyDog.WindowsUI.ViewModels;
 using System.ComponentModel;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Input;
 
 namespace HappyDog.WindowsUI.Views
 {
@@ -15,8 +17,8 @@ namespace HappyDog.WindowsUI.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private LoginViewModel viewModel;
-        public LoginViewModel ViewModel
+        private SignInViewModel viewModel;
+        public SignInViewModel ViewModel
         {
             get => viewModel;
             private set
@@ -29,12 +31,20 @@ namespace HappyDog.WindowsUI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = new LoginViewModel();
+            ViewModel = new SignInViewModel();
         }
 
         private async void SignInButton_Click(object sender, RoutedEventArgs e)
         {
             await ViewModel.SignInAsync();
+        }
+
+        private async void PasswordBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                await ViewModel.SignInAsync();
+            }
         }
     }
 }

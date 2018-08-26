@@ -73,6 +73,27 @@ namespace HappyDog.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("unauth")]
+        public HttpBaseResult UnAuth()
+        {
+            if (Request.Query.ContainsKey("returnUrl"))
+            {
+                return new HttpBaseResult
+                {
+                    Message = "所请求的资源需要身份验证。",
+                    NoticeMode = NoticeMode.Warning
+                };
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         ///// <summary>
         ///// 
         ///// </summary>

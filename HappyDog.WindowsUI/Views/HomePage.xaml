@@ -29,7 +29,7 @@
                             <Run Text="If you want somethin', go get it."/>
                         </TextBlock>
                         <Button Style="{ThemeResource PrimaryButton}"
-                                Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.IsAuthorized, Mode=OneWay}"
                                 Click="PostArticle_Click">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Edit"/>

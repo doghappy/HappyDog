@@ -3,7 +3,5 @@
     public class HomeViewModel : ArticleViewModel
     {
         protected override string Url => "article";
-
-        public bool IsLogged => true;
     }
 }
