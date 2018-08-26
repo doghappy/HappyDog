@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using HappyDog.Domain.Models.Results;
 using HappyDog.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace HappyDog.Api.Test
 {
@@ -718,34 +719,42 @@ namespace HappyDog.Api.Test
 
         #region put: api/article/{id}
         [TestMethod]
-        public async Task PutTest()
+        public async Task PutNullTest()
         {
             var db = new HappyDogContext(GetOptions());
             var article = new Article { Id = 1, Title = "title1", Content = "content1", CategoryId = 1, Status = BaseStatus.Disable };
             await db.AddAsync(article);
             await db.SaveChangesAsync();
 
-            var svc = new ArticleService(db);
-            var controller = new ArticleController(svc, null);
+            var articleService = new ArticleService(db);
+            var controller = new ArticleController(articleService, null)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
 
-            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
-            await controller.Put(1, dto);
+            var dto = new EditArticleDto(db) { Title = "title2", Content = "content2", Status = BaseStatus.Enable };
+            var result = await controller.Put(2, dto);
 
             Assert.AreEqual(1, article.Id);
-            Assert.AreEqual("title2", article.Title);
-            Assert.AreEqual("content2", article.Content);
-            Assert.AreEqual(BaseStatus.Enable, article.Status);
-            Assert.AreEqual(2, article.CategoryId);
+            Assert.AreEqual("title1", article.Title);
+            Assert.AreEqual("content1", article.Content);
+            Assert.AreEqual(BaseStatus.Disable, article.Status);
+            Assert.AreEqual(1, article.CategoryId);
+            Assert.AreEqual(NoticeMode.Warning, result.NoticeMode);
+            Assert.AreEqual("修改失败", result.Message);
         }
-        #endregion
 
-        #region post: api/article
         [TestMethod]
-        public async Task PostWithCategory0Async()
+        public async Task PutTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
+            await db.Categories.AddAsync(new Category { Id = 2, Status = BaseStatus.Enable });
+            await db.AddAsync(new Article { Id = 1, Title = "title1", Content = "content1", CategoryId = 1, Status = BaseStatus.Disable });
             await db.SaveChangesAsync();
+
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null)
             {
@@ -755,13 +764,21 @@ namespace HappyDog.Api.Test
                 }
             };
 
-            var dto = new PostArticleDto { Title = "title", Content = "content", Status = BaseStatus.Enable };
-            var baseResult = await controller.Post(dto);
+            var dto = new EditArticleDto(db) { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
+            var result = await controller.Put(1, dto);
+            var dbArticle = await db.Articles.FirstOrDefaultAsync();
 
-            Assert.AreEqual(NoticeMode.Warning, baseResult.NoticeMode);
-            Assert.AreEqual("无效的分类", baseResult.Message);
+            Assert.AreEqual(NoticeMode.Success, result.NoticeMode);
+            Assert.AreEqual("修改成功", result.Message);
+            Assert.AreEqual(1, dbArticle.Id);
+            Assert.AreEqual("title2", dbArticle.Title);
+            Assert.AreEqual("content2", dbArticle.Content);
+            Assert.AreEqual(BaseStatus.Enable, dbArticle.Status);
+            Assert.AreEqual(2, dbArticle.CategoryId);
         }
+        #endregion
 
+        #region post: api/article
         [TestMethod]
         public async Task PostAsync()
         {
@@ -771,7 +788,7 @@ namespace HappyDog.Api.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 
-            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
+            var dto = new PostArticleDto(db) { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
             await controller.Post(dto);
 
             var list = db.Articles.ToList();
@@ -782,6 +799,7 @@ namespace HappyDog.Api.Test
             Assert.AreEqual("content", article.Content);
             Assert.AreEqual(1, article.CategoryId);
             Assert.AreEqual(BaseStatus.Enable, article.Status);
+            Assert.AreEqual(1, await db.Articles.CountAsync());
         }
         #endregion
 

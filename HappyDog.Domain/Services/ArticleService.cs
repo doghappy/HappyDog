@@ -63,7 +63,7 @@ namespace HappyDog.Domain.Services
             return searcher.Search(keyword);
         }
 
-        public async Task UpdateAsync(int id, EditArticleDto dto)
+        public async Task<bool> UpdateAsync(int id, EditArticleDto dto)
         {
             var article = await db.Articles.FindAsync(id);
             if (article != null)
@@ -72,39 +72,25 @@ namespace HappyDog.Domain.Services
                 article.Title = dto.Title;
                 article.Content = dto.Content;
                 article.Status = dto.Status;
-                await db.SaveChangesAsync();
+                int total = await db.SaveChangesAsync();
+                return total > 0;
             }
+            return false;
         }
 
-        public async Task<BaseResult> AddAsync(PostArticleDto dto)
+        public async Task<Article> AddAsync(PostArticleDto dto)
         {
-            bool isValidCateId = await db.Categories.AsNoTracking()
-                .AnyAsync(c => c.Status == BaseStatus.Enable && c.Id == dto.CategoryId);
-            if (isValidCateId)
+            var article = new Article
             {
-                var article = new Article
-                {
-                    CategoryId = dto.CategoryId,
-                    Content = dto.Content,
-                    CreateTime = DateTime.Now,
-                    Status = dto.Status,
-                    Title = dto.Title
-                };
-                await db.Articles.AddAsync(article);
-                await db.SaveChangesAsync();
-                return new DataResult<int>
-                {
-                    Result = true,
-                    Data = article.Id,
-                };
-            }
-            else
-            {
-                return new BaseResult
-                {
-                    Message = "无效的分类"
-                };
-            }
+                CategoryId = dto.CategoryId,
+                Content = dto.Content,
+                CreateTime = DateTime.Now,
+                Status = dto.Status,
+                Title = dto.Title
+            };
+            await db.Articles.AddAsync(article);
+            await db.SaveChangesAsync();
+            return article;
         }
 
         public async Task<List<Article>> GetHotAsync(int count)

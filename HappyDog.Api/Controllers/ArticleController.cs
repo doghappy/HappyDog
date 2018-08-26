@@ -11,6 +11,7 @@ using HappyDog.Domain.Enums;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Api.Filters;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace HappyDog.Api.Controllers
 {
@@ -84,12 +85,24 @@ namespace HappyDog.Api.Controllers
         [ValidateModel]
         public async Task<HttpBaseResult> Put(int id, [FromBody]EditArticleDto dto)
         {
-            await articleService.UpdateAsync(id, dto);
-            return new HttpBaseResult
+            bool result = await articleService.UpdateAsync(id, dto);
+            if (result)
             {
-                NoticeMode = NoticeMode.Success,
-                Message = "修改成功"
-            };
+                return new HttpBaseResult
+                {
+                    NoticeMode = NoticeMode.Success,
+                    Message = "修改成功"
+                };
+            }
+            else
+            {
+                Response.StatusCode = StatusCodes.Status403Forbidden;
+                return new HttpBaseResult
+                {
+                    NoticeMode = NoticeMode.Warning,
+                    Message = "修改失败"
+                };
+            }
         }
 
         /// <summary>
@@ -101,24 +114,23 @@ namespace HappyDog.Api.Controllers
         [ValidateModel]
         public async Task<HttpBaseResult> Post([FromBody]PostArticleDto dto)
         {
-            var result = await articleService.AddAsync(dto);
-            if (result.Result)
+            var article = await articleService.AddAsync(dto);
+            if (article == null)
             {
-                var dataResult = result as DataResult<int>;
-                return new HttpDataResult<int>
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return new HttpBaseResult
                 {
-                    Data = dataResult.Data,
-                    NoticeMode = NoticeMode.Success,
-                    Message = "添加成功"
+                    NoticeMode = NoticeMode.Warning,
+                    Message = "添加失败"
                 };
             }
             else
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return new HttpBaseResult
+                return new HttpDataResult<int>
                 {
-                    NoticeMode = NoticeMode.Warning,
-                    Message = result.Message
+                    Data = article.Id,
+                    NoticeMode = NoticeMode.Success,
+                    Message = "添加成功"
                 };
             }
         }

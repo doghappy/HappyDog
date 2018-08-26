@@ -234,7 +234,7 @@ namespace HappyDog.WebUI.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(Mapper, svc, null);
 
-            var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
+            var dto = new EditArticleDto(db) { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
             await controller.Edit(1, dto);
 
             Assert.AreEqual(1, article.Id);
@@ -242,24 +242,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual("content2", article.Content);
             Assert.AreEqual(BaseStatus.Enable, article.Status);
             Assert.AreEqual(2, article.CategoryId);
-        }
-
-        [TestMethod]
-        public async Task PostWithCategory0Async()
-        {
-            var db = new HappyDogContext(GetOptions());
-            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
-            await db.SaveChangesAsync();
-            var articleService = new ArticleService(db);
-            var categoryService = new CategoryService(db);
-            var controller = new ArticleController(Mapper, articleService, categoryService);
-
-            var dto = new PostArticleDto { Title = "title", Content = "content", Status = BaseStatus.Enable };
-            var result = await controller.Post(dto);
-            var viewResult = result as ViewResult;
-
-            Assert.AreEqual("无效的分类", viewResult.ViewData.ModelState.Values.FirstOrDefault().Errors[0].ErrorMessage);
-            Assert.IsTrue(string.IsNullOrWhiteSpace(viewResult.ViewName));
         }
 
         [TestMethod]
@@ -271,7 +253,7 @@ namespace HappyDog.WebUI.Test
             var svc = new ArticleService(db);
             var controller = new ArticleController(Mapper, svc, null);
 
-            var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
+            var dto = new PostArticleDto(db) { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
             var result = await controller.Post(dto);
             var redirectResult = result as RedirectToActionResult;
 
@@ -285,6 +267,7 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(BaseStatus.Enable, article.Status);
             Assert.AreEqual("Detail", redirectResult.ActionName);
             Assert.AreEqual("1", redirectResult.RouteValues["id"].ToString());
+            Assert.AreEqual(1, await db.Articles.CountAsync());
         }
 
         #region Search

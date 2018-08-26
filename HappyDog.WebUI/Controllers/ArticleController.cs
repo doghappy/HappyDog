@@ -114,18 +114,15 @@ namespace HappyDog.WebUI.Controllers
                 await articleService.UpdateAsync(id, dto);
                 return RedirectToAction("Detail", new { id });
             }
-            else
-            {
-                ViewBag.Categories = await categoryService.GetCategoriesAsync();
-                return View(dto);
-            }
+            ViewBag.Categories = await categoryService.GetCategoriesAsync();
+            return View(dto);
         }
 
         [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Post()
         {
             ViewBag.Categories = await categoryService.GetCategoriesAsync();
-            var article = new PostArticleDto
+            var article = new PostArticleDto(null)
             {
                 Status = BaseStatus.Disable
             };
@@ -139,15 +136,10 @@ namespace HappyDog.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await articleService.AddAsync(dto);
-                if (result.Result)
+                var article = await articleService.AddAsync(dto);
+                if (article != null)
                 {
-                    var dataResult = result as DataResult<int>;
-                    return RedirectToAction("Detail", new { id = dataResult.Data });
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(dto.CategoryId), result.Message);
+                    return RedirectToAction("Detail", new { id = article.Id });
                 }
             }
             ViewBag.Categories = await categoryService.GetCategoriesAsync();
