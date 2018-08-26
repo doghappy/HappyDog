@@ -40,7 +40,7 @@
                         <Button Style="{ThemeResource PrimaryButton}"
                                 Margin="0,12,0,0"
                                 Click="Edit_Click"
-                                Visibility="{x:Bind ViewModel.IsLogged, Mode=OneWay}">
+                                Visibility="{x:Bind ViewModel.IsAuthorized, Mode=OneWay}">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Edit"/>
                                 <TextBlock Text="编辑"/>

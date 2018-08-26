@@ -1,24 +1,25 @@
 ﻿using HappyDog.WindowsUI.Common;
 using HappyDog.WindowsUI.Models;
 using HappyDog.WindowsUI.Models.Results;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HappyDog.WindowsUI.ViewModels.Article
 {
-    public class EditArticleViewModel : INotifyPropertyChanged
+    public class EditArticleViewModel : ViewModel, INotifyPropertyChanged
     {
-        public EditArticleViewModel(int articleId)
+        public EditArticleViewModel(Models.Article article)
         {
-            ArticleId = articleId;
+            Article = article;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Category> Categories => Configuration.Categories;
-
-        public int ArticleId { get; }
 
         private Models.Article article;
         public Models.Article Article
@@ -31,15 +32,20 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             }
         }
 
-        public async Task InitializeAsync()
+        public async Task PutAsync()
         {
-        }
-
-        public async Task<HttpBaseResult> PutAsync()
-        {
-            //Article.CategoryId = Article.Category.Id;
-            //return await articleService.PutAsync(Article);
-            return null;
+            string url = BaseAddress + "/article/" + Article.Id;
+            string json = JsonConvert.SerializeObject(Article);
+            var content = new StringContent(json, Encoding.UTF8, ApplicationJson);
+            var resMsg = await HttpClient.PutAsync(url, content);
+            if (resMsg.IsSuccessStatusCode)
+            {
+                GoBack();
+            }
+            else
+            {
+                await HandleErrorStatusCodeAsync(resMsg);
+            }
         }
     }
 }

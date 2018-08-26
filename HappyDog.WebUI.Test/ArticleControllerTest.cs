@@ -245,14 +245,35 @@ namespace HappyDog.WebUI.Test
         }
 
         [TestMethod]
+        public async Task PostWithCategory0Async()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var articleService = new ArticleService(db);
+            var categoryService = new CategoryService(db);
+            var controller = new ArticleController(Mapper, articleService, categoryService);
+
+            var dto = new PostArticleDto { Title = "title", Content = "content", Status = BaseStatus.Enable };
+            var result = await controller.Post(dto);
+            var viewResult = result as ViewResult;
+
+            Assert.AreEqual("无效的分类", viewResult.ViewData.ModelState.Values.FirstOrDefault().Errors[0].ErrorMessage);
+            Assert.IsTrue(string.IsNullOrWhiteSpace(viewResult.ViewName));
+        }
+
+        [TestMethod]
         public async Task PostTest()
         {
             var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
             var svc = new ArticleService(db);
             var controller = new ArticleController(Mapper, svc, null);
 
             var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
-            await controller.Post(dto);
+            var result = await controller.Post(dto);
+            var redirectResult = result as RedirectToActionResult;
 
             var list = await db.Articles.ToListAsync();
             Assert.AreEqual(1, list.Count);
@@ -262,6 +283,8 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual("content", article.Content);
             Assert.AreEqual(1, article.CategoryId);
             Assert.AreEqual(BaseStatus.Enable, article.Status);
+            Assert.AreEqual("Detail", redirectResult.ActionName);
+            Assert.AreEqual("1", redirectResult.RouteValues["id"].ToString());
         }
 
         #region Search
@@ -280,7 +303,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Search(" ");
             var viewResult = result as ViewResult;
-            var model=viewResult.Model as List<Article>;
+            var model = viewResult.Model as List<Article>;
 
             Assert.AreEqual(viewResult.ViewName, "EmptySearch");
             Assert.AreEqual(2, model.Count);

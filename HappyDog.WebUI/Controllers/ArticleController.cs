@@ -3,6 +3,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Enums;
+using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -138,14 +139,19 @@ namespace HappyDog.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var article = await articleService.InsertAsync(dto);
-                return RedirectToAction("Detail", new { id = article.Id });
+                var result = await articleService.AddAsync(dto);
+                if (result.Result)
+                {
+                    var dataResult = result as DataResult<int>;
+                    return RedirectToAction("Detail", new { id = dataResult.Data });
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(dto.CategoryId), result.Message);
+                }
             }
-            else
-            {
-                ViewBag.Categories = await categoryService.GetCategoriesAsync();
-                return View(dto);
-            }
+            ViewBag.Categories = await categoryService.GetCategoriesAsync();
+            return View(dto);
         }
 
         public async Task<IActionResult> Search(string q, int page = 1)

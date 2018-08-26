@@ -26,8 +26,6 @@ namespace HappyDog.WindowsUI.ViewModels.Article
             }
         }
 
-        public bool IsLogged { get; private set; }
-
         private bool isLoading;
         public bool IsLoading
         {

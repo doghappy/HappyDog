@@ -52,9 +52,12 @@ namespace HappyDog.WindowsUI.ViewModels.Article
         {
             string url = BaseAddress + "/article";
             string json = JsonConvert.SerializeObject(Article);
-            var resMsg = await HttpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, ApplicationJson));
+            var content = new StringContent(json, Encoding.UTF8, ApplicationJson);
+            var resMsg = await HttpClient.PostAsync(url, content);
             if (resMsg.IsSuccessStatusCode)
             {
+                string sss = await resMsg.Content.ReadAsStringAsync();
+                Configuration.ClearCache();
                 GoBack();
             }
             else

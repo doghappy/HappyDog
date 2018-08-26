@@ -741,9 +741,33 @@ namespace HappyDog.Api.Test
 
         #region post: api/article
         [TestMethod]
+        public async Task PostWithCategory0Async()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db);
+            var controller = new ArticleController(svc, null)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
+
+            var dto = new PostArticleDto { Title = "title", Content = "content", Status = BaseStatus.Enable };
+            var baseResult = await controller.Post(dto);
+
+            Assert.AreEqual(NoticeMode.Warning, baseResult.NoticeMode);
+            Assert.AreEqual("无效的分类", baseResult.Message);
+        }
+
+        [TestMethod]
         public async Task PostAsync()
         {
             var db = new HappyDogContext(GetOptions());
+            await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
             var svc = new ArticleService(db);
             var controller = new ArticleController(svc, null);
 

@@ -99,15 +99,28 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public async Task<HttpDataResult<int>> Post([FromBody]PostArticleDto dto)
+        public async Task<HttpBaseResult> Post([FromBody]PostArticleDto dto)
         {
-            var article = await articleService.InsertAsync(dto);
-            return new HttpDataResult<int>
+            var result = await articleService.AddAsync(dto);
+            if (result.Result)
             {
-                Data = article.Id,
-                NoticeMode = NoticeMode.Success,
-                Message = "添加成功"
-            };
+                var dataResult = result as DataResult<int>;
+                return new HttpDataResult<int>
+                {
+                    Data = dataResult.Data,
+                    NoticeMode = NoticeMode.Success,
+                    Message = "添加成功"
+                };
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return new HttpBaseResult
+                {
+                    NoticeMode = NoticeMode.Warning,
+                    Message = result.Message
+                };
+            }
         }
 
         /// <summary>
@@ -209,7 +222,7 @@ namespace HappyDog.Api.Controllers
                 var pager = new Pager(page, PageSize);
                 var query = articleService.Search(User.IsInRole("Owner"), q, pager)
                     .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-                var data =await pager.GetPaginationAsync(query);
+                var data = await pager.GetPaginationAsync(query);
                 return new HttpDataResult<Pagination<ArticleSummaryDto>>
                 {
                     Data = data

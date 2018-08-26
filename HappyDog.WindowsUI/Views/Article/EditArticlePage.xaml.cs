@@ -1,7 +1,8 @@
-﻿using HappyDog.WindowsUI.ViewModels.Article;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using HappyDog.WindowsUI.Models;
+using HappyDog.WindowsUI.ViewModels.Article;
 
 namespace HappyDog.WindowsUI.Views.Article
 {
@@ -25,32 +26,16 @@ namespace HappyDog.WindowsUI.Views.Article
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            int articleId = int.Parse(e.Parameter.ToString());
-            ViewModel = new EditArticleViewModel(articleId);
-            await ViewModel.InitializeAsync();
+            var article = e.Parameter as Models.Article;
+            ViewModel = new EditArticleViewModel(article);
         }
 
         private async void Put_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //var result = await ViewModel.PutAsync();
-            //if (result.Code == CodeResult.OK)
-            //{
-            //    Configuration.ArticlePageCache = NavigationCacheMode.Disabled;
-            //    Frame.Navigate(typeof(DetailPage), ViewModel.ArticleId);
-            //}
-            //else
-            //{
-            //    var dialog = new ContentDialog
-            //    {
-            //        Title = "提示",
-            //        Content = result.Message,
-            //        PrimaryButtonText = "确定"
-            //    };
-            //    await dialog.ShowAsync();
-            //}
+            await ViewModel.PutAsync();
         }
     }
 }

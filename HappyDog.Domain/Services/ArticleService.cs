@@ -1,6 +1,7 @@
 ﻿using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
+using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Search;
 using HappyDog.Domain.Search.Article;
 using HappyDog.Infrastructure;
@@ -75,19 +76,35 @@ namespace HappyDog.Domain.Services
             }
         }
 
-        public async Task<Article> InsertAsync(PostArticleDto dto)
+        public async Task<BaseResult> AddAsync(PostArticleDto dto)
         {
-            var article = new Article
+            bool isValidCateId = await db.Categories.AsNoTracking()
+                .AnyAsync(c => c.Status == BaseStatus.Enable && c.Id == dto.CategoryId);
+            if (isValidCateId)
             {
-                CategoryId = dto.CategoryId,
-                Content = dto.Content,
-                CreateTime = DateTime.Now,
-                Status = dto.Status,
-                Title = dto.Title
-            };
-            await db.Articles.AddAsync(article);
-            await db.SaveChangesAsync();
-            return article;
+                var article = new Article
+                {
+                    CategoryId = dto.CategoryId,
+                    Content = dto.Content,
+                    CreateTime = DateTime.Now,
+                    Status = dto.Status,
+                    Title = dto.Title
+                };
+                await db.Articles.AddAsync(article);
+                await db.SaveChangesAsync();
+                return new DataResult<int>
+                {
+                    Result = true,
+                    Data = article.Id,
+                };
+            }
+            else
+            {
+                return new BaseResult
+                {
+                    Message = "无效的分类"
+                };
+            }
         }
 
         public async Task<List<Article>> GetHotAsync(int count)
