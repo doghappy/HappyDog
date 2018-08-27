@@ -40,7 +40,12 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        protected string BaseAddress => "http://localhost:56149";
+#if DEBUG
+        //protected string BaseAddress => "http://localhost:56149";
+        protected string BaseAddress => "https://api.doghappy.wang";
+#else
+        protected string BaseAddress => "https://api.doghappy.wang";
+#endif
 
         protected string ApplicationJson => "application/json";
 
@@ -57,7 +62,10 @@ namespace HappyDog.WindowsUI.ViewModels
             }
         }
 
-        protected abstract void OnPropertyChanged([CallerMemberName]string propertyName = null);
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         protected void GoBack()
         {
