@@ -50,6 +50,10 @@ namespace HappyDog.WindowsUI.Views
                     case Type t when e.SourcePageType == typeof(EssaysPage):
                         item = NavView.MenuItems[5] as NavigationViewItem;
                         break;
+                    case Type t when e.SourcePageType == typeof(SignInPage):
+                    case Type t2 when e.SourcePageType == typeof(ProfilePage):
+                        item = NavView.MenuItems[6] as NavigationViewItem;
+                        break;
                 }
                 if (item != null)
                 {
