@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="22778BF0BAC21.492834D8ABC76" Publisher="CN=81B153BE-B5CF-46D4-BE96-73AC2EAA6CCF" Version="1.0.2.0" />
+  <Identity Name="22778BF0BAC21.492834D8ABC76" Publisher="CN=81B153BE-B5CF-46D4-BE96-73AC2EAA6CCF" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="7abd7d73-c8e8-457d-aad0-e3f1673b8075" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>开心狗</DisplayName>

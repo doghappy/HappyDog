@@ -41,8 +41,8 @@ namespace HappyDog.WindowsUI.ViewModels
         }
 
 #if DEBUG
-        //protected string BaseAddress => "http://localhost:56149";
-        protected string BaseAddress => "https://api.doghappy.wang";
+        protected string BaseAddress => "http://localhost:56149";
+        //protected string BaseAddress => "https://api.doghappy.wang";
 #else
         protected string BaseAddress => "https://api.doghappy.wang";
 #endif
