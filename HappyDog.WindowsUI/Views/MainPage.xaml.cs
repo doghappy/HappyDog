@@ -22,23 +22,10 @@ namespace HappyDog.WindowsUI.Views
             firstItem.IsSelected = true;
 
             NavView.SelectionChanged += NavView_SelectionChanged;
-            //SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
         }
-
-        //private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
-        //{
-        //    if (ContentFrame.CanGoBack && !e.Handled)
-        //    {
-        //        e.Handled = true;
-        //        ContentFrame.GoBack();
-        //    }
-        //}
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ContentFrame.CanGoBack
-            //    ? AppViewBackButtonVisibility.Visible
-            //    : AppViewBackButtonVisibility.Collapsed;
             NavView.IsBackEnabled = ContentFrame.CanGoBack;
             if (e.NavigationMode == NavigationMode.Back)
             {
