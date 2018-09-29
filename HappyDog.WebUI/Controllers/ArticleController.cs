@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.DataTransferObjects.Article;
@@ -171,24 +172,26 @@ namespace HappyDog.WebUI.Controllers
             {
                 ViewBag.Message = "请输入关键词";
                 var hotData = await articleService.GetHotAsync(20);
-                return View("EmptySearch", hotData);
+                var data = mapper.Map<List<ArticleSummaryDto>>(hotData);
+                return View("EmptySearch", data);
             }
             else
             {
                 var pager = new Pager(page, PageSize);
                 var query = articleService.Search(User.IsInRole("Owner"), q, pager)
                     .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-                var data = await pager.GetPaginationAsync(query);
-                if (data.TotalItems == 0)
+                var pagingData = await pager.GetPaginationAsync(query);
+                if (pagingData.TotalItems == 0)
                 {
                     ViewBag.Message = $"未找到与 \"{q}\" 相关的数据";
                     var hotData = await articleService.GetHotAsync(20);
-                    return View("EmptySearch", hotData);
+                    var data = mapper.Map<List<ArticleSummaryDto>>(hotData);
+                    return View("EmptySearch", data);
                 }
                 else
                 {
                     ViewBag.Pager = pager;
-                    return View(data.Data);
+                    return View(pagingData.Data);
                 }
             }
         }
