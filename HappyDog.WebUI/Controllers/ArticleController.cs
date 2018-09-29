@@ -30,9 +30,12 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, null);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), null)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Detail(int id)
@@ -51,41 +54,56 @@ namespace HappyDog.WebUI.Controllers
         public async Task<IActionResult> Net(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Net);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), ArticleCategory.Net)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Database(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Database);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), ArticleCategory.Database)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Windows(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Windows);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), ArticleCategory.Windows)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Read(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Read);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), ArticleCategory.Read)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Essays(int page = 1)
         {
             var pager = new Pager(page, PageSize);
-            var data = await articleService.Get(User.IsInRole("Owner"), pager, ArticleCategory.Essays);
+            var query = articleService
+                .Get(User.IsInRole("Owner"), ArticleCategory.Essays)
+                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
+            var data = await pager.GetPaginationAsync(query);
             ViewBag.Pager = pager;
-            return View(data);
+            return View(data.Data);
         }
 
         [Authorize(Roles = "Owner")]

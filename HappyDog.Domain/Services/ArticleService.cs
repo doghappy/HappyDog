@@ -44,12 +44,12 @@ namespace HappyDog.Domain.Services
                 .OrderByDescending(a => a.Id);
         }
 
-        public async Task<List<Article>> Get(bool isOwner, Pager pager, ArticleCategory? cid)
-        {
-            var query = Get(isOwner, cid);
-            pager.TotalItems = await query.CountAsync();
-            return await query.Skip(pager.Skip).Take(pager.Size).ToListAsync();
-        }
+        //public IQueryable<Article> Get(bool isOwner, Pager pager, ArticleCategory? cid)
+        //{
+        //    var query = Get(isOwner, cid);
+        //    pager.TotalItems = await query.CountAsync();
+        //    return query.Skip(pager.Skip).Take(pager.Size);
+        //}
 
         public IQueryable<Article> Search(bool isOwner, string keyword, Pager pager)
         {

@@ -51,7 +51,7 @@ namespace HappyDog.WebUI.Test
             };
 
             var result = (await controller.Index()) as ViewResult;
-            var model = result.Model as List<Article>;
+            var model = result.Model as List<ArticleSummaryDto>;
             var pager = result.ViewData["Pager"] as Pager;
 
             Assert.AreEqual(2, model.Count);
@@ -94,7 +94,7 @@ namespace HappyDog.WebUI.Test
             };
 
             var result = (await controller.Index(4)) as ViewResult;
-            var model = result.Model as List<Article>;
+            var model = result.Model as List<ArticleSummaryDto>;
             var pager = result.ViewData["Pager"] as Pager;
 
             Assert.AreEqual(2, model.Count);
@@ -631,7 +631,7 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
             var identity = new ClaimsIdentity(new List<Claim>());
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -644,7 +644,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Net();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
@@ -665,7 +665,7 @@ namespace HappyDog.WebUI.Test
                 new Claim(ClaimTypes.Role, "Owner"),
             };
             var identity = new ClaimsIdentity(claims);
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -678,7 +678,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Net();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(2, model.Count);
             Assert.AreEqual(2, model[0].Id);
             Assert.AreEqual(1, model[1].Id);
@@ -698,7 +698,7 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
             var identity = new ClaimsIdentity(new List<Claim>());
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -711,7 +711,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Database();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
@@ -732,7 +732,7 @@ namespace HappyDog.WebUI.Test
                 new Claim(ClaimTypes.Role, "Owner"),
             };
             var identity = new ClaimsIdentity(claims);
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -745,7 +745,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Database();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(2, model.Count);
             Assert.AreEqual(2, model[0].Id);
             Assert.AreEqual(1, model[1].Id);
@@ -765,7 +765,7 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
             var identity = new ClaimsIdentity(new List<Claim>());
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -778,7 +778,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Windows();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
@@ -799,7 +799,7 @@ namespace HappyDog.WebUI.Test
                 new Claim(ClaimTypes.Role, "Owner"),
             };
             var identity = new ClaimsIdentity(claims);
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -812,7 +812,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Windows();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(2, model.Count);
             Assert.AreEqual(2, model[0].Id);
             Assert.AreEqual(1, model[1].Id);
@@ -832,7 +832,7 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
             var identity = new ClaimsIdentity(new List<Claim>());
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -845,7 +845,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Read();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
@@ -866,7 +866,7 @@ namespace HappyDog.WebUI.Test
                 new Claim(ClaimTypes.Role, "Owner"),
             };
             var identity = new ClaimsIdentity(claims);
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -879,7 +879,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Read();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(2, model.Count);
             Assert.AreEqual(2, model[0].Id);
             Assert.AreEqual(1, model[1].Id);
@@ -899,7 +899,7 @@ namespace HappyDog.WebUI.Test
             await db.SaveChangesAsync();
             var articleService = new ArticleService(db);
             var identity = new ClaimsIdentity(new List<Claim>());
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -912,7 +912,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Essays();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
@@ -933,7 +933,7 @@ namespace HappyDog.WebUI.Test
                 new Claim(ClaimTypes.Role, "Owner"),
             };
             var identity = new ClaimsIdentity(claims);
-            var controller = new ArticleController(null, articleService, null)
+            var controller = new ArticleController(Mapper, articleService, null)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -946,7 +946,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Essays();
             var viewReuslt = result as ViewResult;
-            var model = viewReuslt.Model as List<Article>;
+            var model = viewReuslt.Model as List<ArticleSummaryDto>;
             Assert.AreEqual(2, model.Count);
             Assert.AreEqual(2, model[0].Id);
             Assert.AreEqual(1, model[1].Id);
