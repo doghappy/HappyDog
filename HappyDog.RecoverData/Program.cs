@@ -62,37 +62,19 @@ namespace HappyDog.RecoverData
             //    Console.WriteLine();
             //}
 
-            Console.WriteLine((1 * 1.0 / 1029).ToString("p"));
+            //Console.WriteLine((1 * 1.0 / 1029).ToString("p"));
 
-            Console.WriteLine(((0 + 1) * 1.0 / 1029).ToString("p"));
+            //Console.WriteLine(((0 + 1) * 1.0 / 1029).ToString("p"));
 
-
+            var team = new[] { 201, 301 };
+            var body = new[] { 301 };
+            var result= body.Except(team);
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
 
             Console.ReadKey();
-        }
-    }
-
-    class Team
-    {
-        public bool IsTrial { get; set; }
-        public int UserLimit { get; set; }
-    }
-
-    class ContractService
-    {
-        public void NewBuy()
-        {
-
-        }
-
-        public void RenewBuy()
-        {
-
-        }
-
-        public void IncrementBuy()
-        {
-
         }
     }
 }
