@@ -18,15 +18,17 @@ namespace HappyDog.Domain.Search.Article
 
         public Regex Regex => new Regex("^.*$");
 
+        public string Keyword { get; protected set; }
+
         public IOrderedQueryable<Entities.Article> Match(GroupCollection groups)
         {
-            string keyword = groups[0].Value.Trim();
-            if (keyword.Length > 0)
+            Keyword = groups[0].Value.Trim();
+            if (Keyword.Length > 0)
             {
                 return db.Articles.Include(a => a.Category).AsNoTracking()
                     .Where(a =>
                         (isOwner || a.Status == BaseStatus.Enable)
-                        && EF.Functions.Like(a.Title, $"%{keyword}%")
+                        && EF.Functions.Like(a.Title, $"%{Keyword}%")
                     )
                     .OrderByDescending(a => a.Id);
             }

@@ -286,7 +286,7 @@ namespace HappyDog.WebUI.Test
 
             var result = await controller.Search(" ");
             var viewResult = result as ViewResult;
-            var model = viewResult.Model as List<Article>;
+            var model = viewResult.Model as List<ArticleSummaryDto>;
 
             Assert.AreEqual(viewResult.ViewName, "EmptySearch");
             Assert.AreEqual(2, model.Count);

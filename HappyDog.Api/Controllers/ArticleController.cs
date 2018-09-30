@@ -232,7 +232,7 @@ namespace HappyDog.Api.Controllers
             else
             {
                 var pager = new Pager(page, PageSize);
-                var query = articleService.Search(User.IsInRole("Owner"), q, pager)
+                var query = articleService.Search(q, User.IsInRole("Owner"), pager)
                     .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
                 var data = await pager.GetPaginationAsync(query);
                 return new HttpDataResult<Pagination<ArticleSummaryDto>>

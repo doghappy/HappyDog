@@ -20,7 +20,7 @@ namespace HappyDog.Domain.Search.Article
 
         protected abstract ArticleCategory Category { get; }
 
-        protected abstract string Keyword { get; set; }
+        public string Keyword { get; protected set; }
 
         public virtual IOrderedQueryable<Entities.Article> Match(GroupCollection groups)
         {

@@ -16,13 +16,13 @@ namespace HappyDog.Domain.Search
             searchers.Add(searcher);
         }
 
-        public T Search(string keyword)
+        public T Search(string q)
         {
             foreach (var item in searchers)
             {
-                if (item.Regex.IsMatch(keyword))
+                if (item.Regex.IsMatch(q))
                 {
-                    var groups = item.Regex.Match(keyword).Groups;
+                    var groups = item.Regex.Match(q).Groups;
                     return item.Match(groups);
                 }
             }

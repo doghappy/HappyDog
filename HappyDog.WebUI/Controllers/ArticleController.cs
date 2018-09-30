@@ -178,7 +178,7 @@ namespace HappyDog.WebUI.Controllers
             else
             {
                 var pager = new Pager(page, PageSize);
-                var query = articleService.Search(User.IsInRole("Owner"), q, pager)
+                var query = articleService.Search(q, User.IsInRole("Owner"), pager)
                     .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
                 var pagingData = await pager.GetPaginationAsync(query);
                 if (pagingData.TotalItems == 0)

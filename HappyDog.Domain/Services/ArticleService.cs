@@ -44,14 +44,7 @@ namespace HappyDog.Domain.Services
                 .OrderByDescending(a => a.Id);
         }
 
-        //public IQueryable<Article> Get(bool isOwner, Pager pager, ArticleCategory? cid)
-        //{
-        //    var query = Get(isOwner, cid);
-        //    pager.TotalItems = await query.CountAsync();
-        //    return query.Skip(pager.Skip).Take(pager.Size);
-        //}
-
-        public IQueryable<Article> Search(bool isOwner, string keyword, Pager pager)
+        public IQueryable<Article> Search(string keyword, bool isOwner, Pager pager)
         {
             var searcher = new HappySearcher<IOrderedQueryable<Article>>();
             searcher.Register(new NetSearcher(db, isOwner));

@@ -12,8 +12,6 @@ namespace HappyDog.Domain.Search.Article
 
         public override Regex Regex => new Regex(@"^windows:(.+)$");
 
-        protected override string Keyword { get; set; }
-
         public override IOrderedQueryable<Entities.Article> Match(GroupCollection groups)
         {
             Keyword = groups[1].Value.Trim();
