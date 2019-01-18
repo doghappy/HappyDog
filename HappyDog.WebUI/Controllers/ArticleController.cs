@@ -4,9 +4,9 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Enums;
-using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
+using Markdig;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +48,7 @@ namespace HappyDog.WebUI.Controllers
             }
             else
             {
+                article.Content = Markdown.ToHtml(article.Content);
                 return View(article);
             }
         }

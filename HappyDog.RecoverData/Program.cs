@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -66,13 +67,8 @@ namespace HappyDog.RecoverData
 
             //Console.WriteLine(((0 + 1) * 1.0 / 1029).ToString("p"));
 
-            var team = new[] { 201, 301 };
-            var body = new[] { 301 };
-            var result= body.Except(team);
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
+            var regex = new Regex(@"^.+@(mytos\.no|techstep\.(no|com))$", RegexOptions.IgnoreCase);
+            Console.WriteLine(regex.IsMatch("a@Mytos.no"));
 
             Console.ReadKey();
         }
