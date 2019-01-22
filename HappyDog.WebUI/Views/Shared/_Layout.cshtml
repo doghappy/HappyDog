@@ -66,12 +66,12 @@
                         随笔
                     </a>
                 </li>
-                <!--<li class="nav-item d-block d-sm-none">
-                  <a class="nav-link">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    搜索
-                  </a>
-                </li>-->
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "about" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("About","Home")">
+                        <i class="fa fa-user"></i>
+                        关于
+                    </a>
+                </li>
             </ul>
             <!--<form class="form-inline d-none d-md-block d-lg-block">
               <div class="input-group">
