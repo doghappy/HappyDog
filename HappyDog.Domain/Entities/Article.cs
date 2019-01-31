@@ -20,7 +20,7 @@ namespace HappyDog.Domain.Entities
 
         public int CategoryId { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         public int ViewCount { get; set; }
 

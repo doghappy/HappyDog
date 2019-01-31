@@ -3,34 +3,38 @@ using System;
 using HappyDog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HappyDog.Domain.Migrations
 {
     [DbContext(typeof(HappyDogContext))]
-    [Migration("20180708031101_Init")]
+    [Migration("20190131063641_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HappyDog.Domain.Entities.Article", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Content")
                         .HasColumnType("ntext");
 
-                    b.Property<DateTime>("CreateTime");
+                    b.Property<DateTimeOffset>("CreateTime");
 
-                    b.Property<int>("State");
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -60,7 +64,7 @@ namespace HappyDog.Domain.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<int>("State");
+                    b.Property<int>("Status");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -75,7 +79,8 @@ namespace HappyDog.Domain.Migrations
             modelBuilder.Entity("HappyDog.Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -95,15 +100,14 @@ namespace HappyDog.Domain.Migrations
             modelBuilder.Entity("HappyDog.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
-
-                    b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 

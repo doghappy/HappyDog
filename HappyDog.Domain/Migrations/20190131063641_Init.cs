@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HappyDog.Domain.Migrations
@@ -15,7 +16,7 @@ namespace HappyDog.Domain.Migrations
                     Label = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Value = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Color = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
-                    State = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +28,7 @@ namespace HappyDog.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
@@ -41,7 +42,7 @@ namespace HappyDog.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false),
                     PasswordHash = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     SecurityStamp = table.Column<string>(type: "char(32)", maxLength: 32, nullable: false),
@@ -59,13 +60,13 @@ namespace HappyDog.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Content = table.Column<string>(type: "ntext", nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
-                    CreateTime = table.Column<DateTime>(nullable: false),
+                    CreateTime = table.Column<DateTimeOffset>(nullable: false),
                     ViewCount = table.Column<int>(nullable: false),
-                    State = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

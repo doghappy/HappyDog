@@ -36,7 +36,7 @@ namespace HappyDog.WebUI
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             //    .AddCookie(options =>
@@ -48,7 +48,7 @@ namespace HappyDog.WebUI
             //    });
 
             string conn = Configuration.GetConnectionString("HappyDog");
-            services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
+            services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
 
             services.AddIdentity<User, Role>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
