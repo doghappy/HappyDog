@@ -14,6 +14,8 @@ using HappyDog.Domain.Identity;
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 namespace HappyDog.WebUI
 {
@@ -73,6 +75,10 @@ namespace HappyDog.WebUI
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
+
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo("Keys"))
+                .SetApplicationName("DogHappy");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -263,3 +263,4 @@ __pycache__/
 *.db
 /HappyDog.WebUI/appsettings.Production.json
 /HappyDog.WebUI/Properties/PublishProfiles/CustomProfile.pubxml
+/HappyDog.WebUI/Keys
