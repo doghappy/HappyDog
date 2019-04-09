@@ -16,30 +16,27 @@ namespace HappyDog.RecoverData
     {
         static void Main(string[] args)
         {
-            //var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false);
-            //var configuration = builder.Build();
-            //string connDev = configuration["ConnectionStrings:HappyDog:Development"];
-            //string connProd = configuration["ConnectionStrings:HappyDog:Production"];
-            //var optionDev = new DbContextOptionsBuilder<HappyDogContext>()
-            //    .UseSqlite(connDev)
-            //    .Options;
-            //var optionProd = new DbContextOptionsBuilder<HappyDogContext>()
-            //    .UseSqlite(connProd)
-            //    .Options;
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false);
+            var configuration = builder.Build();
+            string connDev = configuration["ConnectionStrings:HappyDog:Development"];
+            string connProd = configuration["ConnectionStrings:HappyDog:Production"];
+            var optionDev = new DbContextOptionsBuilder<HappyDogContext>()
+                .UseSqlServer(connDev)
+                .Options;
+            var optionProd = new DbContextOptionsBuilder<HappyDogContext>()
+                .UseSqlite(connProd)
+                .Options;
 
-            //using (var dbDev = new HappyDogContext(optionDev))
-            //using (var dbProd = new HappyDogContext(optionProd))
-            //{
-            //    var articles = dbProd.Articles.ToList();
-            //    dbDev.Articles.AddRange(articles);
+            using (var dbDev = new HappyDogContext(optionDev))
+            using (var dbProd = new HappyDogContext(optionProd))
+            {
+                var articles = dbDev.Articles.ToList();
+                dbProd.Articles.AddRange(articles);
 
-            //    var categories = dbProd.Categories.ToList();
-            //    dbDev.Categories.AddRange(categories);
+                dbProd.SaveChanges();
+            }
 
-            //    dbDev.SaveChanges();
-            //}
-
-            //Console.WriteLine("Recover data success");
+            Console.WriteLine("Recover data success");
             //Console.WriteLine("Press any key to exit");we
 
             //string[] cultureNames = { "en-US", "se-SE" };
@@ -67,8 +64,8 @@ namespace HappyDog.RecoverData
 
             //Console.WriteLine(((0 + 1) * 1.0 / 1029).ToString("p"));
 
-            var regex = new Regex(@"^.+@(mytos\.no|techstep\.(no|com))$", RegexOptions.IgnoreCase);
-            Console.WriteLine(regex.IsMatch("a@Mytos.no"));
+            //var regex = new Regex(@"^.+@(mytos\.no|techstep\.(no|com))$", RegexOptions.IgnoreCase);
+            //Console.WriteLine(regex.IsMatch("a@Mytos.no"));
 
             Console.ReadKey();
         }

@@ -50,7 +50,7 @@ namespace HappyDog.WebUI
             //    });
 
             string conn = Configuration.GetConnectionString("HappyDog");
-            services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
+            services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
 
             services.AddIdentity<User, Role>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
