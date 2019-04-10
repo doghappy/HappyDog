@@ -137,8 +137,8 @@ namespace HappyDog.WebUI.Test
         public async Task DetailNoAuthGetEnableTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Category = new Category(), Status = BaseStatus.Disable });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Category = new Category(), Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", Category = new Category(), Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", Category = new Category(), Status = BaseStatus.Enable });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
@@ -165,8 +165,8 @@ namespace HappyDog.WebUI.Test
         {
             var db = new HappyDogContext(GetOptions());
             await db.Categories.AddAsync(new Category { Id = 1 });
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", CategoryId = 1, Status = BaseStatus.Disable });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", CategoryId = 1, Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", CategoryId = 1, Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", CategoryId = 1, Status = BaseStatus.Enable });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
@@ -196,8 +196,8 @@ namespace HappyDog.WebUI.Test
         public async Task DetailEnableTest()
         {
             var db = new HappyDogContext(GetOptions());
-            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Category = new Category(), Status = BaseStatus.Disable });
-            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Category = new Category(), Status = BaseStatus.Enable });
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", Category = new Category(), Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", Category = new Category(), Status = BaseStatus.Enable });
             await db.SaveChangesAsync();
             var svc = new ArticleService(db);
 
