@@ -39,7 +39,7 @@ namespace HappyDog.WebUI
             //});
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
+            services.AddAutoMapper(typeof(MappingProfile));
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             //    .AddCookie(options =>
             //    {
