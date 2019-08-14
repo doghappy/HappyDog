@@ -4,35 +4,48 @@
 }
 
 <div class="container body-content">
-    <h2 class="mt-4">关于我</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-8">
-            <p>王雄 HeroWong 软件工程师，目前就职于<a target="_blank" href="https://worktile.com">Worktile</a>。</p>
-            <p>热爱C#语言，擅长<b>ASP.Net Web开发</b>，掌握<b>.Net Core、UWP、Angular、NodeJS</b>。</p>
-            <p>慢热型。喜欢打乒乓球，业余玩家。喜欢唱歌，五音不全。喜欢书法，鬼画桃符。</p>
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>王雄</b> .NET软件工程师，目前就职于<a target="_blank" href="https://worktile.com">Worktile</a>。</p>
+                <p>3年软件开发经验，擅长 .NET 技术方向，掌握UWP开发，熟悉 nodejs 技术，对 angular 有一定了解。热爱软件开发行业，活跃于 <a target="_blank" href="https://github.com/doghappy">github</a> 和 <a target="_blank" href="https://stackoverflow.com/users/7771913/herowong">stackoverflow</a>。</p>
+            </div>
+            <div class="col-md-4">
+                <img class="img-thumbnail text-center" src="~/images/IMG_0416.JPG">
+            </div>
         </div>
-        <div class="col-md-4">
-            <img class="img-thumbnail text-center" src="~/images/IMG_0416.JPG">
-        </div>
-    </div>
-</div>
 
-<div class="container body-content">
-    <h2 class="mt-4">关于博客</h2>
-    <hr />
-    <p>此博客使用<a target="_blank" href="https://dotnet.microsoft.com/">.NET</a>技术开发，运行在<code>AWS Ubuntu</code>上，于2018/04/15上线。</p>
-    <h4>使用了：</h4>
-    <p>ASP.NET Core、EntityFramework Core、SQL Server</p>
-    @*<div class="row">
-            <div class="col-md-4 mb-4">
-                <img src="https://docs.microsoft.com/zh-cn/media/hubs/aspnet/core-overview-2.svg" />
-            </div>
-            <div class="col-md-4 pt-4 mb-4">
-                <img width="340" height="67" src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" />
-            </div>
-            <div class="col-md-4 mb-4">
-                <img style="width:80%; height:90%" src="https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg" />
-            </div>
-        </div>*@
+        <h4 class="mb-4 mt-4">工作经历</h4>
+
+        <p><b>Worktile</b> <span class="pull-right">2017.09 - 至今</span></p>
+        <ol>
+            <li>Mytos系统。Mytos一家挪威电信公司，主要负责Mytos的核心业务系统，主要使用 .NET 技术构建，使用了 ASP.NET MVC、SQL Server、MongoDB等技术。</li>
+            <li>Worktile 运营平台。主要负责公司SAAS平台的运营系统。主要使用 Javascript 技术构建，使用了 Angular、Nodejs、TypeScript、Redis、MongoDB 等技术。</li>
+        </ol>
+
+        <h4 class="mb-4 mt-4">项目经历</h4>
+
+        <p><b>Hulk运营平台（Worktile）</b> <span class="pull-right">2018.05 - 至今</span></p>
+        <p>Hulk 系统是公司新的运营平台，随着公司业务的迅猛增长，原有的系统无法满足现有业务，公司迫切需要 Hulk 系统。</p>
+        <p>Hulk 系统技术栈为 nodejs，前端采用 Angular，全部采用TypeScript编写，我负责整个服务端。</p>
+        <p>Hulk 系统主要包含以下功能：</p>
+        <ol>
+            <li>Worktile产品  试用、新购、续费、升级、延期</li>
+            <li>基于订单的 SaaS 指标统计</li>
+            <li>客户管理</li>
+            <li>订单审批</li>
+            <li>Worktile 项目模板市场后台管理</li>
+            <li>“小特”消息群发</li>
+        </ol>
+
+        <p><b>Mytos</b> <span class="pull-right">2017.09 - 至今</span></p>
+        <p>Mytos是一家挪威的电信公司，主要解决员工与公司电话费用管理问题。系统会从 Telenor、NetCom、Telia等电信运营商导入电话账单，公司和员工会共同支付每个月的账单，员工也可以与公司溢价，后来业务也涵盖了租赁手机后的费用管理。Mytos 现已被 Techstep 公司收购。</p>
+        <ul>
+            <li>使用 .NET Core 重写原有nodejs版 Telenor 账单导入服务，导入稳定性提升了40%，导入速度提升了20%</li>
+            <li>与各电信商对接，导入账单到系统中</li>
+            <li>从客户PDF文件中提取账单信息</li>
+            <li>各项报表以及网站开发</li>
+        </ul>
+        <p>项目链接：<a href="https://mytosdev.azurewebsites.net/" target="_blank">https://mytosdev.azurewebsites.net/</a></p>
+    </div>
 </div>
