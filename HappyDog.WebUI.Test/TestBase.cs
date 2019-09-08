@@ -16,10 +16,8 @@ namespace HappyDog.WebUI.Test
             {
                 if (mapper == null)
                 {
-                    var mappings = new MapperConfigurationExpression();
-                    mappings.AddProfile<MappingProfile>();
-                    AutoMapper.Mapper.Initialize(mappings);
-                    mapper = AutoMapper.Mapper.Instance;
+                    var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+                    mapper = mappingConfig.CreateMapper();
                 }
                 return mapper;
             }

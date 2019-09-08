@@ -1,10 +1,10 @@
-﻿@{
+﻿@model HappyDog.Infrastructure.Pagination<HappyDog.Domain.DataTransferObjects.Article.ArticleDto>
+@{
     ViewData["Title"] = ViewData["SearchValue"];
-    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 <div class="container body-content animated fadeIn mt-5">
-    @await Component.InvokeAsync("ArticleList", new { articles = Model })
+    @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
+    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
 </div>

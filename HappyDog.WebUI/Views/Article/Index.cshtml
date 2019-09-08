@@ -1,10 +1,9 @@
-﻿@model List<HappyDog.Domain.DataTransferObjects.Article.ArticleSummaryDto>
+﻿@model HappyDog.Infrastructure.Pagination<HappyDog.Domain.DataTransferObjects.Article.ArticleDto>
 
 @{
     ViewData["Title"] = "doghappy";
     ViewData["Description"] = "开心狗";
     ViewData["Keywords"] = "开心狗";
-    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 <div class="jumbotron" id="paginationTarget">
@@ -30,7 +29,7 @@
 </div>
 
 <div class="container body-content animated fadeIn">
-    @await Component.InvokeAsync("ArticleList", new { articles = Model })
+    @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
+    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
 </div>

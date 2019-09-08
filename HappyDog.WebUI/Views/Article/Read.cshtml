@@ -1,15 +1,22 @@
-﻿@{
+﻿@model HappyDog.Infrastructure.Pagination<HappyDog.Domain.DataTransferObjects.Article.ArticleDto>
+@{
     ViewData["Title"] = "阅读";
     ViewData["Description"] = "阅读";
     ViewData["Keywords"] = "阅读";
     ViewData["SearchValue"] = "read:";
-    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 @section Styles{
     <style>
-        div.jumbotron { background: url(/images/Office_8x3.jpg); background-size: cover; }
-            div.jumbotron div.banner-text { background: rgba(0, 0, 0, 0.1); padding: 2rem; }
+        div.jumbotron {
+            background: url(/images/Office_8x3.jpg);
+            background-size: cover;
+        }
+
+            div.jumbotron div.banner-text {
+                background: rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+            }
     </style>
 }
 
@@ -28,7 +35,7 @@
 </div>
 
 <div class="container body-content animated fadeIn">
-    @await Component.InvokeAsync("ArticleList", new { articles = Model })
+    @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Read", new { page = p })))
+    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Read", new { page = p })))
 </div>

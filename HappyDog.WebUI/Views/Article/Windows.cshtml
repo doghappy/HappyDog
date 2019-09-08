@@ -1,14 +1,17 @@
+@model HappyDog.Infrastructure.Pagination<HappyDog.Domain.DataTransferObjects.Article.ArticleDto>
 @{
     ViewData["Title"] = "Windows";
     ViewData["Description"] = "Windows";
     ViewData["Keywords"] = "Windows";
     ViewData["SearchValue"] = "windows:";
-    var pager = (HappyDog.Infrastructure.Pager)ViewBag.Pager;
 }
 
 @section Styles{
     <style>
-        div.jumbotron div.banner-text { background: rgba(0, 0, 0, 0.5); padding: 2rem; }
+        div.jumbotron div.banner-text {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+        }
     </style>
 }
 
@@ -30,7 +33,7 @@
 </div>
 
 <div class="container body-content animated fadeIn">
-    @await Component.InvokeAsync("ArticleList", new { articles = Model })
+    @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(pager.GetPageNumberLinks(p => Url.Action("Windows", new { page = p })))
+    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Windows", new { page = p })))
 </div>

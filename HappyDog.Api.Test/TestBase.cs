@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +13,10 @@ namespace HappyDog.Api.Test
         {
             get
             {
-                if (mapper==null)
+                if (mapper == null)
                 {
-                    var mappings = new MapperConfigurationExpression();
-                    mappings.AddProfile<MappingProfile>();
-                    AutoMapper.Mapper.Initialize(mappings);
-                    mapper = AutoMapper.Mapper.Instance;
+                    var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+                    mapper = mappingConfig.CreateMapper();
                 }
                 return mapper;
             }

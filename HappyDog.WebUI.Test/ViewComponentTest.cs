@@ -1,5 +1,4 @@
 ﻿using HappyDog.Domain.DataTransferObjects.Article;
-using HappyDog.Domain.Entities;
 using HappyDog.WebUI.ViewComponents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,7 +14,7 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public void ArticleListVcTest()
         {
-            var vc = new ArticleListViewComponent
+            var vc = new ArticleDtosViewComponent
             {
                 ViewComponentContext = new ViewComponentContext
                 {
@@ -28,14 +27,14 @@ namespace HappyDog.WebUI.Test
 
 
 
-            var articles = new List<ArticleSummaryDto>
+            var articles = new List<ArticleDto>
             {
-                new ArticleSummaryDto { Id = 1 },
-                new ArticleSummaryDto { Id = 2 },
-                new ArticleSummaryDto { Id = 3 }
+                new ArticleDto { Id = 1 },
+                new ArticleDto { Id = 2 },
+                new ArticleDto { Id = 3 }
             };
             var result = vc.Invoke(articles) as ViewViewComponentResult;
-            var model = result.ViewData.Model as List<ArticleSummaryDto>;
+            var model = result.ViewData.Model as List<ArticleDto>;
 
             Assert.AreEqual(3, model.Count);
         }

@@ -8,10 +8,10 @@ using HappyDog.Domain.Services;
 using HappyDog.Domain.Models.Results;
 using Microsoft.AspNetCore.Authorization;
 using HappyDog.Domain.Enums;
-using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Api.Filters;
 using System.Net;
 using Microsoft.AspNetCore.Http;
+using HappyDog.Domain.DataTransferObjects.Article;
 
 namespace HappyDog.Api.Controllers
 {
@@ -24,17 +24,15 @@ namespace HappyDog.Api.Controllers
     public class ArticleController : Controller
     {
         readonly ArticleService articleService;
-        readonly IMapper mapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="articleService"></param>
         /// <param name="mapper"></param>
-        public ArticleController(ArticleService articleService, IMapper mapper)
+        public ArticleController(ArticleService articleService)
         {
             this.articleService = articleService;
-            this.mapper = mapper;
             PageSize = 20;
         }
 
@@ -52,12 +50,12 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await articleService.GetAsync(id, User.Identity.IsAuthenticated);
+            var article = await articleService.GetArticleDetailDtoAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
-            return Json(mapper.Map<Article, ArticleDto>(article));
+            return Json(article);
         }
 
         /// <summary>
@@ -67,73 +65,70 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> List(int page = 1)
+        public async Task<Pagination<ArticleDto>> List(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, null)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, null);
         }
 
-        /// <summary>
-        /// 修改文章
-        /// </summary>
-        /// <param name="id">文章id</param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("{id}")]
-        [ValidateModel]
-        public async Task<HttpBaseResult> Put(int id, [FromBody]EditArticleDto dto)
-        {
-            bool result = await articleService.UpdateAsync(id, dto);
-            if (result)
-            {
-                return new HttpBaseResult
-                {
-                    NoticeMode = NoticeMode.Success,
-                    Message = "修改成功"
-                };
-            }
-            else
-            {
-                Response.StatusCode = StatusCodes.Status403Forbidden;
-                return new HttpBaseResult
-                {
-                    NoticeMode = NoticeMode.Warning,
-                    Message = "修改失败"
-                };
-            }
-        }
+        ///// <summary>
+        ///// 修改文章
+        ///// </summary>
+        ///// <param name="id">文章id</param>
+        ///// <param name="dto"></param>
+        ///// <returns></returns>
+        //[HttpPut("{id}")]
+        //[ValidateModel]
+        //public async Task<HttpBaseResult> Put(int id, [FromBody]Article dto)
+        //{
+        //    bool result = await articleService.UpdateAsync(id, dto);
+        //    if (result)
+        //    {
+        //        return new HttpBaseResult
+        //        {
+        //            NoticeMode = NoticeMode.Success,
+        //            Message = "修改成功"
+        //        };
+        //    }
+        //    else
+        //    {
+        //        Response.StatusCode = StatusCodes.Status403Forbidden;
+        //        return new HttpBaseResult
+        //        {
+        //            NoticeMode = NoticeMode.Warning,
+        //            Message = "修改失败"
+        //        };
+        //    }
+        //}
 
-        /// <summary>
-        /// 添加文章
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ValidateModel]
-        public async Task<HttpBaseResult> Post([FromBody]PostArticleDto dto)
-        {
-            var article = await articleService.AddAsync(dto);
-            if (article == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                return new HttpBaseResult
-                {
-                    NoticeMode = NoticeMode.Warning,
-                    Message = "添加失败"
-                };
-            }
-            else
-            {
-                return new HttpDataResult<int>
-                {
-                    Data = article.Id,
-                    NoticeMode = NoticeMode.Success,
-                    Message = "添加成功"
-                };
-            }
-        }
+        ///// <summary>
+        ///// 添加文章
+        ///// </summary>
+        ///// <param name="dto"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[ValidateModel]
+        //public async Task<HttpBaseResult> Post([FromBody]Article dto)
+        //{
+        //    var article = await articleService.AddArticleAsync(dto);
+        //    if (article == null)
+        //    {
+        //        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+        //        return new HttpBaseResult
+        //        {
+        //            NoticeMode = NoticeMode.Warning,
+        //            Message = "添加失败"
+        //        };
+        //    }
+        //    else
+        //    {
+        //        return new HttpDataResult<int>
+        //        {
+        //            Data = article.Id,
+        //            NoticeMode = NoticeMode.Success,
+        //            Message = "添加成功"
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// .Net
@@ -142,12 +137,9 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet("net")]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Net(int page = 1)
+        public async Task<Pagination<ArticleDto>> Net(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Net)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
         }
 
         /// <summary>
@@ -157,12 +149,9 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet("db")]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Database(int page = 1)
+        public async Task<Pagination<ArticleDto>> Database(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Database)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
         }
 
         /// <summary>
@@ -172,12 +161,9 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet("windows")]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Windows(int page = 1)
+        public async Task<Pagination<ArticleDto>> Windows(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Windows)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
         }
 
         /// <summary>
@@ -187,12 +173,9 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet("read")]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Read(int page = 1)
+        public async Task<Pagination<ArticleDto>> Read(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Read)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
         }
 
         /// <summary>
@@ -202,12 +185,9 @@ namespace HappyDog.Api.Controllers
         /// <returns></returns>
         [HttpGet("essays")]
         [AllowAnonymous]
-        public async Task<Pagination<ArticleSummaryDto>> Essays(int page = 1)
+        public async Task<Pagination<ArticleDto>> Essays(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService.Get(User.Identity.IsAuthenticated, ArticleCategory.Essays)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            return await pager.GetPaginationAsync(query);
+            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
         }
 
         /// <summary>
@@ -231,11 +211,8 @@ namespace HappyDog.Api.Controllers
             }
             else
             {
-                var pager = new Pager(page, PageSize);
-                var query = articleService.Search(q, User.IsInRole("Owner"), pager)
-                    .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-                var data = await pager.GetPaginationAsync(query);
-                return new HttpDataResult<Pagination<ArticleSummaryDto>>
+                var data = await articleService.SearchAsync(q, page, PageSize);
+                return new HttpDataResult<Pagination<ArticleDto>>
                 {
                     Data = data
                 };

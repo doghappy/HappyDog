@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace HappyDog.WebUI.ViewComponents
 {
-    public class ArticleListViewComponent : ViewComponent
+    public class ArticleDtosViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(List<ArticleSummaryDto> articles)
+        public IViewComponentResult Invoke(List<ArticleDto> articles)
         {
             return View(articles);
         }

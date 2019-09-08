@@ -11,7 +11,7 @@ namespace HappyDog.Domain.DataTransferObjects
         {
             CreateMap<Entities.Category, CategoryDto>();
             CreateMap<Entities.Article, ArticleDto>();
-            CreateMap<Entities.Article, ArticleSummaryDto>();
+            CreateMap<Entities.Article, ArticleDetailDto>();
             CreateMap<SignUpDto, Entities.User>().ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
             CreateMap<SignInDto, Entities.User>();
         }

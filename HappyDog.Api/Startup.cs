@@ -2,11 +2,7 @@
 using NSwag;
 using System.Text;
 using AutoMapper;
-using NJsonSchema;
-using NSwag.AspNetCore;
-using System.Reflection;
 using HappyDog.Domain;
-using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Identity;
@@ -24,8 +20,15 @@ using Newtonsoft.Json.Serialization;
 
 namespace HappyDog.Api
 {
+    /// <summary>
+    /// Startup
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Startup
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,19 +38,25 @@ namespace HappyDog.Api
             };
         }
 
+        /// <summary>
+        /// Configuration
+        /// </summary>
         public IConfiguration Configuration { get; }
 
         private readonly JsonSerializerSettings jsonSerializerSettings;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             //.AddJsonOptions(options=>options.SerializerSettings.DateFormatHandling= Newtonsoft.Json.DateFormatHandling.)
 
             string conn = Configuration.GetConnectionString("HappyDog");
-            services.AddDbContext<HappyDogContext>(option => option.UseSqlServer(conn));
-            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
+            services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
+            services.AddAutoMapper(GetType());
 
             services.AddIdentity<User, Role>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
@@ -98,9 +107,31 @@ namespace HappyDog.Api
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();
             #endregion
+
+            services.AddSwaggerDocument(configure =>
+            {
+                configure.PostProcess = document =>
+                {
+                    document.Schemes.Add(OpenApiSchema.Https);
+                    document.Info.Version = "v1";
+                    document.Info.Title = "开心狗API";
+                    document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new OpenApiContact
+                    {
+                        Name = "HeroWong",
+                        Email = "hero_wong@outlook.com",
+                        Url = "https://doghappy.wang"
+                    };
+                };
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -146,24 +177,8 @@ namespace HappyDog.Api
                 }
             });
 
-            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
-            {
-                settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
-                settings.PostProcess = document =>
-                {
-                    document.Schemes.Add(SwaggerSchema.Https);
-                    document.Info.Version = "v1";
-                    document.Info.Title = "开心狗API";
-                    document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
-                    document.Info.TermsOfService = "None";
-                    document.Info.Contact = new SwaggerContact
-                    {
-                        Name = "HeroWong",
-                        Email = "hero_wong@outlook.com",
-                        Url = "https://doghappy.wang"
-                    };
-                };
-            });
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseMvc();
         }

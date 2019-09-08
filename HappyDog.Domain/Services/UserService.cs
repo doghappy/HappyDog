@@ -1,5 +1,4 @@
 ﻿using System;
-using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Models.Results;
 using Microsoft.EntityFrameworkCore;
@@ -16,13 +15,13 @@ namespace HappyDog.Domain.Services
 
         readonly HappyDogContext db;
 
-        public async Task<BaseResult> LoginAsync(SignInDto dto)
+        public async Task<BaseResult> LoginAsync(string userName, string password)
         {
             var user = await db.Users.AsNoTracking()
                 .Include(u => u.UserRoles)
                 .SingleOrDefaultAsync(u =>
-                    u.UserName.Equals(dto.UserName, StringComparison.CurrentCultureIgnoreCase)
-                    && u.PasswordHash == dto.Password);
+                    u.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)
+                    && u.PasswordHash == password);
             if (user == null)
             {
                 return new BaseResult

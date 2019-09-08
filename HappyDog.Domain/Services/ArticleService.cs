@@ -1,7 +1,8 @@
-﻿using HappyDog.Domain.DataTransferObjects.Article;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
-using HappyDog.Domain.Models.Results;
 using HappyDog.Domain.Search;
 using HappyDog.Domain.Search.Article;
 using HappyDog.Infrastructure;
@@ -15,83 +16,88 @@ namespace HappyDog.Domain.Services
 {
     public class ArticleService
     {
-        public ArticleService(HappyDogContext db)
+        public ArticleService(HappyDogContext db, IMapper mapper)
         {
-            this.db = db;
+            _db = db;
+            _mapper = mapper;
         }
 
-        readonly HappyDogContext db;
+        readonly HappyDogContext _db;
+        readonly IMapper _mapper;
 
-        public async Task<Article> GetAsync(int id, bool isOwner)
+        public async Task<ArticleDetailDto> GetArticleDetailDtoAsync(int id)
         {
-            var article = await db.Articles.Include(a => a.Category)
-                .SingleOrDefaultAsync(a => a.Id == id && (isOwner || a.Status == BaseStatus.Enable));
-            if (article?.Status == BaseStatus.Enable)
+            var article = await _db.Articles.Include(a => a.Category)
+                .SingleOrDefaultAsync(a => a.Id == id && a.Status == BaseStatus.Enable);
+            article.ViewCount++;
+            await _db.SaveChangesAsync();
+            return _mapper.Map<ArticleDetailDto>(article);
+        }
+
+        public async Task<Pagination<ArticleDto>> GetArticleDtosAsync(int page, int size, ArticleCategory? cid)
+        {
+            var pagination = new Pagination<ArticleDto>
             {
-                article.ViewCount++;
-                await db.SaveChangesAsync();
-            }
-            return article;
+                Page = page,
+                Size = size,
+                TotalItems = await _db.Articles
+                    .Where(a => a.Status == BaseStatus.Enable)
+                    .Where(a => !cid.HasValue || a.CategoryId == (int)cid.Value)
+                    .CountAsync(),
+            };
+            pagination.Data = await _db.Articles.Include(a => a.Category).AsNoTracking()
+                .Where(a => a.Status == BaseStatus.Enable)
+                .Where(a => !cid.HasValue || a.CategoryId == (int)cid.Value)
+                .OrderByDescending(a => a.Id)
+                .Skip((page - 1) * pagination.Size)
+                .Take(pagination.Size)
+                .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+            return pagination;
         }
 
-        public IQueryable<Article> Get(bool isOwner, ArticleCategory? cid)
+        public async Task<Pagination<ArticleDto>> SearchAsync(string keyword, int page, int size)
         {
-            return db.Articles.Include(a => a.Category).AsNoTracking()
-                .Where(a =>
-                    (isOwner || a.Status == BaseStatus.Enable)
-                    && (!cid.HasValue || a.CategoryId == (int?)cid.Value)
-                )
-                .OrderByDescending(a => a.Id);
+            var searcher = new HappySearcher();
+            searcher.Register(new NetSearcher(_db, _mapper));
+            searcher.Register(new DatabaseSearcher(_db, _mapper));
+            searcher.Register(new WindowsSearcher(_db, _mapper));
+            searcher.Register(new ReadSearcher(_db, _mapper));
+            searcher.Register(new EssaysSearcher(_db, _mapper));
+            searcher.Register(new ArticleSearcher(_db, _mapper));
+            return await searcher.SearchAsync(keyword, page, size);
         }
 
-        public IQueryable<Article> Search(string keyword, bool isOwner, Pager pager)
+        public async Task<bool> UpdateAsync(int id, Article article)
         {
-            var searcher = new HappySearcher<IOrderedQueryable<Article>>();
-            searcher.Register(new NetSearcher(db, isOwner));
-            searcher.Register(new DatabaseSearcher(db, isOwner));
-            searcher.Register(new WindowsSearcher(db, isOwner));
-            searcher.Register(new ReadSearcher(db, isOwner));
-            searcher.Register(new EssaysSearcher(db, isOwner));
-            searcher.Register(new ArticleSearcher(db, isOwner));
-            return searcher.Search(keyword);
-        }
-
-        public async Task<bool> UpdateAsync(int id, EditArticleDto dto)
-        {
-            var article = await db.Articles.FindAsync(id);
-            if (article != null)
+            var dbArticle = await _db.Articles.FindAsync(id);
+            if (dbArticle != null)
             {
-                article.CategoryId = dto.CategoryId;
-                article.Title = dto.Title;
-                article.Content = dto.Content;
-                article.Status = dto.Status;
-                int total = await db.SaveChangesAsync();
+                dbArticle.CategoryId = article.CategoryId;
+                dbArticle.Title = article.Title;
+                dbArticle.Content = article.Content;
+                dbArticle.Status = article.Status;
+                int total = await _db.SaveChangesAsync();
                 return total > 0;
             }
             return false;
         }
 
-        public async Task<Article> AddAsync(PostArticleDto dto)
+        public async Task<Article> AddArticleAsync(Article article)
         {
-            var article = new Article
-            {
-                CategoryId = dto.CategoryId,
-                Content = dto.Content,
-                CreateTime = DateTime.Now,
-                Status = dto.Status,
-                Title = dto.Title
-            };
-            await db.Articles.AddAsync(article);
-            await db.SaveChangesAsync();
+            article.CreateTime = DateTime.Now;
+            await _db.Articles.AddAsync(article);
+            await _db.SaveChangesAsync();
             return article;
         }
 
-        public async Task<List<Article>> GetHotAsync(int count)
+        public async Task<List<ArticleDto>> GetTopArticleDtosAsync(int count)
         {
-            return await db.Articles.Include(a => a.Category).AsNoTracking()
+            return await _db.Articles.Include(a => a.Category).AsNoTracking()
                 .Where(a => a.Status == BaseStatus.Enable)
                 .OrderByDescending(a => a.ViewCount)
                 .Take(count)
+                .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
     }

@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using HappyDog.Domain.DataTransferObjects.Article;
+﻿using System.Threading.Tasks;
+using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
@@ -14,34 +11,27 @@ namespace HappyDog.WebUI.Controllers
 {
     public class ArticleController : Controller
     {
-        public ArticleController(IMapper mapper, ArticleService articleService, CategoryService categoryService)
+        public ArticleController(ArticleService articleService, CategoryService categoryService)
         {
             PageSize = 20;
-            this.mapper = mapper;
             this.articleService = articleService;
             this.categoryService = categoryService;
         }
 
         readonly ArticleService articleService;
         readonly CategoryService categoryService;
-        readonly IMapper mapper;
 
         public int PageSize { get; set; }
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), null)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, null);
+            return View(data);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await articleService.GetAsync(id, User.IsInRole("Owner"));
+            var article = await articleService.GetArticleDetailDtoAsync(id);
             if (article == null)
             {
                 return NotFound();
@@ -55,116 +45,90 @@ namespace HappyDog.WebUI.Controllers
 
         public async Task<IActionResult> Net(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), ArticleCategory.Net)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
+            return View(data);
         }
 
         public async Task<IActionResult> Database(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), ArticleCategory.Database)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
+            return View(data);
         }
 
         public async Task<IActionResult> Windows(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), ArticleCategory.Windows)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
+            return View(data);
         }
 
         public async Task<IActionResult> Read(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), ArticleCategory.Read)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
+            return View(data);
         }
 
         public async Task<IActionResult> Essays(int page = 1)
         {
-            var pager = new Pager(page, PageSize);
-            var query = articleService
-                .Get(User.IsInRole("Owner"), ArticleCategory.Essays)
-                .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-            var data = await pager.GetPaginationAsync(query);
-            ViewBag.Pager = pager;
-            return View(data.Data);
+            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
+            return View(data);
         }
 
-        [Authorize(Roles = "Owner")]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var article = await articleService.GetAsync(id, true);
-            if (article == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                ViewBag.Categories = await categoryService.GetCategoriesAsync();
-                var model = mapper.Map<EditArticleDto>(article);
-                return View(model);
-            }
-        }
+        //[Authorize(Roles = "Owner")]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var article = await articleService.GetAsync(id, true);
+        //    if (article == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        ViewBag.Categories = await categoryService.GetCategoriesAsync();
+        //        return View(article);
+        //    }
+        //}
 
-        [HttpPost]
-        [Authorize(Roles = "Owner")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [FromForm]EditArticleDto dto)
-        {
-            if (ModelState.IsValid)
-            {
-                await articleService.UpdateAsync(id, dto);
-                return RedirectToAction("Detail", new { id });
-            }
-            ViewBag.Categories = await categoryService.GetCategoriesAsync();
-            return View(dto);
-        }
+        //[HttpPost]
+        //[Authorize(Roles = "Owner")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [FromForm]Article dto)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await articleService.UpdateAsync(id, dto);
+        //        return RedirectToAction("Detail", new { id });
+        //    }
+        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
+        //    return View(dto);
+        //}
 
-        [Authorize(Roles = "Owner")]
-        public async Task<IActionResult> Post()
-        {
-            ViewBag.Categories = await categoryService.GetCategoriesAsync();
-            var article = new PostArticleDto
-            {
-                Status = BaseStatus.Disable
-            };
-            return View(article);
-        }
+        //[Authorize(Roles = "Owner")]
+        //public async Task<IActionResult> Post()
+        //{
+        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
+        //    var article = new Article
+        //    {
+        //        Status = BaseStatus.Disable
+        //    };
+        //    return View(article);
+        //}
 
-        [HttpPost]
-        [Authorize(Roles = "Owner")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Post([FromForm]PostArticleDto dto)
-        {
-            if (ModelState.IsValid)
-            {
-                var article = await articleService.AddAsync(dto);
-                if (article != null)
-                {
-                    return RedirectToAction("Detail", new { id = article.Id });
-                }
-            }
-            ViewBag.Categories = await categoryService.GetCategoriesAsync();
-            return View(dto);
-        }
+        //[HttpPost]
+        //[Authorize(Roles = "Owner")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Post([FromForm]Article dto)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var article = await articleService.AddArticleAsync(dto);
+        //        if (article != null)
+        //        {
+        //            return RedirectToAction("Detail", new { id = article.Id });
+        //        }
+        //    }
+        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
+        //    return View(dto);
+        //}
 
         public async Task<IActionResult> Search(string q, int page = 1)
         {
@@ -172,27 +136,21 @@ namespace HappyDog.WebUI.Controllers
             if (string.IsNullOrWhiteSpace(q))
             {
                 ViewBag.Message = "请输入关键词";
-                var hotData = await articleService.GetHotAsync(20);
-                var data = mapper.Map<List<ArticleSummaryDto>>(hotData);
-                return View("EmptySearch", data);
+                var hotData = await articleService.GetTopArticleDtosAsync(20);
+                return View("EmptySearch", hotData);
             }
             else
             {
-                var pager = new Pager(page, PageSize);
-                var query = articleService.Search(q, User.IsInRole("Owner"), pager)
-                    .ProjectTo<ArticleSummaryDto>(mapper.ConfigurationProvider);
-                var pagingData = await pager.GetPaginationAsync(query);
-                if (pagingData.TotalItems == 0)
+                var pagination = await articleService.SearchAsync(q, page, PageSize);
+                if (pagination.TotalItems == 0)
                 {
                     ViewBag.Message = $"未找到与 \"{q}\" 相关的数据";
-                    var hotData = await articleService.GetHotAsync(20);
-                    var data = mapper.Map<List<ArticleSummaryDto>>(hotData);
-                    return View("EmptySearch", data);
+                    var hotData = await articleService.GetTopArticleDtosAsync(20);
+                    return View("EmptySearch", hotData);
                 }
                 else
                 {
-                    ViewBag.Pager = pager;
-                    return View(pagingData.Data);
+                    return View(pagination);
                 }
             }
         }

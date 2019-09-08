@@ -1,32 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using HappyDog.Domain.DataTransferObjects.Article;
+using HappyDog.Infrastructure;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HappyDog.Domain.Search
 {
-    public class HappySearcher<T>
+    public class HappySearcher
     {
         public HappySearcher()
         {
-            searchers = new List<IHappySearchable<T>>();
+            searchers = new List<IHappySearchable>();
         }
 
-        readonly List<IHappySearchable<T>> searchers;
+        readonly List<IHappySearchable> searchers;
 
-        public void Register(IHappySearchable<T> searcher)
+        public void Register(IHappySearchable searcher)
         {
             searchers.Add(searcher);
         }
 
-        public T Search(string q)
+        public async Task<Pagination<ArticleDto>> SearchAsync(string q, int page, int size)
         {
             foreach (var item in searchers)
             {
                 if (item.Regex.IsMatch(q))
                 {
                     var groups = item.Regex.Match(q).Groups;
-                    return item.Match(groups);
+                    return await item.MatchAsync(groups, page, size);
                 }
             }
-            return default(T);
+            return default;
         }
     }
 }

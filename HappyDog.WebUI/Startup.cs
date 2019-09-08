@@ -1,5 +1,4 @@
 using HappyDog.Domain;
-using AutoMapper;
 using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using HappyDog.Domain.Identity;
@@ -16,6 +14,8 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
+using AutoMapper;
+using HappyDog.Domain.DataTransferObjects;
 
 namespace HappyDog.WebUI
 {
@@ -38,8 +38,8 @@ namespace HappyDog.WebUI
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddMvc();
+            //services.AddAutoMapper(typeof(MappingProfile));
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             //    .AddCookie(options =>
             //    {
@@ -72,6 +72,10 @@ namespace HappyDog.WebUI
                 options.SlidingExpiration = true;
             });
 
+            var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+            var mapper = mappingConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
