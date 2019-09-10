@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using HappyDog.Domain.DataTransferObjects;
 
 namespace HappyDog.Api
 {
@@ -77,6 +78,11 @@ namespace HappyDog.Api
                 //options.AccessDeniedPath = "/User/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+            var mapper = mappingConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             //{
