@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace HappyDog.Api.Test
 {
@@ -19,68 +20,90 @@ namespace HappyDog.Api.Test
     public class UserControllerTest : TestBase
     {
         #region post: api/user/login
-        
-        //[TestMethod]
-        //public async Task ErrorLoginInfoLoginTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
-        //    await db.SaveChangesAsync();
 
-        //    var svc = new UserService(db);
-        //    var dto = new SignInDto();
-        //    var authServiceMock = new Mock<IAuthenticationService>();
-        //    authServiceMock.Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
-        //        .Returns(Task.CompletedTask);
-        //    var serviceProviderMock = new Mock<IServiceProvider>();
-        //    serviceProviderMock.Setup(s => s.GetService(typeof(IServiceProvider)))
-        //        .Returns(authServiceMock.Object);
+        [TestMethod]
+        public async Task CorrectPasswordTest()
+        {
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var mockContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            signInManagerMock
+                .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Returns(Task.FromResult(new SignInResultWrapper(true, false) as Microsoft.AspNetCore.Identity.SignInResult));
 
-        //    var controller = new UserController(svc, Mapper)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                RequestServices = serviceProviderMock.Object
-        //            }
-        //        }
-        //    };
+            var controller = new UserController(signInManagerMock.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
 
-        //    var result = await controller.Login(dto);
-        //    Assert.AreEqual(CodeResult.Unauthorized, result.Code);
-        //}
+            var result = await controller.SignIn(new SignInDto());
+            Assert.AreEqual(NoticeMode.Success, result.NoticeMode);
+            Assert.AreEqual("登录成功", result.Message);
+        }
 
-        //[TestMethod]
-        //public async Task CorrectInfoLoginTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Users.AddAsync(new User { UserName = "HeroWong", PasswordHash = "111" });
-        //    await db.SaveChangesAsync();
+        [TestMethod]
+        public async Task IncorrectPasswordTest()
+        {
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var mockContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            signInManagerMock
+                .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Returns(Task.FromResult(new Microsoft.AspNetCore.Identity.SignInResult()));
 
-        //    var svc = new UserService(db);
-        //    var dto = new SignInDto { UserName = "HeroWong", Password = "111" };
-        //    var authServiceMock = new Mock<IAuthenticationService>();
-        //    authServiceMock
-        //        .Setup(a => a.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
-        //        .Returns(Task.CompletedTask);
-        //    var serviceProviderMock = new Mock<IServiceProvider>();
-        //    serviceProviderMock.Setup(s => s.GetService(typeof(IAuthenticationService))).Returns(authServiceMock.Object);
+            var controller = new UserController(signInManagerMock.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
 
-        //    var controller = new UserController(svc, Mapper)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                RequestServices = serviceProviderMock.Object
-        //            }
-        //        }
-        //    };
+            var result = await controller.SignIn(new SignInDto());
+            Assert.AreEqual(NoticeMode.Info, result.NoticeMode);
+            Assert.AreEqual("密码错误", result.Message);
+        }
 
-        //    var result = await controller.Login(dto);
-        //    Assert.AreEqual(CodeResult.OK, result.Code);
-        //}
+        [TestMethod]
+        public async Task LockedTest()
+        {
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var mockContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            signInManagerMock
+                .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Returns(Task.FromResult(new SignInResultWrapper(false, true) as Microsoft.AspNetCore.Identity.SignInResult));
+
+            var controller = new UserController(signInManagerMock.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext()
+                }
+            };
+
+            var result = await controller.SignIn(new SignInDto());
+            Assert.AreEqual(NoticeMode.Warning, result.NoticeMode);
+            Assert.AreEqual("账号已锁定20分钟", result.Message);
+        }
         #endregion
+    }
+
+    class SignInResultWrapper : Microsoft.AspNetCore.Identity.SignInResult
+    {
+        public SignInResultWrapper(bool succeeded, bool isLockedOut)
+        {
+            IsLockedOut = isLockedOut;
+            Succeeded = succeeded;
+        }
     }
 }
