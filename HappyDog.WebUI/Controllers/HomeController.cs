@@ -27,11 +27,6 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        public IActionResult Throw()
-        {
-            throw new System.Exception("熊掌不好吃");
-        }
-
         public new IActionResult NotFound()
         {
             return View();
