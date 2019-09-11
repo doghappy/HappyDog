@@ -52,25 +52,25 @@ namespace HappyDog.WebUI
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
 
-            services.AddIdentity<User, Role>().AddDefaultTokenProviders();
-            services.AddTransient<IUserStore<User>, UserStore>();
-            services.AddTransient<IRoleStore<Role>, RoleStore>();
-            services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
+            //services.AddIdentity<User, Role>().AddDefaultTokenProviders();
+            //services.AddTransient<IUserStore<User>, UserStore>();
+            //services.AddTransient<IRoleStore<Role>, RoleStore>();
+            //services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequiredLength = 6;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
-                options.Lockout.MaxFailedAccessAttempts = 9;
-            });
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    options.Password.RequiredLength = 6;
+            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
+            //    options.Lockout.MaxFailedAccessAttempts = 9;
+            //});
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                options.LoginPath = "/User/SignIn";
-                options.AccessDeniedPath = "/User/AccessDenied";
-                options.SlidingExpiration = true;
-            });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+            //    options.LoginPath = "/User/SignIn";
+            //    options.AccessDeniedPath = "/User/AccessDenied";
+            //    options.SlidingExpiration = true;
+            //});
 
             var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
             var mapper = mappingConfig.CreateMapper();
@@ -79,10 +79,6 @@ namespace HappyDog.WebUI
             services.AddScoped<ArticleService>();
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
-
-            services.AddDataProtection()
-                .PersistKeysToFileSystem(new DirectoryInfo("Keys"))
-                .SetApplicationName("DogHappy");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,7 +96,7 @@ namespace HappyDog.WebUI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             //app.UseCookiePolicy();
 
             app.UseStatusCodePages(async context =>
