@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{EDD6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.RecoverData", "HappyDog.RecoverData\HappyDog.RecoverData.csproj", "{29A3B2C4-EAC3-4D5A-A78F-44EEC18EFC8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.Console.Api", "HappyDog.Console.Api\HappyDog.Console.Api.csproj", "{19B7CD62-00CB-4F79-B462-53EAF8B41173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Console.Api", "HappyDog.Console.Api\HappyDog.Console.Api.csproj", "{19B7CD62-00CB-4F79-B462-53EAF8B41173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyDog.Console.Api.Test", "HappyDog.Console.Api.Test\HappyDog.Console.Api.Test.csproj", "{352EB06F-1956-411C-8B10-231297312A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyDog.Console.Api.Test", "HappyDog.Console.Api.Test\HappyDog.Console.Api.Test.csproj", "{352EB06F-1956-411C-8B10-231297312A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
