@@ -1,20 +1,15 @@
-﻿using HappyDog.Domain;
-using HappyDog.Domain.Entities;
-using HappyDog.Domain.Services;
+﻿using HappyDog.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using HappyDog.Domain.DataTransferObjects.User;
-using HappyDog.Api.Controllers;
+using HappyDog.Console.Api.Controllers;
 using Moq;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using System;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 
-namespace HappyDog.Api.Test
+namespace HappyDog.Console.Api.Test
 {
     [TestClass]
     public class UserControllerTest : TestBase

@@ -53,50 +53,14 @@ namespace HappyDog.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //.AddJsonOptions(options=>options.SerializerSettings.DateFormatHandling= Newtonsoft.Json.DateFormatHandling.)
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
-            services.AddAutoMapper(GetType());
-
-            services.AddIdentity<User, Role>().AddDefaultTokenProviders();
-            services.AddTransient<IUserStore<User>, UserStore>();
-            services.AddTransient<IRoleStore<Role>, RoleStore>();
-            services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequiredLength = 6;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
-                options.Lockout.MaxFailedAccessAttempts = 9;
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                options.LoginPath = "/home/unauth";
-                //options.AccessDeniedPath = "/User/AccessDenied";
-                options.SlidingExpiration = true;
-            });
 
             var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
             var mapper = mappingConfig.CreateMapper();
 
             services.AddSingleton(mapper);
-
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
-            //{
-            //    options.SlidingExpiration = true;
-            //    options.Cookie.HttpOnly = false;
-            //    options.Cookie.Domain = Configuration["CookieDomain"];
-            //    options.Events.OnRedirectToLogin = async context =>
-            //    {
-            //        context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //        context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
-            //        string json = JsonConvert.SerializeObject(HttpBaseResult.Unauthorized, jsonSerializerSettings);
-            //        await context.HttpContext.Response.WriteAsync(json, Encoding.UTF8);
-            //    };
-            //});
 
             #region IoC Service
             // Transient：瞬时（Transient）生命周期服务在它们每次请求时被创建。这一生命周期适合轻量级的，无状态的服务。
@@ -114,13 +78,12 @@ namespace HappyDog.Api
             services.AddScoped<UserService>();
             #endregion
 
-            services.AddSwaggerDocument(configure =>
+            services.AddOpenApiDocument(configure =>
             {
                 configure.PostProcess = document =>
                 {
-                    document.Schemes.Add(OpenApiSchema.Https);
                     document.Info.Version = "v1";
-                    document.Info.Title = "开心狗API";
+                    document.Info.Title = "doghappy.wang API";
                     document.Info.Description = "A simple ASP.NET Core Web Api, UI by NSwag.";
                     document.Info.TermsOfService = "None";
                     document.Info.Contact = new OpenApiContact
@@ -149,12 +112,11 @@ namespace HappyDog.Api
                 app.UseExceptionHandler("/home/error");
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://angular.doghappy.wang")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials());
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://angular.doghappy.wang")
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader()
+            //    .AllowCredentials());
 
-            app.UseAuthentication();
             app.UseStatusCodePages(async context =>
             {
                 context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
@@ -185,6 +147,7 @@ namespace HappyDog.Api
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+            app.UseReDoc();
 
             app.UseMvc();
         }

@@ -17,7 +17,6 @@ namespace HappyDog.WebUI.Test
     [TestClass]
     public class ArticleControllerTest : TestBase
     {
-        #region Index
         [TestMethod]
         public async Task IndexTest()
         {
@@ -46,174 +45,38 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(7, model.TotalItems);
             Assert.AreEqual(4, model.TotalPages);
         }
-        #endregion
 
-        #region Detail
-        //[TestMethod]
-        //public async Task DetailNoAuthGetDisableTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Category = new Category(), Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Category = new Category(), Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var svc = new ArticleService(db, Mapper);
+        [TestMethod]
+        public async Task DetailTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Category = new Category(), Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Category = new Category(), Content = "# H1", Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
 
-        //    var mockPrincipal = new Mock<ClaimsPrincipal>();
-        //    mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-        //    var controller = new ArticleController(svc, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = mockPrincipal.Object
-        //            }
-        //        }
-        //    };
+            var svc = new ArticleService(db, Mapper);
+            var controller = new ArticleController(svc, null);
 
-        //    var result = (await controller.Detail(1)) as NotFoundResult;
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(404, result.StatusCode);
-        //}
+            var result = (await controller.Detail(2)) as ViewResult;
+            var dto = result.Model as ArticleDetailDto;
+            Assert.AreEqual(2, dto.Id);
+        }
 
-        //[TestMethod]
-        //public async Task DetailNoAuthGetEnableTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", Category = new Category(), Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", Category = new Category(), Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var svc = new ArticleService(db, Mapper);
+        [TestMethod]
+        public async Task DetailNoFoundTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", Category = new Category(), Status = BaseStatus.Disable });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", Category = new Category(), Status = BaseStatus.Enable });
+            await db.SaveChangesAsync();
 
-        //    var mockPrincipal = new Mock<ClaimsPrincipal>();
-        //    mockPrincipal.SetupGet(p => p.Identity.IsAuthenticated).Returns(false);
-        //    var controller = new ArticleController(svc, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = mockPrincipal.Object
-        //            }
-        //        }
-        //    };
+            var svc = new ArticleService(db, Mapper);
+            var controller = new ArticleController(svc, null);
 
-        //    var result = (await controller.Detail(2)) as ViewResult;
-        //    var model = result.Model as Article;
-        //    Assert.AreEqual(2, model.Id);
-        //}
+            var result = (await controller.Detail(1)) as NotFoundResult;
+            Assert.AreEqual(404, result.StatusCode);
+        }
 
-        //[TestMethod]
-        //public async Task DetailDisableTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 1 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", CategoryId = 1, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", CategoryId = 1, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var svc = new ArticleService(db, Mapper);
-
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(svc, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = (await controller.Detail(1)) as ViewResult;
-        //    var model = result.Model as Article;
-        //    Assert.AreEqual(1, model.Id);
-        //    Assert.AreEqual(BaseStatus.Disable, model.Status);
-        //}
-
-        //[TestMethod]
-        //public async Task DetailEnableTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Content = "content1", Category = new Category(), Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Content = "content2", Category = new Category(), Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var svc = new ArticleService(db, Mapper);
-
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(svc, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = (await controller.Detail(2)) as ViewResult;
-        //    var model = result.Model as Article;
-        //    Assert.AreEqual(2, model.Id);
-        //}
-        #endregion
-
-        //[TestMethod]
-        //public async Task PutTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    var article = new Article { Id = 1, Title = "title1", Content = "content1", CategoryId = 1, Status = BaseStatus.Disable };
-        //    await db.AddAsync(article);
-        //    await db.SaveChangesAsync();
-
-        //    var svc = new ArticleService(db, Mapper);
-        //    var controller = new ArticleController(svc, null);
-
-        //    var dto = new EditArticleDto { Title = "title2", Content = "content2", CategoryId = 2, Status = BaseStatus.Enable };
-        //    await controller.Edit(1, dto);
-
-        //    Assert.AreEqual(1, article.Id);
-        //    Assert.AreEqual("title2", article.Title);
-        //    Assert.AreEqual("content2", article.Content);
-        //    Assert.AreEqual(BaseStatus.Enable, article.Status);
-        //    Assert.AreEqual(2, article.CategoryId);
-        //}
-
-        //[TestMethod]
-        //public async Task PostTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 1, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var svc = new ArticleService(db, Mapper);
-        //    var controller = new ArticleController(svc, null);
-
-        //    var dto = new PostArticleDto { Title = "title", Content = "content", CategoryId = 1, Status = BaseStatus.Enable };
-        //    var result = await controller.Post(dto);
-        //    var redirectResult = result as RedirectToActionResult;
-
-        //    var list = await db.Articles.ToListAsync();
-        //    Assert.AreEqual(1, list.Count);
-
-        //    var article = list.FirstOrDefault();
-        //    Assert.AreEqual("title", article.Title);
-        //    Assert.AreEqual("content", article.Content);
-        //    Assert.AreEqual(1, article.CategoryId);
-        //    Assert.AreEqual(BaseStatus.Enable, article.Status);
-        //    Assert.AreEqual("Detail", redirectResult.ActionName);
-        //    Assert.AreEqual("1", redirectResult.RouteValues["id"].ToString());
-        //    Assert.AreEqual(1, await db.Articles.CountAsync());
-        //}
-
-        #region Search
         [TestMethod]
         public async Task EmptySearchTest()
         {
@@ -265,41 +128,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task NetSearchWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 1 });
-        //    await db.Categories.AddAsync(new Category { Id = 2 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Search("net:est");
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-
         [TestMethod]
         public async Task DatabaseSearchTest()
         {
@@ -319,41 +147,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(1, model.Data.Count);
             Assert.AreEqual(2, model.Data[0].Id);
         }
-
-        //[TestMethod]
-        //public async Task DatabaseSearchWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 2 });
-        //    await db.Categories.AddAsync(new Category { Id = 3 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Search("db:est");
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
 
         [TestMethod]
         public async Task WindowsSearchTest()
@@ -375,41 +168,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task WindowsSearchWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 3 });
-        //    await db.Categories.AddAsync(new Category { Id = 4 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Search("windows:est");
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-
         [TestMethod]
         public async Task ReadSearchTest()
         {
@@ -429,41 +187,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(1, model.Data.Count);
             Assert.AreEqual(2, model.Data[0].Id);
         }
-
-        //[TestMethod]
-        //public async Task ReadSearchWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 4 });
-        //    await db.Categories.AddAsync(new Category { Id = 5 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Search("read:est");
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
 
         [TestMethod]
         public async Task EssaysSearchTest()
@@ -485,43 +208,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task EssaysSearchWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 5 });
-        //    await db.Categories.AddAsync(new Category { Id = 1 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Search("essays:est");
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
-
-        #region Net
         [TestMethod]
         public async Task NetTest()
         {
@@ -542,43 +228,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task NetWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 1 });
-        //    await db.Categories.AddAsync(new Category { Id = 2 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Net();
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
-
-        #region Database
         [TestMethod]
         public async Task DatabaseTest()
         {
@@ -599,43 +248,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task DatabaseWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 2 });
-        //    await db.Categories.AddAsync(new Category { Id = 3 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Database, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Database();
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
-
-        #region Windows
         [TestMethod]
         public async Task WindowsTest()
         {
@@ -656,43 +268,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task WindowsWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 3 });
-        //    await db.Categories.AddAsync(new Category { Id = 4 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Windows, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Windows();
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
-
-        #region Read
         [TestMethod]
         public async Task ReadTest()
         {
@@ -713,43 +288,6 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(2, model.Data[0].Id);
         }
 
-        //[TestMethod]
-        //public async Task ReadWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 4 });
-        //    await db.Categories.AddAsync(new Category { Id = 5 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Read, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Read();
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
-
-        #region Essays
         [TestMethod]
         public async Task EssaysTest()
         {
@@ -769,41 +307,5 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual(1, model.Data.Count);
             Assert.AreEqual(2, model.Data[0].Id);
         }
-
-        //[TestMethod]
-        //public async Task EssaysWithOwnerTest()
-        //{
-        //    var db = new HappyDogContext(GetOptions());
-        //    await db.Categories.AddAsync(new Category { Id = 5 });
-        //    await db.Categories.AddAsync(new Category { Id = 1 });
-        //    await db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Disable });
-        //    await db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = (int)ArticleCategory.Essays, Status = BaseStatus.Enable });
-        //    await db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = (int)ArticleCategory.Net, Status = BaseStatus.Enable });
-        //    await db.SaveChangesAsync();
-        //    var articleService = new ArticleService(db, Mapper);
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Role, "Owner"),
-        //    };
-        //    var identity = new ClaimsIdentity(claims);
-        //    var controller = new ArticleController(articleService, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext
-        //            {
-        //                User = new ClaimsPrincipal(identity)
-        //            }
-        //        }
-        //    };
-
-        //    var result = await controller.Essays();
-        //    var viewReuslt = result as ViewResult;
-        //    var model = viewReuslt.Model as List<ArticleDto>;
-        //    Assert.AreEqual(2, model.Count);
-        //    Assert.AreEqual(2, model[0].Id);
-        //    Assert.AreEqual(1, model[1].Id);
-        //}
-        #endregion
     }
 }

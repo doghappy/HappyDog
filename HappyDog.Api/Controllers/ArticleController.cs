@@ -1,16 +1,11 @@
-﻿using AutoMapper;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper.QueryableExtensions;
-using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
 using HappyDog.Domain.Models.Results;
 using Microsoft.AspNetCore.Authorization;
 using HappyDog.Domain.Enums;
-using HappyDog.Api.Filters;
 using System.Net;
-using Microsoft.AspNetCore.Http;
 using HappyDog.Domain.DataTransferObjects.Article;
 
 namespace HappyDog.Api.Controllers
@@ -19,22 +14,21 @@ namespace HappyDog.Api.Controllers
     /// 
     /// </summary>
     [Produces("application/json")]
-    [Route("article")]
+    [Route("api/[controller]")]
     [Authorize]
     public class ArticleController : Controller
     {
-        readonly ArticleService articleService;
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="articleService"></param>
-        /// <param name="mapper"></param>
         public ArticleController(ArticleService articleService)
         {
-            this.articleService = articleService;
+            _articleService = articleService;
             PageSize = 20;
         }
+
+        readonly ArticleService _articleService;
 
         /// <summary>
         /// 页码
@@ -50,7 +44,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await articleService.GetArticleDetailDtoAsync(id);
+            var article = await _articleService.GetArticleDetailDtoAsync(id);
             if (article == null)
             {
                 return NotFound();
@@ -67,7 +61,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> List(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, null);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, null);
         }
 
         ///// <summary>
@@ -139,7 +133,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Net(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
         }
 
         /// <summary>
@@ -151,7 +145,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Database(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
         }
 
         /// <summary>
@@ -163,7 +157,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Windows(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
         }
 
         /// <summary>
@@ -175,7 +169,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Read(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
         }
 
         /// <summary>
@@ -187,7 +181,7 @@ namespace HappyDog.Api.Controllers
         [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Essays(int page = 1)
         {
-            return await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
+            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
         }
 
         /// <summary>
@@ -211,7 +205,7 @@ namespace HappyDog.Api.Controllers
             }
             else
             {
-                var data = await articleService.SearchAsync(q, page, PageSize);
+                var data = await _articleService.SearchAsync(q, page, PageSize);
                 return new HttpDataResult<Pagination<ArticleDto>>
                 {
                     Data = data

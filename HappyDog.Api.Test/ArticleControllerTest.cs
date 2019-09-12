@@ -17,8 +17,6 @@ namespace HappyDog.Api.Test
     [TestClass]
     public class ArticleControllerTest : TestBase
     {
-        #region get: api/article/{id}
-
         [TestMethod]
         public async Task GetTest()
         {
@@ -37,9 +35,20 @@ namespace HappyDog.Api.Test
             Assert.AreEqual(1, data.ViewCount);
         }
 
-        #endregion
+        [TestMethod]
+        public async Task NotFoundTest()
+        {
+            var db = new HappyDogContext(GetOptions());
+            await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
+            await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = new Category() });
+            await db.SaveChangesAsync();
+            var svc = new ArticleService(db, Mapper);
 
-        #region get: api/article
+            var controller = new ArticleController(svc);
+
+            var result = (await controller.Detail(3)) as NotFoundResult;
+            Assert.AreEqual(404, result.StatusCode);
+        }
 
         [TestMethod]
         public async Task GetListWithDefaultPageIndex()
@@ -254,9 +263,6 @@ namespace HappyDog.Api.Test
             Assert.AreEqual(4, data[0].Id);
         }
 
-        #endregion
-
-        #region Search
         [TestMethod]
         public async Task EmptySearchTest()
         {
@@ -393,6 +399,5 @@ namespace HappyDog.Api.Test
             Assert.AreEqual(1, model.Count);
             Assert.AreEqual(2, model[0].Id);
         }
-        #endregion
     }
 }

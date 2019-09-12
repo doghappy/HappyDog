@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HappyDog.Domain.DataTransferObjects.Article
 {
-    public class EditArticleDto : IValidatableObject
+    public class PutArticleDto : IValidatableObject
     {
         [Display(Name = "标题")]
         [Required(ErrorMessage = "请输入标题")]

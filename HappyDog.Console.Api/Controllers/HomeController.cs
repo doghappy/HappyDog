@@ -9,12 +9,12 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using HappyDog.Infrastructure.Handler;
 
-namespace HappyDog.Api.Controllers
+namespace HappyDog.Console.Api.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("home")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -96,15 +96,5 @@ namespace HappyDog.Api.Controllers
                 return NotFound();
             }
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet("throw")]
-        //public HttpBaseResult Throw()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
