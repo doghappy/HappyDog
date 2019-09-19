@@ -1,39 +1,55 @@
-﻿using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.ViewModels.Article;
+﻿using HappyDog.WindowsUI.Enums;
+using HappyDog.WindowsUI.Requesters;
 using System;
-using System.ComponentModel;
+using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Views.Article
 {
-    public sealed partial class WindowsPage : Page, INotifyPropertyChanged
+    public sealed partial class WindowsPage : Page
     {
         public WindowsPage()
         {
             InitializeComponent();
-            Configuration.AddPageCache(this);
+            _page = 1;
+            _hasMore = true;
+            _articleRequester = new ArticleRequester();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private int _page;
+        private bool _hasMore;
+        private ArticleRequester _articleRequester;
 
-        private WindowsViewModel viewModel;
-        public WindowsViewModel ViewModel
+        private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            get => viewModel;
-            set
+            await GetArticlesAsync();
+        }
+
+        private async Task GetArticlesAsync()
+        {
+            if (_hasMore)
             {
-                viewModel = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
+                var result = await _articleRequester.GetArticlesAsync(Category.Windows, _page);
+                _hasMore = result.TotalPages > _page;
+                _page++;
+                foreach (var item in result.Data)
+                {
+                    ArticleList.Articles.Add(item);
+                }
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        private async void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            base.OnNavigatedTo(e);
-            ViewModel = new WindowsViewModel();
-            await viewModel.InitializeAsync();
+            var scrollViewer = sender as ScrollViewer;
+            if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset <= 140)
+            {
+                if (!e.IsIntermediate && _hasMore)
+                {
+                    await GetArticlesAsync();
+                }
+            }
         }
 
         private async void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿using HappyDog.WindowsUI.ViewModels.Article;
+﻿using HappyDog.WindowsUI.Requesters;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.ComponentModel;
@@ -17,25 +17,40 @@ namespace HappyDog.WindowsUI.Views.Article
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DetailViewModel viewModel;
-        public DetailViewModel ViewModel
+        private int _articleId;
+
+        private bool _isActive;
+        public bool IsActive
         {
-            get => viewModel;
+            get => _isActive;
             set
             {
-                viewModel = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
+                if (_isActive != value)
+                {
+                    _isActive = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsActive)));
+                }
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        private Models.Article _article;
+        public Models.Article Article
+        {
+            get => _article;
+            set
+            {
+                if (_article != value)
+                {
+                    _article = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Article)));
+                }
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is int articleId)
-            {
-                ViewModel = new DetailViewModel(articleId);
-                await ViewModel.InitializeAsync();
-            }
+            _articleId = (int)e.Parameter;
         }
 
         private async void MarkdownTextBlock_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -47,9 +62,12 @@ namespace HappyDog.WindowsUI.Views.Article
             catch { }
         }
 
-        private void Edit_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(EditArticlePage), ViewModel.Article);
+            IsActive = true;
+            var articleRequester = new ArticleRequester();
+            Article = await articleRequester.GetArticleAsync(_articleId);
+            IsActive = false;
         }
     }
 }

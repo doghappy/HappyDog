@@ -6,21 +6,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fa="using:FontAwesome.UWP"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:HappyDog.WindowsUI.Models"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <NavigationView x:Name="NavView" 
-                        IsBackButtonVisible="Visible"
-                        BackRequested="NavView_BackRequested"
-                        Header="{Binding Path=Content.NavTitile, ElementName=ContentFrame}"
-                        AlwaysShowHeader="False">
+        <NavigationView
+            x:Name="NavView" 
+            BackRequested="NavView_BackRequested"
+            IsBackButtonVisible="Collapsed"
+            PaneDisplayMode="Top"
+            AlwaysShowHeader="False">
 
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="SearchBox"
-                                QueryIcon="Find"
-                                QuerySubmitted="SearchBox_QuerySubmitted"/>
+                <AutoSuggestBox
+                    x:Name="SearchBox"
+                    QueryIcon="Find"
+                    ItemsSource="{x:Bind Articles}"
+                    TextMemberPath="Title"
+                    DisplayMemberPath="Title"
+                    TextChanged="SearchBox_TextChanged"
+                    QuerySubmitted="SearchBox_QuerySubmitted">
+                    <!--<AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:Article">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Text="{x:Bind Category.Label}"
+                                    Foreground="{x:Bind Category.Color}"
+                                    FontWeight="SemiBold"/>
+                                <TextBlock Text="{x:Bind Title}" Margin="4 0 0 0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>-->
+                </AutoSuggestBox>
             </NavigationView.AutoSuggestBox>
 
             <NavigationView.MenuItems>
@@ -52,11 +71,6 @@
                 <NavigationViewItem Tag="essays" Content="随笔">
                     <NavigationViewItem.Icon>
                         <fa:FontAwesome Icon="Pencil"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem Tag="user" Content="用户">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Contact"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

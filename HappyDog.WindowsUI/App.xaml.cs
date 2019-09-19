@@ -1,14 +1,10 @@
 ﻿using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.ViewModels.User;
 using HappyDog.WindowsUI.Views;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -65,12 +61,6 @@ namespace HappyDog.WindowsUI
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
 
-            ////remove the solid-colored backgrounds behind the caption controls and system back button
-            //var viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
-            //viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
-            //viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            //viewTitleBar.ButtonForegroundColor = (Color)Resources["SystemBaseHighColor"];
-
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
@@ -105,17 +95,6 @@ namespace HappyDog.WindowsUI
             UpdateTitleBar();
         }
 
-        private async Task SignInAsync()
-        {
-            var vault = new PasswordVault();
-            if (vault.RetrieveAll().Any(v => v.Resource == "doghappy"))
-            {
-                var vm = new SignInViewModel();
-                vm.Initialize();
-                await vm.SignInAsync(true);
-            }
-        }
-
         private void Current_DataChanged(ApplicationData sender, object args)
         {
             // TODO: Refresh your data
@@ -142,7 +121,7 @@ namespace HappyDog.WindowsUI
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
@@ -176,7 +155,6 @@ namespace HappyDog.WindowsUI
             }
 
             EnsureWindow(e);
-            await SignInAsync();
         }
 
         /// <summary>

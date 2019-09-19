@@ -7,7 +7,8 @@
     xmlns:fa="using:FontAwesome.UWP"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -24,41 +25,30 @@
             <StackPanel>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel x:Name="DetailHeader" Style="{ThemeResource StackPanelContainer}">
-                        <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind Article.Title, Mode=OneWay}"
                                    FontSize="40"
                                    Margin="0,0,0,24"
                                    TextWrapping="Wrap"
                                    LineHeight="48"/>
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Calendar"/>
-                            <TextBlock Text="{x:Bind ViewModel.Article.CreateTime, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
+                            <TextBlock Text="{x:Bind Article.CreateTime, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="LineChart"/>
-                            <TextBlock Text="{x:Bind ViewModel.Article.ViewCount, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
+                            <TextBlock Text="{x:Bind Article.ViewCount, Mode=OneWay}" Foreground="{ThemeResource TextMuted}" Style="{ThemeResource JumbotronP}"/>
                         </StackPanel>
-                        <Button Style="{ThemeResource PrimaryButton}"
-                                Margin="0,12,0,0"
-                                Click="Edit_Click"
-                                Visibility="{x:Bind ViewModel.IsAuthorized, Mode=OneWay}">
-                            <StackPanel Orientation="Horizontal">
-                                <SymbolIcon Symbol="Edit"/>
-                                <TextBlock Text="编辑"/>
-                            </StackPanel>
-                        </Button>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Style="{ThemeResource StackPanelContainer}">
-                    <controls:MarkdownTextBlock Text="{x:Bind ViewModel.Article.Content, Mode=OneWay}"
+                    <controls:MarkdownTextBlock Text="{x:Bind Article.Content, Mode=OneWay}"
                                                 Style="{ThemeResource Markdown}"
                                                 LinkClicked="MarkdownTextBlock_LinkClicked"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
-        <controls:Loading IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="Black" Opacity=".6">
-            <ProgressRing IsActive="True" Width="60" Height="60"/>
-        </controls:Loading>
+        <ProgressRing IsActive="{x:Bind IsActive, Mode=OneWay}" Width="60" Height="60"/>
     </Grid>
 </Page>

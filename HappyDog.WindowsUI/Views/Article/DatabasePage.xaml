@@ -8,11 +8,12 @@
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
-        <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
-            <hc:CategoryOutlet.Jumbotron>
+        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+            <StackPanel>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/db.jpg"/>
@@ -30,7 +31,11 @@
                                    Text="SQL 与 NoSQL 优劣互补，它们的应用场景是不同的。"/>
                     </StackPanel>
                 </StackPanel>
-            </hc:CategoryOutlet.Jumbotron>
-        </hc:CategoryOutlet>
+
+                <StackPanel Style="{StaticResource StackPanelContainer}" Margin="0,20,0,0">
+                    <hc:ArticleList x:Name="ArticleList"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

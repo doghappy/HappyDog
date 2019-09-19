@@ -1,11 +1,6 @@
 ﻿using HappyDog.WindowsUI.Models;
-using HappyDog.WindowsUI.Views.Article;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace HappyDog.WindowsUI.Common
 {
@@ -13,7 +8,6 @@ namespace HappyDog.WindowsUI.Common
     {
         static Configuration()
         {
-            CachedPages = new List<Page>();
             Categories = new ObservableCollection<Category>
             {
                 new Category { Id = 1, Label = ".Net", Value = ".net", Color = "#7014e8" },
@@ -22,42 +16,15 @@ namespace HappyDog.WindowsUI.Common
                 new Category { Id = 4, Label = "阅读", Value = "read", Color = "#7cbb00" },
                 new Category { Id = 5, Label = "随笔", Value = "essays", Color = "#ffbb00" }
             };
+#if DEBUG
+            BaseUri = new Uri("http://localhost:56149");
+#else
+            BaseUri = new Uri("https://doghappy.wang");
+#endif
         }
 
         public static ObservableCollection<Category> Categories { get; }
 
-        static List<Page> CachedPages { get; }
-
-        static bool isAuthorized;
-        public static bool IsAuthorized
-        {
-            get => isAuthorized;
-            set
-            {
-                isAuthorized = value;
-                if (value)
-                {
-                    var page = CachedPages.FirstOrDefault(p => p.GetType() == typeof(HomePage));
-                    if (page != null && page is HomePage homePage)
-                    {
-                        homePage.ViewModel.IsAuthorized = value;
-                    }
-                }
-            }
-        }
-
-        public static void ClearCache()
-        {
-            CachedPages.ForEach(p => p.NavigationCacheMode = NavigationCacheMode.Disabled);
-            CachedPages.Clear();
-        }
-
-        public static void AddPageCache(Page page)
-        {
-            if (!CachedPages.Any(a => a.GetType() == page.GetType()))
-            {
-                CachedPages.Add(page);
-            }
-        }
+        public static Uri BaseUri { get; }
     }
 }

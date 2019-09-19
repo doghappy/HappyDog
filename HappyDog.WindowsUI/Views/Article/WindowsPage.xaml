@@ -8,11 +8,12 @@
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
-        <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
-            <hc:CategoryOutlet.Jumbotron>
+        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+            <StackPanel>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel Style="{ThemeResource StackPanelContainer}">
                         <Image Source="/Assets/Images/Windows_10_Logo.svg" Height="100" HorizontalAlignment="Left"/>
@@ -27,7 +28,11 @@
                                          Content="升级到 Windows 10 的理由"/>
                     </StackPanel>
                 </StackPanel>
-            </hc:CategoryOutlet.Jumbotron>
-        </hc:CategoryOutlet>
+
+                <StackPanel Style="{StaticResource StackPanelContainer}" Margin="0,20,0,0">
+                    <hc:ArticleList x:Name="ArticleList"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

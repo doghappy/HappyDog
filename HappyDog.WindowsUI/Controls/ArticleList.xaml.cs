@@ -12,6 +12,7 @@ namespace HappyDog.WindowsUI.Controls
         public ArticleList()
         {
             InitializeComponent();
+            Articles = new ObservableCollection<Article>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Common\HttpClient.cs" />
     <Compile Include="Common\IncrementalCollection.cs" />
     <Compile Include="Common\UiExtension.cs" />
     <Compile Include="Controls\ArticleCard.xaml.cs">
@@ -111,12 +112,8 @@
     <Compile Include="Controls\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CategoryOutlet.xaml.cs">
-      <DependentUpon>CategoryOutlet.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\BoolVisibilityConverter.cs" />
     <Compile Include="Converters\StatusBoolConverter.cs" />
-    <Compile Include="Converters\StatusThemeConverter.cs" />
     <Compile Include="Enums\BaseStatus.cs" />
     <Compile Include="Enums\Category.cs" />
     <Compile Include="Enums\CodeResult.cs" />
@@ -127,19 +124,10 @@
     <Compile Include="Models\Results\HttpBaseResult.cs" />
     <Compile Include="Models\Results\HttpDataResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Article\ArticleViewModel.cs" />
-    <Compile Include="ViewModels\User\ProfileViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\Article\DatabaseViewModel.cs" />
-    <Compile Include="ViewModels\Article\DetailViewModel.cs" />
-    <Compile Include="ViewModels\Article\DotNetViewModel.cs" />
-    <Compile Include="ViewModels\Article\EditArticleViewModel.cs" />
-    <Compile Include="ViewModels\Article\EssaysViewModel.cs" />
-    <Compile Include="ViewModels\Article\HomeViewModel.cs" />
-    <Compile Include="ViewModels\User\SignInViewModel.cs" />
-    <Compile Include="ViewModels\Article\PostArticleViewModel.cs" />
-    <Compile Include="ViewModels\Article\ReadViewModel.cs" />
-    <Compile Include="ViewModels\Article\WindowsViewModel.cs" />
+    <Compile Include="Requesters\ArticleRequester.cs" />
+    <Compile Include="Views\Article\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
@@ -152,26 +140,14 @@
     <Compile Include="Views\Article\DotNetPage.xaml.cs">
       <DependentUpon>DotNetPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Article\EditArticlePage.xaml.cs">
-      <DependentUpon>EditArticlePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Article\EssaysPage.xaml.cs">
       <DependentUpon>EssaysPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Article\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\User\SignInPage.xaml.cs">
-      <DependentUpon>SignInPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Article\PostArticlePage.xaml.cs">
-      <DependentUpon>PostArticlePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Article\ReadPage.xaml.cs">
       <DependentUpon>ReadPage.xaml</DependentUpon>
@@ -214,6 +190,11 @@
     <Content Include="Assets\Square150x150Logo.scale-125.png" />
     <Content Include="Assets\Square150x150Logo.scale-150.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
@@ -274,11 +255,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CategoryOutlet.xaml">
+    <Page Include="Styles\Markdown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Markdown.xaml">
+    <Page Include="Views\Article\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,10 +279,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Article\EditArticlePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Article\EssaysPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,19 +287,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\ProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\User\SignInPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Article\PostArticlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

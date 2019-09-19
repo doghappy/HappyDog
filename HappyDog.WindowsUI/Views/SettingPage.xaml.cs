@@ -55,7 +55,6 @@ namespace HappyDog.WindowsUI.Views
             ElementTheme theme = Enum.Parse<ElementTheme>(btn.Tag.ToString());
             App.RootTheme = theme;
             App.UpdateTitleBar();
-            Configuration.ClearCache();
         }
     }
 }

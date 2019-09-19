@@ -64,66 +64,6 @@ namespace HappyDog.Api.Controllers
             return await _articleService.GetArticleDtosAsync(page, PageSize, null);
         }
 
-        ///// <summary>
-        ///// 修改文章
-        ///// </summary>
-        ///// <param name="id">文章id</param>
-        ///// <param name="dto"></param>
-        ///// <returns></returns>
-        //[HttpPut("{id}")]
-        //[ValidateModel]
-        //public async Task<HttpBaseResult> Put(int id, [FromBody]Article dto)
-        //{
-        //    bool result = await articleService.UpdateAsync(id, dto);
-        //    if (result)
-        //    {
-        //        return new HttpBaseResult
-        //        {
-        //            NoticeMode = NoticeMode.Success,
-        //            Message = "修改成功"
-        //        };
-        //    }
-        //    else
-        //    {
-        //        Response.StatusCode = StatusCodes.Status403Forbidden;
-        //        return new HttpBaseResult
-        //        {
-        //            NoticeMode = NoticeMode.Warning,
-        //            Message = "修改失败"
-        //        };
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 添加文章
-        ///// </summary>
-        ///// <param name="dto"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //[ValidateModel]
-        //public async Task<HttpBaseResult> Post([FromBody]Article dto)
-        //{
-        //    var article = await articleService.AddArticleAsync(dto);
-        //    if (article == null)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.Forbidden;
-        //        return new HttpBaseResult
-        //        {
-        //            NoticeMode = NoticeMode.Warning,
-        //            Message = "添加失败"
-        //        };
-        //    }
-        //    else
-        //    {
-        //        return new HttpDataResult<int>
-        //        {
-        //            Data = article.Id,
-        //            NoticeMode = NoticeMode.Success,
-        //            Message = "添加成功"
-        //        };
-        //    }
-        //}
-
         /// <summary>
         /// .Net
         /// </summary>

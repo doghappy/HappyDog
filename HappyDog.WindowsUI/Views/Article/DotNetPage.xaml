@@ -8,11 +8,12 @@
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
-        <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
-            <hc:CategoryOutlet.Jumbotron>
+        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+            <StackPanel>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel Style="{ThemeResource StackPanelContainer}">
                         <Grid>
@@ -22,9 +23,10 @@
                             </Grid.ColumnDefinitions>
                             <Image Source="/Assets/Images/swimlane-dotnet-core.svg"/>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text=".Net"
-                                       Style="{StaticResource JumbotronH1}"
-                                       Foreground="#7014e8"/>
+                                <TextBlock
+                                    Text=".Net"
+                                    Style="{StaticResource JumbotronH1}"
+                                    Foreground="#7014e8"/>
                                 <TextBlock Style="{StaticResource JumbotronLead}" TextWrapping="Wrap">
                                 <Run Text="免费、跨平台、开源"/>
                                 <LineBreak/>
@@ -36,7 +38,11 @@
                         </Grid>
                     </StackPanel>
                 </StackPanel>
-            </hc:CategoryOutlet.Jumbotron>
-        </hc:CategoryOutlet>
+
+                <StackPanel Style="{StaticResource StackPanelContainer}" Margin="0,20,0,0">
+                    <hc:ArticleList x:Name="ArticleList"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

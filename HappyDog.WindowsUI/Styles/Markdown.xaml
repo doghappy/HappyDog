@@ -7,6 +7,7 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <Style TargetType="controls:MarkdownTextBlock" x:Key="Markdown">
+                <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
                 <Setter Property="Foreground" Value="#222222"/>
                 
                 <Setter Property="Header1FontSize" Value="32"/>
@@ -60,6 +61,7 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <Style TargetType="controls:MarkdownTextBlock" x:Key="Markdown">
+                <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
                 <Setter Property="Foreground" Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
 
                 <Setter Property="Header1FontSize" Value="32"/>

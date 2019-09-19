@@ -4,7 +4,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HappyDog.WindowsUI.Views.Article;
 using HappyDog.WindowsUI.Common;
-using HappyDog.WindowsUI.Views.User;
+using HappyDog.WindowsUI.Requesters;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace HappyDog.WindowsUI.Views
 {
@@ -13,7 +15,13 @@ namespace HappyDog.WindowsUI.Views
         public MainPage()
         {
             InitializeComponent();
+            _articleRequester = new ArticleRequester();
+            Articles = new ObservableCollection<Models.Article>();
         }
+
+        private ArticleRequester _articleRequester;
+
+        public ObservableCollection<Models.Article> Articles { get; }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -26,7 +34,16 @@ namespace HappyDog.WindowsUI.Views
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            NavView.IsBackEnabled = ContentFrame.CanGoBack;
+            if (ContentFrame.CanGoBack)
+            {
+                NavView.IsBackEnabled = true;
+                NavView.IsBackButtonVisible = NavigationViewBackButtonVisible.Visible;
+            }
+            else
+            {
+                NavView.IsBackEnabled = false;
+                NavView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
+            }
             if (e.NavigationMode == NavigationMode.Back)
             {
                 NavigationViewItem item = null;
@@ -49,10 +66,6 @@ namespace HappyDog.WindowsUI.Views
                         break;
                     case Type t when e.SourcePageType == typeof(EssaysPage):
                         item = NavView.MenuItems[5] as NavigationViewItem;
-                        break;
-                    case Type t when e.SourcePageType == typeof(SignInPage):
-                    case Type t2 when e.SourcePageType == typeof(ProfilePage):
-                        item = NavView.MenuItems[6] as NavigationViewItem;
                         break;
                 }
                 if (item != null)
@@ -91,14 +104,6 @@ namespace HappyDog.WindowsUI.Views
                     case "essays":
                         ContentFrame.Navigate(typeof(EssaysPage));
                         break;
-                    case "user":
-                        {
-                            if (Configuration.IsAuthorized)
-                                ContentFrame.Navigate(typeof(ProfilePage));
-                            else
-                                ContentFrame.Navigate(typeof(SignInPage));
-                        }
-                        break;
                 }
             }
         }
@@ -113,10 +118,38 @@ namespace HappyDog.WindowsUI.Views
 
         private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            //if (args.QueryText == "cmd>login();")
-            //{
-            //    ContentFrame.Navigate(typeof(SignInPage));
-            //}
+            if (args.ChosenSuggestion == null)
+            {
+                if (!string.IsNullOrWhiteSpace(args.QueryText))
+                {
+                    ContentFrame.Navigate(typeof(SearchPage), args.QueryText);
+                }
+            }
+            else
+            {
+                var article = args.ChosenSuggestion as Models.Article;
+                ContentFrame.Navigate(typeof(DetailPage), article.Id);
+                NavView.SelectionChanged -= NavView_SelectionChanged;
+                NavView.SelectedItem = null;
+                NavView.SelectionChanged += NavView_SelectionChanged;
+                //sender.Text = string.Empty;
+            }
+        }
+
+        private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                Articles.Clear();
+                if (!string.IsNullOrWhiteSpace(sender.Text))
+                {
+                    var data = await _articleRequester.SearchArticlesAsync(sender.Text);
+                    foreach (var item in data.Data.Data)
+                    {
+                        Articles.Add(item);
+                    }
+                }
+            }
         }
     }
 }

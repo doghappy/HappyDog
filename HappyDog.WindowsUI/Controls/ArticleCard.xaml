@@ -7,14 +7,11 @@
     xmlns:fa="using:FontAwesome.UWP"
     xmlns:cvt="using:HappyDog.WindowsUI.Converters"
     mc:Ignorable="d"
-    Height="156"
-    RequestedTheme="Dark"
     d:DesignHeight="156"
     d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <cvt:StatusThemeConverter x:Key="StatusThemeConverter"/>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="TitleColor" Color="#343A40"/>
@@ -26,8 +23,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid RequestedTheme="{x:Bind Article.Status, Mode=OneWay, Converter={StaticResource StatusThemeConverter}}"
-          Background="{ThemeResource SystemControlAcrylicElementBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <Grid Padding="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -35,18 +31,25 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Button Content="{x:Bind Article.Category.Label, Mode=OneWay}"
+            <!--<Button Content="{x:Bind Article.Category.Label, Mode=OneWay}"
                     FontSize="16"
                     Foreground="{x:Bind Article.Category.Color,Mode=OneWay}"
                     FontWeight="Bold"
                     Padding="0"
                     Click="Button_Click"
-                    Style="{ThemeResource TextBlockButtonStyle}"/>
-            <TextBlock Grid.Row="1" Text="{x:Bind Article.Title, Mode=OneWay}"
-                       Foreground="{ThemeResource TitleColor}"
-                       FontSize="20"
-                       LineHeight="24"
-                       Margin="0,0,0,12"/>
+                    Style="{ThemeResource TextBlockButtonStyle}"/>-->
+            <TextBlock
+                Text="{x:Bind Article.Category.Label, Mode=OneWay}"
+                FontSize="16"
+                Foreground="{x:Bind Article.Category.Color,Mode=OneWay}"
+                FontWeight="Bold"/>
+            <TextBlock
+                Grid.Row="1"
+                Text="{x:Bind Article.Title, Mode=OneWay}"
+                Foreground="{ThemeResource TitleColor}"
+                FontSize="20"
+                LineHeight="24"
+                Margin="0,0,0,12"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" Height="24" Margin="0,0,0,4">
                 <fa:FontAwesome Icon="Calendar" Foreground="{ThemeResource TextMuted}"/>
                 <TextBlock Margin="4,2,0,0" Text="{x:Bind Article.CreateTime, Mode=OneWay}" Foreground="{ThemeResource TextMuted}"/>

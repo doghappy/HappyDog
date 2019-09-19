@@ -8,11 +8,12 @@
     xmlns:hc="using:HappyDog.WindowsUI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
-        <hc:CategoryOutlet ViewModel="{x:Bind ViewModel}">
-            <hc:CategoryOutlet.Jumbotron>
+        <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+            <StackPanel>
                 <StackPanel Style="{ThemeResource JumbotronStackPanel}">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/Office_8x3.jpg"/>
@@ -24,7 +25,11 @@
                                    Text="自中原板荡，夷狄交侵，余发愤河朔，起自相台，总发从军，历二百余战。虽未能远入荒夷，洗荡巢穴，亦且快国雠之万一。今又提一旅孤军，振起宜兴。建康之战，一鼓败虏，恨未能使匹马不回耳。故且养兵休卒，蓄锐待敌，嗣当激励士卒，功期再战，北逾沙漠，喋血虏廷，尽屠夷种，迎二圣归京阙，取故土下版图，朝廷无虞，主上奠枕，余之愿也。"/>
                     </StackPanel>
                 </StackPanel>
-            </hc:CategoryOutlet.Jumbotron>
-        </hc:CategoryOutlet>
+
+                <StackPanel Style="{StaticResource StackPanelContainer}" Margin="0,20,0,0">
+                    <hc:ArticleList x:Name="ArticleList"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
