@@ -15,7 +15,6 @@ namespace HappyDog.Api.Controllers
     /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
     public class ArticleController : Controller
     {
         /// <summary>
@@ -41,7 +40,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="id">文章id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             var article = await _articleService.GetArticleDetailDtoAsync(id);
@@ -58,7 +56,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> List(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, null);
@@ -70,7 +67,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("net")]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Net(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
@@ -82,7 +78,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("db")]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Database(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
@@ -94,7 +89,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("windows")]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Windows(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
@@ -106,7 +100,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("read")]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Read(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
@@ -118,7 +111,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("essays")]
-        [AllowAnonymous]
         public async Task<Pagination<ArticleDto>> Essays(int page = 1)
         {
             return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
@@ -131,7 +123,6 @@ namespace HappyDog.Api.Controllers
         /// <param name="page">页码</param>
         /// <returns></returns>
         [HttpGet("search")]
-        [AllowAnonymous]
         public async Task<HttpBaseResult> Search(string q, int page = 1)
         {
             if (string.IsNullOrWhiteSpace(q))

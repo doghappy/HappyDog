@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.DataProtection;
 using System.IO;
 using AutoMapper;
 using HappyDog.Domain.DataTransferObjects;
+using Microsoft.Extensions.Hosting;
 
 namespace HappyDog.WebUI
 {
@@ -37,8 +38,7 @@ namespace HappyDog.WebUI
             //    options.CheckConsentNeeded = context => true;
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
-
-            services.AddMvc();
+            services.AddControllersWithViews();
             //services.AddAutoMapper(typeof(MappingProfile));
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             //    .AddCookie(options =>
@@ -82,7 +82,7 @@ namespace HappyDog.WebUI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -108,9 +108,16 @@ namespace HappyDog.WebUI
                 }
             });
 
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("default", "{controller=Article}/{action=Index}/{id?}");
+            //});
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("default", "{controller=Article}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Article}/{action=Index}/{id?}");
             });
         }
     }

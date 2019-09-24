@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using HappyDog.Domain.DataTransferObjects;
+using Microsoft.Extensions.Hosting;
 
 namespace HappyDog.Api
 {
@@ -52,7 +53,7 @@ namespace HappyDog.Api
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllers();
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
@@ -101,7 +102,7 @@ namespace HappyDog.Api
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -145,11 +146,15 @@ namespace HappyDog.Api
                 }
             });
 
+            app.UseHttpsRedirection();
             app.UseOpenApi();
             app.UseSwaggerUi3();
             app.UseReDoc();
-
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

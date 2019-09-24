@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -36,7 +37,7 @@ namespace HappyDog.Console.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllers();
 
             string conn = Configuration.GetConnectionString("HappyDog");
             services.AddDbContext<HappyDogContext>(option => option.UseSqlite(conn));
@@ -108,7 +109,7 @@ namespace HappyDog.Console.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -150,7 +151,11 @@ namespace HappyDog.Console.Api
             });
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
