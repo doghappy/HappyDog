@@ -35,12 +35,12 @@ namespace HappyDog.Domain.Search.Article
                 {
                     Page = page,
                     Size = size,
-                    TotalItems = await _db.Articles.Include(a => a.Category).AsNoTracking()
-                        .Where(a => a.Status == BaseStatus.Enable && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase))
+                    TotalItems = await _db.Articles.AsNoTracking()
+                        .Where(a => a.Status == BaseStatus.Enable && EF.Functions.Like(a.Title, $"%{Keyword}%"))
                         .CountAsync()
                 };
                 pagination.Data = await _db.Articles.Include(a => a.Category).AsNoTracking()
-                    .Where(a => a.Status == BaseStatus.Enable && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase))
+                    .Where(a => a.Status == BaseStatus.Enable && EF.Functions.Like(a.Title, $"%{Keyword}%"))
                     .OrderByDescending(a => a.Id)
                     .Skip((pagination.Page - 1) * pagination.Size)
                     .Take(pagination.Size)
