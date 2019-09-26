@@ -9,6 +9,7 @@ import { HiddenComponent } from './hidden/hidden.component';
 import { EditComponent } from './edit/edit.component';
 import { SigninComponent } from './signin/signin.component';
 import { SearchComponent } from './search/search.component';
+import { ArticleListComponent } from './components/article-list/article-list.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { SearchComponent } from './search/search.component';
         HiddenComponent,
         EditComponent,
         SigninComponent,
-        SearchComponent
+        SearchComponent,
+        ArticleListComponent
     ],
     imports: [
         BrowserModule,

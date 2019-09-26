@@ -5,4 +5,7 @@
            (keyup.enter)="search()"
            [(ngModel)]="q" />
   </div>
+  <div *ngIf="articles">
+    <app-article-list [articles]="articles"></app-article-list>
+  </div>
 </div>

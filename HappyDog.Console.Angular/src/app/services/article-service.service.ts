@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+import { Observable } from 'rxjs';
+import { HttpDataResult } from '../models/http-data-result';
+import { Pagination } from '../models/pagination';
+import { Article } from '../models/article';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +15,7 @@ export class ArticleServiceService {
         private http: HttpClient
     ) { }
 
-    search(q: string) {
-        return this.http.get(`${environment.commonApiBaseAddress}/api/article/search?q=${q}`);
+    search(q: string): Observable<HttpDataResult<Pagination<Article>>> {
+        return this.http.get<HttpDataResult<Pagination<Article>>>(`${environment.commonApiBaseAddress}/api/article/search?q=${q}`);
     }
 }
