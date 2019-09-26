@@ -34,7 +34,7 @@ namespace HappyDog.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            jsonSerializerSettings = new JsonSerializerSettings
+            _jsonSerializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
@@ -45,7 +45,7 @@ namespace HappyDog.Api
         /// </summary>
         public IConfiguration Configuration { get; }
 
-        private readonly JsonSerializerSettings jsonSerializerSettings;
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -53,6 +53,13 @@ namespace HappyDog.Api
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Console", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200", "https://console.doghappy.wang");
+                });
+            });
             services.AddControllers();
 
             string conn = Configuration.GetConnectionString("HappyDog");
@@ -141,7 +148,7 @@ namespace HappyDog.Api
                 }
                 if (result != null)
                 {
-                    string content = JsonConvert.SerializeObject(result, jsonSerializerSettings);
+                    string content = JsonConvert.SerializeObject(result, _jsonSerializerSettings);
                     await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
                 }
             });
@@ -151,6 +158,7 @@ namespace HappyDog.Api
             app.UseSwaggerUi3();
             app.UseReDoc();
             app.UseRouting();
+            app.UseCors("Console");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
