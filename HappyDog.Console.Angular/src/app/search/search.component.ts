@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ArticleServiceService } from '../services/article-service.service';
 
 @Component({
     selector: 'app-search',
@@ -7,12 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-    constructor() { }
+    constructor(
+        private articleService: ArticleServiceService
+    ) { }
+
+    @Input()
+    public q: string;
 
     ngOnInit() {
     }
 
     search() {
-        console.log("qer")
+        if (this.q) {
+            this.articleService
+                .search(this.q)
+                .subscribe(r => {
+                    console.log(r);
+                });
+        }
     }
 }
