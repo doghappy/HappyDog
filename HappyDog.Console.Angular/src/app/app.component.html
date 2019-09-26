@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1976d2;">
+  <a class="navbar-brand" routerLink="/">
+    <img src="https://doghappy.wang/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
+    开心狗
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white-80" routerLink="/post">
+          <i class="fa fa-pencil"></i>
+          写文章
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white-80" routerLink="/hidden">
+          <i class="fa fa-eye-slash"></i>
+          已隐藏
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<footer>
+  <p class="text-center">
+    <span>&copy; 2018 - 开心狗&nbsp;</span>
+    <a target="_blank" href="http://www.miitbeian.gov.cn/">鄂ICP备17019876号</a>
+  </p>
+</footer>
