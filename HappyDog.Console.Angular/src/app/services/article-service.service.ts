@@ -18,4 +18,8 @@ export class ArticleServiceService {
     search(q: string): Observable<HttpDataResult<Pagination<Article>>> {
         return this.http.get<HttpDataResult<Pagination<Article>>>(`${environment.commonApiBaseAddress}/api/article/search?q=${q}`);
     }
+
+    getEnabledArticle(id: number): Observable<Article> {
+        return this.http.get<Article>(`${environment.commonApiBaseAddress}/api/article/${id}`);
+    }
 }
