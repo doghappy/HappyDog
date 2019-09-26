@@ -23,7 +23,6 @@ export class EditComponent implements OnInit {
             .getEnabledArticle(id)
             .subscribe(r => {
                 this.article = r;
-                console.log(this.article);
             });
     }
 

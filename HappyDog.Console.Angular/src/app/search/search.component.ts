@@ -27,7 +27,6 @@ export class SearchComponent implements OnInit {
                 .subscribe(r => {
                     this.articles = r.data.data;
                     this.articles[0].status = BaseStatus.Disabled;
-                    console.log(this.articles);
                 });
         }
     }
