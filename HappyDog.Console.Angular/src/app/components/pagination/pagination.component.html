@@ -1,0 +1,33 @@
+<nav>
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="pagination.page === 1">
+      <a class="page-link"
+         [routerLink]="link"
+         [queryParams]="paginationQueryBuilder.buildQueryParams(pagination.page > 1 ? pagination.page - 1 : 1)">
+        &laquo;
+      </a>
+    </li>
+
+
+    <li class="page-item" *ngFor="let item of arr" [class.active]="item === pagination.page">
+      <span class="page-link" *ngIf="item === pagination.page">
+        {{item}}
+      </span>
+      <a class="page-link"
+         *ngIf="item !== pagination.page"
+         [routerLink]="link"
+         [queryParams]="paginationQueryBuilder.buildQueryParams(item)">
+        {{item}}
+      </a>
+    </li>
+
+    <li class="page-item" [class.disabled]="pagination.page === pagination.totalPages">
+      <a class="page-link"
+         [routerLink]="link"
+         [queryParams]="paginationQueryBuilder.buildQueryParams(pagination.page < pagination.totalPages ? pagination.page + 1 : pagination.totalPages)"
+         [class.disabled]="pagination.page === pagination.totalPages">
+        &raquo;
+      </a>
+    </li>
+  </ul>
+</nav>

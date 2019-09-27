@@ -15,8 +15,8 @@ export class ArticleServiceService {
         private http: HttpClient
     ) { }
 
-    search(q: string): Observable<HttpDataResult<Pagination<Article>>> {
-        return this.http.get<HttpDataResult<Pagination<Article>>>(`${environment.commonApiBaseAddress}/api/article/search?q=${q}`);
+    search(q: string, page: number): Observable<HttpDataResult<Pagination<Article>>> {
+        return this.http.get<HttpDataResult<Pagination<Article>>>(`${environment.commonApiBaseAddress}/api/article/search?q=${q}&page=${page}`);
     }
 
     getEnabledArticle(id: number): Observable<Article> {

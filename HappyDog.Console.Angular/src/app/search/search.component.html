@@ -6,7 +6,8 @@
            (keyup.enter)="search()"
            [(ngModel)]="q" />
   </div>
-  <div *ngIf="articles">
-    <app-article-list [articles]="articles"></app-article-list>
+  <div *ngIf="data">
+    <app-article-list [articles]="data.data.data"></app-article-list>
+    <app-pagination [pagination]="data.data" [link]="'/search'" [paginationQueryBuilder]="this"></app-pagination>
   </div>
 </div>

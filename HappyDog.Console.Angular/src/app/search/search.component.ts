@@ -1,15 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArticleServiceService } from '../services/article-service.service';
 import { Article } from '../models/article';
-import { BaseStatus } from '../models/base-status';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpDataResult } from '../models/http-data-result';
+import { Pagination } from '../models/pagination';
+import { IPaginationQueryBuilder } from '../components/pagination/i-pagination-query-builder';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, IPaginationQueryBuilder {
 
     constructor(
         private articleService: ArticleServiceService,
@@ -19,25 +21,33 @@ export class SearchComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
+
     protected q: string;
-    protected articles: Article[];
+    protected data: HttpDataResult<Pagination<Article>>;
 
     ngOnInit() {
         const q = this.activatedRouter.snapshot.queryParamMap.get("q");
         if (q) {
+            const page = Number(this.activatedRouter.snapshot.queryParamMap.get("page") || 1);
             this.q = q;
             this.articleService
-                .search(q)
+                .search(q, page)
                 .subscribe(r => {
-                    this.articles = r.data.data;
-                    this.articles[0].status = BaseStatus.Disabled;
+                    this.data = r;
                 });
         }
     }
 
-    search() {
+    protected search(): void {
         if (this.q) {
             this.router.navigate(['search'], { queryParams: { q: this.q } });
         }
+    }
+
+    public buildQueryParams(page: number): object {
+        return {
+            q: this.q,
+            page
+        };
     }
 }

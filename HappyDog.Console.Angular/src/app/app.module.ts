@@ -10,6 +10,7 @@ import { EditComponent } from './edit/edit.component';
 import { SigninComponent } from './signin/signin.component';
 import { SearchComponent } from './search/search.component';
 import { ArticleListComponent } from './components/article-list/article-list.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ArticleListComponent } from './components/article-list/article-list.com
         EditComponent,
         SigninComponent,
         SearchComponent,
-        ArticleListComponent
+        ArticleListComponent,
+        PaginationComponent
     ],
     imports: [
         BrowserModule,
