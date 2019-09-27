@@ -13,6 +13,7 @@ const routes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
             { path: "", component: SearchComponent },
+            { path: "search", component: SearchComponent },
             { path: "post", component: PostComponent },
             { path: "hidden", component: HiddenComponent },
             { path: "edit/:id", component: EditComponent }

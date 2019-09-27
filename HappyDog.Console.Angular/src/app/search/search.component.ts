@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ArticleServiceService } from '../services/article-service.service';
 import { Article } from '../models/article';
 import { BaseStatus } from '../models/base-status';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-search',
@@ -11,23 +12,32 @@ import { BaseStatus } from '../models/base-status';
 export class SearchComponent implements OnInit {
 
     constructor(
-        private articleService: ArticleServiceService
-    ) { }
+        private articleService: ArticleServiceService,
+        private router: Router,
+        private activatedRouter: ActivatedRoute
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
     protected q: string;
     protected articles: Article[];
 
     ngOnInit() {
-    }
-
-    search() {
-        if (this.q) {
+        const q = this.activatedRouter.snapshot.queryParamMap.get("q");
+        if (q) {
+            this.q = q;
             this.articleService
-                .search(this.q)
+                .search(q)
                 .subscribe(r => {
                     this.articles = r.data.data;
                     this.articles[0].status = BaseStatus.Disabled;
                 });
+        }
+    }
+
+    search() {
+        if (this.q) {
+            this.router.navigate(['search'], { queryParams: { q: this.q } });
         }
     }
 }
