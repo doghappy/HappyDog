@@ -1,13 +1,9 @@
 ﻿using HappyDog.Domain.Enums;
 using HappyDog.Domain.Models.Results;
-using HappyDog.Infrastructure.Email;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using HappyDog.Infrastructure.Handler;
+using Microsoft.Extensions.Logging;
 
 namespace HappyDog.Api.Controllers
 {
@@ -21,23 +17,20 @@ namespace HappyDog.Api.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="env"></param>
-        /// <param name="configuration"></param>
-        public HomeController(IHostingEnvironment env, IConfiguration configuration)
+        /// <param name="logger"></param>
+        public HomeController(ILogger<HomeController> logger)
         {
-            this.env = env;
-            this.configuration = configuration;
+            _logger = logger;
         }
 
-        readonly IHostingEnvironment env;
-        readonly IConfiguration configuration;
+        readonly ILogger<HomeController> _logger;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpGet("error")]
-        public async Task<HttpBaseResult> Error()
+        public HttpBaseResult Error()
         {
             var ex = HttpContext.Features.Get<IExceptionHandlerFeature>();
             if (ex == null)
@@ -46,12 +39,7 @@ namespace HappyDog.Api.Controllers
             }
             else
             {
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                if (env.IsProduction())
-                {
-                    var sender = new OutlookSender(configuration);
-                    await ExceptionHandler.SendEmailAsync(ex.Error, sender);
-                }
+                _logger.LogError(ex.Error.ToString());
                 return new HttpBaseResult
                 {
                     Message = "服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。",
@@ -96,15 +84,5 @@ namespace HappyDog.Api.Controllers
                 return NotFound();
             }
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet("throw")]
-        //public HttpBaseResult Throw()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
