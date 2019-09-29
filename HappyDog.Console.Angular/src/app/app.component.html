@@ -9,18 +9,27 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="userService.isAuth">
       <li class="nav-item">
-        <a class="nav-link text-white-80" routerLink="/post">
+        <a class="nav-link" routerLink="/post">
           <i class="fa fa-pencil"></i>
           写文章
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white-80" routerLink="/hidden">
+        <a class="nav-link" routerLink="/hidden">
           <i class="fa fa-eye-slash"></i>
           已隐藏
         </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav" *ngIf="userService.isAuth">
+      <li class="nav-item">
+        <button class="nav-link btn btn-link" (click)="signOut()">
+          <i class="fa fa-sign-out"></i>
+          登出
+        </button>
       </li>
     </ul>
   </div>

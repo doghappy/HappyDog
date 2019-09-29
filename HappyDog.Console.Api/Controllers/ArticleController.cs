@@ -67,5 +67,16 @@ namespace HappyDog.Console.Api.Controllers
                 return new JsonResult(_mapper.Map<ArticleDetailDto>(article));
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var article = await _db.Articles.SingleOrDefaultAsync(a => a.Id == id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            return new JsonResult(_mapper.Map<ArticleDetailDto>(article));
+        }
     }
 }

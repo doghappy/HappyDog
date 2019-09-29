@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
     ngOnInit() {
         const id = Number(this.router.snapshot.paramMap.get("id"));
         this.articleService
-            .getEnabledArticle(id)
+            .getArticle(id)
             .subscribe(r => {
                 this.article = r;
             });

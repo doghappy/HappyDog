@@ -117,5 +117,33 @@ namespace HappyDog.Console.Api.Test
                 Assert.AreEqual(BaseStatus.Enable, articles[0].Status);
             }
         }
+
+        [TestMethod]
+        public async Task GetNotFoundTest()
+        {
+            using (var db = new HappyDogContext(GetOptions()))
+            {
+                var controller = new ArticleController(db, Mapper);
+
+                var notFoundResult = await controller.Detail(1) as NotFoundResult;
+                Assert.AreEqual(404, notFoundResult.StatusCode);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetTest()
+        {
+            using (var db = new HappyDogContext(GetOptions()))
+            {
+                await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
+                await db.SaveChangesAsync();
+
+                var controller = new ArticleController(db, Mapper);
+
+                var jsonResult = await controller.Detail(1) as JsonResult;
+                var detailDto = jsonResult.Value as ArticleDetailDto;
+                Assert.AreEqual(1, detailDto.Id);
+            }
+        }
     }
 }

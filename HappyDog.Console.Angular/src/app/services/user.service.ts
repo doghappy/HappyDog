@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { HttpBaseResult } from '../models/http-base-result';
 import { environment } from '../../environments/environment'
 import { SignInDto } from '../models/user/signin-dto';
-import { Article } from '../models/article';
-import { AuthGuard } from '../auth.guard';
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +11,19 @@ import { AuthGuard } from '../auth.guard';
 export class UserService {
 
     constructor(
-        private http: HttpClient,
-        private authGuard: AuthGuard
+        private http: HttpClient
     ) { }
+
+    isAuth: boolean;
 
     public signIn(signInDto: SignInDto): Observable<HttpBaseResult> {
         return this.http.post<HttpBaseResult>(`${environment.consoleApiBaseAddress}/api/user/signin`, signInDto, {
+            withCredentials: true
+        });
+    }
+
+    public signOut(): Observable<HttpBaseResult> {
+        return this.http.post<HttpBaseResult>(`${environment.consoleApiBaseAddress}/api/user/signout`, {}, {
             withCredentials: true
         });
     }

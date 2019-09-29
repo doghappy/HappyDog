@@ -19,8 +19,8 @@ export class ArticleService {
         return this.http.get<HttpDataResult<Pagination<Article>>>(`${environment.commonApiBaseAddress}/api/article/search?q=${q}&page=${page}`);
     }
 
-    getEnabledArticle(id: number): Observable<Article> {
-        return this.http.get<Article>(`${environment.commonApiBaseAddress}/api/article/${id}`);
+    getArticle(id: number): Observable<Article> {
+        return this.http.get<Article>(`${environment.consoleApiBaseAddress}/api/article/${id}`, { withCredentials: true });
     }
 
     getHiddenArticles(): Observable<Article[]> {
