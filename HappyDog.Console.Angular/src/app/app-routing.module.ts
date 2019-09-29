@@ -10,7 +10,7 @@ import { SigninComponent } from './signin/signin.component';
 const routes: Routes = [
     {
         path: "",
-        canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             { path: "", component: SearchComponent },
             { path: "search", component: SearchComponent },

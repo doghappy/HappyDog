@@ -22,4 +22,8 @@ export class ArticleService {
     getEnabledArticle(id: number): Observable<Article> {
         return this.http.get<Article>(`${environment.commonApiBaseAddress}/api/article/${id}`);
     }
+
+    getHiddenArticles(): Observable<Article[]> {
+        return this.http.get<Article[]>(`${environment.consoleApiBaseAddress}/api/article/disabled`, { withCredentials: true });
+    }
 }

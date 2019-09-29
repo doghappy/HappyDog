@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
-import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivate } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { ArticleService } from './services/article.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
 
     constructor(
-        private router: Router
+        private router: Router,
+        private articleService: ArticleService
     ) { }
 
     public isSignIn: boolean;
 
-    canActivateChild(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        //const isSignIn = this.cookieService.check(".AspNetCore.Identity.Application");
-        //console.log("isSignIn", isSignIn);
-        if (this.isSignIn) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        return this.articleService.getHiddenArticles().pipe(map(result => {
             return true;
-        } else {
+        }), catchError(() => {
             this.router.navigate(['signin']);
-            return false;
-        }
+            return of(false);
+        }))
     }
 }

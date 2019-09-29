@@ -22,12 +22,4 @@ export class UserService {
             withCredentials: true
         });
     }
-
-    public checkAuth(): void {
-        this.http.get<Article[]>(`${environment.consoleApiBaseAddress}/api/article/disabled`, { withCredentials: true }).subscribe(result => {
-            if (result) {
-                this.authGuard.isSignIn = true;
-            }
-        })
-    }
 }

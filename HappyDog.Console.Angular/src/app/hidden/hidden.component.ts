@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../services/article.service';
+import { Article } from '../models/article';
 
 @Component({
-  selector: 'app-hidden',
-  templateUrl: './hidden.component.html',
-  styleUrls: ['./hidden.component.css']
+    selector: 'app-hidden',
+    templateUrl: './hidden.component.html',
+    styleUrls: ['./hidden.component.css']
 })
 export class HiddenComponent implements OnInit {
 
-  constructor() { }
+    constructor(
+        private articleService: ArticleService
+    ) { }
 
-  ngOnInit() {
-  }
+    protected articles: Article[];
+
+    ngOnInit() {
+        this.articleService.getHiddenArticles().subscribe(result => {
+            this.articles = result
+        });
+    }
 
 }
