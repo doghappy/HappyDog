@@ -11,6 +11,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SearchComponent } from './search/search.component';
 import { ArticleListComponent } from './components/article-list/article-list.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        NgxSpinnerModule
     ],
     providers: [
     ],

@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpDataResult } from '../models/http-data-result';
 import { Pagination } from '../models/pagination';
 import { IPaginationQueryBuilder } from '../components/pagination/i-pagination-query-builder';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-search',
@@ -16,7 +17,8 @@ export class SearchComponent implements OnInit, IPaginationQueryBuilder {
     constructor(
         private articleService: ArticleService,
         private router: Router,
-        private activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute,
+        private spinner: NgxSpinnerService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
@@ -28,12 +30,14 @@ export class SearchComponent implements OnInit, IPaginationQueryBuilder {
     ngOnInit() {
         const q = this.activatedRouter.snapshot.queryParamMap.get("q");
         if (q) {
+            this.spinner.show();
             const page = Number(this.activatedRouter.snapshot.queryParamMap.get("page") || 1);
             this.q = q;
             this.articleService
                 .search(q, page)
                 .subscribe(r => {
                     this.data = r;
+                    this.spinner.hide();
                 });
         }
     }

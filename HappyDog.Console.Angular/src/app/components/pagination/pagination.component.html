@@ -1,4 +1,4 @@
-<nav>
+<nav *ngIf="pagination.totalPages > 0">
   <ul class="pagination">
     <li class="page-item" [class.disabled]="pagination.page === 1">
       <a class="page-link"
@@ -7,7 +7,6 @@
         &laquo;
       </a>
     </li>
-
 
     <li class="page-item" *ngFor="let item of arr" [class.active]="item === pagination.page">
       <span class="page-link" *ngIf="item === pagination.page">
