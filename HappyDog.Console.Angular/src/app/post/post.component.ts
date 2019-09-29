@@ -16,7 +16,7 @@ export class PostComponent implements OnInit {
         private router: Router
     ) { }
 
-    protected article: PostArticleDto;
+    public article: PostArticleDto;
 
     ngOnInit() {
         this.article = new PostArticleDto();

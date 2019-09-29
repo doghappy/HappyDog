@@ -16,7 +16,7 @@ export class EditComponent implements OnInit {
         private router: Router
     ) { }
 
-    protected article: Article;
+    public article: Article;
     private id: number;
 
     ngOnInit() {

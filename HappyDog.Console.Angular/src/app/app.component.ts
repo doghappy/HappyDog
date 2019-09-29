@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
 
     constructor(
-        protected userService: UserService,
+        public userService: UserService,
         private router: Router
     ) {
     }

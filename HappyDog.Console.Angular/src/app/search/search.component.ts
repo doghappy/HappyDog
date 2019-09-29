@@ -22,8 +22,8 @@ export class SearchComponent implements OnInit, IPaginationQueryBuilder {
     }
 
 
-    protected q: string;
-    protected data: HttpDataResult<Pagination<Article>>;
+    public q: string;
+    public data: HttpDataResult<Pagination<Article>>;
 
     ngOnInit() {
         const q = this.activatedRouter.snapshot.queryParamMap.get("q");
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit, IPaginationQueryBuilder {
         }
     }
 
-    protected search(): void {
+    public search(): void {
         if (this.q) {
             this.router.navigate(['search'], { queryParams: { q: this.q } });
         }

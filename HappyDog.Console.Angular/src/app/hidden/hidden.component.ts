@@ -13,7 +13,7 @@ export class HiddenComponent implements OnInit {
         private articleService: ArticleService
     ) { }
 
-    protected articles: Article[];
+    public articles: Article[];
 
     ngOnInit() {
         this.articleService.getHiddenArticles().subscribe(result => {
