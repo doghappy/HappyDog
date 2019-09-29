@@ -11,11 +11,18 @@ export class AuthGuard implements CanActivateChild {
         private router: Router
     ) { }
 
+    public isSignIn: boolean;
+
     canActivateChild(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        //this.router.navigate(['signin']);
-        //return false;
-        return true;
+        //const isSignIn = this.cookieService.check(".AspNetCore.Identity.Application");
+        //console.log("isSignIn", isSignIn);
+        if (this.isSignIn) {
+            return true;
+        } else {
+            this.router.navigate(['signin']);
+            return false;
+        }
     }
 }

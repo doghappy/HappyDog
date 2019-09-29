@@ -1,1 +1,60 @@
-<p>signin works!</p>
+<div class="container">
+  <div class="mt-4 mb-4">
+    <form class="col-md-6 m-auto" #signInForm="ngForm">
+      <div class="form-group">
+        <label for="userName">用户名：</label>
+        <input class="form-control"
+               id="userName"
+               name="userName"
+               [(ngModel)]="dto.userName"
+               required
+               maxlength="12"
+               #userName="ngModel">
+      </div>
+
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
+        <div *ngIf="userName.errors.required">
+          用户名必填
+        </div>
+        <div *ngIf="userName.errors.maxlength">
+          用户名不能超过12个字符
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">密码：</label>
+        <input class="form-control"
+               type="password"
+               id="password"
+               name="password"
+               [(ngModel)]="dto.password"
+               required
+               maxlength="15">
+      </div>
+
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
+        <div *ngIf="userName.errors.required">
+          密码必填
+        </div>
+        <div *ngIf="userName.errors.maxlength">
+          密码不能超过12个字符
+        </div>
+      </div>
+
+      <div *ngIf="message" class="alert alert-danger">
+        {{message}}
+      </div>
+
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [value]="true" [(ngModel)]="dto.rememberMe">
+          <label for="rememberMe">记住我</label>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="signIn()">
+        <i class="fa fa-sign-in"></i>
+        登录
+      </button>
+    </form>
+  </div>
+</div>

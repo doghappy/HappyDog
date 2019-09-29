@@ -29,7 +29,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
         HttpClientModule,
         FormsModule
     ],
-    providers: [],
+    providers: [
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

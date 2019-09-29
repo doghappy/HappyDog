@@ -37,6 +37,16 @@ namespace HappyDog.Console.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Console", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.AllowCredentials();
+                });
+            });
             services.AddControllers();
 
             string conn = Configuration.GetConnectionString("HappyDog");
@@ -152,6 +162,8 @@ namespace HappyDog.Console.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors("Console");
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

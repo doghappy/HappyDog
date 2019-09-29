@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleServiceService } from '../services/article-service.service';
+import { ArticleService } from '../services/article.service';
 import { Article } from '../models/article';
 
 @Component({
@@ -12,7 +12,7 @@ export class EditComponent implements OnInit {
 
     constructor(
         private router: ActivatedRoute,
-        private articleService: ArticleServiceService
+        private articleService: ArticleService
     ) { }
 
     protected article: Article;

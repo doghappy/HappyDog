@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ArticleServiceService } from '../services/article-service.service';
+import { ArticleService } from '../services/article.service';
 import { Article } from '../models/article';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpDataResult } from '../models/http-data-result';
@@ -14,7 +14,7 @@ import { IPaginationQueryBuilder } from '../components/pagination/i-pagination-q
 export class SearchComponent implements OnInit, IPaginationQueryBuilder {
 
     constructor(
-        private articleService: ArticleServiceService,
+        private articleService: ArticleService,
         private router: Router,
         private activatedRouter: ActivatedRoute
     ) {

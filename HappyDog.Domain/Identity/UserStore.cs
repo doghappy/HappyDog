@@ -46,7 +46,7 @@ namespace HappyDog.Domain.Identity
         {
             return await db.Users
                 .Include(u => u.UserRoles).ThenInclude(r => r.Role)
-                .FirstOrDefaultAsync(u => u.UserName.Equals(normalizedUserName, StringComparison.InvariantCultureIgnoreCase));
+                .SingleOrDefaultAsync(u => EF.Functions.Like(u.UserName, normalizedUserName));
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
