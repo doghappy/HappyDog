@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArticleService } from '../services/article.service';
-import { Article } from '../models/article';
+import { Article } from '../models/article/article';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpDataResult } from '../models/http-data-result';
 import { Pagination } from '../models/pagination';

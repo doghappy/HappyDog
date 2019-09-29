@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../services/article.service';
-import { Article } from '../models/article';
+import { Article } from '../models/article/article';
 
 @Component({
     selector: 'app-hidden',

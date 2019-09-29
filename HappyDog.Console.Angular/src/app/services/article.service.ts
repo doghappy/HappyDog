@@ -4,7 +4,9 @@ import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
 import { HttpDataResult } from '../models/http-data-result';
 import { Pagination } from '../models/pagination';
-import { Article } from '../models/article';
+import { Article } from '../models/article/article';
+import { PostArticleDto } from '../models/article/post-article-dto';
+import { PutArticleDto } from '../models/article/put-article-dto';
 
 @Injectable({
     providedIn: 'root'
@@ -25,5 +27,13 @@ export class ArticleService {
 
     getHiddenArticles(): Observable<Article[]> {
         return this.http.get<Article[]>(`${environment.consoleApiBaseAddress}/api/article/disabled`, { withCredentials: true });
+    }
+
+    post(postDto: PostArticleDto): Observable<Article> {
+        return this.http.post<Article>(`${environment.consoleApiBaseAddress}/api/article`, postDto, { withCredentials: true });
+    }
+
+    put(id: number, putDto: PutArticleDto): Observable<Article> {
+        return this.http.put<Article>(`${environment.consoleApiBaseAddress}/api/article/${id}`, putDto, { withCredentials: true });
     }
 }
