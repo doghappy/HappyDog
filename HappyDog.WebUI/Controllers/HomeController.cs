@@ -27,11 +27,6 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        public new IActionResult NotFound()
-        {
-            return View();
-        }
-
         public IActionResult About()
         {
             return View();

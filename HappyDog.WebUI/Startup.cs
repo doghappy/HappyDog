@@ -101,11 +101,14 @@ namespace HappyDog.WebUI
 
             app.UseStatusCodePages(async context =>
             {
-                if (context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
+                string html = context.HttpContext.Response.StatusCode.ToString();
+                switch (context.HttpContext.Response.StatusCode)
                 {
-                    context.HttpContext.Request.Path = "/Home/NotFound";
-                    await context.Next(context.HttpContext);
+                    case StatusCodes.Status404NotFound:
+                        html = await File.ReadAllTextAsync(Path.Combine(env.WebRootPath, "404.html"));
+                        break;
                 }
+                await context.HttpContext.Response.WriteAsync(html);
             });
 
             //app.UseMvc(routes =>
