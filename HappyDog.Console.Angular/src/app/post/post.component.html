@@ -12,11 +12,11 @@
     <div class="form-group form-inline">
       <label for="category">类别：</label>
       <select id="category" class="form-control col-md-4" name="categoryId" [(ngModel)]="article.categoryId">
-        <option value="1">.NET</option>
-        <option value="2">数据库</option>
-        <option value="3">Windows</option>
-        <option value="4">阅读</option>
-        <option value="5">随笔</option>
+        <option [ngValue]="1">.NET</option>
+        <option [ngValue]="2">数据库</option>
+        <option [ngValue]="3">Windows</option>
+        <option [ngValue]="4">阅读</option>
+        <option [ngValue]="5">随笔</option>
       </select>
     </div>
     <div class="form-group">

@@ -33,7 +33,7 @@ export class EditComponent implements OnInit {
             title: this.article.title,
             content: this.article.content,
             status: this.article.status,
-            categoryId: Number(this.article.categoryId)
+            categoryId: this.article.categoryId
         }).subscribe(result => {
             this.router.navigate(['/']);
         });
