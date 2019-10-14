@@ -38,7 +38,10 @@ namespace HappyDog.WebUI.Controllers
             }
             else
             {
-                article.Content = Markdown.ToHtml(article.Content);
+                var pipeline = new MarkdownPipelineBuilder()
+                    .UsePipeTables()
+                    .Build();
+                article.Content = Markdown.ToHtml(article.Content, pipeline);
                 return View(article);
             }
         }
