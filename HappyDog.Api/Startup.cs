@@ -57,7 +57,8 @@ namespace HappyDog.Api
             {
                 options.AddPolicy("Console", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200", "https://console.doghappy.wang");
+                    string[] origins = Configuration.GetSection("Origins").Get<string[]>();
+                    builder.WithOrigins(origins);
                 });
             });
             services.AddControllers();

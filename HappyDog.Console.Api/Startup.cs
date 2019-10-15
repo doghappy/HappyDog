@@ -41,7 +41,8 @@ namespace HappyDog.Console.Api
             {
                 options.AddPolicy("Console", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200");
+                    string[] origins = Configuration.GetSection("Origins").Get<string[]>();
+                    builder.WithOrigins(origins);
                     builder.AllowAnyMethod();
                     builder.AllowAnyHeader();
                     builder.AllowCredentials();

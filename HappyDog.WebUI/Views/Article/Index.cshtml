@@ -16,15 +16,6 @@
             People can’t do somethin’ themselves, they wanna tell you, you can’t do it.<br />
             If you want somethin’, go get it.
         </p>
-        @if (User.IsInRole("Owner"))
-        {
-            <p class="lead">
-                <a class="btn btn-primary" href="@Url.Action("Post")">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                    写文章
-                </a>
-            </p>
-        }
     </div>
 </div>
 
