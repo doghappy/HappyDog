@@ -2,6 +2,7 @@
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.DataTransferObjects.User;
 using HappyDog.Domain.DataTransferObjects.Category;
+using HappyDog.Domain.DataTransferObjects.Comment;
 
 namespace HappyDog.Domain.DataTransferObjects
 {
@@ -15,6 +16,8 @@ namespace HappyDog.Domain.DataTransferObjects
             CreateMap<PostArticleDto, Entities.Article>();
             CreateMap<SignUpDto, Entities.User>().ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
             CreateMap<SignInDto, Entities.User>();
+            CreateMap<PostCommentDto, Entities.Comment>();
+            CreateMap<Entities.Comment, CommentDto>();
         }
     }
 }

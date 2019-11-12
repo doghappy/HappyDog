@@ -4,20 +4,25 @@
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.Title;
     ViewData["Keywords"] = Model.Title;
+    int articleId = int.Parse(ViewContext.RouteData.Values["id"].ToString());
 }
 
 @section Styles{
     <link href="//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet" />
     <link href="~/lib/highlight/styles/vs.css" rel="stylesheet" />
     <style>
-        .div { background: red; }
+        .div {
+            background: red;
+        }
     </style>
 }
 
 @section Scripts{
     <script src="~/lib/highlight/highlight.pack.js"></script>
+    <script src="~/js/initial.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
+        $('img.avatar').initial();
     </script>
 }
 
@@ -32,13 +37,6 @@
             <i class="fa fa-line-chart" aria-hidden="true"></i>
             @Model.ViewCount
         </p>
-        @if (User.IsInRole("Owner"))
-        {
-            <a class="btn btn-outline-primary" href="@Url.Action("Edit", new { Id = Model.Id })">
-                <i class="fa fa-pencil"></i>
-                编辑
-            </a>
-        }
     </div>
 </div>
 
@@ -46,4 +44,6 @@
     <div class="markdown-body" style="padding-bottom:3rem; font-family:'Microsoft YaHei'">
         @Html.Raw(@Model.Content)
     </div>
+    <vc:post-comment article-id="@articleId"></vc:post-comment>
+    <vc:comments article-id="@articleId"></vc:comments>
 </div>

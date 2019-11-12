@@ -1,5 +1,6 @@
 ﻿using HappyDog.Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,5 +28,7 @@ namespace HappyDog.Domain.Entities
         public BaseStatus Status { get; set; }
 
         public Category Category { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+﻿<div class="card comment-form-containter">
+    <div class="card-header">
+        <i class="fa fa-comment-o" aria-hidden="true"></i>
+        评论
+    </div>
+    <form method="post" asp-action="Post" asp-controller="Comment" class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mb-4">
+                <input type="text" class="form-control" name="Name" placeholder="请输入昵称" required maxlength="50" />
+            </div>
+            <div class="col-md-8 col-sm-12 mb-4">
+                <input type="email" class="form-control" name="Email" placeholder="请输入邮箱" required maxlength="120" />
+            </div>
+        </div>
+        <textarea rows="6" class="form-control mb-4" name="Content" required maxlength="1000" placeholder="请输入评论内容，支持 Markdown。"></textarea>
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="ArticleId" value="@ViewBag.ArticleId" />
+        <button class="btn btn-outline-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            提交
+        </button>
+    </form>
+</div>

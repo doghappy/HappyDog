@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
@@ -75,63 +76,6 @@ namespace HappyDog.WebUI.Controllers
             var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
             return View(data);
         }
-
-        //[Authorize(Roles = "Owner")]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var article = await articleService.GetAsync(id, true);
-        //    if (article == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    else
-        //    {
-        //        ViewBag.Categories = await categoryService.GetCategoriesAsync();
-        //        return View(article);
-        //    }
-        //}
-
-        //[HttpPost]
-        //[Authorize(Roles = "Owner")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [FromForm]Article dto)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await articleService.UpdateAsync(id, dto);
-        //        return RedirectToAction("Detail", new { id });
-        //    }
-        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
-        //    return View(dto);
-        //}
-
-        //[Authorize(Roles = "Owner")]
-        //public async Task<IActionResult> Post()
-        //{
-        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
-        //    var article = new Article
-        //    {
-        //        Status = BaseStatus.Disable
-        //    };
-        //    return View(article);
-        //}
-
-        //[HttpPost]
-        //[Authorize(Roles = "Owner")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Post([FromForm]Article dto)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var article = await articleService.AddArticleAsync(dto);
-        //        if (article != null)
-        //        {
-        //            return RedirectToAction("Detail", new { id = article.Id });
-        //        }
-        //    }
-        //    ViewBag.Categories = await categoryService.GetCategoriesAsync();
-        //    return View(dto);
-        //}
 
         public async Task<IActionResult> Search(string q, int page = 1)
         {
