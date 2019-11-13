@@ -10,20 +10,31 @@
 @section Styles{
     <link href="//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet" />
     <link href="~/lib/highlight/styles/vs.css" rel="stylesheet" />
-    <style>
-        .div {
-            background: red;
-        }
-    </style>
 }
 
 @section Scripts{
     <script src="~/lib/highlight/highlight.pack.js"></script>
     <script src="~/js/initial.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
         $('img.avatar').initial();
+
+        function updateCaptcha(sender) {
+            $(sender).children().attr("src", "@Url.Action("Captcha", "Comment")" + "?" + new Date().getTime());
+        }
     </script>
+}
+
+@if (TempData["ErrorCaptcha"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
+        <strong>提交失败</strong> 请填写正确的验证码
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
 
 <div class="jumbotron">

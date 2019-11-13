@@ -1,7 +1,7 @@
 ﻿using HappyDog.Domain;
+using HappyDog.Domain.DataTransferObjects.Comment;
+using HappyDog.WebUI.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace HappyDog.WebUI.ViewComponents
 {
@@ -15,11 +15,10 @@ namespace HappyDog.WebUI.ViewComponents
         readonly HappyDogContext _db;
         public int test;
 
-        public async Task<IViewComponentResult> InvokeAsync(int articleId)
+        public IViewComponentResult Invoke(int articleId)
         {
-            var commentCount = await _db.Comments.CountAsync(c => c.ArticleId == articleId);
             ViewBag.ArticleId = articleId;
-            return View(commentCount);
+            return View(TempData.Get<PostCommentDto>("ErrorModel"));
         }
     }
 }

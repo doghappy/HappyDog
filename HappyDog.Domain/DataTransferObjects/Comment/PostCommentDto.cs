@@ -20,5 +20,10 @@ namespace HappyDog.Domain.DataTransferObjects.Comment
         [Display(Name = "评论")]
         [MaxLength(1000, ErrorMessage = "评论长度不能超过1000个字符")]
         public string Content { get; set; }
+
+        [Required(ErrorMessage = "请输入验证码")]
+        [Display(Name = "验证码")]
+        [StringLength(4, MinimumLength = 4, ErrorMessage = "验证码长度是4个字符")]
+        public string Code { get; set; }
     }
 }
