@@ -17,8 +17,8 @@ variables:
 #  displayName: 'dotnet build $(buildConfiguration)'
 steps:
   - script: |
-      dotnet build --configuration $(buildConfiguration)
-      displayName: 'dotnet build $(buildConfiguration)'
-      docker build -f HappyDog.WebUI/Dockerfile -t $(imageName) .
+      dotnet build HappyDog.WebUI --configuration $(buildConfiguration)
+      displayName: 'dotnet build HappyDog.WebUI $(buildConfiguration)'
+      docker build -f HappyDog.WebUI/Dockerfile -t doghappy/doghappy .
       docker login -u $(DockerId) -p $(DockerPassword)
-      docker push $(imageName)
+      docker push doghappy/doghappy
