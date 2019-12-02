@@ -13,4 +13,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build HappyDog.Api.Test --configuration $(buildConfiguration)
+  - script: |
+      dotnet build HappyDog.Api.Test -c $(buildConfiguration)
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      artifact: 'doghappy-api'
+      publishLocation: 'pipeline'

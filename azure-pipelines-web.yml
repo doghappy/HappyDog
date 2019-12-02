@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- devops/web
+- azure/web
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,4 +14,9 @@ variables:
 
 steps:
   - script: |
-      dotnet build HappyDog.WebUI.Test --configuration $(buildConfiguration)
+      dotnet build HappyDog.WebUI.Test -c $(buildConfiguration)
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      artifact: 'doghappy-web'
+      publishLocation: 'pipeline'
