@@ -14,11 +14,7 @@ namespace HappyDog.WebUI.Controllers
 
         readonly ILogger _logger;
 
-        public IActionResult Error()
-        {
-            var ex = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            if (ex == null)
-            {
+       
                 return base.NotFound();
             }
             else
