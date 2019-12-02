@@ -13,4 +13,4 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build HappyDog.Api --configuration $(buildConfiguration)
+- script: dotnet build HappyDog.Api.Test --configuration $(buildConfiguration)
