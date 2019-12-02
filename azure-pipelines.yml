@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- devops/doghappy
+- devops/web
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -12,13 +12,6 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-#steps:
-#- script: dotnet build --configuration $(buildConfiguration)
-#  displayName: 'dotnet build $(buildConfiguration)'
 steps:
   - script: |
-      dotnet build HappyDog.WebUI --configuration $(buildConfiguration)
-      displayName: 'dotnet build HappyDog.WebUI $(buildConfiguration)'
-      docker build -f HappyDog.WebUI/Dockerfile -t doghappy/doghappy .
-      docker login -u $(DockerId) -p $(DockerPassword)
-      docker push doghappy/doghappy
+      dotnet build HappyDog.WebUI.Test --configuration $(buildConfiguration)
