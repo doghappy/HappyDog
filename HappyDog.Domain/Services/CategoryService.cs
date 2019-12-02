@@ -1,11 +1,12 @@
 ﻿using HappyDog.Domain.Entities;
+using HappyDog.Domain.IServices;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HappyDog.Domain.Services
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
         public CategoryService(HappyDogContext db)
         {

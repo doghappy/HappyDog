@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostComponent } from './post/post.component';
-import { HiddenComponent } from './hidden/hidden.component';
-import { SearchComponent } from './search/search.component';
-import { EditComponent } from './edit/edit.component';
+import { PostComponent } from './article/post/post.component';
+import { HiddenComponent } from './article/hidden/hidden.component';
+import { EditComponent } from './article/edit/edit.component';
+import { SearchComponent } from './article/search/search.component';
 import { AuthGuard } from './auth.guard';
 import { SigninComponent } from './signin/signin.component';
+import { TagListComponent } from './tag/tag-list/tag-list.component';
+import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
 
 const routes: Routes = [
     {
@@ -16,7 +18,9 @@ const routes: Routes = [
             { path: "search", component: SearchComponent },
             { path: "post", component: PostComponent },
             { path: "hidden", component: HiddenComponent },
-            { path: "edit/:id", component: EditComponent }
+            { path: "edit/:id", component: EditComponent },
+            { path: "tags", component: TagListComponent },
+            { path: "tags/:name", component: TagEditComponent }
         ]
     },
     {

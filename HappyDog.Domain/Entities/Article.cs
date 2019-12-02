@@ -19,7 +19,7 @@ namespace HappyDog.Domain.Entities
         [Column(TypeName = "ntext")]
         public string Content { get; set; }
 
-        public int CategoryId { get; set; }
+        public ArticleCategory CategoryId { get; set; }
 
         public DateTimeOffset CreateTime { get; set; }
 
@@ -30,5 +30,7 @@ namespace HappyDog.Domain.Entities
         public Category Category { get; set; }
 
         public List<Comment> Comments { get; set; }
+
+        public List<ArticleTag> ArticleTags { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using HappyDog.Domain.DataTransferObjects;
 using Microsoft.Extensions.Hosting;
 using Edi.Captcha;
 using HappyDog.Infrastructure.Email;
+using HappyDog.Domain.IServices;
 
 namespace HappyDog.WebUI
 {
@@ -37,12 +38,12 @@ namespace HappyDog.WebUI
             var mapper = mappingConfig.CreateMapper();
 
             services.AddSingleton(mapper);
-            services.AddScoped<ArticleService>();
+            services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<CommentService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<NetEase126Sender>();
+            services.AddSingleton<IEmailSender, NetEase126Sender>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);

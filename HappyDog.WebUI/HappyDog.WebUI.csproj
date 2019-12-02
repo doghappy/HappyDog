@@ -1,77 +1,130 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UserSecretsId>ef924966-16fa-4344-886d-cd6b9493a222</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <UserSecretsId>ef924966-16fa-4344-886d-cd6b9493a222</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Pages\About.cshtml" />
-    <Content Remove="Pages\Contact.cshtml" />
-    <Content Remove="Pages\Error.cshtml" />
-    <Content Remove="Pages\Privacy.cshtml" />
-    <Content Remove="Pages\_ViewImports.cshtml" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Remove="Pages\About.cshtml" />
+        <Content Remove="Pages\Contact.cshtml" />
+        <Content Remove="Pages\Error.cshtml" />
+        <Content Remove="Pages\Privacy.cshtml" />
+        <Content Remove="Pages\_ViewImports.cshtml" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Pages\Index.cshtml.cs.bak" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Pages\Index.cshtml.cs.bak" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="Pages\Index.cshtml.cs.bak" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Pages\Index.cshtml.cs.bak" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="Pages\About.cshtml" />
-    <None Include="Pages\Contact.cshtml" />
-    <None Include="Pages\Error.cshtml" />
-    <None Include="Pages\Privacy.cshtml" />
-    <None Include="Pages\_ViewImports.cshtml" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="Pages\About.cshtml" />
+        <None Include="Pages\Contact.cshtml" />
+        <None Include="Pages\Error.cshtml" />
+        <None Include="Pages\Privacy.cshtml" />
+        <None Include="Pages\_ViewImports.cshtml" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Edi.Captcha" Version="2.0.0" />
-    <PackageReference Include="Markdig" Version="0.18.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="9.0.0" />
+        <PackageReference Include="Edi.Captcha" Version="2.1.0" />
+        <!--<PackageReference Include="HappyDog.Domain" Version="1.0.2.6" />-->
+        <PackageReference Include="Markdig" Version="0.18.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HappyDog.Domain\HappyDog.Domain.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\HappyDog.Domain\HappyDog.Domain.csproj" />
+      <ProjectReference Include="..\HappyDog.Infrastructure\HappyDog.Infrastructure.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="Views\Article\Essays.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Article\Read.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Article\EmptySearch.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\_Layout.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\_ViewImports.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\_ViewStart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\highlight\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Update="Views\Article\Essays.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="Views\Article\Read.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="Views\Article\EmptySearch.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="Views\Shared\_Layout.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="Views\_ViewImports.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="Views\_ViewStart.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
+        <Content Update="wwwroot\404.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\css\site.css">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\favicon.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\404.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\banner1.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\banner2.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\banner3.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\db.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\IMG_0416.JPG">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\Ink_4x3.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\moonRobot.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\Office_8x3.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\swimlane-dotnet-core.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\images\Windows_10_Logo.svg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\js\initial.min.js">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\lib\highlight\highlight.pack.js">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\lib\highlight\styles\vs2015.css">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\PrivacyStatements\DogHappyWallpaper.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>

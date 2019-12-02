@@ -22,18 +22,18 @@ export class ArticleService {
     }
 
     getArticle(id: number): Observable<Article> {
-        return this.http.get<Article>(`${environment.consoleApiBaseAddress}/api/article/${id}`, { withCredentials: true });
+        return this.http.get<Article>(`/api/article/${id}`, { withCredentials: true });
     }
 
     getHiddenArticles(): Observable<Article[]> {
-        return this.http.get<Article[]>(`${environment.consoleApiBaseAddress}/api/article/disabled`, { withCredentials: true });
+        return this.http.get<Article[]>(`/api/article/disabled`, { withCredentials: true });
     }
 
     post(postDto: PostArticleDto): Observable<Article> {
-        return this.http.post<Article>(`${environment.consoleApiBaseAddress}/api/article`, postDto, { withCredentials: true });
+        return this.http.post<Article>(`/api/article`, postDto, { withCredentials: true });
     }
 
     put(id: number, putDto: PutArticleDto): Observable<Article> {
-        return this.http.put<Article>(`${environment.consoleApiBaseAddress}/api/article/${id}`, putDto, { withCredentials: true });
+        return this.http.put<Article>(`/api/article/${id}`, putDto, { withCredentials: true });
     }
 }

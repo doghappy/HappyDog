@@ -9,7 +9,7 @@ namespace HappyDog.Domain.Entities
     public class Category
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        public ArticleCategory Id { get; set; }
 
         [Required]
         [MaxLength(20)]

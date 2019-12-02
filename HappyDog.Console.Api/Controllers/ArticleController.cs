@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects.Article;
-using HappyDog.Domain.Entities;
-using HappyDog.Domain.Enums;
+using HappyDog.Domain.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HappyDog.Console.Api.Controllers
 {
@@ -19,64 +12,43 @@ namespace HappyDog.Console.Api.Controllers
     [Authorize]
     public class ArticleController : ControllerBase
     {
-        public ArticleController(HappyDogContext db, IMapper mapper)
+        public ArticleController(IArticleService articleService)
         {
-            _db = db;
-            _mapper = mapper;
+            _articleService = articleService;
         }
 
-        readonly HappyDogContext _db;
-        readonly IMapper _mapper;
+        readonly IArticleService _articleService;
 
         [HttpGet("disabled")]
-        public async Task<List<ArticleDto>> DisabledList()
+        public async Task<List<ArticleDto>> GetDisabledList()
         {
-            return await _db.Articles.AsNoTracking()
-                .Include(a => a.Category)
-                .Where(a => a.Status == BaseStatus.Disable)
-                .OrderByDescending(a => a.Id)
-                .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            return await _articleService.GetDisabledArticlesDtoAsync();
         }
 
         [HttpPost]
         public async Task<ArticleDetailDto> Post([FromBody]PostArticleDto dto)
         {
-            var article = _mapper.Map<Article>(dto);
-            article.CreateTime = DateTimeOffset.Now;
-            await _db.Articles.AddAsync(article);
-            await _db.SaveChangesAsync();
-            return _mapper.Map<ArticleDetailDto>(article);
+            return await _articleService.PostAsync(dto);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody]PutArticleDto dto)
         {
-            var article = await _db.Articles.SingleOrDefaultAsync(a => a.Id == id);
+            var article = await _articleService.PutAsync(id, dto);
             if (article == null)
             {
                 return NotFound();
             }
             else
             {
-                article.CategoryId = dto.CategoryId;
-                article.Title = dto.Title;
-                article.Content = dto.Content;
-                article.Status = dto.Status;
-                await _db.SaveChangesAsync();
-                return new JsonResult(_mapper.Map<ArticleDetailDto>(article));
+                return new JsonResult(article);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<ArticleDetailDto> Detail(int id)
         {
-            var article = await _db.Articles.SingleOrDefaultAsync(a => a.Id == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-            return new JsonResult(_mapper.Map<ArticleDetailDto>(article));
+            return await _articleService.GetArticleDetailDtoAsync(id);
         }
     }
 }

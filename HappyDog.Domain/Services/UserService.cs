@@ -3,10 +3,11 @@ using HappyDog.Domain.Entities;
 using HappyDog.Domain.Models.Results;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using HappyDog.Domain.IServices;
 
 namespace HappyDog.Domain.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         public UserService(HappyDogContext db)
         {

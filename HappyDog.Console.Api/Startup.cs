@@ -6,7 +6,9 @@ using HappyDog.Domain.DataTransferObjects;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Identity;
+using HappyDog.Domain.IServices;
 using HappyDog.Domain.Models.Results;
+using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,17 +39,17 @@ namespace HappyDog.Console.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Console", builder =>
-                {
-                    string[] origins = Configuration.GetSection("Origins").Get<string[]>();
-                    builder.WithOrigins(origins);
-                    builder.AllowAnyMethod();
-                    builder.AllowAnyHeader();
-                    builder.AllowCredentials();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("Console", builder =>
+            //    {
+            //        string[] origins = Configuration.GetSection("Origins").Get<string[]>();
+            //        builder.WithOrigins(origins);
+            //        builder.AllowAnyMethod();
+            //        builder.AllowAnyHeader();
+            //        builder.AllowCredentials();
+            //    });
+            //});
             services.AddControllers();
 
             string conn = Configuration.GetConnectionString("HappyDog");
@@ -57,6 +59,8 @@ namespace HappyDog.Console.Api
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<Role>, RoleStore>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher>();
+            services.AddTransient<IArticleService, ArticleService>();
+            services.AddTransient<ITagService, TagService>();
 
             var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
             var mapper = mappingConfig.CreateMapper();
@@ -87,36 +91,6 @@ namespace HappyDog.Console.Api
                     await context.HttpContext.Response.WriteAsync(content, Encoding.UTF8);
                 };
             });
-
-            //services.Configure<ApiBehaviorOptions>(config =>
-            //{
-            //    config.InvalidModelStateResponseFactory = actionContext =>
-            //    {
-            //        var models = new List<InvalidModel>();
-            //        foreach (var value in actionContext.ModelState.Values)
-            //        {
-            //            value
-            //            //var model = new InvalidModel
-            //            //{
-            //            //    Property = value.
-            //            //};
-            //            foreach (var error in value.Errors)
-            //            {
-            //                //models.Add(error.ErrorMessage);
-            //            }
-            //        }
-            //        var result = new JsonResult(new HttpDataResult<List<string>>
-            //        {
-            //            NoticeMode = NoticeMode.Warning,
-            //            Data = new List<string>(),
-            //            Message = "BadRequest"
-            //        })
-            //        {
-            //            StatusCode = StatusCodes.Status400BadRequest
-            //        };
-            //        return result;
-            //    };
-            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,6 +103,7 @@ namespace HappyDog.Console.Api
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/home/error");
                 app.UseHsts();
             }
 
@@ -163,7 +138,7 @@ namespace HappyDog.Console.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors("Console");
+            //app.UseCors("Console");
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

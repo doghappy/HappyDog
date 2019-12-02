@@ -1,4 +1,5 @@
 import { Category } from './category';
+import { Tag } from '../tag/tag';
 
 export class Article {
     id: number;
@@ -9,4 +10,5 @@ export class Article {
     createTime: string;
     categoryId: number;
     category: Category;
+    tags: Tag[];
 }

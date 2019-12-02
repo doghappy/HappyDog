@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -27,8 +28,14 @@ namespace HappyDog.WebUI.Controllers
             }
         }
 
-        public IActionResult About()
+        //public IActionResult About()
+        //{
+        //    return View();
+        //}
+
+        public new IActionResult NotFound()
         {
+            Response.StatusCode = StatusCodes.Status404NotFound;
             return View();
         }
     }

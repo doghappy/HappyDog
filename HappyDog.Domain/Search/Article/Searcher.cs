@@ -6,6 +6,7 @@ using HappyDog.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -30,24 +31,21 @@ namespace HappyDog.Domain.Search.Article
 
         public async virtual Task<Pagination<ArticleDto>> MatchAsync(GroupCollection groups, int page, int size)
         {
+            Expression<Func<Entities.Article, bool>> condition = a =>
+                a.Status == BaseStatus.Enabled
+                && a.CategoryId == Category
+                && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase);
+
             var pagination = new Pagination<ArticleDto>
             {
                 Page = page,
                 Size = size,
                 TotalItems = await _db.Articles.Include(a => a.Category).AsNoTracking()
-                    .Where(a =>
-                        a.Status == BaseStatus.Enable
-                        && a.CategoryId == (int)Category
-                        && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase)
-                    )
+                    .Where(condition)
                     .CountAsync()
             };
             pagination.Data = await _db.Articles.Include(a => a.Category).AsNoTracking()
-                .Where(a =>
-                    a.Status == BaseStatus.Enable
-                    && a.CategoryId == (int)Category
-                    && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase)
-                )
+                .Where(condition)
                 .OrderByDescending(a => a.Id)
                 .Skip((pagination.Page - 1) * pagination.Size)
                 .Take(pagination.Size)

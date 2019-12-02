@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using HappyDog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using HappyDog.Domain.Services;
 using HappyDog.Domain.Models.Results;
-using Microsoft.AspNetCore.Authorization;
 using HappyDog.Domain.Enums;
 using System.Net;
 using HappyDog.Domain.DataTransferObjects.Article;
+using HappyDog.Domain.IServices;
 
 namespace HappyDog.Api.Controllers
 {
@@ -21,13 +20,13 @@ namespace HappyDog.Api.Controllers
         /// 
         /// </summary>
         /// <param name="articleService"></param>
-        public ArticleController(ArticleService articleService)
+        public ArticleController(IArticleService articleService)
         {
             _articleService = articleService;
             PageSize = 20;
         }
 
-        readonly ArticleService _articleService;
+        readonly IArticleService _articleService;
 
         /// <summary>
         /// 页码
@@ -58,7 +57,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet]
         public async Task<Pagination<ArticleDto>> List(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, null);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, null);
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("net")]
         public async Task<Pagination<ArticleDto>> Net(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Net);
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("db")]
         public async Task<Pagination<ArticleDto>> Database(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Database);
         }
 
         /// <summary>
@@ -91,7 +90,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("windows")]
         public async Task<Pagination<ArticleDto>> Windows(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Windows);
         }
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("read")]
         public async Task<Pagination<ArticleDto>> Read(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Read);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace HappyDog.Api.Controllers
         [HttpGet("essays")]
         public async Task<Pagination<ArticleDto>> Essays(int page = 1)
         {
-            return await _articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
+            return await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Essays);
         }
 
         /// <summary>

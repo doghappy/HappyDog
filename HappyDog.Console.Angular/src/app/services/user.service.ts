@@ -17,13 +17,13 @@ export class UserService {
     isAuth: boolean;
 
     public signIn(signInDto: SignInDto): Observable<HttpBaseResult> {
-        return this.http.post<HttpBaseResult>(`${environment.consoleApiBaseAddress}/api/user/signin`, signInDto, {
+        return this.http.post<HttpBaseResult>(`/api/user/signin`, signInDto, {
             withCredentials: true
         });
     }
 
     public signOut(): Observable<HttpBaseResult> {
-        return this.http.post<HttpBaseResult>(`${environment.consoleApiBaseAddress}/api/user/signout`, {}, {
+        return this.http.post<HttpBaseResult>(`/api/user/signout`, {}, {
             withCredentials: true
         });
     }

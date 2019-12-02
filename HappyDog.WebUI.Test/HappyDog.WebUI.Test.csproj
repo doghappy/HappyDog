@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HappyDog.Domain\HappyDog.Domain.csproj" />
+    <ProjectReference Include="..\HappyDog.Infrastructure\HappyDog.Infrastructure.csproj" />
     <ProjectReference Include="..\HappyDog.WebUI\HappyDog.WebUI.csproj" />
   </ItemGroup>
 

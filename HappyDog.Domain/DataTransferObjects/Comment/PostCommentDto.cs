@@ -25,5 +25,8 @@ namespace HappyDog.Domain.DataTransferObjects.Comment
         [Display(Name = "验证码")]
         [StringLength(4, MinimumLength = 4, ErrorMessage = "验证码长度是4个字符")]
         public string Code { get; set; }
+
+        [Editable(false)]
+        public string IPv4 { get; set; }
     }
 }

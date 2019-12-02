@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
@@ -19,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HappyDog.Console.Api\HappyDog.Console.Api.csproj" />
     <ProjectReference Include="..\HappyDog.Domain\HappyDog.Domain.csproj" />
+    <ProjectReference Include="..\HappyDog.Test.Common\HappyDog.Test.Common.csproj" />
   </ItemGroup>
 
 </Project>

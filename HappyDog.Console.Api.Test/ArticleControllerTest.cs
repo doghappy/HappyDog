@@ -1,12 +1,12 @@
 ﻿using HappyDog.Console.Api.Controllers;
-using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects.Article;
-using HappyDog.Domain.Entities;
-using HappyDog.Domain.Enums;
+using HappyDog.Domain.IServices;
+using HappyDog.Test.Common;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HappyDog.Console.Api.Test
 {
@@ -16,134 +16,61 @@ namespace HappyDog.Console.Api.Test
         [TestMethod]
         public async Task DisabledListTest()
         {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
-                await db.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enable, Category = new Category() });
-                await db.SaveChangesAsync();
-
-                var controller = new ArticleController(db, Mapper);
-                var data = await controller.DisabledList();
-
-                Assert.AreEqual(1, data.Count);
-                Assert.AreEqual("article 1", data[0].Title);
-            }
-        }
-
-        [TestMethod]
-        public async Task PostTest()
-        {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                var controller = new ArticleController(db, Mapper);
-                var postDto = new PostArticleDto
+            var mockSvc = new Mock<IArticleService>();
+            mockSvc
+                .Setup(m => m.GetDisabledArticlesDtoAsync())
+                .Returns(Task.FromResult(new List<ArticleDto>
                 {
-                    Title = "Title",
-                    CategoryId = 1,
-                    Content = "Content",
-                    Status = BaseStatus.Enable
-                };
+                    new ArticleDto { Id = 1, Title = "ArticleDto 1" },
+                    new ArticleDto { Id = 2, Title = "ArticleDto 2" }
+                }));
 
-                var detailDto = await controller.Post(postDto);
-                var articles = await db.Articles.ToListAsync();
+            var controller = new ArticleController(mockSvc.Object);
+            var list = await controller.GetDisabledList();
 
-                Assert.AreEqual("Title", detailDto.Title);
-                Assert.AreEqual("Content", detailDto.Content);
-                Assert.AreEqual(1, detailDto.CategoryId);
-                Assert.AreEqual(BaseStatus.Enable, detailDto.Status);
+            Assert.AreEqual(2, list.Count);
 
-                Assert.AreEqual(1, articles.Count);
-                Assert.AreEqual(1, articles[0].Id);
-                Assert.AreEqual("Title", articles[0].Title);
-                Assert.AreEqual("Content", articles[0].Content);
-                Assert.AreEqual(1, articles[0].CategoryId);
-                Assert.AreEqual(BaseStatus.Enable, articles[0].Status);
-            }
+            Assert.AreEqual(1, list[0].Id);
+            Assert.AreEqual("ArticleDto 1", list[0].Title);
+
+            Assert.AreEqual(2, list[1].Id);
+            Assert.AreEqual("ArticleDto 2", list[1].Title);
         }
 
         [TestMethod]
-        public async Task PutNotFoundTest()
+        public async Task Put_not_exists_article()
         {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                var controller = new ArticleController(db, Mapper);
-                var putDto = new PutArticleDto
+            var mockSvc = new Mock<IArticleService>();
+            mockSvc
+                .Setup(m => m.PutAsync(It.IsAny<int>(), It.IsAny<PutArticleDto>()))
+                .Returns(Task.FromResult(default(ArticleDetailDto)));
+
+            var controller = new ArticleController(mockSvc.Object);
+            var actionResult = await controller.Put(1, new PutArticleDto());
+            var notFoundResult = actionResult as NotFoundResult;
+
+            Assert.IsNotNull(notFoundResult);
+        }
+
+        [TestMethod]
+        public async Task Put_exists_article()
+        {
+            var mockSvc = new Mock<IArticleService>();
+            mockSvc
+                .Setup(m => m.PutAsync(It.IsAny<int>(), It.IsAny<PutArticleDto>()))
+                .Returns(Task.FromResult(new ArticleDetailDto
                 {
-                    Title = "Title",
-                    CategoryId = 1,
-                    Content = "Content",
-                    Status = BaseStatus.Enable
-                };
+                    Id = 666,
+                    Title = "test111"
+                }));
 
-                var notFoundResult = await controller.Put(1, putDto) as NotFoundResult;
-                var articles = await db.Articles.ToListAsync();
+            var controller = new ArticleController(mockSvc.Object);
+            var actionResult = await controller.Put(1, new PutArticleDto());
+            var jsonResult = actionResult as JsonResult;
+            var dto = jsonResult.Value as ArticleDetailDto;
 
-                Assert.AreEqual(404, notFoundResult.StatusCode);
-                Assert.AreEqual(0, articles.Count);
-            }
-        }
-
-        [TestMethod]
-        public async Task PutTest()
-        {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
-                await db.SaveChangesAsync();
-
-                var controller = new ArticleController(db, Mapper);
-                var putDto = new PutArticleDto
-                {
-                    Title = "Title",
-                    CategoryId = 1,
-                    Content = "Content",
-                    Status = BaseStatus.Enable
-                };
-
-                var jsonResult = await controller.Put(1, putDto) as JsonResult;
-                var detailDto = jsonResult.Value as ArticleDetailDto;
-                var articles = await db.Articles.ToListAsync();
-
-                Assert.AreEqual("Title", detailDto.Title);
-                Assert.AreEqual("Content", detailDto.Content);
-                Assert.AreEqual(1, detailDto.CategoryId);
-                Assert.AreEqual(BaseStatus.Enable, detailDto.Status);
-
-                Assert.AreEqual(1, articles.Count);
-                Assert.AreEqual(1, articles[0].Id);
-                Assert.AreEqual("Title", articles[0].Title);
-                Assert.AreEqual("Content", articles[0].Content);
-                Assert.AreEqual(1, articles[0].CategoryId);
-                Assert.AreEqual(BaseStatus.Enable, articles[0].Status);
-            }
-        }
-
-        [TestMethod]
-        public async Task GetNotFoundTest()
-        {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                var controller = new ArticleController(db, Mapper);
-
-                var notFoundResult = await controller.Detail(1) as NotFoundResult;
-                Assert.AreEqual(404, notFoundResult.StatusCode);
-            }
-        }
-
-        [TestMethod]
-        public async Task GetTest()
-        {
-            using (var db = new HappyDogContext(GetOptions()))
-            {
-                await db.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disable, Category = new Category() });
-                await db.SaveChangesAsync();
-
-                var controller = new ArticleController(db, Mapper);
-
-                var jsonResult = await controller.Detail(1) as JsonResult;
-                var detailDto = jsonResult.Value as ArticleDetailDto;
-                Assert.AreEqual(1, detailDto.Id);
-            }
+            Assert.AreEqual(666, dto.Id);
+            Assert.AreEqual("test111", dto.Title);
         }
     }
 }

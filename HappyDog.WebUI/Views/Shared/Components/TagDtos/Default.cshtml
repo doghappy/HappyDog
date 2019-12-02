@@ -1,0 +1,24 @@
+﻿@model ICollection<HappyDog.Domain.DataTransferObjects.Tag.TagDto>
+
+@if (Model != null && Model.Count > 0)
+{
+    <p class="mb-1 text-muted">
+        @foreach (var tag in Model)
+        {
+            if (string.IsNullOrEmpty(tag.Color))
+            {
+                <span class="badge badge-light border border-secondary text-secondary">
+                    <i class="fa fa-tag"></i>
+                    @tag.Name
+                </span>
+            }
+            else
+            {
+                <span class="badge badge-light" style="border:1px solid @(tag.Color); color:@(tag.Color)">
+                    <i class="fa fa-tag"></i>
+                    @tag.Name
+                </span>
+            }
+        }
+    </p>
+}

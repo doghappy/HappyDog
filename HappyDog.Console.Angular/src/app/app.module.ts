@@ -4,13 +4,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
-import { PostComponent } from './post/post.component';
-import { HiddenComponent } from './hidden/hidden.component';
-import { EditComponent } from './edit/edit.component';
 import { SigninComponent } from './signin/signin.component';
-import { SearchComponent } from './search/search.component';
 import { ArticleListComponent } from './components/article-list/article-list.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { TagListComponent } from './tag/tag-list/tag-list.component';
+import { PostComponent } from './article/post/post.component';
+import { HiddenComponent } from './article/hidden/hidden.component';
+import { EditComponent } from './article/edit/edit.component';
+import { SearchComponent } from './article/search/search.component';
+import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
 
 @NgModule({
     declarations: [
@@ -21,13 +25,17 @@ import { PaginationComponent } from './components/pagination/pagination.componen
         SigninComponent,
         SearchComponent,
         ArticleListComponent,
-        PaginationComponent
+        PaginationComponent,
+        TagListComponent,
+        TagEditComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [
     ],

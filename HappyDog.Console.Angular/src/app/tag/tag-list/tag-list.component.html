@@ -1,0 +1,19 @@
+<div class="container pt-4 pb-4">
+  <ng-container *ngFor="let tag of tags">
+    <a [routerLink]="'/tags/'+tag.name"
+       *ngIf="tag.color"
+       class="btn btn-default m-1"
+       [style.color]="tag.color"
+       [style.borderColor]="tag.color"
+       style="border-width:1px; border-style:solid;">
+      <i class="fa fa-tag"></i>
+      {{tag.name}}
+    </a>
+    <a [routerLink]="'/tags/'+tag.name"
+       *ngIf="!tag.color"
+       class="btn btn-default border border-secondary text-secondary m-1">
+      <i class="fa fa-tag"></i>
+      {{tag.name}}
+    </a>
+  </ng-container>
+</div>

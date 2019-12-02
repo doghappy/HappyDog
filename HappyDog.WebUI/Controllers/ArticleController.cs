@@ -1,79 +1,79 @@
 ﻿using System.Threading.Tasks;
-using HappyDog.Domain.DataTransferObjects.Comment;
-using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
+using HappyDog.Domain.IServices;
 using HappyDog.Domain.Services;
-using HappyDog.Infrastructure;
 using Markdig;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyDog.WebUI.Controllers
 {
     public class ArticleController : Controller
     {
-        public ArticleController(ArticleService articleService, CategoryService categoryService)
+        public ArticleController(IArticleService articleService, CategoryService categoryService)
         {
             PageSize = 20;
             this.articleService = articleService;
             this.categoryService = categoryService;
         }
 
-        readonly ArticleService articleService;
+        readonly IArticleService articleService;
         readonly CategoryService categoryService;
 
         public int PageSize { get; set; }
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, null);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, null);
             return View(data);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var article = await articleService.GetArticleDetailDtoAsync(id);
+            var article = await articleService.GetEnabledArticleDetailDtoAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
             else
             {
-                var pipeline = new MarkdownPipelineBuilder()
-                    .UsePipeTables()
-                    .Build();
-                article.Content = Markdown.ToHtml(article.Content, pipeline);
+                if (article.Content != null)
+                {
+                    var pipeline = new MarkdownPipelineBuilder()
+                        .UsePipeTables()
+                        .Build();
+                    article.Content = Markdown.ToHtml(article.Content, pipeline);
+                }
                 return View(article);
             }
         }
 
         public async Task<IActionResult> Net(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Net);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Net);
             return View(data);
         }
 
         public async Task<IActionResult> Database(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Database);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Database);
             return View(data);
         }
 
         public async Task<IActionResult> Windows(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Windows);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Windows);
             return View(data);
         }
 
         public async Task<IActionResult> Read(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Read);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Read);
             return View(data);
         }
 
         public async Task<IActionResult> Essays(int page = 1)
         {
-            var data = await articleService.GetArticleDtosAsync(page, PageSize, ArticleCategory.Essays);
+            var data = await articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Essays);
             return View(data);
         }
 
@@ -83,7 +83,7 @@ namespace HappyDog.WebUI.Controllers
             if (string.IsNullOrWhiteSpace(q))
             {
                 ViewBag.Message = "请输入关键词";
-                var hotData = await articleService.GetTopArticleDtosAsync(20);
+                var hotData = await articleService.GetTopArticlesDtoAsync(20);
                 return View("EmptySearch", hotData);
             }
             else
@@ -92,7 +92,7 @@ namespace HappyDog.WebUI.Controllers
                 if (pagination.TotalItems == 0)
                 {
                     ViewBag.Message = $"未找到与 \"{q}\" 相关的数据";
-                    var hotData = await articleService.GetTopArticleDtosAsync(20);
+                    var hotData = await articleService.GetTopArticlesDtoAsync(20);
                     return View("EmptySearch", hotData);
                 }
                 else

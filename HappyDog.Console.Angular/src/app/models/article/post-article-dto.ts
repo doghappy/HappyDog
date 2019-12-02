@@ -3,4 +3,5 @@ export class PostArticleDto {
     content: string;
     status: number;
     categoryId: number;
+    tagNames: string[];
 }

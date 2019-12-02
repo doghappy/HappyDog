@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using HappyDog.Domain.DataTransferObjects;
 using Microsoft.Extensions.Hosting;
+using HappyDog.Domain.IServices;
 
 namespace HappyDog.Api
 {
@@ -79,11 +80,11 @@ namespace HappyDog.Api
 
             //https://stackoverflow.com/questions/38138100/what-is-the-difference-between-services-addtransient-service-addscope-and-servi
 
-            services.AddScoped<ArticleService>();
-            services.AddScoped<UserService>();
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IUserService, UserService>();
             #endregion
 
-            services.AddOpenApiDocument(configure =>
+            services.AddSwaggerDocument(configure =>
             {
                 configure.PostProcess = document =>
                 {
@@ -117,11 +118,6 @@ namespace HappyDog.Api
                 app.UseExceptionHandler("/home/error");
             }
 
-            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://angular.doghappy.wang")
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .AllowCredentials());
-
             app.UseStatusCodePages(async context =>
             {
                 context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
@@ -151,7 +147,13 @@ namespace HappyDog.Api
             });
 
             app.UseHttpsRedirection();
-            app.UseOpenApi();
+            app.UseOpenApi(configure =>
+            {
+                configure.PostProcess = (document, req) =>
+                {
+                    document.Schemes = new[] { OpenApiSchema.Https };
+                };
+            });
             app.UseSwaggerUi3();
             app.UseReDoc();
             app.UseRouting();

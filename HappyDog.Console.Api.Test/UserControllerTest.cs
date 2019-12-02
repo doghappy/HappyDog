@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using HappyDog.Test.Common;
 
 namespace HappyDog.Console.Api.Test
 {
@@ -23,7 +24,7 @@ namespace HappyDog.Console.Api.Test
             var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
             var mockContextAccessor = new Mock<IHttpContextAccessor>();
             var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
-            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null, null);
             signInManagerMock
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(Task.FromResult(new SignInResultWrapper(true, false) as Microsoft.AspNetCore.Identity.SignInResult));
@@ -48,7 +49,7 @@ namespace HappyDog.Console.Api.Test
             var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
             var mockContextAccessor = new Mock<IHttpContextAccessor>();
             var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
-            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null, null);
             signInManagerMock
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(Task.FromResult(new Microsoft.AspNetCore.Identity.SignInResult()));
@@ -73,7 +74,7 @@ namespace HappyDog.Console.Api.Test
             var mockUserManager = new Mock<UserManager<User>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
             var mockContextAccessor = new Mock<IHttpContextAccessor>();
             var mockUserPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<User>>();
-            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null);
+            var signInManagerMock = new Mock<SignInManager<User>>(mockUserManager.Object, mockContextAccessor.Object, mockUserPrincipalFactory.Object, null, null, null, null);
             signInManagerMock
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(Task.FromResult(new SignInResultWrapper(false, true) as Microsoft.AspNetCore.Identity.SignInResult));

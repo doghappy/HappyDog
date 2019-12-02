@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Entities;
@@ -22,7 +19,7 @@ namespace HappyDog.WebUI.Controllers
             IMapper mapper,
             CommentService commentService,
             ISessionBasedCaptcha captcha,
-            NetEase126Sender emailSender)
+            IEmailSender emailSender)
         {
             _mapper = mapper;
             _commentService = commentService;
@@ -33,7 +30,7 @@ namespace HappyDog.WebUI.Controllers
         readonly IMapper _mapper;
         readonly CommentService _commentService;
         readonly ISessionBasedCaptcha _captcha;
-        readonly NetEase126Sender _emailSender;
+        readonly IEmailSender _emailSender;
 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(PostCommentDto dto)
@@ -42,9 +39,8 @@ namespace HappyDog.WebUI.Controllers
             {
                 if (_captcha.ValidateCaptchaCode(dto.Code, HttpContext.Session))
                 {
-                    var comment = _mapper.Map<Comment>(dto);
-                    comment.IPv4 = Request.Host.ToString();
-                    await _commentService.CreateAsync(comment);
+                    dto.IPv4 = Request.Host.ToString();
+                    await _commentService.CreateAsync(dto);
                     await Task.Factory.StartNew(async () =>
                     {
                         var builder = new StringBuilder();
