@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- azure/console-api
+  branches:
+    include:
+    - azure/console-api
 
 pool:
   vmImage: 'ubuntu-latest'
