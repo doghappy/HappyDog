@@ -14,7 +14,7 @@ namespace HappyDog.Api.Test
     [TestClass]
     public class ArticleControllerTest
     {
-        //ĞèÒª½«ËÑË÷µÄ²âÊÔ×ªÒÆµ½Domain.Test
+        //éœ€è¦å°†æœç´¢çš„æµ‹è¯•è½¬ç§»åˆ°Domain.Test
 
         [TestMethod]
         public async Task Search_with_empty_key()
@@ -29,7 +29,7 @@ namespace HappyDog.Api.Test
             };
             var result = await articleContoller.Search(null);
 
-            Assert.AreEqual("ÇëÊäÈë¹Ø¼ü´Ê", result.Message);
+            Assert.AreEqual("è¯·è¾“å…¥å…³é”®è¯", result.Message);
             Assert.AreEqual(NoticeMode.Info, result.NoticeMode);
             mockSvc.Verify(m => m.SearchAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never());
         }
@@ -322,7 +322,7 @@ namespace HappyDog.Api.Test
 
         //    Assert.AreEqual(StatusCodes.Status400BadRequest, controller.Response.StatusCode);
         //    Assert.AreEqual(NoticeMode.Info, result.NoticeMode);
-        //    Assert.AreEqual("ÇëÊäÈë¹Ø¼ü´Ê", result.Message);
+        //    Assert.AreEqual("è¯·è¾“å…¥å…³é”®è¯", result.Message);
         //}
 
         //[TestMethod]
