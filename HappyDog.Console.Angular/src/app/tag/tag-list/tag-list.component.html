@@ -1,6 +1,6 @@
 <div class="container pt-4 pb-4">
   <ng-container *ngFor="let tag of tags">
-    <a [routerLink]="'/tags/'+tag.name"
+    <a [routerLink]="'/tags/'+tag.id"
        *ngIf="tag.color"
        class="btn btn-default m-1"
        [style.color]="tag.color"
@@ -9,7 +9,7 @@
       <i class="fa fa-tag"></i>
       {{tag.name}}
     </a>
-    <a [routerLink]="'/tags/'+tag.name"
+    <a [routerLink]="'/tags/'+tag.id"
        *ngIf="!tag.color"
        class="btn btn-default border border-secondary text-secondary m-1">
       <i class="fa fa-tag"></i>

@@ -20,7 +20,7 @@ namespace HappyDog.Console.Api.Controllers
         readonly ITagService _tagService;
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTag(string id)
+        public async Task<IActionResult> GetTag(int id)
         {
             var tag = await _tagService.GetTagDtoAsync(id);
             if (tag == null)
