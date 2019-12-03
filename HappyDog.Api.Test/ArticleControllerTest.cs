@@ -14,7 +14,7 @@ namespace HappyDog.Api.Test
     [TestClass]
     public class ArticleControllerTest
     {
-        //需要将搜索的测试转移到Domain.Test .
+        //需要将搜索的测试转移到Domain.Test
 
         [TestMethod]
         public async Task Search_with_empty_key()
