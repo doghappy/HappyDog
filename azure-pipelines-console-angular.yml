@@ -1,0 +1,30 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+    - azure/console-angular
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    cd HappyDog.Console.Angular
+    npm install -g @angular/cli
+    npm install
+    ng build --prod
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/HappyDog.Console.Angular/dist/HappyDog-Console-Angular'
+    artifact: 'doghappy-console-angular'
+    publishLocation: 'pipeline'
