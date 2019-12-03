@@ -38,7 +38,7 @@ namespace HappyDog.WebUI.Test
         {
             var mockSvc = new Mock<IArticleService>();
             mockSvc
-                .Setup(s => s.GetArticleDetailDtoAsync(It.IsAny<int>()))
+                .Setup(s => s.GetEnabledArticleDetailDtoAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(new ArticleDetailDto
                 {
                     Title = "article 1",
@@ -46,11 +46,12 @@ namespace HappyDog.WebUI.Test
                     Content = "**Content**"
                 }));
             using var controller = new ArticleController(mockSvc.Object, null);
-            var result = (await controller.Detail(2)) as ViewResult;
+            var result = (await controller.Detail(It.IsAny<int>())) as ViewResult;
             var dto = result.Model as ArticleDetailDto;
             Assert.AreEqual("article 1", dto.Title);
             Assert.AreEqual(ArticleCategory.Net, dto.CategoryId);
             Assert.IsTrue(dto.Content.StartsWith("<p><strong>Content</strong></p>"));
+            mockSvc.Verify(m => m.GetEnabledArticleDetailDtoAsync(It.IsAny<int>()), Times.Once());
         }
 
         [TestMethod]
