@@ -88,7 +88,7 @@ namespace HappyDog.Domain.Test.Services
             await DbContext.SaveChangesAsync();
 
             var svc = new TagService(DbContext, Mapper);
-            var result = await svc.GetTagDtoAsync(" vs code ");
+            var result = await svc.GetTagDtoAsync(1);
 
             Assert.AreEqual("VS Code", result.Name);
         }
