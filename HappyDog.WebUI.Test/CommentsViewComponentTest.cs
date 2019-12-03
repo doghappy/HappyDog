@@ -4,6 +4,7 @@ using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
+using HappyDog.Test.Common;
 using HappyDog.WebUI.ViewComponents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,24 +19,10 @@ namespace HappyDog.WebUI.Test
     [TestClass]
     public class CommentsViewComponentTest : TestBase
     {
-        HappyDogContext _db;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _db = new HappyDogContext(GetOptions());
-        }
-
-        [TestCleanup]
-        public async Task CleanupAsync()
-        {
-            await _db.DisposeAsync();
-        }
-
         [TestMethod]
         public async Task GetEnabledCommentsTest()
         {
-            await _db.Comments.AddAsync(new Comment
+            await DbContext.Comments.AddAsync(new Comment
             {
                 Id = 1,
                 ArticleId = 1,
@@ -46,7 +33,7 @@ namespace HappyDog.WebUI.Test
                 IPv4 = "localhost",
                 Status = BaseStatus.Enabled
             });
-            await _db.Comments.AddAsync(new Comment
+            await DbContext.Comments.AddAsync(new Comment
             {
                 Id = 2,
                 ArticleId = 1,
@@ -57,7 +44,7 @@ namespace HappyDog.WebUI.Test
                 IPv4 = "localhost:82",
                 Status = BaseStatus.Disabled
             });
-            await _db.Comments.AddAsync(new Comment
+            await DbContext.Comments.AddAsync(new Comment
             {
                 Id = 3,
                 ArticleId = 1,
@@ -68,7 +55,7 @@ namespace HappyDog.WebUI.Test
                 IPv4 = "localhost:83",
                 Status = BaseStatus.Enabled
             });
-            await _db.Comments.AddAsync(new Comment
+            await DbContext.Comments.AddAsync(new Comment
             {
                 Id = 4,
                 ArticleId = 2,
@@ -79,8 +66,8 @@ namespace HappyDog.WebUI.Test
                 IPv4 = "localhost:84",
                 Status = BaseStatus.Enabled
             });
-            await _db.SaveChangesAsync();
-            var svc = new CommentService(_db, Mapper);
+            await DbContext.SaveChangesAsync();
+            var svc = new CommentService(DbContext, Mapper);
             var vc = new CommentsViewComponent(svc);
 
             var result = await vc.InvokeAsync(1) as ViewViewComponentResult;

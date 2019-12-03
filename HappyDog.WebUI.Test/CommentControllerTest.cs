@@ -3,6 +3,7 @@ using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure.Email;
+using HappyDog.Test.Common;
 using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,24 +20,10 @@ namespace HappyDog.WebUI.Test
     [TestClass]
     public class CommentControllerTest : TestBase
     {
-        HappyDogContext _db;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _db = new HappyDogContext(GetOptions());
-        }
-
-        [TestCleanup]
-        public async Task CleanupAsync()
-        {
-            await _db.DisposeAsync();
-        }
-
         [TestMethod]
         public async Task ErrorCodePostTest()
         {
-            var svc = new CommentService(_db, Mapper);
+            var svc = new CommentService(DbContext, Mapper);
             var mockISessionBasedCaptcha = new Mock<ISessionBasedCaptcha>();
             mockISessionBasedCaptcha
                 .Setup(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()))
@@ -83,7 +70,7 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task CorrectCodePostTest()
         {
-            var svc = new CommentService(_db, Mapper);
+            var svc = new CommentService(DbContext, Mapper);
             var mockISessionBasedCaptcha = new Mock<ISessionBasedCaptcha>();
             mockISessionBasedCaptcha
                 .Setup(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()))
@@ -125,7 +112,7 @@ namespace HappyDog.WebUI.Test
 
             var actionResult = await controller.Post(dto);
             var redirectResult = actionResult as RedirectToActionResult;
-            var entity = _db.Comments.First();
+            var entity = DbContext.Comments.First();
 
             Assert.IsNotNull(redirectResult);
             Assert.AreEqual("Detail", redirectResult.ActionName);
