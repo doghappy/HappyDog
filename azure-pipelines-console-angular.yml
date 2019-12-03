@@ -4,9 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-  branches:
-    include:
-    - azure/console-angular
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
