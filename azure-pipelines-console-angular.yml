@@ -17,14 +17,21 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    cd HappyDog.Console.Angular
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+   command: install
+   workingDir: HappyDog.Console.Angular
+
+- task: Npm@1
+  displayName: 'Build Angular'
+  inputs:
+   command: custom
+   customCommand: ng build --prod
+   workingDir: HappyDog.Console.Angular
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: 'dist/HappyDog-Console-Angular'
+    targetPath: 'HappyDog.Console.Angular/dist/HappyDog-Console-Angular'
     artifact: 'doghappy-console-angular'
     publishLocation: 'pipeline'
