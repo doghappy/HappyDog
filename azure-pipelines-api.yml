@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- azure/console-api
+- azure/api
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,9 +14,9 @@ variables:
 
 steps:
   - script: |
-      dotnet build HappyDog.Console.Api.Test -c $(buildConfiguration)
+      dotnet build HappyDog.Api.Test --configuration $(buildConfiguration)
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'
-      artifact: 'doghappy-console-api'
+      artifact: 'doghappy-api'
       publishLocation: 'pipeline'

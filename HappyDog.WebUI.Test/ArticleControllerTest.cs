@@ -1,10 +1,10 @@
-using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.IServices;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure;
+using HappyDog.Test.Common;
 using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,26 +19,12 @@ namespace HappyDog.WebUI.Test
     [TestClass]
     public class ArticleControllerTest : TestBase
     {
-        HappyDogContext _db;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _db = new HappyDogContext(GetOptions());
-        }
-
-        [TestCleanup]
-        public async Task CleanupAsync()
-        {
-            await _db.DisposeAsync();
-        }
-
         [TestMethod]
         public async Task DetailTest()
         {
             var mockSvc = new Mock<IArticleService>();
             mockSvc
-                .Setup(s => s.GetArticleDetailDtoAsync(It.IsAny<int>()))
+                .Setup(s => s.GetEnabledArticleDetailDtoAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(new ArticleDetailDto
                 {
                     Title = "article 1",
@@ -46,11 +32,12 @@ namespace HappyDog.WebUI.Test
                     Content = "**Content**"
                 }));
             using var controller = new ArticleController(mockSvc.Object, null);
-            var result = (await controller.Detail(2)) as ViewResult;
+            var result = (await controller.Detail(It.IsAny<int>())) as ViewResult;
             var dto = result.Model as ArticleDetailDto;
             Assert.AreEqual("article 1", dto.Title);
             Assert.AreEqual(ArticleCategory.Net, dto.CategoryId);
             Assert.IsTrue(dto.Content.StartsWith("<p><strong>Content</strong></p>"));
+            mockSvc.Verify(m => m.GetEnabledArticleDetailDtoAsync(It.IsAny<int>()), Times.Once());
         }
 
         [TestMethod]
@@ -68,13 +55,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EmptySearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Search(" ");
@@ -88,13 +75,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task NetSearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var identity = new ClaimsIdentity(new List<Claim>());
             var controller = new ArticleController(articleService, null)
             {
@@ -117,13 +104,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task DatabaseSearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Search("db:est");
@@ -136,13 +123,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task WindowsSearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Search("windows:est");
@@ -155,13 +142,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task ReadSearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Search("read:est");
@@ -174,13 +161,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EssaysSearchTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Search("essays:est");
@@ -193,13 +180,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task NetTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Net();
@@ -212,13 +199,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task DatabaseTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Database();
@@ -231,13 +218,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task WindowsTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Windows();
@@ -250,13 +237,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task ReadTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Read();
@@ -269,13 +256,13 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EssaysTest()
         {
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await _db.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await _db.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
-            await _db.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
-            await _db.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
-            await _db.SaveChangesAsync();
-            var articleService = new ArticleService(_db, Mapper);
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
+            await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
+            await DbContext.SaveChangesAsync();
+            var articleService = new ArticleService(DbContext, Mapper);
             var controller = new ArticleController(articleService, null);
 
             var result = await controller.Essays();

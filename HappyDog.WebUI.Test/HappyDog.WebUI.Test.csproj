@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HappyDog.Domain\HappyDog.Domain.csproj" />
     <ProjectReference Include="..\HappyDog.Infrastructure\HappyDog.Infrastructure.csproj" />
+    <ProjectReference Include="..\HappyDog.Test.Common\HappyDog.Test.Common.csproj" />
     <ProjectReference Include="..\HappyDog.WebUI\HappyDog.WebUI.csproj" />
   </ItemGroup>
 
