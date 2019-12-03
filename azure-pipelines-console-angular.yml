@@ -25,6 +25,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)/HappyDog.Console.Angular/dist/HappyDog-Console-Angular'
+    targetPath: '$(System.DefaultWorkingDirectory)/_doghappy.doghappy-console-angular/HappyDog/s/HappyDog.Console.Angular/dist/HappyDog-Console-Angular'
     artifact: 'doghappy-console-angular'
     publishLocation: 'pipeline'
