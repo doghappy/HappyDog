@@ -4,7 +4,6 @@ using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.WebUI.Extensions;
 using Edi.Captcha;
-using HappyDog.Infrastructure.Email;
 
 namespace HappyDog.WebUI.Controllers
 {
