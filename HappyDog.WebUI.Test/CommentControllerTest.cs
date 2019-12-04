@@ -38,9 +38,8 @@ namespace HappyDog.WebUI.Test
                 .SetupGet(m => m.Session)
                 .Returns(mockSession.Object);
             var mockTempData = new Mock<ITempDataDictionary>();
-            var mockLogger = new Mock<ILogger<CommentController>>();
 
-            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object, mockLogger.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -95,9 +94,8 @@ namespace HappyDog.WebUI.Test
             mockHttpContext
                 .SetupGet(m => m.Request)
                 .Returns(mockRequest.Object);
-            var mockLogger = new Mock<ILogger<CommentController>>();
 
-            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object, mockLogger.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
             {
                 ControllerContext = new ControllerContext
                 {
