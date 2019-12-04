@@ -36,22 +36,22 @@ namespace HappyDog.WebUI.Controllers
                 {
                     dto.IPv4 = Request.Host.ToString();
                     await _commentService.CreateAsync(dto);
-                    await Task.Factory.StartNew(async () =>
+                    //await Task.Factory.StartNew(async () =>
+                    //{
+                    var builder = new StringBuilder();
+                    var pipeline = new MarkdownPipelineBuilder()
+                        .UsePipeTables()
+                        .Build();
+                    builder.Append(Markdown.ToHtml(dto.Content, pipeline));
+                    string link = $"https://doghappy.wang/Article/Detail/{dto.ArticleId}";
+                    builder.AppendLine($"<br /> <a href=\"{link}\">{link}</a>");
+                    await _emailSender.SendAsync(new MailMessage(_emailSender.FromAddress, "hero_wong@outlook.com")
                     {
-                        var builder = new StringBuilder();
-                        var pipeline = new MarkdownPipelineBuilder()
-                            .UsePipeTables()
-                            .Build();
-                        builder.Append(Markdown.ToHtml(dto.Content, pipeline));
-                        string link = $"https://doghappy.wang/Article/Detail/{dto.ArticleId}";
-                        builder.AppendLine($"<br /> <a href=\"{link}\">{link}</a>");
-                        await _emailSender.SendAsync(new MailMessage(_emailSender.FromAddress, "hero_wong@outlook.com")
-                        {
-                            Subject = "doghappy 有新评论了",
-                            Body = builder.ToString(),
-                            IsBodyHtml = true
-                        });
+                        Subject = "doghappy 有新评论了",
+                        Body = builder.ToString(),
+                        IsBodyHtml = true
                     });
+                    //});
                     return RedirectToAction("Detail", "Article", new { id = dto.ArticleId });
                 }
                 else
