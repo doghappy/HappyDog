@@ -17,7 +17,7 @@ namespace HappyDog.Domain.Test.Services
         [Description("发送评论")]
         public async Task Post_comments()
         {
-            var svc = new CommentService(DbContext, Mapper);
+            var svc = new CommentService(DbContext, Mapper, null);
             var dto = new PostCommentDto
             {
                 Content = Guid.NewGuid().ToString(),
@@ -43,7 +43,7 @@ namespace HappyDog.Domain.Test.Services
         [Description("当文章没有评论时获取所有评论")]
         public async Task Get_comments_when_article_has_no_comments()
         {
-            var svc = new CommentService(DbContext, Mapper);
+            var svc = new CommentService(DbContext, Mapper, null);
             var comments = await svc.GetCommentDtosAsync(1);
             Assert.AreEqual(0, comments.Count);
         }
@@ -98,7 +98,7 @@ namespace HappyDog.Domain.Test.Services
             });
             await DbContext.SaveChangesAsync();
 
-            var svc = new CommentService(DbContext, Mapper);
+            var svc = new CommentService(DbContext, Mapper, null);
             var comments = await svc.GetCommentDtosAsync(1);
             Assert.AreEqual(2, comments.Count);
 
