@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:latest AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:latest AS build
 WORKDIR /src
 COPY ["HappyDog.Console.Api/HappyDog.Console.Api.csproj", "HappyDog.Console.Api/"]
 COPY ["HappyDog.Domain/HappyDog.Domain.csproj", "HappyDog.Domain/"]

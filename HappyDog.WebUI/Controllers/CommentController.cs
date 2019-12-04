@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using HappyDog.Domain.DataTransferObjects.Comment;
-using HappyDog.Domain.Entities;
 using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.WebUI.Extensions;
@@ -16,18 +14,15 @@ namespace HappyDog.WebUI.Controllers
     public class CommentController : Controller
     {
         public CommentController(
-            IMapper mapper,
             CommentService commentService,
             ISessionBasedCaptcha captcha,
             IEmailSender emailSender)
         {
-            _mapper = mapper;
             _commentService = commentService;
             _captcha = captcha;
             _emailSender = emailSender;
         }
 
-        readonly IMapper _mapper;
         readonly CommentService _commentService;
         readonly ISessionBasedCaptcha _captcha;
         readonly IEmailSender _emailSender;

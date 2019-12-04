@@ -20,7 +20,7 @@ const routes: Routes = [
             { path: "hidden", component: HiddenComponent },
             { path: "edit/:id", component: EditComponent },
             { path: "tags", component: TagListComponent },
-            { path: "tags/:name", component: TagEditComponent }
+            { path: "tags/:id", component: TagEditComponent }
         ]
     },
     {

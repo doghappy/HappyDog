@@ -20,11 +20,11 @@ namespace HappyDog.Console.Api.Test
         {
             var mockSvc = new Mock<ITagService>();
             mockSvc
-                .Setup(t => t.GetTagDtoAsync(It.IsAny<string>()))
+                .Setup(t => t.GetTagDtoAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(default(TagDto)));
 
             var controller = new TagController(mockSvc.Object);
-            var actionResult = await controller.GetTag(null);
+            var actionResult = await controller.GetTag(It.IsAny<int>());
             var notFoundResult = actionResult as NotFoundResult;
 
             Assert.IsNotNull(notFoundResult);
@@ -36,14 +36,14 @@ namespace HappyDog.Console.Api.Test
             string guid = Guid.NewGuid().ToString();
             var mockSvc = new Mock<ITagService>();
             mockSvc
-                .Setup(t => t.GetTagDtoAsync(It.IsAny<string>()))
+                .Setup(t => t.GetTagDtoAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(new TagDto
                 {
                     Name = guid
                 }));
 
             var controller = new TagController(mockSvc.Object);
-            var actionResult = await controller.GetTag(" net ");
+            var actionResult = await controller.GetTag(It.IsAny<int>());
             var jsonResult = actionResult as JsonResult;
             var model = jsonResult.Value as TagDto;
 
