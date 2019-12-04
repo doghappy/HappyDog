@@ -1,5 +1,4 @@
 ﻿using Edi.Captcha;
-using HappyDog.Domain;
 using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Services;
 using HappyDog.Infrastructure.Email;
@@ -8,6 +7,7 @@ using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -39,7 +39,7 @@ namespace HappyDog.WebUI.Test
                 .Returns(mockSession.Object);
             var mockTempData = new Mock<ITempDataDictionary>();
 
-            var controller = new CommentController(Mapper, svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -95,7 +95,7 @@ namespace HappyDog.WebUI.Test
                 .SetupGet(m => m.Request)
                 .Returns(mockRequest.Object);
 
-            var controller = new CommentController(Mapper, svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
             {
                 ControllerContext = new ControllerContext
                 {
