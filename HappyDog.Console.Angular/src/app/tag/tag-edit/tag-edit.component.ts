@@ -23,15 +23,12 @@ export class TagEditComponent implements OnInit {
     public isActive: boolean;
 
     ngOnInit() {
-        const name = this.activatedRoute.snapshot.paramMap.get("name");
-        if (name) {
-            this.isActive = true;
-            this.tagService.getTag(name).subscribe(r => {
-                this.tag = r;
-                console.log(r);
-                this.isActive = false;
-            });
-        }
+        const id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
+        this.isActive = true;
+        this.tagService.getTag(id).subscribe(r => {
+            this.tag = r;
+            this.isActive = false;
+        });
     }
 
     put(): void {

@@ -29,19 +29,12 @@ namespace HappyDog.Domain.Services
             return _mapper.Map<TagDto>(tag);
         }
 
-        public async Task<TagDto> GetTagDtoAsync(string name)
+        public async Task<TagDto> GetTagDtoAsync(int id)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return default;
-            }
-            else
-            {
-                var tag = await _db.Tags
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(t => t.Name.ToLower() == name.Trim().ToLower());
-                return _mapper.Map<TagDto>(tag);
-            }
+            var tag = await _db.Tags
+                .AsNoTracking()
+                .SingleOrDefaultAsync(t => t.Id == id);
+            return _mapper.Map<TagDto>(tag);
         }
 
         public async Task<List<TagDto>> GetTagsDtoAsync()
