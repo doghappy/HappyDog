@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HappyDog.Domain.Postman
 {
-    public class CommentNotificationPostman
+    public class CommentNotificationPostman : ICommentNotificationPostman
     {
         public CommentNotificationPostman(IConfiguration configuration)
         {

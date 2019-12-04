@@ -12,8 +12,8 @@ using AutoMapper;
 using HappyDog.Domain.DataTransferObjects;
 using Microsoft.Extensions.Hosting;
 using Edi.Captcha;
-using HappyDog.Infrastructure.Email;
 using HappyDog.Domain.IServices;
+using HappyDog.Domain.Postman;
 
 namespace HappyDog.WebUI
 {
@@ -43,7 +43,7 @@ namespace HappyDog.WebUI
             services.AddScoped<CategoryService>();
             services.AddScoped<CommentService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IEmailSender, NetEase126Sender>();
+            services.AddSingleton<ICommentNotificationPostman, CommentNotificationPostman>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
