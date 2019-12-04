@@ -1,13 +1,9 @@
-﻿using HappyDog.Domain;
-using HappyDog.Domain.DataTransferObjects.Article;
-using HappyDog.Domain.DataTransferObjects.Comment;
+﻿using HappyDog.Domain.DataTransferObjects.Comment;
 using HappyDog.Domain.Entities;
 using HappyDog.Domain.Enums;
 using HappyDog.Domain.Services;
 using HappyDog.Test.Common;
 using HappyDog.WebUI.ViewComponents;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -67,7 +63,7 @@ namespace HappyDog.WebUI.Test
                 Status = BaseStatus.Enabled
             });
             await DbContext.SaveChangesAsync();
-            var svc = new CommentService(DbContext, Mapper);
+            var svc = new CommentService(DbContext, Mapper, null);
             var vc = new CommentsViewComponent(svc);
 
             var result = await vc.InvokeAsync(1) as ViewViewComponentResult;

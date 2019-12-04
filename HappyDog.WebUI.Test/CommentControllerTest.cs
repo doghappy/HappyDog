@@ -1,18 +1,16 @@
 ﻿using Edi.Captcha;
 using HappyDog.Domain.DataTransferObjects.Comment;
+using HappyDog.Domain.Postman;
 using HappyDog.Domain.Services;
-using HappyDog.Infrastructure.Email;
 using HappyDog.Test.Common;
 using HappyDog.WebUI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace HappyDog.WebUI.Test
@@ -23,15 +21,12 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task ErrorCodePostTest()
         {
-            var svc = new CommentService(DbContext, Mapper);
+            var mockCommentNotificationPostman = new Mock<ICommentNotificationPostman>();
+            var svc = new CommentService(DbContext, Mapper, mockCommentNotificationPostman.Object);
             var mockISessionBasedCaptcha = new Mock<ISessionBasedCaptcha>();
             mockISessionBasedCaptcha
                 .Setup(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(false);
-            var mockEmailSender = new Mock<IEmailSender>();
-            mockEmailSender
-                .Setup(m => m.SendAsync(It.IsAny<MailMessage>()))
-                .Returns(Task.CompletedTask);
             var mockSession = new Mock<ISession>();
             var mockHttpContext = new Mock<HttpContext>();
             mockHttpContext
@@ -39,7 +34,7 @@ namespace HappyDog.WebUI.Test
                 .Returns(mockSession.Object);
             var mockTempData = new Mock<ITempDataDictionary>();
 
-            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -64,24 +59,17 @@ namespace HappyDog.WebUI.Test
             Assert.AreEqual("466", redirectResult.RouteValues["id"].ToString());
 
             mockISessionBasedCaptcha.Verify(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
-            mockEmailSender.Verify(m => m.SendAsync(It.IsAny<MailMessage>()), Times.Never());
         }
 
         [TestMethod]
         public async Task CorrectCodePostTest()
         {
-            var svc = new CommentService(DbContext, Mapper);
+            var mockCommentNotificationPostman = new Mock<ICommentNotificationPostman>();
+            var svc = new CommentService(DbContext, Mapper, mockCommentNotificationPostman.Object);
             var mockISessionBasedCaptcha = new Mock<ISessionBasedCaptcha>();
             mockISessionBasedCaptcha
                 .Setup(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(true);
-            var mockEmailSender = new Mock<IEmailSender>();
-            mockEmailSender
-                .Setup(m => m.SendAsync(It.IsAny<MailMessage>()))
-                .Returns(Task.CompletedTask);
-            mockEmailSender
-                .SetupGet(m => m.FromAddress)
-                .Returns("hero_wong@outlook.com");
             var mockSession = new Mock<ISession>();
             var mockRequest = new Mock<HttpRequest>();
             mockRequest
@@ -95,7 +83,7 @@ namespace HappyDog.WebUI.Test
                 .SetupGet(m => m.Request)
                 .Returns(mockRequest.Object);
 
-            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object, mockEmailSender.Object)
+            using var controller = new CommentController(svc, mockISessionBasedCaptcha.Object)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -125,7 +113,7 @@ namespace HappyDog.WebUI.Test
 
             mockISessionBasedCaptcha.Verify(m => m.ValidateCaptchaCode(It.IsAny<string>(), It.IsAny<ISession>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
             await Task.Delay(200);
-            mockEmailSender.Verify(m => m.SendAsync(It.IsAny<MailMessage>()), Times.Once());
+            mockCommentNotificationPostman.Verify(m => m.PostAsync(It.IsAny<PostCommentDto>()), Times.Once());
         }
     }
 }
