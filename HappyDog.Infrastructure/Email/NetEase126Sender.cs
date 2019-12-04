@@ -18,12 +18,12 @@ namespace HappyDog.Infrastructure.Email
 
         public async Task SendAsync(MailMessage message)
         {
-            using (var smpt = new SmtpClient("smtp.126.com"))
+            using var smpt = new SmtpClient("smtp.126.com")
             {
-                smpt.EnableSsl = true;
-                smpt.Credentials = new NetworkCredential(FromAddress, _password);
-                await smpt.SendMailAsync(message);
-            }
+                EnableSsl = true,
+                Credentials = new NetworkCredential(FromAddress, _password)
+            };
+            await smpt.SendMailAsync(message);
         }
     }
 }
