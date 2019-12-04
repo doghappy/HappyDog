@@ -17,20 +17,17 @@ namespace HappyDog.WebUI.Controllers
     public class CommentController : Controller
     {
         public CommentController(
-            IMapper mapper,
             CommentService commentService,
             ISessionBasedCaptcha captcha,
             IEmailSender emailSender,
             ILogger<CommentController> logger)
         {
-            _mapper = mapper;
             _commentService = commentService;
             _captcha = captcha;
             _emailSender = emailSender;
             _logger = logger;
         }
 
-        readonly IMapper _mapper;
         readonly CommentService _commentService;
         readonly ISessionBasedCaptcha _captcha;
         readonly IEmailSender _emailSender;
