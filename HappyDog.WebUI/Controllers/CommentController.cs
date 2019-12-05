@@ -4,10 +4,6 @@ using HappyDog.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using HappyDog.WebUI.Extensions;
 using Edi.Captcha;
-using HappyDog.Infrastructure.Email;
-using System.Net.Mail;
-using System.Text;
-using Markdig;
 
 namespace HappyDog.WebUI.Controllers
 {
@@ -15,17 +11,14 @@ namespace HappyDog.WebUI.Controllers
     {
         public CommentController(
             CommentService commentService,
-            ISessionBasedCaptcha captcha,
-            IEmailSender emailSender)
+            ISessionBasedCaptcha captcha)
         {
             _commentService = commentService;
             _captcha = captcha;
-            _emailSender = emailSender;
         }
 
         readonly CommentService _commentService;
         readonly ISessionBasedCaptcha _captcha;
-        readonly IEmailSender _emailSender;
 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(PostCommentDto dto)
@@ -36,22 +29,6 @@ namespace HappyDog.WebUI.Controllers
                 {
                     dto.IPv4 = Request.Host.ToString();
                     await _commentService.CreateAsync(dto);
-                    await Task.Factory.StartNew(async () =>
-                    {
-                        var builder = new StringBuilder();
-                        var pipeline = new MarkdownPipelineBuilder()
-                            .UsePipeTables()
-                            .Build();
-                        builder.Append(Markdown.ToHtml(dto.Content, pipeline));
-                        string link = $"https://doghappy.wang/Article/Detail/{dto.ArticleId}";
-                        builder.AppendLine($"<br /> <a href=\"{link}\">{link}</a>");
-                        await _emailSender.SendAsync(new MailMessage(_emailSender.FromAddress, "hero_wong@outlook.com")
-                        {
-                            Subject = "doghappy 有新评论了",
-                            Body = builder.ToString(),
-                            IsBodyHtml = true
-                        });
-                    });
                     return RedirectToAction("Detail", "Article", new { id = dto.ArticleId });
                 }
                 else
