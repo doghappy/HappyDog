@@ -20,7 +20,7 @@ steps:
     inputs:
       version: 3.1.x
   - script: |
-      dotnet build HappyDog.WebUI.Test -c $(buildConfiguration)
+      dotnet test HappyDog.WebUI.Test
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'
