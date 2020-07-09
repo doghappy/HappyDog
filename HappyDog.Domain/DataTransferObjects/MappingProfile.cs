@@ -24,6 +24,7 @@ namespace HappyDog.Domain.DataTransferObjects
             CreateMap<Entities.Comment, CommentDto>();
             CreateMap<PostTagDto, Entities.Tag>();
             CreateMap<Entities.Tag, TagDto>();
+            CreateMap<Entities.Article, Tag.TagArticleDto>();
         }
     }
 }
