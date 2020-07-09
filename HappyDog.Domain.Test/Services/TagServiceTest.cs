@@ -167,8 +167,8 @@ namespace HappyDog.Domain.Test.Services
             Assert.AreEqual(2, result.TotalItems);
             Assert.AreEqual(1, result.TotalPages);
             Assert.AreEqual(2, result.Data.Count);
-            Assert.AreEqual("article 2", result.Data[0].Title);
-            Assert.AreEqual("article 3", result.Data[1].Title);
+            Assert.AreEqual("article 3", result.Data[0].Title);
+            Assert.AreEqual("article 2", result.Data[1].Title);
         }
     }
 }
