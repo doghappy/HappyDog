@@ -5,15 +5,6 @@
     ViewData["Keywords"] = ViewContext.RouteData.Values["name"];
 }
 
-@section Styles{
-    <style>
-        a.tag {
-            border-width: 1px;
-            border-style: solid;
-        }
-    </style>
-}
-
 <div class="container body-content pt-4 pb-4 animated fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
