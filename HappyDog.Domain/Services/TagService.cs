@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HappyDog.Domain.DataTransferObjects.Article;
 using HappyDog.Domain.DataTransferObjects.Tag;
@@ -64,6 +63,7 @@ namespace HappyDog.Domain.Services
                     TotalItems = await query.CountAsync(),
                 };
                 pagination.Data = await query
+                    .OrderByDescending(a => a.Id)
                     .Skip((page - 1) * size)
                     .Take(size)
                     .Include(a => a.ArticleTags)

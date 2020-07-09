@@ -7,17 +7,23 @@
         {
             if (string.IsNullOrEmpty(tag.Color))
             {
-                <span class="badge badge-light border border-secondary text-secondary">
+                <a class="badge badge-light border border-secondary text-secondary"
+                   asp-controller="Tag"
+                   asp-action="Article"
+                   asp-route-name="@tag.Name">
                     <i class="fa fa-tag"></i>
                     @tag.Name
-                </span>
+                </a>
             }
             else
             {
-                <span class="badge badge-light" style="border:1px solid @(tag.Color); color:@(tag.Color)">
+                <a class="badge badge-light" style="border:1px solid @(tag.Color); color:@(tag.Color)"
+                   asp-controller="Tag"
+                   asp-action="Article"
+                   asp-route-name="@tag.Name">
                     <i class="fa fa-tag"></i>
                     @tag.Name
-                </span>
+                </a>
             }
         }
     </p>
