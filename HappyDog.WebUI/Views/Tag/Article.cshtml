@@ -1,0 +1,21 @@
+﻿@model HappyDog.Infrastructure.Pagination<HappyDog.Domain.DataTransferObjects.Article.ArticleDto>
+@{
+    ViewData["Title"] = ViewContext.RouteData.Values["name"];
+    ViewData["Description"] = ViewContext.RouteData.Values["name"];
+    ViewData["Keywords"] = ViewContext.RouteData.Values["name"];
+}
+
+@section Styles{
+    <style>
+        a.tag {
+            border-width: 1px;
+            border-style: solid;
+        }
+    </style>
+}
+
+<div class="container body-content pt-4 pb-4 animated fadeIn">
+    @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
+
+    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
+</div>
