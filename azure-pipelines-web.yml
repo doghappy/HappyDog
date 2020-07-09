@@ -21,8 +21,3 @@ steps:
       version: 3.1.x
   - script: |
       dotnet test HappyDog.WebUI.Test
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Pipeline.Workspace)'
-      artifact: 'doghappy-web'
-      publishLocation: 'pipeline'
