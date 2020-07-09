@@ -20,4 +20,5 @@ steps:
     inputs:
       version: 3.1.x
   - script: |
+      dotnet test HappyDog.Domain.Test
       dotnet test HappyDog.WebUI.Test
