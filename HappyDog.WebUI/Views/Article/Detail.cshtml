@@ -27,7 +27,7 @@
     </script>
 }
 
-@if (TempData["ErrorCaptcha"] != null)
+@*@if (TempData["ErrorCaptcha"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
         <strong>提交失败</strong> 请填写正确的验证码
@@ -35,7 +35,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-}
+}*@
 
 <div class="jumbotron">
     <div class="container body-content">
@@ -54,6 +54,6 @@
     <div class="markdown-body" style="padding-bottom:3rem; font-family:'Microsoft YaHei'">
         @Html.Raw(@Model.Content)
     </div>
-    <vc:comments article-id="@articleId"></vc:comments>
-    <vc:post-comment article-id="@articleId"></vc:post-comment>
+    @*<vc:comments article-id="@articleId"></vc:comments>*@
+    @*<vc:post-comment article-id="@articleId"></vc:post-comment>*@
 </div>
