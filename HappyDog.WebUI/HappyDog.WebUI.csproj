@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Controllers\CommentController.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Remove="Pages\About.cshtml" />
         <Content Remove="Pages\Contact.cshtml" />
         <Content Remove="Pages\Error.cshtml" />
@@ -23,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="Controllers\CommentController.cs" />
         <None Include="Pages\About.cshtml" />
         <None Include="Pages\Contact.cshtml" />
         <None Include="Pages\Error.cshtml" />
