@@ -32,6 +32,12 @@
                         .NET
                     </a>
                 </li>
+                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "java" ? " active" : "")">
+                    <a class="nav-link" href="@Url.Action("Java","Article")">
+                        <i class="fa fa-coffee"></i>
+                        Java
+                    </a>
+                </li>
                 <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "database" ? " active" : "")">
                     <a class="nav-link" href="@Url.Action("Database","Article")">
                         <i class="fa fa-database"></i>

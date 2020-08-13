@@ -53,6 +53,12 @@ namespace HappyDog.WebUI.Controllers
             return View(data);
         }
 
+        public async Task<IActionResult> Java(int page = 1)
+        {
+            var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Java);
+            return View(data);
+        }
+
         public async Task<IActionResult> Database(int page = 1)
         {
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Database);
