@@ -20,6 +20,8 @@ steps:
     inputs:
       version: 3.1.x
   - script: |
+      dotnet test HappyDog.Domain.Test
+      dotnet test HappyDog.WebUI.Test
       dotnet build HappyDog.WebUI.Test -c $(buildConfiguration)
   - task: PublishPipelineArtifact@1
     inputs:

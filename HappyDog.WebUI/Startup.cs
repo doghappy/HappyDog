@@ -42,6 +42,7 @@ namespace HappyDog.WebUI
             services.AddScoped<UserService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<CommentService>();
+            services.AddScoped<ITagService, TagService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ICommentNotificationPostman, CommentNotificationPostman>();
             services.AddSession(options =>

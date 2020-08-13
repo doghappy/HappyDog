@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Controllers\CommentController.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Remove="Pages\About.cshtml" />
         <Content Remove="Pages\Contact.cshtml" />
         <Content Remove="Pages\Error.cshtml" />
@@ -23,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="Controllers\CommentController.cs" />
         <None Include="Pages\About.cshtml" />
         <None Include="Pages\Contact.cshtml" />
         <None Include="Pages\Error.cshtml" />
@@ -32,7 +37,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="9.0.0" />
-        <PackageReference Include="Edi.Captcha" Version="2.1.0" />
+        <PackageReference Include="Edi.Captcha" Version="2.2.0" />
         <!--<PackageReference Include="HappyDog.Domain" Version="1.0.2.6" />-->
         <PackageReference Include="Markdig" Version="0.18.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
