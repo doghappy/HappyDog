@@ -11,16 +11,13 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
     inputs:
       version: 3.1.x
   - script: |
-      dotnet build HappyDog.Console.Api.Test -c $(buildConfiguration)
+      dotnet test HappyDog.Console.Api.Test
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'

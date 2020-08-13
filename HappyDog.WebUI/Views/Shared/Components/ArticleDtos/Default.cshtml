@@ -10,9 +10,7 @@
                         <strong style="color:@item.Category.Color">@item.Category.Label</strong>
                     </a>
                     <h5 class="card-title">
-                        <a class="text-dark" href="@Url.Action("Detail",new { id = item.Id })">
-                            @item.Title
-                        </a>
+                        @Html.ActionLink(item.Title, "Detail", "Article", new { id = item.Id }, new { @class = "text-dark" })
                     </h5>
                     <p class="mb-1 text-muted">
                         <i class="fa fa-calendar"></i>
