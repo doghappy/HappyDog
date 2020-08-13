@@ -15,8 +15,14 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      version: 3.1.x
   - script: |
-      dotnet build HappyDog.Api.Test --configuration $(buildConfiguration)
+      dotnet test HappyDog.Domain.Test
+      dotnet test HappyDog.Api.Test
+      dotnet build HappyDog.Api.Test -c $(buildConfiguration)
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'

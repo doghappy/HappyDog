@@ -45,24 +45,28 @@ div.jumbotron {
     font-size: 14px;
 }
 
-.netColor {
+.net-color {
     color: #7014e8;
 }
 
-.dbColor {
+.db-color {
     color: #f65314;
 }
 
-.windowsColor {
+.windows-color {
     color: #00a1f1;
 }
 
-.readColor {
+.read-color {
     color: #7cbb00;
 }
 
-.essaysColor {
+.essays-color {
     color: #ffbb00;
+}
+
+.java-color {
+    color: #b07219;
 }
 
 /* footer */

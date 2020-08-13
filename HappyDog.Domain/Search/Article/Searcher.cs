@@ -34,7 +34,7 @@ namespace HappyDog.Domain.Search.Article
             Expression<Func<Entities.Article, bool>> condition = a =>
                 a.Status == BaseStatus.Enabled
                 && a.CategoryId == Category
-                && a.Title.Contains(Keyword, StringComparison.OrdinalIgnoreCase);
+                && EF.Functions.Like(a.Title, $"%{Keyword}%");
 
             var pagination = new Pagination<ArticleDto>
             {
