@@ -96,3 +96,11 @@ body { /* Margin bottom by footer height */
         .footer ul li {
             display: inline-block;
         }
+
+            .footer ul li a {
+                padding: 0 8px;
+            }
+
+                .footer ul li a i {
+                    font-size: 2em;
+                }
