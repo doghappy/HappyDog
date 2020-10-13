@@ -19,14 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Pages\Index.cshtml.cs.bak" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="Pages\Index.cshtml.cs.bak" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="Controllers\CommentController.cs" />
         <None Include="Pages\About.cshtml" />
         <None Include="Pages\Contact.cshtml" />

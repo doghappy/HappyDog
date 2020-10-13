@@ -9,7 +9,7 @@
 @section Styles{
     <style>
         .jumbotron {
-            background: url(/images/Ink_4x3.png);
+            background: url('https://upyun.doghappy.wang/blog/img/Ink_4x3.png');
             background-size: 50%;
             background-repeat: no-repeat;
             background-position-x: right;
@@ -39,5 +39,5 @@
 <div class="container body-content animated fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Essays", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Essays", new { page = p }), 7))
 </div>

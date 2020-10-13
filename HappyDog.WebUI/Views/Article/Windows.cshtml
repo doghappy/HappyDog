@@ -18,7 +18,7 @@
 <div class="jumbotron" id="paginationTarget">
     <div class="container body-content animated rollIn">
         <p>
-            <img src="~/images/Windows_10_Logo.svg" class="img-fluid" />
+            <img src="https://upyun.doghappy.wang/blog/img/Windows_10_Logo.svg" class="img-fluid" />
         </p>
         <p class="lead">
             Windows 10 是一款优秀的系统。<br />
@@ -35,5 +35,5 @@
 <div class="container body-content animated fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Windows", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Windows", new { page = p }), 7))
 </div>
