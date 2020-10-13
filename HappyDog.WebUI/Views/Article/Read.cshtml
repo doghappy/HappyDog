@@ -37,5 +37,5 @@
 <div class="container body-content animated fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Read", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Read", new { page = p }), 7))
 </div>
