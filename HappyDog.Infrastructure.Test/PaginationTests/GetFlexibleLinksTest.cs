@@ -138,5 +138,21 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=8\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=7\">7</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=8\">8</a></li><li class=\"page-item active\"><span class=\"page-link\">9</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=10\">10</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=11\">11</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=10\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">9 / 48</span></li></ul></nav>";
             Assert.AreEqual(expected, html);
         }
+
+        [TestMethod]
+        public void Test8()
+        {
+            var pagination = new Pagination<int>
+            {
+                Page = 9,
+                Size = 10,
+                TotalItems = 48,
+                PreviousText = "Previous",
+                NextText = "Next",
+                Append = "9 / 5"
+            };
+            string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 3);
+            Assert.AreEqual(string.Empty, html);
+        }
     }
 }

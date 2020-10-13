@@ -131,6 +131,10 @@ namespace HappyDog.Infrastructure
             {
                 return string.Empty;
             }
+            if (Page > TotalPages || Page < 1)
+            {
+                return string.Empty;
+            }
             if (total < 1)
             {
                 throw new InvalidOperationException("Make sure that ElasticityCount is greater than 0");
