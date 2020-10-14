@@ -1,0 +1,10 @@
+<a *ngIf="tag"
+   class="btn btn-link badge badge-light border"
+   [style.color]="tag.color ? tag.color : ''">
+  <span [ngClass]="isCustomIcon ? '' : 'fa fa-tag'"
+        [style.fontFamily]="isCustomIcon ? '\'' + tag.glyphFont + '\'' : ''"
+        [style.fontWeight]="isCustomIcon ? '900' : ''"
+        [innerHTML]="isCustomIcon ? tag.glyph : ''">
+  </span>
+  {{tag.name}}
+</a>

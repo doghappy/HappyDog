@@ -6,20 +6,17 @@
           <strong [style.color]="item.category.color">{{item.category.label}}</strong>
         </a>
         <h5 class="card-title">
-          <a [routerLink]="'/edit/'+item.id" [class]="item.status === _baseStatus.Enabled ? 'text-dark' : 'text-white'">
+          <a [routerLink]="'/edit/'+item.id" [ngClass]="item.status === _baseStatus.Enabled ? 'text-dark' : 'text-white'">
             {{item.title}}
           </a>
         </h5>
-        <p class="mb-1">
-          <i class="fa fa-calendar"></i>
+        <p class="mb-1" [ngClass]="item.status === _baseStatus.Enabled ? 'text-secondary' : 'text-white'">
+          <i class="fas fa-calendar-alt"></i>
           {{item.createTime | date:"yyyy/HH/mm"}}
         </p>
-        <p class="mb-1">
-          <span class="badge badge-success" data-toggle="tooltip" [title]="'点击量：'+item.viewCount" onmouseenter="$(this).tooltip('show')">
-            <i class="fa fa-line-chart" aria-hidden="true"></i>
-            {{item.viewCount}}
-          </span>
-        </p>
+        <div class="text-muted">
+          <app-tag-badge [tag]="tag" *ngFor="let tag of item.tags" class="m-1"></app-tag-badge>
+        </div>
       </div>
     </div>
   </div>
