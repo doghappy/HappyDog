@@ -7,10 +7,11 @@
     <meta name="description" content="@ViewData["Description"]" />
     <meta name="keywords" content="@ViewData["Keywords"]" />
     <link href="~/favicon.ico" rel="icon" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/fonts/iconfont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="icon" type="image/x-icon" href="~/favicon.ico">
     @RenderSection("Styles", required: false)
 </head>
@@ -45,7 +46,7 @@
                 </li>
                 <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "windows" ? " active" : "")">
                     <a class="nav-link" href="@Url.Action("Windows","Article")">
-                        <i class="fa fa-windows"></i>
+                        <i class="fab fa-windows"></i>
                         Windows
                     </a>
                 </li>
@@ -57,7 +58,7 @@
                 </li>
                 <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "essays" ? " active" : "")">
                     <a class="nav-link" href="@Url.Action("Essays","Article")">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fas fa-pencil-alt"></i>
                         随笔
                     </a>
                 </li>
@@ -107,7 +108,6 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/e61ae1f1cb.js" crossorigin="anonymous"></script>
     @RenderSection("Scripts", required: false)
     <script>
         var _hmt = _hmt || [];

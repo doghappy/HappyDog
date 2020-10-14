@@ -12,7 +12,7 @@
     <ul class="navbar-nav mr-auto" *ngIf="userService.isAuth">
       <li class="nav-item">
         <a class="nav-link" routerLink="/post">
-          <i class="fa fa-pencil"></i>
+          <i class="fas fa-edit"></i>
           写文章
         </a>
       </li>
@@ -33,7 +33,7 @@
     <ul class="navbar-nav" *ngIf="userService.isAuth">
       <li class="nav-item">
         <button class="nav-link btn btn-link" (click)="signOut()">
-          <i class="fa fa-sign-out"></i>
+          <i class="fas fa-sign-out-alt"></i>
           登出
         </button>
       </li>
