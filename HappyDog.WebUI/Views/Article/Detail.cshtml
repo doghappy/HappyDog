@@ -28,22 +28,22 @@
 }
 
 @*@if (TempData["ErrorCaptcha"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
-        <strong>提交失败</strong> 请填写正确的验证码
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}*@
+    {
+        <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
+            <strong>提交失败</strong> 请填写正确的验证码
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }*@
 
 <div class="jumbotron">
     <div class="container body-content">
         <h1 class="display-6 mb-4" style="overflow-wrap:break-word">@Model.Title</h1>
         <p class="lead text-muted mb-1">
-            <i class="fa fa-calendar"></i>
+            <i class="fas fa-calendar-alt"></i>
             @Model.CreateTime.ToString("yyyy/MM/dd")
-            <i class="fa fa-line-chart ml-4" aria-hidden="true"></i>
+            <i class="far fa-eye"></i>
             @Model.ViewCount
         </p>
         <vc:tag-dtos tags="Model.Tags"></vc:tag-dtos>
