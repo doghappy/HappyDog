@@ -5,7 +5,7 @@
     ViewData["Keywords"] = "标签列表";
 }
 
-<div class="container body-content pt-4 pb-4 animated fadeIn">
+<div class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
     @foreach (var tag in Model)
     {
         <a href="@Url.Action("Article",new { name = tag.Name })"
