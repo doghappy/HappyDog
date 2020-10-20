@@ -49,36 +49,42 @@ namespace HappyDog.WebUI.Controllers
 
         public async Task<IActionResult> Net(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Net);
             return View(data);
         }
 
         public async Task<IActionResult> Java(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Java);
             return View(data);
         }
 
         public async Task<IActionResult> Database(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Database);
             return View(data);
         }
 
         public async Task<IActionResult> Windows(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Windows);
             return View(data);
         }
 
         public async Task<IActionResult> Read(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Read);
             return View(data);
         }
 
         public async Task<IActionResult> Essays(int page = 1)
         {
+            ViewBag.CategoryActive = true;
             var data = await _articleService.GetArticlesDtoAsync(page, PageSize, ArticleCategory.Essays);
             return View(data);
         }

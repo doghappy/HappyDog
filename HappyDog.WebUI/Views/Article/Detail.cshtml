@@ -8,22 +8,22 @@
 }
 
 @section Styles{
-    <link href="//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet" />
-    <link href="~/lib/highlight/styles/vs.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/lib/highlight/styles/vs.css" rel="stylesheet" />
 }
 
 @section Scripts{
-    <script src="~/lib/highlight/highlight.pack.js"></script>
-    <script src="~/js/initial.min.js"></script>
+    <script src="https://upyun.doghappy.wang/blog/wwwroot/lib/highlight/highlight.pack.js"></script>
+    @*<script src="~/js/initial.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>*@
     <script>
         hljs.initHighlightingOnLoad();
-        $('img.avatar').initial();
+        @*$('img.avatar').initial();
 
         function updateCaptcha(sender) {
             $(sender).children().attr("src", "@Url.Action("Captcha", "Comment")" + "?" + new Date().getTime());
-        }
+        }*@
     </script>
 }
 
