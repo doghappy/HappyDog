@@ -21,7 +21,7 @@
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content animated zoomInDown">
+    <div class="container body-content animate__animated animate__zoomInDown">
         <div class="banner-text">
             <h1 class="display-4 read-color">阅读</h1>
             <p class="lead text-light">
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="container body-content animated fadeIn">
+<div class="container body-content animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
     @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Read", new { page = p }), 7))
