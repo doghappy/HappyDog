@@ -154,6 +154,8 @@ namespace HappyDog.Infrastructure
             {
                 end = TotalPages;
                 start = end - total + 1;
+                if (start < 1)
+                    start = 1;
             }
             else
             {
