@@ -13,7 +13,7 @@
                         @Html.ActionLink(item.Title, "Detail", "Article", new { id = item.Id }, new { @class = "text-dark" })
                     </h5>
                     <p class="mb-1 text-muted">
-                        <i class="fa fa-calendar"></i>
+                        <i class="fas fa-calendar-alt"></i>
                         @item.CreateTime.ToString("yyyy/MM/dd")
                     </p>
                     <vc:tag-dtos tags="item.Tags"></vc:tag-dtos>

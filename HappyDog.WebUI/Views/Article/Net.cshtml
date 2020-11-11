@@ -7,10 +7,10 @@
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content animated zoomIn">
+    <div class="container body-content animate__animated animate__zoomIn">
         <div class="row">
             <div class="col-md-6">
-                <img src="~/images/swimlane-dotnet-core.svg" />
+                <img src="https://upyun.doghappy.wang/blog/wwwroot/images/swimlane-dotnet-core.svg" />
             </div>
             <div class="col-md-6">
                 <h1 class="display-4 net-color">.NET</h1>
@@ -31,8 +31,8 @@
     </div>
 </div>
 
-<div class="container body-content animated fadeIn">
+<div class="container body-content animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Net", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Net", new { page = p }), 7))
 </div>

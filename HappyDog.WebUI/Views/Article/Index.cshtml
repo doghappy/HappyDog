@@ -7,7 +7,7 @@
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content animated slideInDown">
+    <div class="container body-content animate__animated animate__slideInDown">
         <h1 class="display-4">开心狗</h1>
         <p class="lead">
             Don't ever let somebody tell you<br />
@@ -19,8 +19,8 @@
     </div>
 </div>
 
-<div class="container body-content animated fadeIn">
+<div class="container body-content animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Index", new { page = p }), 7))
 </div>
