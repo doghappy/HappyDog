@@ -2,7 +2,6 @@
 for details on configuring this project to bundle and minify static web assets. */
 body {
     padding-top: 56px;
-    padding-bottom: 20px;
     font-family: 'Microsoft Yahei';
 }
 
@@ -69,38 +68,15 @@ div.jumbotron {
     color: #b07219;
 }
 
-/* footer */
-html {
-    position: relative;
-    min-height: 100vh;
+.f-2 {
+    font-size: 2em;
 }
 
-body { /* Margin bottom by footer height */
-    margin-bottom: 169px;
+footer {
+    padding: 1rem;
 }
 
-.footer {
-    padding: 40px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%; /* Set the fixed height of the footer here */
-    height: 169px; /*line-height: 60px;*/ /* Vertically center the text there */ /*background-color: #f5f5f5*/
+p.footer-text {
+    font-size: 0.8rem;
+    margin-bottom: 0;
 }
-
-    .footer ul {
-        list-style: none;
-        margin: 0 0 1rem 0;
-        padding: 0;
-    }
-
-        .footer ul li {
-            display: inline-block;
-        }
-
-            .footer ul li a {
-                padding: 0 8px;
-            }
-
-                .footer ul li a i {
-                    font-size: 2em;
-                }
