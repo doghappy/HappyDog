@@ -5,7 +5,7 @@
     ViewData["Keywords"] = ViewContext.RouteData.Values["name"];
 }
 
-<div class="container body-content pt-4 pb-4 animated fadeIn">
+<div class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
     @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Index", new { page = p })))

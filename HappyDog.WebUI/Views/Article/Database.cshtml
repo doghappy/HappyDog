@@ -9,14 +9,14 @@
 @section Styles{
     <style>
         div.jumbotron {
-            background: url('/images/db.jpg');
+            background: url('https://upyun.doghappy.wang/blog/wwwroot/images/db.jpg');
             background-size: cover;
         }
     </style>
 }
 
 <div class="jumbotron" id="paginationTarget">
-    <div class="container body-content animated fadeInLeft">
+    <div class="container body-content animate__animated animate__fadeInLeft">
         <h1 class="display-4 text-light">数据库</h1>
         <p class="lead text-light">
             SQL: 关系型数据库，是一种成熟的数据库，对数据结构有着严谨的要求，因此它的数据具有高度的一致性。但是它的读写性能没有NoSQL好。
@@ -30,8 +30,8 @@
     </div>
 </div>
 
-<div class="container body-content animated fadeIn">
+<div class="container body-content animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetPageNumberLinks(p => Url.Action("Database", new { page = p })))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Database", new { page = p }), 7))
 </div>

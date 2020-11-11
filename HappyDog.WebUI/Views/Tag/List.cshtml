@@ -5,22 +5,21 @@
     ViewData["Keywords"] = "标签列表";
 }
 
-<div class="container body-content pt-4 pb-4 animated fadeIn">
+<div class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
     @foreach (var tag in Model)
     {
-        if (string.IsNullOrEmpty(tag.Color))
-        {
-            <a href="@Url.Action("Article",new { name = tag.Name })" class="btn btn-default border border-secondary text-secondary m-1">
-                <i class="fa fa-tag"></i>
-                @tag.Name
-            </a>
-        }
-        else
-        {
-            <a href="@Url.Action("Article",new { name = tag.Name })" class="btn btn-default m-1" style="border-color: @tag.Color; color: @tag.Color">
-                <i class="fa fa-tag"></i>
-                @tag.Name
-            </a>
-        }
+        <a href="@Url.Action("Article",new { name = tag.Name })"
+           class="btn btn-default m-1@(string.IsNullOrEmpty(tag.Color) ? " border-secondary text-secondary" : string.Empty)"
+           style="@(string.IsNullOrEmpty(tag.Color) ? string.Empty : $"color: {tag.Color}; border-color: {tag.Color}")">
+            @if (string.IsNullOrEmpty(tag.Glyph) || string.IsNullOrEmpty(tag.GlyphFont))
+            {
+                <span class="fa fa-tag"></span>
+            }
+            else
+            {
+                <span style="font-family: '@tag.GlyphFont'; font-weight: 900">@Html.Raw(tag.Glyph)</span>
+            }
+            @tag.Name
+        </a>
     }
 </div>

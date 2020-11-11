@@ -6,19 +6,18 @@
     <title>@(ViewData["Title"]) - 开心狗</title>
     <meta name="description" content="@ViewData["Description"]" />
     <meta name="keywords" content="@ViewData["Keywords"]" />
-    <link href="~/favicon.ico" rel="icon" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/fonts/iconfont.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/fonts/iconfont.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     @RenderSection("Styles", required: false)
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="@Url.Action("Index","Article")">
-            <img src="~/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
+            <img src="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
             开心狗
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,41 +25,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "net" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Net","Article")">
-                        <i class="iconfont icon-net"></i>
-                        .NET
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle@(ViewBag.CategoryActive != null ? " active" : "")" href="javascript:" data-toggle="dropdown">
+                        <i class="fas fa-list"></i>
+                        分类
                     </a>
-                </li>
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "java" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Java","Article")">
-                        <i class="fa fa-coffee"></i>
-                        Java
-                    </a>
-                </li>
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "database" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Database","Article")">
-                        <i class="fa fa-database"></i>
-                        数据库
-                    </a>
-                </li>
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "windows" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Windows","Article")">
-                        <i class="fa fa-windows"></i>
-                        Windows
-                    </a>
-                </li>
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "read" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Read","Article")">
-                        <i class="iconfont icon-book"></i>
-                        阅读
-                    </a>
-                </li>
-                <li class="nav-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "essays" ? " active" : "")">
-                    <a class="nav-link" href="@Url.Action("Essays","Article")">
-                        <i class="fa fa-pencil"></i>
-                        随笔
-                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "net" ? " active" : "")" href="@Url.Action("Net","Article")">
+                            <i class="iconfont icon-net"></i>
+                            .NET
+                        </a>
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "java" ? " active" : "")" href="@Url.Action("Java","Article")">
+                            <i class="fas fa-mug-hot"></i>
+                            Java
+                        </a>
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "database" ? " active" : "")" href="@Url.Action("Database","Article")">
+                            <i class="fa fa-database"></i>
+                            数据库
+                        </a>
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "windows" ? " active" : "")" href="@Url.Action("Windows","Article")">
+                            <i class="fab fa-windows"></i>
+                            Windows
+                        </a>
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "read" ? " active" : "")" href="@Url.Action("Read","Article")">
+                            <i class="fas fa-book"></i>
+                            阅读
+                        </a>
+                        <a class="dropdown-item@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "essays" ? " active" : "")" href="@Url.Action("Essays","Article")">
+                            <i class="fas fa-pencil-alt"></i>
+                            随笔
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "tag" ? " active" : "")">
                     <a class="nav-link" asp-controller="Tag" asp-action="List">
@@ -69,50 +64,46 @@
                     </a>
                 </li>
             </ul>
-            <form class="form-inline col-sm-2" method="get"
+            <form class="form-inline col-sm-12 col-md-4 col-lg-2" method="get"
                   asp-controller="Article"
                   asp-action="Search" style="padding:0;">
-                <input type="text" name="q" class="form-control form-control-sm"
-                       style="width:100%; max-width:unset;"
-                       placeholder="搜索一下"
-                       value="@ViewData["SearchValue"]" />
+                <div class="input-group input-group-sm" style="width:100%; max-width:unset;">
+                    <input type="text" name="q" class="form-control" placeholder="搜索一下" value="@ViewData["SearchValue"]" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </nav>
 
     @RenderBody()
 
-    <footer class="footer bg-dark">
-        <ul class="text-center">
-            <li class="nav-item">
-                <a class="nav-link text-light" href="https://github.com/doghappy" style="padding:0 8px" target="_blank">
-                    <i class="fa fa-github fa-2x"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="mailto:hero_wong@outlook.com" style="padding:0 8px" target="_blank">
-                    <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-        <p class="text-center">
-            <span class="text-light">&copy; @DateTime.Now.Year - 开心狗</span>
-            <a class="text-light" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
+    <footer class="container">
+        <hr />
+        <div>
+            <a class="text-secondary" href="https://github.com/doghappy" target="_blank">
+                <i class="fab fa-github f-2"></i>
+            </a>
+            <a class="text-secondary" href="mailto:hero_wong@outlook.com" target="_blank">
+                <i class="fa fa-envelope f-2"></i>
+            </a>
+            <a class="text-secondary" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
+                <i class="iconfont icon-upyun f-2"></i>
+            </a>
+        </div>
+        <p class="footer-text text-muted">
+            Powered by .NET 5.0.0 on Docker
+        </p>
+        <p class="footer-text">
+            <a class="text-muted" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
         </p>
     </footer>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?292945d726b0bc3358bf43ff9409093e";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-        $('[data-toggle="tooltip"]').tooltip();
-    </script>
+    <script src="~/js/baidu-statistics.js"></script>
 </body>
 </html>
