@@ -1,15 +1,15 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:latest AS base
-RUN apt-get update \
-    && apt-get install -y --allow-unauthenticated \
-        libc6-dev \
-        libgdiplus \
-        libx11-dev \
-     && rm -rf /var/lib/apt/lists/*
+FROM mcr.microsoft.com/dotnet/runtime:5.0-buster-slim AS base
+#RUN apt-get update \
+    #&& apt-get install -y --allow-unauthenticated \
+        #libc6-dev \
+        #libgdiplus \
+        #libx11-dev \
+     #&& rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:latest AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["HappyDog.WebUI/HappyDog.WebUI.csproj", "HappyDog.WebUI/"]
 COPY ["HappyDog.Domain/HappyDog.Domain.csproj", "HappyDog.Domain/"]
