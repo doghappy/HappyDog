@@ -5,21 +5,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 - 开心狗</title>
-    <meta name="description" />
-    <meta name="keywords" />
-    <link href="/favicon.ico" rel="icon" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    <link href="/fonts/iconfont.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/site.css" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/fonts/iconfont.css" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">
-            <img src="/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
+            <img src="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" width="30" height="30" class="d-inline-block align-top" />
             开心狗
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,41 +23,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Net">
-                        <i class="iconfont icon-net"></i>
-                        .NET
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown">
+                        <i class="fas fa-list"></i>
+                        分类
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Java">
-                        <i class="fas fa-mug-hot"></i>
-                        Java
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Database">
-                        <i class="fa fa-database"></i>
-                        数据库
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Windows">
-                        <i class="fab fa-windows"></i>
-                        Windows
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Read">
-                        <i class="fas fa-book"></i>
-                        阅读
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Article/Essays">
-                        <i class="fas fa-pencil-alt"></i>
-                        随笔
-                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/Article/Net">
+                            <i class="iconfont icon-net"></i>
+                            .NET
+                        </a>
+                        <a class="dropdown-item" href="/Article/Java">
+                            <i class="fas fa-mug-hot"></i>
+                            Java
+                        </a>
+                        <a class="dropdown-item" href="/Article/Database">
+                            <i class="fa fa-database"></i>
+                            数据库
+                        </a>
+                        <a class="dropdown-item" href="/Article/Windows">
+                            <i class="fab fa-windows"></i>
+                            Windows
+                        </a>
+                        <a class="dropdown-item" href="/Article/Read">
+                            <i class="fas fa-book"></i>
+                            阅读
+                        </a>
+                        <a class="dropdown-item" href="/Article/Essays">
+                            <i class="fas fa-pencil-alt"></i>
+                            随笔
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Tag/List">
@@ -70,20 +62,23 @@
                     </a>
                 </li>
             </ul>
-            <form class="form-inline col-sm-2" method="get" style="padding:0;" action="/Article/Search">
-                <input type="text" name="q" class="form-control form-control-sm"
-                       style="width:100%; max-width:unset;"
-                       placeholder="搜索一下" />
+            <form class="form-inline col-sm-12 col-md-4 col-lg-2" method="get" style="padding:0;" action="/Article/Search">
+                <div class="input-group input-group-sm" style="width:100%; max-width:unset;">
+                    <input type="text" name="q" class="form-control" placeholder="搜索一下" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </nav>
 
-
-
     <div class="container body-content">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <img class="img-fluid" src="https://upyun.doghappy.wang/blog/img/404.png" style="margin-top:8rem" />
+                <img class="img-fluid" src="https://upyun.doghappy.wang/blog/wwwroot/images/404.png" style="margin-top:8rem" />
             </div>
         </div>
     </div>
@@ -112,9 +107,7 @@
         </p>
     </footer>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
     <script>
         var _hmt = _hmt || [];
         (function () {
