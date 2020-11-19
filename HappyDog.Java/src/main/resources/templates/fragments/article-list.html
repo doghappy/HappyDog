@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="list(list)" class="row">
+    <p th:text="${list}"></p>
+    <div th:each="item : ${list}" class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <a th:href="@{'/'+${item.category.value}}">
+                <strong th:text="${item.category.label}"></strong>
+                </a>
+                <h5 class="card-title" th:text="${item.title}"></h5>
+                <p class="mb-1 text-muted">
+                    <i class="fas fa-calendar-alt"></i>
+                    @item.CreateTime.ToString("yyyy/MM/dd")
+                </p>
+                <vc:tag-dtos tags="item.Tags"></vc:tag-dtos>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

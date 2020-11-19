@@ -41,7 +41,7 @@ namespace HappyDog.Infrastructure
         /// In the last item of the page bar, Appen is displayed in the style of the page number.
         /// </summary>
         [JsonIgnore]
-        public string Append { get; set; }
+        public string Append => Page + " / " + TotalPages;
 
         /// <summary>
         /// Auto hide when TotalPages is less than 2
