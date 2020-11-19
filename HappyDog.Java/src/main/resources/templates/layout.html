@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">开心狗</title>
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" rel="icon" type="image/x-icon"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+    <link href="https://upyun.doghappy.wang/blog/wwwroot/fonts/iconfont.css" rel="stylesheet"/>
+    <link th:href="@{/css/site.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" th:href="@{/}">
+    <img src="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" width="30" height="30"
+         class="d-inline-block align-top"/>
+    开心狗
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown">
+                    <i class="fas fa-list"></i>
+                    分类
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:href="@{/article/net}">
+                    <i class="iconfont icon-net"></i>
+                    .NET
+                    </a>
+                    <a class="dropdown-item" th:href="@{/article/java}">
+                    <i class="fas fa-mug-hot"></i>
+                    Java
+                    </a>
+                    <a class="dropdown-item" th:href="@{/article/database}">
+                    <i class="fa fa-database"></i>
+                    数据库
+                    </a>
+                    <a class="dropdown-item" th:href="@{/article/windows}">
+                    <i class="fab fa-windows"></i>
+                    Windows
+                    </a>
+                    <a class="dropdown-item" th:href="@{/article/read}">
+                    <i class="fas fa-book"></i>
+                    阅读
+                    </a>
+                    <a class="dropdown-item" th:href="@{/article/essays}">
+                    <i class="fas fa-pencil-alt"></i>
+                    随笔
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Tag" asp-action="List">
+                    <i class="fa fa-tags"></i>
+                    标签
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline col-sm-12 col-md-4 col-lg-2" method="get"
+              asp-controller="Article"
+              asp-action="Search" style="padding:0;">
+            <div class="input-group input-group-sm" style="width:100%; max-width:unset;">
+                <input type="text" name="q" class="form-control" placeholder="搜索一下" value="" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<th:block layout:fragment="body"></th:block>
+
+<footer class="container">
+    <hr/>
+    <div>
+        <a class="text-secondary" href="https://github.com/doghappy" target="_blank">
+            <i class="fab fa-github f-2"></i>
+        </a>
+        <a class="text-secondary" href="mailto:hero_wong@outlook.com" target="_blank">
+            <i class="fa fa-envelope f-2"></i>
+        </a>
+        <a class="text-secondary" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
+            <i class="iconfont icon-upyun f-2"></i>
+        </a>
+    </div>
+    <p class="footer-text text-muted">
+        Released by Azure DevOps
+    </p>
+    <p class="footer-text text-muted">
+        Powered by Spring Boot v2.4.0 on Docker
+    </p>
+    <p class="footer-text">
+        <a class="text-muted" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
+    </p>
+</footer>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+<!--<th:block layout:fragment="scripts"></th:block>-->
+<script src="~/js/baidu-statistics.js"></script>
+</body>
+</html>
