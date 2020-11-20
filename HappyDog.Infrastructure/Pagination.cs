@@ -107,13 +107,10 @@ namespace HappyDog.Infrastructure
                         .Append("</a></li>");
                 }
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }
@@ -215,13 +212,10 @@ namespace HappyDog.Infrastructure
                         .Append("</a></li>");
                 }
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }
@@ -268,13 +262,10 @@ namespace HappyDog.Infrastructure
                     .Append(NextText)
                     .Append("</a></li>");
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item disabled\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }
