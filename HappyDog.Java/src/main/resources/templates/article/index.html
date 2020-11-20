@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <title>doghappy</title>
     <meta name="description" content="开心狗"/>
@@ -19,7 +19,10 @@
             </p>
         </div>
     </div>
-    <div th:insert="fragments/article-list :: list(${list})" class="container body-content animate__animated animate__fadeIn"></div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
 </th:block>
 </body>
 </html>

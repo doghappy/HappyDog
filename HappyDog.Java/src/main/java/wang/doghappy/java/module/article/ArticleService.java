@@ -6,6 +6,7 @@ import wang.doghappy.java.module.article.model.FindEnabledDtosParameter;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
+import wang.doghappy.java.util.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,9 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
 
-    public List<ArticleDto> findEnabledDtos(FindEnabledDtosParameter parameter) {
-        var articles = articleRepository.findEnabledDtos(parameter);
+    public Pagination<ArticleDto> findEnabledDtos(int page) {
+        var pagination=articleRepository.findEnabledDtos(page);
+        var articles = pagination.getData();
         if (!articles.isEmpty()) {
             var articleIds = articles
                     .stream()
@@ -45,6 +47,6 @@ public class ArticleService {
                                 .forEach(tag -> articleTags.add(tag));
                     });
         }
-        return articles;
+        return pagination;
     }
 }

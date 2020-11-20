@@ -11,6 +11,7 @@ import wang.doghappy.java.module.article.repository.ArticleRepository;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
+import wang.doghappy.java.util.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +51,11 @@ public class IndexTest {
         dto3.setTitle("article3");
         list.add(dto3);
 
+        var pagination = new Pagination<ArticleDto>();
+        pagination.setData(list);
+
         var mockArticleRepository = mock(ArticleRepository.class);
-        when(mockArticleRepository.findEnabledDtos(Mockito.any(FindEnabledDtosParameter.class))).thenReturn(list);
+        when(mockArticleRepository.findEnabledDtos(Mockito.anyInt())).thenReturn(pagination);
 
         var tags = new ArrayList<ArticleIdTagDto>();
         var tag1 = new ArticleIdTagDto();

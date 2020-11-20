@@ -12,7 +12,7 @@ public class FindEnabledDtosParameter {
     }
 
     public void setPage(int page) {
-        this.page = page;
+        this.page = page < 1 ? 1 : page;
     }
 
     public ArticleCategory getCategory() {

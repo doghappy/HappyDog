@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import wang.doghappy.java.module.article.model.FindEnabledDtosParameter;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ArticleController {
@@ -19,10 +19,14 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/")
-    public String index(Model model) {
-        var parameter = new FindEnabledDtosParameter();
-        var list = articleService.findEnabledDtos(parameter);
-        model.addAttribute("list", list);
+    public String index(
+            Model model,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        var pagination = articleService.findEnabledDtos(page);
+        model.addAttribute("list", pagination.getData());
+        String bar = pagination.getFlexibleLinks(p -> p.toString(), 7);
+        model.addAttribute("bar", bar);
         return "article/index";
     }
 }
