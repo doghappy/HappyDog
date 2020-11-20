@@ -1,18 +1,22 @@
 package wang.doghappy.java.module.article.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import wang.doghappy.java.module.category.model.CategoryDto;
-import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
+import wang.doghappy.java.module.tag.model.TagDto;
 
-import java.time.OffsetDateTime;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleDto {
     private int id;
     private String title;
-    private OffsetDateTime createTime;
+    private Timestamp createTime;
     private int viewCount;
     private BaseStatus status;
     private CategoryDto category;
+    private List<TagDto> tags;
 
     public int getId() {
         return id;
@@ -30,11 +34,11 @@ public class ArticleDto {
         this.title = title;
     }
 
-    public OffsetDateTime getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(OffsetDateTime createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
@@ -62,15 +66,24 @@ public class ArticleDto {
         this.category = category;
     }
 
+    public List<TagDto> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagDto> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
-        return "ArticleDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", category=" + category +
-                ", createTime=" + createTime +
-                ", viewCount=" + viewCount +
-                ", status=" + status +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("title", title)
+                .append("createTime", createTime)
+                .append("viewCount", viewCount)
+                .append("status", status)
+                .append("category", category)
+                .append("tags", tags)
+                .toString();
     }
 }

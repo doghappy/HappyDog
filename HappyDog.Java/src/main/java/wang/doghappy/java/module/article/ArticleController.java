@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import wang.doghappy.java.module.article.model.FindEnabledDtosParameter;
-import wang.doghappy.java.module.article.repository.ArticleRepository;
-import wang.doghappy.java.module.article.service.ArticleService;
 
 @Controller
 public class ArticleController {

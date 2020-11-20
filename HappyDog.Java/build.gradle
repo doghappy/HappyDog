@@ -26,7 +26,10 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
     // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
     compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.2'
-    compileOnly("org.springframework.boot:spring-boot-devtools")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
