@@ -6,6 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
+import java.util.stream.IntStream;
+
+import static wang.doghappy.java.util.PaginationUrlGenerator.generate;
+
 @Controller
 public class ArticleController {
     @Autowired
@@ -21,11 +27,12 @@ public class ArticleController {
     @GetMapping("/")
     public String index(
             Model model,
+            HttpServletRequest request,
             @RequestParam(defaultValue = "1") int page
     ) {
         var pagination = articleService.findEnabledDtos(page);
         model.addAttribute("list", pagination.getData());
-        String bar = pagination.getFlexibleLinks(p -> p.toString(), 7);
+        String bar = pagination.getFlexibleLinks(p -> generate(request, p), 7);
         model.addAttribute("bar", bar);
         return "article/index";
     }
