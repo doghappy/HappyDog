@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.model.FindEnabledDtosParameter;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
+import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
@@ -15,6 +16,7 @@ import wang.doghappy.java.util.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
@@ -55,7 +57,7 @@ public class IndexTest {
         pagination.setData(list);
 
         var mockArticleRepository = mock(ArticleRepository.class);
-        when(mockArticleRepository.findEnabledDtos(Mockito.anyInt())).thenReturn(pagination);
+        when(mockArticleRepository.findEnabledDtos(Mockito.anyInt(), Mockito.any(Optional.class))).thenReturn(pagination);
 
         var tags = new ArrayList<ArticleIdTagDto>();
         var tag1 = new ArticleIdTagDto();

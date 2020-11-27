@@ -2,14 +2,14 @@ package wang.doghappy.java.module.article;
 
 import org.springframework.stereotype.Service;
 import wang.doghappy.java.module.article.model.ArticleDto;
-import wang.doghappy.java.module.article.model.FindEnabledDtosParameter;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
+import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,8 +27,8 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
 
-    public Pagination<ArticleDto> findEnabledDtos(int page) {
-        var pagination=articleRepository.findEnabledDtos(page);
+    public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
+        var pagination = articleRepository.findEnabledDtos(page, category);
         var articles = pagination.getData();
         if (!articles.isEmpty()) {
             var articleIds = articles
