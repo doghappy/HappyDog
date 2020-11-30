@@ -10,6 +10,7 @@ public class Pagination<T> {
         setPreviousText("&laquo;");
         setNextText("&raquo;");
         setSize(20);
+        setAutoHide(true);
     }
 
     private List<T> data;

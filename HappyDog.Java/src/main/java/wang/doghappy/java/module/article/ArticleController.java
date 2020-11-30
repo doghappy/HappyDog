@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import wang.doghappy.java.module.article.template.IndexTemplate;
+import wang.doghappy.java.module.article.template.JavaTemplate;
 import wang.doghappy.java.module.article.template.NetTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,5 +47,16 @@ public class ArticleController {
         var template = new NetTemplate();
         template.setData(request, model, page, articleService);
         return "article/net";
+    }
+
+    @GetMapping("/java")
+    public String java(
+            Model model,
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        var template = new JavaTemplate();
+        template.setData(request, model, page, articleService);
+        return "article/java";
     }
 }

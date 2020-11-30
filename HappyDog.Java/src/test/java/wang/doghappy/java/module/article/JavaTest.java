@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-public class NetTest {
+public class JavaTest {
     @Test
     public void testNet() throws Exception {
         var pagination = new Pagination<ArticleDto>();
@@ -26,8 +26,8 @@ public class NetTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/net"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/java"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("article/net"));
+                .andExpect(view().name("article/java"));
     }
 }

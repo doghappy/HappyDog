@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="cn" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>.NET</title>
+    <meta name="description" content="Java"/>
+    <meta name="keywords" content="Java"/>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__zoomIn">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="https://upyun.doghappy.wang/blog/wwwroot/images/logo-java-text-color.svg" style="max-width:100%"/>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="display-4 java-color">Java</h1>
+                    <p class="lead">
+                        Java是一种广泛使用的计算机编程语言，拥有跨平台、面向对象、泛型编程的特性，广泛应用于企业级Web应用开发和移动应用开发。<br/><br/>
+                        “Java语言靠群体的力量而非公司的力量”是Sun公司的口号之一，并获得了广大软件开发商的认同。这与微软公司所倡导的注重精英和封闭式的模式完全不同，此外，微软公司后来推出了与之竞争的.NET平台以及模仿Java的C#语言。后来Sun公司被甲骨文公司并购，Java也随之成为甲骨文公司的产品。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>
