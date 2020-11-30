@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import wang.doghappy.java.module.article.template.DatabaseTemplate;
 import wang.doghappy.java.module.article.template.IndexTemplate;
 import wang.doghappy.java.module.article.template.JavaTemplate;
 import wang.doghappy.java.module.article.template.NetTemplate;
@@ -58,5 +59,16 @@ public class ArticleController {
         var template = new JavaTemplate();
         template.setData(request, model, page, articleService);
         return "article/java";
+    }
+
+    @GetMapping("/database")
+    public String database(
+            Model model,
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        var template = new DatabaseTemplate();
+        template.setData(request, model, page, articleService);
+        return "article/database";
     }
 }
