@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cn" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>.NET</title>
+    <meta name="description" content="Windows"/>
+    <meta name="keywords" content="Windows"/>
+    <style>
+        div.jumbotron div.banner-text {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__rollIn">
+            <p>
+                <img src="https://upyun.doghappy.wang/blog/wwwroot/images/Windows_10_Logo.svg" class="img-fluid" />
+            </p>
+            <p class="lead">
+                Windows 10 是一款优秀的系统。<br />
+                它逐渐成为了智能手机、PC、平板、Xbox One、物联网和其他各种办公设备的心脏，使设备之间提供无缝的操作体验。
+            </p>
+            <p class="lead">
+                <a href="https://docs.microsoft.com/zh-cn/windows/release-information/" target="_blank">
+                    Windows 10 Release Information
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>
