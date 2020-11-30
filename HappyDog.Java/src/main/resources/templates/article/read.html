@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cn" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>.NET</title>
+    <meta name="description" content="阅读"/>
+    <meta name="keywords" content="阅读"/>
+    <style>
+        div.jumbotron {
+            background: url('https://upyun.doghappy.wang/blog/wwwroot/images/Office_8x3.jpg');
+            background-size: cover;
+        }
+
+            div.jumbotron div.banner-text {
+                background: rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+            }
+    </style>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__zoomInDown">
+            <div class="banner-text">
+                <h1 class="display-4 read-color">阅读</h1>
+                <p class="lead text-light">
+                    自中原板荡，夷狄交侵，余发愤河朔，起自相台，总发从军，历二百余战。虽未能远入荒夷，洗荡巢穴，亦且快国雠之万一。今又提一旅孤军，振起宜兴。建康之战，一鼓败虏，恨未能使匹马不回耳。故且养兵休卒，蓄锐待敌，嗣当激励士卒，功期再战，北逾沙漠，喋血虏廷，尽屠夷种，迎二圣归京阙，取故土下版图，朝廷无虞，主上奠枕，余之愿也。
+                </p>
+                <p class="lead text-light text-right">
+                    ——岳飞·河朔题
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>

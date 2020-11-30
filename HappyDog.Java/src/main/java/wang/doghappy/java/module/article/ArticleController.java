@@ -79,4 +79,15 @@ public class ArticleController {
         template.setData(request, model, page, articleService);
         return "article/windows";
     }
+
+    @GetMapping("/read")
+    public String read(
+            Model model,
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        var template = new ReadTemplate();
+        template.setData(request, model, page, articleService);
+        return "article/read";
+    }
 }

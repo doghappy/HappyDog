@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class JavaTest {
     @Test
-    public void testNet() throws Exception {
+    public void testJava() throws Exception {
         var pagination = new Pagination<ArticleDto>();
         pagination.setData(new ArrayList<>());
         var mockArticleRepository = Mockito.mock(ArticleRepository.class);

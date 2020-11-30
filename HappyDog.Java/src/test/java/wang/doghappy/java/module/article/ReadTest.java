@@ -15,9 +15,9 @@ import java.util.Optional;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-public class WindowsTest {
+public class ReadTest {
     @Test
-    public void testWindows() throws Exception {
+    public void testRead() throws Exception {
         var pagination = new Pagination<ArticleDto>();
         pagination.setData(new ArrayList<>());
         var mockArticleRepository = Mockito.mock(ArticleRepository.class);
@@ -26,8 +26,8 @@ public class WindowsTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/windows"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/read"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("article/windows"));
+                .andExpect(view().name("article/read"));
     }
 }
