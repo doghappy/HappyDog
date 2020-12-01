@@ -67,7 +67,7 @@
               asp-controller="Article"
               asp-action="Search" style="padding:0;">
             <div class="input-group input-group-sm" style="width:100%; max-width:unset;">
-                <input type="text" name="q" class="form-control" placeholder="搜索一下" value=""/>
+                <input type="text" name="q" class="form-control" placeholder="搜索一下" th:value="${searchKey + (searchValue == null ? '' : searchValue)}"/>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary">
                         <i class="fas fa-search"></i>
