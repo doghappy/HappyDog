@@ -26,7 +26,7 @@ public class EssaysTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/essays"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Essays"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/essays"))
                 .andExpect(model().attributeExists("categoryActive"))

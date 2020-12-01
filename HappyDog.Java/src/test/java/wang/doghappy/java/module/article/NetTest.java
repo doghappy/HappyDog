@@ -26,7 +26,7 @@ public class NetTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/net"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/NET"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/net"))
                 .andExpect(model().attributeExists("categoryActive"))

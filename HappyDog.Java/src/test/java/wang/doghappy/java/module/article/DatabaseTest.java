@@ -26,7 +26,7 @@ public class DatabaseTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/database"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Database"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/database"))
                 .andExpect(model().attributeExists("categoryActive"))

@@ -36,7 +36,7 @@ public class ArticleController {
         return "article/index";
     }
 
-    @GetMapping("/net")
+    @GetMapping("/NET")
     public String net(
             Model model,
             HttpServletRequest request,
@@ -47,7 +47,7 @@ public class ArticleController {
         return "article/net";
     }
 
-    @GetMapping("/java")
+    @GetMapping("/Java")
     public String java(
             Model model,
             HttpServletRequest request,
@@ -58,7 +58,7 @@ public class ArticleController {
         return "article/java";
     }
 
-    @GetMapping("/database")
+    @GetMapping("/Database")
     public String database(
             Model model,
             HttpServletRequest request,
@@ -69,7 +69,7 @@ public class ArticleController {
         return "article/database";
     }
 
-    @GetMapping("/windows")
+    @GetMapping("/Windows")
     public String windows(
             Model model,
             HttpServletRequest request,
@@ -80,7 +80,7 @@ public class ArticleController {
         return "article/windows";
     }
 
-    @GetMapping("/read")
+    @GetMapping("/Read")
     public String read(
             Model model,
             HttpServletRequest request,
@@ -91,7 +91,7 @@ public class ArticleController {
         return "article/read";
     }
 
-    @GetMapping("/essays")
+    @GetMapping("/Essays")
     public String essays(
             Model model,
             HttpServletRequest request,

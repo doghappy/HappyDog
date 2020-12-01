@@ -26,7 +26,7 @@ public class ReadTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/read"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Read"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/read"))
                 .andExpect(model().attributeExists("categoryActive"))

@@ -26,7 +26,7 @@ public class JavaTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/java"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Java"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/java"))
                 .andExpect(model().attributeExists("categoryActive"))

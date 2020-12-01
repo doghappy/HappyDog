@@ -26,7 +26,7 @@ public class WindowsTest {
         var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/windows"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Windows"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("article/windows"))
                 .andExpect(model().attributeExists("categoryActive"))

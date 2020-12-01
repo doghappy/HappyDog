@@ -30,27 +30,27 @@
                     分类
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" th:href="@{/net}" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/net') ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/NET}" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/NET') ? 'active' : ''}">
                         <i class="iconfont icon-net"></i>
                         .NET
                     </a>
-                    <a class="dropdown-item" th:href="@{/java}" th:classappend="${#httpServletRequest.requestURI == '/java' ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/Java}" th:classappend="${#httpServletRequest.requestURI == '/Java' ? 'active' : ''}">
                         <i class="fas fa-mug-hot"></i>
                         Java
                     </a>
-                    <a class="dropdown-item" th:href="@{/database}" th:classappend="${#httpServletRequest.requestURI == '/database' ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/Database}" th:classappend="${#httpServletRequest.requestURI == '/Database' ? 'active' : ''}">
                         <i class="fa fa-database"></i>
                         数据库
                     </a>
-                    <a class="dropdown-item" th:href="@{/windows}" th:classappend="${#httpServletRequest.requestURI == '/windows' ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/Windows}" th:classappend="${#httpServletRequest.requestURI == '/Windows' ? 'active' : ''}">
                         <i class="fab fa-windows"></i>
                         Windows
                     </a>
-                    <a class="dropdown-item" th:href="@{/read}" th:classappend="${#httpServletRequest.requestURI == '/read' ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/Read}" th:classappend="${#httpServletRequest.requestURI == '/Read' ? 'active' : ''}">
                         <i class="fas fa-book"></i>
                         阅读
                     </a>
-                    <a class="dropdown-item" th:href="@{/essays}" th:classappend="${#httpServletRequest.requestURI == '/essays' ? 'active' : ''}">
+                    <a class="dropdown-item" th:href="@{/Essays}" th:classappend="${#httpServletRequest.requestURI == '/Essays' ? 'active' : ''}">
                         <i class="fas fa-pencil-alt"></i>
                         随笔
                     </a>
