@@ -1,6 +1,7 @@
 package wang.doghappy.java.module.article;
 
 import org.springframework.stereotype.Service;
+import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
 import wang.doghappy.java.module.model.ArticleCategory;
@@ -48,5 +49,14 @@ public class ArticleService {
                     });
         }
         return pagination;
+    }
+
+    public ArticleDetailDto findOne(int id) {
+        var dto = articleRepository.findOne(id);
+        if (dto != null) {
+            var tags = tagRepository.findTagDtoByArticleId(dto.getId());
+            dto.setTags(tags);
+        }
+        return dto;
     }
 }

@@ -14,7 +14,7 @@
                     <strong th:text="${item.category.label}" th:style="'color: '+${item.category.color}"></strong>
                 </a>
                 <h5 class="card-title">
-                    <a th:href="@{'/Article/Detail/'+${item.id}}" th:text="${item.title}" class="text-dark"></a>
+                    <a th:href="@{'/detail/'+${item.id}}" th:text="${item.title}" class="text-dark"></a>
                 </h5>
                 <p class="mb-1 text-muted">
                     <i class="fas fa-calendar-alt"></i>
