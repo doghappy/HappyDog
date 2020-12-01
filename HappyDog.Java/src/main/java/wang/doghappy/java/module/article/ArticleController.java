@@ -90,4 +90,15 @@ public class ArticleController {
         template.setData(request, model, page, articleService);
         return "article/read";
     }
+
+    @GetMapping("/essays")
+    public String essays(
+            Model model,
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        var template = new EssaysTemplate();
+        template.setData(request, model, page, articleService);
+        return "article/essays";
+    }
 }
