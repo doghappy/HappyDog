@@ -25,39 +25,39 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown" th:classappend="${categoryActive != null ? 'active' : ''}">
                     <i class="fas fa-list"></i>
                     分类
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" th:href="@{/net}">
+                    <a class="dropdown-item" th:href="@{/net}" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/net') ? 'active' : ''}">
                         <i class="iconfont icon-net"></i>
                         .NET
                     </a>
-                    <a class="dropdown-item" th:href="@{/java}">
+                    <a class="dropdown-item" th:href="@{/java}" th:classappend="${#httpServletRequest.requestURI == '/java' ? 'active' : ''}">
                         <i class="fas fa-mug-hot"></i>
                         Java
                     </a>
-                    <a class="dropdown-item" th:href="@{/database}">
+                    <a class="dropdown-item" th:href="@{/database}" th:classappend="${#httpServletRequest.requestURI == '/database' ? 'active' : ''}">
                         <i class="fa fa-database"></i>
                         数据库
                     </a>
-                    <a class="dropdown-item" th:href="@{/windows}">
+                    <a class="dropdown-item" th:href="@{/windows}" th:classappend="${#httpServletRequest.requestURI == '/windows' ? 'active' : ''}">
                         <i class="fab fa-windows"></i>
                         Windows
                     </a>
-                    <a class="dropdown-item" th:href="@{/read}">
+                    <a class="dropdown-item" th:href="@{/read}" th:classappend="${#httpServletRequest.requestURI == '/read' ? 'active' : ''}">
                         <i class="fas fa-book"></i>
                         阅读
                     </a>
-                    <a class="dropdown-item" th:href="@{/essays}">
+                    <a class="dropdown-item" th:href="@{/essays}" th:classappend="${#httpServletRequest.requestURI == '/essays' ? 'active' : ''}">
                         <i class="fas fa-pencil-alt"></i>
                         随笔
                     </a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Tag" asp-action="List">
+                <a class="nav-link" th:href="@{/tags}" th:classappend="${#httpServletRequest.requestURI == '/tag' ? 'active' : ''}">
                     <i class="fa fa-tags"></i>
                     标签
                 </a>

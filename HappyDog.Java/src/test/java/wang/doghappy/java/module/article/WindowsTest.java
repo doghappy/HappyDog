@@ -12,8 +12,8 @@ import wang.doghappy.java.util.Pagination;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 public class WindowsTest {
     @Test
@@ -28,6 +28,8 @@ public class WindowsTest {
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/windows"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("article/windows"));
+                .andExpect(view().name("article/windows"))
+                .andExpect(model().attributeExists("categoryActive"))
+                .andExpect(model().attribute("categoryActive", true));
     }
 }

@@ -23,6 +23,8 @@ public abstract class CategoryTemplate {
         model.addAttribute("list", pagination.getData());
         String bar = pagination.getFlexibleLinks(p -> generate(request, p), 7);
         model.addAttribute("bar", bar);
+        if (getCategory().isPresent())
+            model.addAttribute("categoryActive", true);
     }
 
     protected abstract Optional<ArticleCategory> getCategory();

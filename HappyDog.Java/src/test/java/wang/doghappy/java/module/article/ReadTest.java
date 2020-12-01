@@ -12,8 +12,8 @@ import wang.doghappy.java.util.Pagination;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 public class ReadTest {
     @Test
@@ -28,6 +28,8 @@ public class ReadTest {
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/read"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("article/read"));
+                .andExpect(view().name("article/read"))
+                .andExpect(model().attributeExists("categoryActive"))
+                .andExpect(model().attribute("categoryActive", true));
     }
 }

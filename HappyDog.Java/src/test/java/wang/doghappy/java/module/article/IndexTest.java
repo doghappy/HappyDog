@@ -110,6 +110,7 @@ public class IndexTest {
                                 hasProperty("tags", hasSize(1)),
                                 hasProperty("tags", hasItem(hasProperty("name", is("tag3"))))
                         )
-                )));
+                )))
+                .andExpect(model().attributeDoesNotExist("categoryActive"));
     }
 }
