@@ -49,6 +49,7 @@ public class DetailTest {
                 .andExpect(model().attribute("article", allOf(
                         hasProperty("id", is(1)),
                         hasProperty("title", is("article 1")),
+                        hasProperty("content", is("<h1>content</h1>\n")),
                         hasProperty("tags", hasSize(1)),
                         hasProperty("tags",hasItem(allOf(
                                 hasProperty("id", is(1)),

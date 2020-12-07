@@ -1,5 +1,8 @@
 package wang.doghappy.java.module.article;
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,6 +112,10 @@ public class ArticleController {
             @PathVariable int id
     ) {
         var article = articleService.findOne(id);
+        Parser parser = Parser.builder().build();
+        Node doc = parser.parse(article.getContent());
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        article.setContent(renderer.render(doc));
         model.addAttribute("article", article);
         return "article/detail";
     }
