@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import wang.doghappy.java.module.article.template.*;
-
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.stream.IntStream;
-
-import static wang.doghappy.java.util.PaginationUrlGenerator.generate;
 
 @Controller
 public class ArticleController {

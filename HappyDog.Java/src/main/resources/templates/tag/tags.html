@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ch" layout:decorate="~{layout}" th:with="searchKey=''">
+<head>
+    <meta charset="UTF-8">
+    <title>标签列表</title>
+    <meta name="description" content="标签列表"/>
+    <meta name="keywords" content="标签列表"/>
+</head>
+<body>
+<div layout:fragment="body" class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
+    <th:block th:each="tag : ${tags}">
+        <a th:href="@{'/tags/' + ${tag.name}}"
+           class="btn btn-default m-1"
+           th:classappend="${#strings.isEmpty(tag.color) ? 'border-secondary text-secondary' : ''}"
+           th:styleappend="${#strings.isEmpty(tag.color) ? '' : 'color: ' + tag.color + '; border-color: ' + tag.color + ';'}">
+            <span th:if="${#strings.isEmpty(tag.glyph) || #strings.isEmpty(tag.glyphFont)}"
+                  class="fa fa-tag"></span>
+            <span th:unless="${#strings.isEmpty(tag.glyph) || #strings.isEmpty(tag.glyphFont)}"
+                  style="font-weight:900;"
+                  th:styleappend="'font-family:\'' + ${tag.glyphFont} + '\';'"
+                  th:utext="${tag.glyph}"></span>
+            <th:block th:text="${tag.name}"></th:block>
+        </a>
+    </th:block>
+</div>
+</body>
+</html>

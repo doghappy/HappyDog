@@ -59,4 +59,13 @@ public class JdbcTagRepository implements TagRepository {
             return tag;
         });
     }
+
+    public List<TagDto> findTagDtos(){
+        String sql = "SELECT Tags.Id, Tags.Name, Tags.Color, Tags.GlyphFont, Tags.Glyph FROM Tags";
+        return jdbcTemplate.query(sql, (row, num) -> {
+            var tag = new ArticleIdTagDto();
+            setProperties(tag, row);
+            return tag;
+        });
+    }
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface TagRepository {
     ArrayList<ArticleIdTagDto> findTagDtoByArticleIds(Collection<Integer> articleIds);
     List<TagDto> findTagDtoByArticleId(int articleId);
+    List<TagDto> findTagDtos();
 }
