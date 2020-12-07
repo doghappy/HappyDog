@@ -8,7 +8,7 @@
 <body>
 <div layout:fragment="body" class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
     <th:block th:each="tag : ${tags}">
-        <a th:href="@{'/tags/' + ${tag.name}}"
+        <a th:href="@{'/tag/' + ${tag.name} + '/article'}"
            class="btn btn-default m-1"
            th:classappend="${#strings.isEmpty(tag.color) ? 'border-secondary text-secondary' : ''}"
            th:styleappend="${#strings.isEmpty(tag.color) ? '' : 'color: ' + tag.color + '; border-color: ' + tag.color + ';'}">

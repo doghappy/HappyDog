@@ -9,7 +9,7 @@
     <p th:if="${#lists.size(list) > 0}" class="mb-1 text-muted">
         <th:block th:each="tag : ${list}">
             <a class="btn btn-link badge badge-light border"
-               th:href="@{'/Tag/' + ${tag.Name} + '/Article'}"
+               th:href="@{'/tag/' + ${tag.Name} + '/article'}"
                th:classappend="${#strings.isEmpty(tag.color) ? 'text-secondary' : ''}"
                th:style="${#strings.isEmpty(tag.color) ? '' : 'color:' + tag.color}">
                 <span th:if="${#strings.isEmpty(tag.glyph) || #strings.isEmpty(tag.glyphFont)}" class="fa fa-tag"></span>

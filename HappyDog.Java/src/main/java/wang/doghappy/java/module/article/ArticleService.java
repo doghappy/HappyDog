@@ -8,8 +8,11 @@ import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -28,6 +31,20 @@ public class ArticleService {
 
     public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
         var pagination = articleRepository.findEnabledDtos(page, category);
+        setTags(pagination);
+        return pagination;
+    }
+
+    public ArticleDetailDto findOne(int id) {
+        var dto = articleRepository.findOne(id);
+        if (dto != null) {
+            var tags = tagRepository.findTagDtoByArticleId(dto.getId());
+            dto.setTags(tags);
+        }
+        return dto;
+    }
+
+    private void setTags(Pagination<ArticleDto> pagination) {
         var articles = pagination.getData();
         if (!articles.isEmpty()) {
             var articleIds = articles
@@ -46,15 +63,11 @@ public class ArticleService {
                                 .forEach(tag -> articleTags.add(tag));
                     });
         }
-        return pagination;
     }
 
-    public ArticleDetailDto findOne(int id) {
-        var dto = articleRepository.findOne(id);
-        if (dto != null) {
-            var tags = tagRepository.findTagDtoByArticleId(dto.getId());
-            dto.setTags(tags);
-        }
-        return dto;
+    public Pagination<ArticleDto> findByIds(List<Integer> ids, int page) {
+        var pagination = articleRepository.findByIds(ids, page);
+        setTags(pagination);
+        return pagination;
     }
 }

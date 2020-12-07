@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import wang.doghappy.java.util.PaginationUrlGenerator;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class GenerateTest {

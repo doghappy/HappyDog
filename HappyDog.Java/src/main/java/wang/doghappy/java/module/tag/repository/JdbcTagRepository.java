@@ -2,10 +2,12 @@ package wang.doghappy.java.module.tag.repository;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,12 +62,32 @@ public class JdbcTagRepository implements TagRepository {
         });
     }
 
-    public List<TagDto> findTagDtos(){
-        String sql = "SELECT Tags.Id, Tags.Name, Tags.Color, Tags.GlyphFont, Tags.Glyph FROM Tags";
+    public List<TagDto> findTagDtos() {
+        String sql = "SELECT Id, Name, Color, GlyphFont, Glyph FROM Tags";
         return jdbcTemplate.query(sql, (row, num) -> {
-            var tag = new ArticleIdTagDto();
+            var tag = new TagDto();
             setProperties(tag, row);
             return tag;
         });
+    }
+
+    public TagDto findTagByName(String name) {
+        String sql = "SELECT Id, Name, Color, GlyphFont, Glyph FROM Tags WHERE Name = :name";
+        var map = new MapSqlParameterSource();
+        map.addValue("name", name);
+        return jdbcTemplate.query(sql, map, row -> {
+            var tag = new TagDto();
+            if (row.next()) {
+                setProperties(tag, row);
+            }
+            return tag;
+        });
+    }
+
+    public List<Integer> findArticleIds(int tagId) {
+        String sql = "SELECT ArticleId FROM ArticleTagMappings WHERE TagId=:tagId";
+        var map = new MapSqlParameterSource();
+        map.addValue("tagId", tagId);
+        return jdbcTemplate.query(sql, map, (row, num) -> row.getInt("ArticleId"));
     }
 }

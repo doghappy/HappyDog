@@ -8,9 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
-
 import java.util.ArrayList;
-
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -23,11 +21,11 @@ public class TagsTest {
         var mockTagRepository = Mockito.mock(TagRepository.class);
         Mockito.when(mockTagRepository.findTagDtos()).thenReturn(new ArrayList<>());
         var tagService = new TagService(mockTagRepository);
-        var controller = new TagController(tagService);
+        var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/tags"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/tag"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("tag/tags"))
+                .andExpect(view().name("tag/tag"))
                 .andExpect(model().attribute("tags", hasSize(0)));
     }
 
@@ -43,11 +41,11 @@ public class TagsTest {
         Mockito.when(mockTagRepository.findTagDtos()).thenReturn(tags);
 
         var tagService = new TagService(mockTagRepository);
-        var controller = new TagController(tagService);
+        var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/tags"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/tag"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("tag/tags"))
+                .andExpect(view().name("tag/tag"))
                 .andExpect(model().attribute("tags", hasSize(1)))
                 .andExpect(model().attribute("tags", hasItem(allOf(
                         hasProperty("id", is(1)),
