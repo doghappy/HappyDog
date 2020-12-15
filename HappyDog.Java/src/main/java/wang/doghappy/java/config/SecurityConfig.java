@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(new LoginFailureHandler())
                 .permitAll()
                 .and()
+                .rememberMe()
+                .and()
                 .logout().permitAll();
     }
 
