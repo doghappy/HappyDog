@@ -4,28 +4,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import wang.doghappy.java.module.category.model.CategoryDto;
 import wang.doghappy.java.module.model.BaseStatus;
 import wang.doghappy.java.module.tag.model.TagDto;
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDto {
-    public ArticleDto() {
-    }
-
-    public ArticleDto(int id, String title, Timestamp createTime, int viewCount, BaseStatus status) {
-        this.id = id;
-        this.title = title;
-        this.createTime = createTime;
-        this.viewCount = viewCount;
-        this.status = status;
-    }
 
     private int id;
     private String title;
     private Timestamp createTime;
     private int viewCount;
     private BaseStatus status;
+    private int categoryId;
     private CategoryDto category;
     private List<TagDto> tags;
 
@@ -85,6 +74,14 @@ public class ArticleDto {
         this.tags = tags;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -94,6 +91,7 @@ public class ArticleDto {
                 .append("viewCount", viewCount)
                 .append("status", status)
                 .append("category", category)
+                .append("categoryId", categoryId)
                 .append("tags", tags)
                 .toString();
     }

@@ -1,10 +1,14 @@
 package wang.doghappy.java.module.article;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
 import wang.doghappy.java.module.article.repository.JpaArticleRepository;
+import wang.doghappy.java.module.category.model.CategoryDto;
+import wang.doghappy.java.module.category.repository.JpaCategoryRepository;
 import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
@@ -32,6 +36,9 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
     private final JpaArticleRepository jpaArticleRepository;
+
+    @Autowired
+    private JpaCategoryRepository jpaCategoryRepository;
 
     public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
         var pagination = articleRepository.findEnabledDtos(page, category);
@@ -68,6 +75,29 @@ public class ArticleService {
         }
     }
 
+    private void setCategory(List<ArticleDto> articles) {
+        if (!articles.isEmpty()) {
+            var categories = jpaCategoryRepository.findAll();
+            articles
+                    .stream()
+                    .forEach(a -> {
+                        categories
+                                .stream()
+                                .filter(c -> c.getId() == a.getCategoryId())
+                                .findFirst()
+                                .ifPresent(c -> {
+                                    var dto = new CategoryDto();
+                                    dto.setId(c.getId());
+                                    dto.setColor(c.getColor());
+                                    dto.setLabel(c.getLabel());
+                                    dto.setValue(c.getValue());
+                                    a.setCategory(dto);
+                                });
+
+                    });
+        }
+    }
+
     public Pagination<ArticleDto> findByIds(List<Integer> ids, int page) {
         var pagination = articleRepository.findByIds(ids, page);
         setTags(pagination.getData());
@@ -75,11 +105,22 @@ public class ArticleService {
     }
 
     public List<ArticleDto> findAllHidden() {
-        var articles = jpaArticleRepository.findAllHidden()
+        var articles = jpaArticleRepository.findAllHidden();
+        var dtos = articles
                 .stream()
-                .map(a->new ArticleDto(a.getId(),a.getTitle(),a.getCreateTime(),a.getViewCount(),a.getStatus()))
+                .map(a -> {
+                    var dto = new ArticleDto();
+                    dto.setId(a.getId());
+                    dto.setTitle(a.getTitle());
+                    dto.setCategoryId(a.getCategoryId());
+                    dto.setViewCount(a.getViewCount());
+                    dto.setCreateTime(a.getCreateTime());
+                    dto.setStatus(a.getStatus());
+                    return dto;
+                })
                 .collect(toList());
-        setTags(articles);
-        return articles;
+        setTags(dtos);
+        setCategory(dtos);
+        return dtos;
     }
 }
