@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "HappyDog-Console-Angular"
+  "defaultProject": "HappyDog-Console-Angular",
+  "cli": {
+    "analytics": "979d30cc-d431-4b71-9a07-ecc686f618c3"
+  }
 }
