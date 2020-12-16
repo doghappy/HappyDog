@@ -120,7 +120,7 @@ public class ArticleController {
         return "article/detail";
     }
 
-    @GetMapping("/api/article/hidden")
+    @GetMapping("/api/article/disabled")
     @ResponseBody
     public HttpDataResponse<List<ArticleDto>> hidden() {
         var response = new HttpDataResponse<List<ArticleDto>>();
