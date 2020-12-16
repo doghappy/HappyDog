@@ -10,6 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDto {
+    public ArticleDto() {
+    }
+
+    public ArticleDto(int id, String title, Timestamp createTime, int viewCount, BaseStatus status) {
+        this.id = id;
+        this.title = title;
+        this.createTime = createTime;
+        this.viewCount = viewCount;
+        this.status = status;
+    }
+
     private int id;
     private String title;
     private Timestamp createTime;

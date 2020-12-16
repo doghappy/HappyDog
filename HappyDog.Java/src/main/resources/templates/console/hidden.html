@@ -5,7 +5,7 @@
 </head>
 <body>
 <div layout:fragment="body" class="container body-content pt-4 pb-4">
-    <h2 class="mb-4">Hidden</h2>
+    <th:block th:insert="fragments/article-list :: list(${articles})"></th:block>
 </div>
 </body>
 </html>

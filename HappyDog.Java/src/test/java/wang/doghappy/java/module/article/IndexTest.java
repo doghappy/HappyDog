@@ -76,7 +76,7 @@ public class IndexTest {
         var mockTagRepository = mock(TagRepository.class);
         when(mockTagRepository.findTagDtoByArticleIds(Mockito.anyCollection())).thenReturn(tags);
 
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
+        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
         var controller = new ArticleController(articleService);
         MockMvc mockMvc = standaloneSetup(controller).build();
 

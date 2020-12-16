@@ -86,7 +86,7 @@ public class ArticlesTest {
         Mockito.when(mockArticleRepository.findByIds(Mockito.anyList(), Mockito.anyInt())).thenReturn(pagination);
 
         var tagService = new TagService(mockTagRepository);
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
+        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
         var controller = new TagController(tagService, articleService);
         MockMvc mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new HomeController())

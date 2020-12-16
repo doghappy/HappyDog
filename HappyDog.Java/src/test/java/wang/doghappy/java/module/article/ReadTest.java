@@ -23,7 +23,7 @@ public class ReadTest {
         var mockArticleRepository = Mockito.mock(ArticleRepository.class);
         Mockito.when(mockArticleRepository.findEnabledDtos(Mockito.anyInt(), Mockito.any(Optional.class))).thenReturn(pagination);
         var mockTagRepository = Mockito.mock(TagRepository.class);
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
+        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/Read"))

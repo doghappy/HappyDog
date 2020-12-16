@@ -9,8 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.template.*;
+import wang.doghappy.java.util.HttpDataResponse;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ArticleController {
@@ -113,5 +118,14 @@ public class ArticleController {
         article.setContent(renderer.render(doc));
         model.addAttribute("article", article);
         return "article/detail";
+    }
+
+    @GetMapping("/api/article/hidden")
+    @ResponseBody
+    public HttpDataResponse<List<ArticleDto>> hidden() {
+        var response = new HttpDataResponse<List<ArticleDto>>();
+        var articles = articleService.findAllHidden();
+        response.setData(articles);
+        return response;
     }
 }

@@ -2,14 +2,20 @@ package wang.doghappy.java.module.article.model;
 
 import wang.doghappy.java.module.model.BaseStatus;
 
-import java.time.OffsetDateTime;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
+@Entity
+@Table(name = "Articles")
 public class Article {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String title;
     private String content;
     private int categoryId;
-    private OffsetDateTime createTime;
+    private Timestamp createTime;
     private int viewCount;
     private BaseStatus status;
 
@@ -45,11 +51,11 @@ public class Article {
         this.categoryId = categoryId;
     }
 
-    public OffsetDateTime getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(OffsetDateTime createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

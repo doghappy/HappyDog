@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 public class HiddenTest {
     @Test
     public void testAnonymousAccess() throws Exception {
-        var controller = new ConsoleController();
+        var controller = new ConsoleController(null);
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/console/hidden"))
                 .andExpect(status().isOk())

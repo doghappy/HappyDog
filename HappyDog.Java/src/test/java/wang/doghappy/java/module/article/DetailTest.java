@@ -40,7 +40,7 @@ public class DetailTest {
         var mockTagRepository = Mockito.mock(TagRepository.class);
         Mockito.when(mockTagRepository.findTagDtoByArticleId(Mockito.anyInt())).thenReturn(tags);
 
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository);
+        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
         var controller = new ArticleController(articleService);
         var mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/detail/1"))
