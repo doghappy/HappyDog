@@ -121,7 +121,7 @@ public class ArticleController {
 
     @GetMapping("/api/article/disabled")
     @ResponseBody
-    public List<ArticleDto> disbaled() {
+    public List<ArticleDto> disabled() {
         return articleService.findAllDisabled();
     }
 }

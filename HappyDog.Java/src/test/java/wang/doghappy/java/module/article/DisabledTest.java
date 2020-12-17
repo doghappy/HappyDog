@@ -83,7 +83,7 @@ public class DisabledTest {
         var articleService = new ArticleService(null, mockTagRepository, mockJpaArticleRepository);
         articleService.setJpaCategoryRepository(mockJpaCategoryRepository);
         var controller = new ArticleController(articleService);
-        var result = controller.disbaled();
+        var result = controller.disabled();
 
         Assertions.assertEquals(3, result.size());
 
