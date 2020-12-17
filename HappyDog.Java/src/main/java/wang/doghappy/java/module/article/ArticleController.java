@@ -122,10 +122,7 @@ public class ArticleController {
 
     @GetMapping("/api/article/disabled")
     @ResponseBody
-    public HttpDataResponse<List<ArticleDto>> hidden() {
-        var response = new HttpDataResponse<List<ArticleDto>>();
-        var articles = articleService.findAllHidden();
-        response.setData(articles);
-        return response;
+    public List<ArticleDto> hidden() {
+        return articleService.findAllHidden();
     }
 }
