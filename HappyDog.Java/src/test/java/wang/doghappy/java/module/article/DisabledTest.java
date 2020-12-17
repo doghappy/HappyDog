@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 public class DisabledTest {
     @Test
-    public void testDisabled() throws Exception {
+    public void testDisabled() {
         var mockJpaArticleRepository = mock(JpaArticleRepository.class);
         var article0 = new Article();
         article0.setId(1);
