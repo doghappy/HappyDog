@@ -2,7 +2,6 @@ package wang.doghappy.java.module.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
@@ -36,9 +35,12 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
     private final JpaArticleRepository jpaArticleRepository;
+    private JpaCategoryRepository jpaCategoryRepository;
 
     @Autowired
-    private JpaCategoryRepository jpaCategoryRepository;
+    public void setJpaCategoryRepository(JpaCategoryRepository jpaCategoryRepository) {
+        this.jpaCategoryRepository = jpaCategoryRepository;
+    }
 
     public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
         var pagination = articleRepository.findEnabledDtos(page, category);
@@ -104,8 +106,8 @@ public class ArticleService {
         return pagination;
     }
 
-    public List<ArticleDto> findAllHidden() {
-        var articles = jpaArticleRepository.findAllHidden();
+    public List<ArticleDto> findAllDisabled() {
+        var articles = jpaArticleRepository.findAllDisabled();
         var dtos = articles
                 .stream()
                 .map(a -> {

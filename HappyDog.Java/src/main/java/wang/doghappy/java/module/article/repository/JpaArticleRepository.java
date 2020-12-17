@@ -11,5 +11,5 @@ import java.util.List;
 public interface JpaArticleRepository extends JpaRepository<Article, Integer> {
 //    @Query(value = "select Id, CategoryId, Title, CreateTime, ViewCount, Status from Articles where Status = 0 order by Id desc", nativeQuery = true)
     @Query(value = "select * from Articles where Status = 0 order by Id desc", nativeQuery = true)
-    List<Article> findAllHidden();
+    List<Article> findAllDisabled();
 }

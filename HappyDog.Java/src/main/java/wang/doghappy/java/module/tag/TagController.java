@@ -6,9 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import wang.doghappy.java.module.article.ArticleService;
+import wang.doghappy.java.module.tag.model.TagDto;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static wang.doghappy.java.util.PaginationUrlGenerator.generate;
 
@@ -52,5 +57,11 @@ public class TagController {
             }
         }
         return "tag/articles";
+    }
+
+    @GetMapping("/api/tag")
+    @ResponseBody
+    public List<TagDto> tags(){
+        return new ArrayList<>();
     }
 }

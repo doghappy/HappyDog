@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.template.*;
-import wang.doghappy.java.util.HttpDataResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -122,7 +121,7 @@ public class ArticleController {
 
     @GetMapping("/api/article/disabled")
     @ResponseBody
-    public List<ArticleDto> hidden() {
-        return articleService.findAllHidden();
+    public List<ArticleDto> disbaled() {
+        return articleService.findAllDisabled();
     }
 }
