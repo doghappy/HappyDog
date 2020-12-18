@@ -8,6 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @EnableEncryptableProperties
 @ActiveProfiles("test")
+//@ExtendWith(SpringExtension.class)
 class DogHappyApplicationTests {
 
 	@Test

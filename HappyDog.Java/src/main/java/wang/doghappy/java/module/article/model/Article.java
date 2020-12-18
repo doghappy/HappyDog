@@ -1,5 +1,6 @@
 package wang.doghappy.java.module.article.model;
 
+import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
 
 import javax.persistence.*;
@@ -14,9 +15,10 @@ public class Article {
 
     private String title;
     private String content;
-    private int categoryId;
+    private ArticleCategory categoryId;
     private Timestamp createTime;
     private int viewCount;
+
     private BaseStatus status;
 
     public int getId() {
@@ -43,11 +45,11 @@ public class Article {
         this.content = content;
     }
 
-    public int getCategoryId() {
+    public ArticleCategory getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(ArticleCategory categoryId) {
         this.categoryId = categoryId;
     }
 

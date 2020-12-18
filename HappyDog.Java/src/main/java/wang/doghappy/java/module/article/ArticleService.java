@@ -1,9 +1,12 @@
 package wang.doghappy.java.module.article;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
+import wang.doghappy.java.module.article.model.PostArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
 import wang.doghappy.java.module.article.repository.JpaArticleRepository;
 import wang.doghappy.java.module.category.model.CategoryDto;
@@ -13,6 +16,8 @@ import wang.doghappy.java.module.tag.model.TagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +41,16 @@ public class ArticleService {
     private final TagRepository tagRepository;
     private final JpaArticleRepository jpaArticleRepository;
     private JpaCategoryRepository jpaCategoryRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
     public void setJpaCategoryRepository(JpaCategoryRepository jpaCategoryRepository) {
         this.jpaCategoryRepository = jpaCategoryRepository;
+    }
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
     }
 
     public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
@@ -85,7 +96,7 @@ public class ArticleService {
                     .forEach(a -> {
                         categories
                                 .stream()
-                                .filter(c -> c.getId() == a.getCategoryId())
+                                .filter(c -> c.getId() == a.getCategoryId().getValue())
                                 .findFirst()
                                 .ifPresent(c -> {
                                     var dto = new CategoryDto();
@@ -124,5 +135,12 @@ public class ArticleService {
         setTags(dtos);
         setCategory(dtos);
         return dtos;
+    }
+
+    public ArticleDetailDto post(PostArticleDto dto) {
+        var article = modelMapper.map(dto, Article.class);
+        article.setCreateTime(Timestamp.from(Instant.now()));
+        jpaArticleRepository.save(article);
+        return modelMapper.map(article, ArticleDetailDto.class);
     }
 }

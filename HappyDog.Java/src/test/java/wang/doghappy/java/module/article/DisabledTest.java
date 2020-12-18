@@ -7,6 +7,7 @@ import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.repository.JpaArticleRepository;
 import wang.doghappy.java.module.category.model.Category;
 import wang.doghappy.java.module.category.repository.JpaCategoryRepository;
+import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
@@ -24,7 +25,7 @@ public class DisabledTest {
         var mockJpaArticleRepository = mock(JpaArticleRepository.class);
         var article0 = new Article();
         article0.setId(1);
-        article0.setCategoryId(1);
+        article0.setCategoryId(ArticleCategory.NET);
         article0.setContent("article0 content");
         article0.setTitle("article0 title");
         article0.setStatus(BaseStatus.DISABLED);
@@ -32,7 +33,7 @@ public class DisabledTest {
         article0.setViewCount(2);
         var article1 = new Article();
         article1.setId(2);
-        article1.setCategoryId(2);
+        article1.setCategoryId(ArticleCategory.DATABASE);
         article1.setContent("article1 content");
         article1.setTitle("article1 title");
         article1.setStatus(BaseStatus.DISABLED);
@@ -40,7 +41,7 @@ public class DisabledTest {
         article1.setViewCount(2);
         var article2 = new Article();
         article2.setId(3);
-        article2.setCategoryId(3);
+        article2.setCategoryId(ArticleCategory.WINDOWS);
         article2.setContent("article2 content");
         article2.setTitle("article2 title");
         article2.setStatus(BaseStatus.DISABLED);

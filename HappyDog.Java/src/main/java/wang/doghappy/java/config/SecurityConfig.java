@@ -37,7 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("djrm")
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/api/article");
     }
 
     @Override

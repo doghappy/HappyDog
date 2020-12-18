@@ -27,7 +27,7 @@ public class JdbcArticleRepository implements ArticleRepository {
         dto.setCreateTime(row.getTimestamp("CreateTime"));
         dto.setViewCount(row.getInt("ViewCount"));
         int categoryId = row.getInt("CategoryId");
-        dto.setCategoryId(categoryId);
+        dto.setCategoryId(ArticleCategory.fromInteger(categoryId));
 
         var categoryDto = new CategoryDto();
         categoryDto.setId(categoryId);

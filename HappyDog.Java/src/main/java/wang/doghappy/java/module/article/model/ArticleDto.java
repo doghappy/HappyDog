@@ -2,6 +2,7 @@ package wang.doghappy.java.module.article.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import wang.doghappy.java.module.category.model.CategoryDto;
+import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
 import wang.doghappy.java.module.tag.model.TagDto;
 import java.sql.Timestamp;
@@ -14,7 +15,7 @@ public class ArticleDto {
     private Timestamp createTime;
     private int viewCount;
     private BaseStatus status;
-    private int categoryId;
+    private ArticleCategory categoryId;
     private CategoryDto category;
     private List<TagDto> tags;
 
@@ -74,11 +75,11 @@ public class ArticleDto {
         this.tags = tags;
     }
 
-    public int getCategoryId() {
+    public ArticleCategory getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(ArticleCategory categoryId) {
         this.categoryId = categoryId;
     }
 

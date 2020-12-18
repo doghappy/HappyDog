@@ -3,17 +3,19 @@ package wang.doghappy.java.module.article;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
+import wang.doghappy.java.module.article.model.PostArticleDto;
 import wang.doghappy.java.module.article.template.*;
+import wang.doghappy.java.util.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -123,5 +125,11 @@ public class ArticleController {
     @ResponseBody
     public List<ArticleDto> disabled() {
         return articleService.findAllDisabled();
+    }
+
+    @PostMapping("/api/article")
+    @ResponseBody
+    public ArticleDetailDto post(@Valid @RequestBody PostArticleDto dto) {
+        return articleService.post(dto);
     }
 }
