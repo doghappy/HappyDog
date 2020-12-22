@@ -117,32 +117,17 @@ namespace HappyDog.Domain.Services
                 .ToListAsync();
         }
 
-        private async Task AssignTagsAsync(Article article, IEnumerable<string> tagNames)
+        private void AssignTags(Article article, ICollection<int> tagIds)
         {
-            var list = new List<string>();
-            foreach (var item in tagNames)
+            article.ArticleTags = new List<ArticleTag>();
+            if (tagIds != null && tagIds.Count > 0)
             {
-                if (!string.IsNullOrWhiteSpace(item))
+                foreach (int tagId in tagIds.Distinct())
                 {
-                    string name = item.Trim();
-                    if (!list.Contains(name, StringComparer.CurrentCultureIgnoreCase))
+                    article.ArticleTags.Add(new ArticleTag
                     {
-                        list.Add(name);
-                    }
-                }
-            }
-
-            foreach (var item in list)
-            {
-                string name = item.Trim();
-                var tag = await _db.Tags.SingleOrDefaultAsync(t => t.Name.ToLower() == item.Trim().ToLower());
-                if (tag == null)
-                {
-                    article.ArticleTags.Add(new ArticleTag { Tag = new Tag { Name = name } });
-                }
-                else
-                {
-                    article.ArticleTags.Add(new ArticleTag { TagId = tag.Id });
+                        TagId = tagId
+                    });
                 }
             }
         }
@@ -151,13 +136,8 @@ namespace HappyDog.Domain.Services
         {
             var article = _mapper.Map<Article>(dto);
             article.CreateTime = DateTimeOffset.Now;
-            article.ArticleTags = new List<ArticleTag>();
+            AssignTags(article, dto.TagIds);
             await _db.Articles.AddAsync(article);
-            if (dto.TagNames.Count > 0)
-            {
-                await AssignTagsAsync(article, dto.TagNames);
-            }
-
             await _db.SaveChangesAsync();
             return _mapper.Map<ArticleDetailDto>(article);
         }
@@ -176,7 +156,7 @@ namespace HappyDog.Domain.Services
                 article.Content = dto.Content;
                 article.Status = dto.Status;
                 article.ArticleTags.Clear();
-                await AssignTagsAsync(article, dto.TagNames);
+                AssignTags(article, dto.TagIds);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<ArticleDetailDto>(article);
             }
