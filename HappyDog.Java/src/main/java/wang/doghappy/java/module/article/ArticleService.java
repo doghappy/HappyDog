@@ -12,13 +12,16 @@ import wang.doghappy.java.module.article.repository.JpaArticleRepository;
 import wang.doghappy.java.module.category.model.CategoryDto;
 import wang.doghappy.java.module.category.repository.JpaCategoryRepository;
 import wang.doghappy.java.module.model.ArticleCategory;
+import wang.doghappy.java.module.tag.model.Tag;
 import wang.doghappy.java.module.tag.model.TagDto;
+import wang.doghappy.java.module.tag.repository.JpaTagRepository;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +44,7 @@ public class ArticleService {
     private final TagRepository tagRepository;
     private final JpaArticleRepository jpaArticleRepository;
     private JpaCategoryRepository jpaCategoryRepository;
+    private JpaTagRepository jpaTagRepository;
     private ModelMapper modelMapper;
 
     @Autowired
@@ -49,7 +53,12 @@ public class ArticleService {
     }
 
     @Autowired
-    public void setModelMapper(ModelMapper modelMapper){
+    public void setJpaTagRepository(JpaTagRepository jpaTagRepository) {
+        this.jpaTagRepository = jpaTagRepository;
+    }
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
@@ -140,6 +149,11 @@ public class ArticleService {
     public ArticleDetailDto post(PostArticleDto dto) {
         var article = modelMapper.map(dto, Article.class);
         article.setCreateTime(Timestamp.from(Instant.now()));
+        var tagIds = dto.getTagIds();
+        if (tagIds != null && !tagIds.isEmpty()) {
+            var tags = jpaTagRepository.findAllById(tagIds);
+            article.setTags(new HashSet<>(tags));
+        }
         jpaArticleRepository.save(article);
         return modelMapper.map(article, ArticleDetailDto.class);
     }

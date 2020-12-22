@@ -1,11 +1,29 @@
 package wang.doghappy.java.module.tag.model;
 
+import wang.doghappy.java.module.article.model.Article;
+
 import javax.persistence.*;
-import java.util.StringJoiner;
+import java.util.Set;
 
 @Entity
 @Table(name = "Tags")
-public class TagEntity {
+public class Tag {
+    public Tag() {
+    }
+
+    public Tag(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Tag(int id, String name, String color, String glyphFont, String glyph) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.glyphFont = glyphFont;
+        this.glyph = glyph;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -13,7 +31,10 @@ public class TagEntity {
     private String name;
     private String color;
     private String glyphFont;
-    private String Glyph;
+    private String glyph;
+
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
+    private Set<Article> articles;
 
     public int getId() {
         return id;
@@ -48,21 +69,18 @@ public class TagEntity {
     }
 
     public String getGlyph() {
-        return Glyph;
+        return glyph;
     }
 
     public void setGlyph(String glyph) {
-        Glyph = glyph;
+        this.glyph = glyph;
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", TagEntity.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("name='" + name + "'")
-                .add("color='" + color + "'")
-                .add("glyphFont='" + glyphFont + "'")
-                .add("Glyph='" + Glyph + "'")
-                .toString();
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 }

@@ -2,9 +2,12 @@ package wang.doghappy.java.module.article.model;
 
 import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
+import wang.doghappy.java.module.tag.model.Tag;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "Articles")
@@ -20,6 +23,14 @@ public class Article {
     private int viewCount;
 
     private BaseStatus status;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "ArticleTagMappings",
+            joinColumns = @JoinColumn(name = "ArticleId"),
+            inverseJoinColumns = @JoinColumn(name = "TagId")
+    )
+    private Set<Tag> tags;
 
     public int getId() {
         return id;
@@ -77,16 +88,11 @@ public class Article {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", categoryId=" + categoryId +
-                ", createTime=" + createTime +
-                ", viewCount=" + viewCount +
-                ", status=" + status +
-                '}';
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

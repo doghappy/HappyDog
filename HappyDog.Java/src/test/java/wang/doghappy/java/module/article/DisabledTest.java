@@ -90,14 +90,14 @@ public class DisabledTest {
 
         Assertions.assertEquals(1, result.get(0).getId());
         Assertions.assertEquals("article0 title", result.get(0).getTitle());
-        Assertions.assertEquals(1, result.get(0).getCategoryId());
+        Assertions.assertEquals(ArticleCategory.NET, result.get(0).getCategoryId());
         Assertions.assertEquals(".NET", result.get(0).getCategory().getLabel());
         Assertions.assertEquals(1, result.get(0).getTags().size());
         Assertions.assertEquals("tag1", result.get(0).getTags().get(0).getName());
 
         Assertions.assertEquals(2, result.get(1).getId());
         Assertions.assertEquals("article1 title", result.get(1).getTitle());
-        Assertions.assertEquals(2, result.get(1).getCategoryId());
+        Assertions.assertEquals(ArticleCategory.DATABASE, result.get(1).getCategoryId());
         Assertions.assertEquals("Java", result.get(1).getCategory().getLabel());
         Assertions.assertEquals(2, result.get(1).getTags().size());
         Assertions.assertEquals("tag2", result.get(1).getTags().get(0).getName());
@@ -105,7 +105,7 @@ public class DisabledTest {
 
         Assertions.assertEquals(3, result.get(2).getId());
         Assertions.assertEquals("article2 title", result.get(2).getTitle());
-        Assertions.assertEquals(3, result.get(2).getCategoryId());
+        Assertions.assertEquals(ArticleCategory.WINDOWS, result.get(2).getCategoryId());
         Assertions.assertEquals("Test", result.get(2).getCategory().getLabel());
         Assertions.assertEquals(0, result.get(2).getTags().size());
     }
