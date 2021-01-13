@@ -16,6 +16,7 @@ import { EditComponent } from './article/edit/edit.component';
 import { SearchComponent } from './article/search/search.component';
 import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
 import { TagBadgeComponent } from './components/tag-badge/tag-badge.component';
+import { CheckTagsComponent } from './components/check-tags/check-tags.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { TagBadgeComponent } from './components/tag-badge/tag-badge.component';
         PaginationComponent,
         TagListComponent,
         TagEditComponent,
-        TagBadgeComponent
+        TagBadgeComponent,
+        CheckTagsComponent
     ],
     imports: [
         BrowserModule,

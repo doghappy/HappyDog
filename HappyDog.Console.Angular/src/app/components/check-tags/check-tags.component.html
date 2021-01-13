@@ -1,0 +1,11 @@
+<div class="form-check form-check-inline" *ngFor="let tag of tags">
+    <input class="form-check-input" type="checkbox" [id]="'tag' + tag.id" [value]="tag.id" (change)="selectionChanged($event)" [checked]="tagIds.indexOf(tag.id) !== -1">
+    <label class="form-check-label" [for]="'tag' + tag.id" [style.color]="tag.color ? tag.color : ''">
+      <span [ngClass]="tag.glyph && tag.glyphFont ? '' : 'fa fa-tag'"
+        [style.fontFamily]="tag.glyph && tag.glyphFont ? '\'' + tag.glyphFont + '\'' : ''"
+        [style.fontWeight]="tag.glyph && tag.glyphFont ? '900' : ''"
+        [innerHTML]="tag.glyph && tag.glyphFont ? tag.glyph : ''">
+      </span>
+      {{tag.name}}
+    </label>
+  </div>
