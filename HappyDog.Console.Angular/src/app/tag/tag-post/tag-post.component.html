@@ -1,0 +1,66 @@
+<div class="container pt-4 pb-4">
+    <form #editForm="ngForm" (ngSubmit)="post()">
+      <div class="form-row">
+        <div class="col-md-4 mb-2">
+          <label for="name">名称：</label>
+          <input class="form-control"
+                 id="name"
+                 name="name"
+                 [(ngModel)]="tag.name"
+                 required
+                 maxlength="20"
+                 #name="ngModel">
+          <ng-container *ngIf="name.invalid && (name.dirty || name.touched)">
+            <small class="form-text text-danger" *ngIf="name.errors.required">标签名是必填项</small>
+            <small class="form-text text-danger" *ngIf="name.errors.maxlength">标签名不能超过 20 个字符</small>
+          </ng-container>
+        </div>
+  
+        <div class="col-md-4 mb-2">
+          <label for="color">颜色：</label>
+          <input class="form-control"
+                 id="color"
+                 name="color"
+                 [(ngModel)]="tag.color"
+                 maxlength="10"
+                 #color="ngModel">
+          <ng-container *ngIf="color.invalid && (color.dirty || color.touched)">
+            <small class="form-text text-danger" *ngIf="color.errors.maxlength">颜色不能超过 10 个字符</small>
+          </ng-container>
+        </div>
+  
+        <div class="col-md-4 mb-2">
+          <label for="glyph">图标：</label>
+          <input class="form-control"
+                 id="glyph"
+                 name="glyph"
+                 [(ngModel)]="tag.glyph"
+                 maxlength="10"
+                 #glyph="ngModel">
+          <ng-container *ngIf="glyph.invalid && (glyph.dirty || glyph.touched)">
+            <small class="form-text text-danger" *ngIf="glyph.errors.maxlength">图标字符不能超过 10 个字符</small>
+          </ng-container>
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <div class="col-md-12 mb-2">
+          <label for="glyphFont">图标字体：</label>
+          <input class="form-control"
+                 id="glyphFont"
+                 name="glyphFont"
+                 [(ngModel)]="tag.glyphFont"
+                 maxlength="100"
+                 #glyphFont="ngModel">
+          <ng-container *ngIf="glyphFont.invalid && (glyphFont.dirty || glyphFont.touched)">
+            <small class="form-text text-danger" *ngIf="glyphFont.errors.maxlength">图标字符不能超过 100 个字符</small>
+          </ng-container>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="isActive || editForm.form.invalid">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        提交
+      </button>
+    </form>
+  </div>
+  

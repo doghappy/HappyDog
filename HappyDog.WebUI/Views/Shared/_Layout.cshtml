@@ -81,41 +81,32 @@
 
     @RenderBody()
 
-    <footer class="footer bg-dark">
-        <ul class="text-center">
-            <li class="nav-item">
-                <a class="nav-link text-light" href="https://github.com/doghappy" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="mailto:hero_wong@outlook.com" target="_blank">
-                    <i class="fa fa-envelope"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
-                    <i class="iconfont icon-upyun"></i>
-                </a>
-            </li>
-        </ul>
-        <p class="text-center">
-            <span class="text-light">&copy; @DateTime.Now.Year - 开心狗</span>
-            <a class="text-light" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
-        </p>
-    </footer>
+<footer class="container">
+    <hr />
+    <div>
+        <a class="text-secondary" href="https://github.com/doghappy" target="_blank">
+            <i class="fab fa-github f-2"></i>
+        </a>
+        <a class="text-secondary" href="mailto:hero_wong@outlook.com" target="_blank">
+            <i class="fa fa-envelope f-2"></i>
+        </a>
+        <a class="text-secondary" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
+            <i class="iconfont icon-upyun f-2"></i>
+        </a>
+    </div>
+    <p class="footer-text text-muted">
+        Released by Azure DevOps
+    </p>
+    <p class="footer-text text-muted">
+        Powered by .NET 5.0.0 on Docker
+    </p>
+    <p class="footer-text">
+        <a class="text-muted" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
+    </p>
+</footer>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?292945d726b0bc3358bf43ff9409093e";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-        $('[data-toggle="tooltip"]').tooltip();
-    </script>
+    <script src="~/js/baidu-statistics.js"></script>
 </body>
 </html>

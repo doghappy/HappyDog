@@ -267,3 +267,43 @@ __pycache__/
 node_modules
 /HappyDog.Console.Angular/e2e/*.js
 /HappyDog.Console.Angular/e2e/*.map
+
+# Java
+
+/HappyDog.Java/HELP.md
+/HappyDog.Java/.gradle
+/HappyDog.Java/build/
+!/HappyDog.Java/gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+/HappyDog.Java/.apt_generated
+/HappyDog.Java/.classpath
+/HappyDog.Java/.factorypath
+/HappyDog.Java/.project
+/HappyDog.Java/.settings
+/HappyDog.Java/.springBeans
+/HappyDog.Java/.sts4-cache
+/HappyDog.Java/bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+/HappyDog.Java/.idea
+*.iws
+*.iml
+*.ipr
+/HappyDog.Java/out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/HappyDog.Java/nbproject/private/
+/HappyDog.Java/nbbuild/
+/HappyDog.Java/dist/
+/HappyDog.Java/nbdist/
+/HappyDog.Java/.nb-gradle/
+
+### VS Code ###
+.vscode/

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" th:with="searchKey=''">
+<head>
+    <title>doghappy</title>
+    <meta name="description" content="开心狗"/>
+    <meta name="keywords" content="开心狗"/>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__slideInDown">
+            <h1 class="display-4">开心狗</h1>
+            <p class="lead">
+                Don't ever let somebody tell you<br/>
+                You can't do something...<br/><br/>
+                You got a dream… You gotta protect it.<br/>
+                People can’t do somethin’ themselves, they wanna tell you, you can’t do it.<br/>
+                If you want somethin’, go get it.
+            </p>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>

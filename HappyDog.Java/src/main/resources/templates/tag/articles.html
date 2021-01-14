@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ch" layout:decorate="~{layout}" th:with="searchKey=''">
+<head>
+    <title th:text="${name}"></title>
+    <meta name="description" th:content="${name}"/>
+    <meta name="keywords" th:content="${name}"/>
+</head>
+<body>
+<div layout:fragment="body" class="container body-content pt-4 pb-4 animate__animated animate__fadeIn">
+    <th:block th:insert="fragments/article-list :: list(${articles})"></th:block>
+    <th:block th:utext="${bar}"></th:block>
+</div>
+</body>
+</html>

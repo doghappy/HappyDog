@@ -9,14 +9,14 @@
 
 @section Styles{
     <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
-    <link href="https://upyun.doghappy.wang/blog/wwwroot/lib/highlight/styles/vs.css" rel="stylesheet" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.2.1/styles/vs.min.css" rel="stylesheet">
 }
 
 @section Scripts{
-    <script src="https://upyun.doghappy.wang/blog/wwwroot/lib/highlight/highlight.pack.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.2.1/highlight.min.js"></script>
     @*<script src="~/js/initial.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>*@
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>*@
     <script>
         hljs.initHighlightingOnLoad();
         @*$('img.avatar').initial();
@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<div class="container body-content animated fadeIn">
+<div class="container body-content animate__animated animate__fadeIn">
     <div class="markdown-body" style="padding-bottom:3rem; font-family:'Microsoft YaHei'">
         @Html.Raw(@Model.Content)
     </div>

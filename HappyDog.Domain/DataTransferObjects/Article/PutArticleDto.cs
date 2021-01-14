@@ -18,7 +18,7 @@ namespace HappyDog.Domain.DataTransferObjects.Article
         [Display(Name = "分类")]
         public ArticleCategory CategoryId { get; set; }
 
-        public List<string> TagNames { get; set; }
+        public List<int> TagIds { get; set; }
 
         public BaseStatus Status { get; set; }
     }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="list(list)" class="row">
+    <div th:each="item : ${list}" class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <a th:href="@{${item.category.value}}">
+                    <strong th:text="${item.category.label}" th:style="'color: '+${item.category.color}"></strong>
+                </a>
+                <h5 class="card-title">
+                    <a th:href="@{'/detail/'+${item.id}}" th:text="${item.title}" class="text-dark"></a>
+                </h5>
+                <p class="mb-1 text-muted">
+                    <i class="fas fa-calendar-alt"></i>
+                    <th:block th:text="${#dates.format(item.createTime, 'yyyy/MM/dd')}"></th:block>
+                </p>
+                <th:block th:insert="fragments/tag-list :: list(${item.tags})"></th:block>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
