@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cn" layout:decorate="~{layout}" th:with="searchKey='net:'">
+<head>
+    <title>.NET</title>
+    <meta name="description" content=".NET"/>
+    <meta name="keywords" content=".NET"/>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__zoomIn">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="https://upyun.doghappy.wang/blog/wwwroot/images/swimlane-dotnet-core.svg" />
+                </div>
+                <div class="col-md-6">
+                    <h1 class="display-4 net-color">.NET</h1>
+                    <p class="lead">
+                        免费、跨平台、开源<br />
+                        一个用于构建
+                        <code>Web</code>、
+                        <code>手机</code>、
+                        <code>桌面</code>、
+                        <code>游戏</code>、
+                        <code>机器学习 &amp; AI</code>、
+                        <code>物联网</code>、
+                        <code>和其它所有应用</code>的开发平台
+                    </p>
+                    <a href="https://github.com/dotnet/core/blob/master/roadmap.md" target="_blank">.NET Roadmap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>

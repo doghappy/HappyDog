@@ -41,7 +41,7 @@ namespace HappyDog.Infrastructure
         /// In the last item of the page bar, Appen is displayed in the style of the page number.
         /// </summary>
         [JsonIgnore]
-        public string Append { get; set; }
+        public string Append => Page + " / " + TotalPages;
 
         /// <summary>
         /// Auto hide when TotalPages is less than 2
@@ -107,13 +107,10 @@ namespace HappyDog.Infrastructure
                         .Append("</a></li>");
                 }
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }
@@ -215,13 +212,10 @@ namespace HappyDog.Infrastructure
                         .Append("</a></li>");
                 }
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }
@@ -268,13 +262,10 @@ namespace HappyDog.Infrastructure
                     .Append(NextText)
                     .Append("</a></li>");
             }
-            if (Append != null)
-            {
-                builder
-                    .Append("<li class=\"page-item disabled\"><span class=\"page-link\">")
-                    .Append(Append)
-                    .Append("</span></li>");
-            }
+            builder
+                .Append("<li class=\"page-item\"><span class=\"page-link\">")
+                .Append(Append)
+                .Append("</span></li>");
             builder.Append("</ul></nav>");
             return builder.ToString();
         }

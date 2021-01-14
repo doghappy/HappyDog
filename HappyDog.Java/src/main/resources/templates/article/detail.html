@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}" th:with="searchKey=''">
+<head>
+    <title th:text="${article.title}"></title>
+    <meta name="description" th:content="${article.title}"/>
+    <meta name="keywords" th:content="${article.title}"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.2.1/styles/vs.min.css" rel="stylesheet">
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron">
+        <div class="container body-content">
+            <h1 class="display-6 mb-4" style="overflow-wrap:break-word" th:text="${article.title}"></h1>
+            <p class="lead text-muted mb-1">
+                <i class="fas fa-calendar-alt"></i>
+                <th:block th:text="${#dates.format(article.createTime, 'yyyy/MM/dd')}"></th:block>
+                <i class="far fa-eye"></i>
+                <th:block th:text="${article.viewCount}"></th:block>
+            </p>
+            <th:block th:insert="fragments/tag-list :: list(${article.tags})"></th:block>
+        </div>
+    </div>
+
+    <div class="container body-content animate__animated animate__fadeIn">
+        <div class="markdown-body" style="padding-bottom:3rem; font-family:'Microsoft YaHei'">
+            [(${article.content})]
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="scripts">
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.2.1/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</th:block>
+</body>
+</html>

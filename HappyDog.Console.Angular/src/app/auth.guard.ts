@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { ArticleService } from './services/article.service';
 import { UserService } from './services/user.service';
 import { ErrorHandlerService } from './services/error-handler.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -25,9 +26,16 @@ export class AuthGuard implements CanActivate {
             this.userService.isAuth = true;
             return true;
         }), catchError(err => {
-            this.errorHandler.handleError(err);
+            const path = "/console/login";
+            if (environment.java && err.url.endsWith(path)) {
+                window.open(environment.server + path, "_blank");
+            } else {
+                this.errorHandler.handleError(err);
+                // this.userService.isAuth = false;
+                this.router.navigate(['signin']);
+                // return of(false);
+            }
             this.userService.isAuth = false;
-            this.router.navigate(['signin']);
             return of(false);
         }))
     }

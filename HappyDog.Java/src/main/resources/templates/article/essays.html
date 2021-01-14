@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cn" layout:decorate="~{layout}" th:with="searchKey='essays:'">
+<head>
+    <title>.NET</title>
+    <meta name="description" content="随笔"/>
+    <meta name="keywords" content="随笔"/>
+    <style>
+        .jumbotron {
+            background: url('https://upyun.doghappy.wang/blog/wwwroot/images/Ink_4x3.png');
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position-x: right;
+        }
+
+        div.jumbotron div.banner-text {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+<th:block layout:fragment="body">
+    <div class="jumbotron" id="paginationTarget">
+        <div class="container body-content animate__animated animate__bounceInUp">
+            <div class="banner-text">
+                <h1 class="display-4 essays-color">随笔</h1>
+                <p class="lead">
+                    夫运筹帷幄之中，决胜千里之外，吾不如子房；镇国家，抚百姓，给饷馈，不绝粮道，吾不如萧何；连百万之众，战必胜，攻必取，吾不如韩信。三者皆人杰，吾能用之，此吾所以取天下者也。
+                </p>
+                <p class="lead text-right">
+                    ——刘邦
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content animate__animated animate__fadeIn">
+        <th:block th:insert="fragments/article-list :: list(${list})"></th:block>
+        [(${bar})]
+    </div>
+</th:block>
+</body>
+</html>

@@ -3,5 +3,5 @@ export class PutArticleDto {
     content: string;
     status: number;
     categoryId: number;
-    tagNames: string[];
+    tagIds: number[];
 }

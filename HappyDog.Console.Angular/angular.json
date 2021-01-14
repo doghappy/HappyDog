@@ -57,6 +57,43 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "java": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.java.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "javad": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.javad.ts"
+                }
+              ]
             }
           }
         },
@@ -69,6 +106,12 @@
           "configurations": {
             "production": {
               "browserTarget": "HappyDog-Console-Angular:build:production"
+            },
+            "java":{
+              "browserTarget": "HappyDog-Console-Angular:build:java"
+            },
+            "javad":{
+              "browserTarget": "HappyDog-Console-Angular:build:javad"
             }
           }
         },
@@ -123,5 +166,8 @@
       }
     }
   },
-  "defaultProject": "HappyDog-Console-Angular"
+  "defaultProject": "HappyDog-Console-Angular",
+  "cli": {
+    "analytics": "979d30cc-d431-4b71-9a07-ecc686f618c3"
+  }
 }

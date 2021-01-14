@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ch" layout:decorate="~{layout}" th:with="searchKey=''">
+<head>
+    <title>登录</title>
+</head>
+<body>
+<div layout:fragment="body" class="container body-content pt-4 pb-4">
+    <h2 class="mb-4">登录</h2>
+    <p class="text-danger" th:text="${errorMessage}"></p>
+    <form method="post" th:action="@{/console/login}">
+        <div class="form-group">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" name="username" class="form-control" autofocus required minlength="4" maxlength="16" th:value="${username}"/>
+        </div>
+        <div class="form-group">
+            <label for="password">密码：</label>
+            <input type="password" id="password" name="password" required minlength="4" maxlength="16" class="form-control"/>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+            <label class="form-check-label" for="remember-me">记住我</label>
+        </div>
+        <button class="btn btn-primary">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            登录
+        </button>
+    </form>
+</div>
+</body>
+</html>

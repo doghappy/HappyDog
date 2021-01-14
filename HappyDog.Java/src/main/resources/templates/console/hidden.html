@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ch" layout:decorate="~{layout}" th:with="searchKey=''">
+
+<head>
+    <title>隐藏的文章</title>
+</head>
+
+<body>
+    <div layout:fragment="body" class="container body-content pt-4 pb-4">
+        <th:block th:insert="fragments/article-list :: list(${articles})"></th:block>
+        <div id="counter">
+            Counter: {{ counter }}
+        </div>
+    </div>
+    <th:block layout:fragment="scripts">
+        <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.prod.js"></script>
+        <script>
+            const aa = "wer";
+            console.log(aa);
+            console.log("test")
+
+            const Counter = {
+                data() {
+                    return {
+                        counter: 0
+                    }
+                }
+            }
+
+            Vue.createApp(Counter).mount('#counter')
+        </script>
+    </th:block>
+</body>
+
+</html>
