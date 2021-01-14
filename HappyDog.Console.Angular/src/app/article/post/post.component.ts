@@ -19,7 +19,6 @@ export class PostComponent implements OnInit {
         private articleService: ArticleService,
         private errorHandler: ErrorHandlerService,
         private toastr: ToastrService,
-        private tagService: TagService,
         private router: Router
     ) {
     }
