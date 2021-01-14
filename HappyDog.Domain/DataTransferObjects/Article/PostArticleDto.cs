@@ -20,6 +20,6 @@ namespace HappyDog.Domain.DataTransferObjects.Article
 
         public BaseStatus Status { get; set; }
 
-        public List<string> TagNames { get; set; }
+        public List<int> TagIds { get; set; }
     }
 }

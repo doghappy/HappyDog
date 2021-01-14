@@ -1,16 +1,22 @@
 <div class="container pt-4 pb-4">
-  <ng-container *ngFor="let tag of tags">
-    <a [routerLink]="'/tags/'+tag.id"
-       class="btn btn-default m-1"
-       [ngClass]="tag.color ? '' : 'border border-secondary text-secondary'"
-       [style.color]="tag.color"
-       [style.border-color]="tag.color">
-      <span [ngClass]="tag.glyph && tag.glyphFont ? '' : 'fa fa-tag'"
-            [style.fontFamily]="tag.glyph && tag.glyphFont ? '\'' + tag.glyphFont + '\'' : ''"
-            [style.font-weight]="tag.glyph && tag.glyphFont ? '900' : ''"
-            [innerHTML]="tag.glyph && tag.glyphFont ? tag.glyph : ''">
-      </span>
-      {{tag.name}}
+  <div class="mb-4">
+    <ng-container *ngFor="let tag of tags">
+      <a [routerLink]="'/tags/'+tag.id" class="btn btn-default m-1"
+        [ngClass]="tag.color ? '' : 'border border-secondary text-secondary'" [style.color]="tag.color"
+        [style.border-color]="tag.color">
+        <span [ngClass]="tag.glyph && tag.glyphFont ? '' : 'fa fa-tag'"
+          [style.fontFamily]="tag.glyph && tag.glyphFont ? '\'' + tag.glyphFont + '\'' : ''"
+          [style.font-weight]="tag.glyph && tag.glyphFont ? '900' : ''"
+          [innerHTML]="tag.glyph && tag.glyphFont ? tag.glyph : ''">
+        </span>
+        {{tag.name}}
+      </a>
+    </ng-container>
+  </div>
+  <p>
+    <a class="btn btn-primary" routerLink="/tags/post">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      添加新标签
     </a>
-  </ng-container>
+  </p>
 </div>

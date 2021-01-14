@@ -3,23 +3,14 @@
   <form #postForm="ngForm" (ngSubmit)="post()">
     <div class="form-group">
       <label for="title">标题：</label>
-      <input class="form-control"
-             id="title"
-             name="title"
-             #title
-             required
-             autofocus
-             [(ngModel)]="article.title" />
+      <input class="form-control" id="title" name="title" #title required autofocus [(ngModel)]="article.title" />
       <!--<ng-template *ngIf="title.invalid && (title.dirty || title.touched)">
         <small class="form-text text-danger" *ngIf="title.errors.required"></small>
       </ng-template>-->
     </div>
     <div class="form-group">
       <label for="content">内容：</label>
-      <textarea class="form-control"
-                id="content"
-                name="content"
-                [(ngModel)]="article.content"></textarea>
+      <textarea class="form-control" id="content" name="content" [(ngModel)]="article.content"></textarea>
     </div>
     <div class="form-group form-inline">
       <label for="category">类别：</label>
@@ -34,16 +25,20 @@
     </div>
     <div class="form-group">
       <label for="title">标签：</label>
-      <input class="form-control" name="tagNames" [(ngModel)]="tagNames"  />
+      <div class="form-group">
+        <app-check-tags [tagIds]="article.tagIds"></app-check-tags>
+      </div>
     </div>
     <div class="form-group">
       <label for="status">状态：</label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="status" id="disabled" [value]="0" [(ngModel)]="article.status">
+        <input class="form-check-input" type="radio" name="status" id="disabled" [value]="0"
+          [(ngModel)]="article.status">
         <label class="form-check-label" for="disabled">隐藏</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="status" id="enabled" [value]="1" [(ngModel)]="article.status">
+        <input class="form-check-input" type="radio" name="status" id="enabled" [value]="1"
+          [(ngModel)]="article.status">
         <label class="form-check-label" for="enabled">可见</label>
       </div>
     </div>

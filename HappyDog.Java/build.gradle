@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+repositories {
+    maven {
+        url "https://maven.aliyun.com/nexus/content/groups/public"
+    }
+}
+
+group = 'wang.doghappy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.4.1'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.0'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.1'
+    compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.4.1'
+    compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    compile group: 'com.atlassian.commonmark', name: 'commonmark', version: '0.15.2'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.15'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.0'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.1'
+    compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.3.9'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
+    testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.5.1'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.1'
+}
+
+test {
+    useJUnitPlatform()
+}

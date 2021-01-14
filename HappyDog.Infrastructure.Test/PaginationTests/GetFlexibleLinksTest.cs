@@ -18,7 +18,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 NextText = "&raquo;"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
-            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item active\"><span class=\"page-link\">1</span></li></ul></nav>";
+            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item active\"><span class=\"page-link\">1</span></li><li class=\"page-item\"><span class=\"page-link\">1 / 1</span></li></ul></nav>";
             Assert.AreEqual(expected, html);
         }
 
@@ -50,7 +50,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 NextText = "&raquo;"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
-            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item active\"><span class=\"page-link\">2</span></li></ul></nav>";
+            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item active\"><span class=\"page-link\">2</span></li><li class=\"page-item\"><span class=\"page-link\">2 / 2</span></li></ul></nav>";
             Assert.AreEqual(expected, html);
         }
 
@@ -63,8 +63,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 48,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "1 / 5"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item active\"><span class=\"page-link\">1</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">3</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=4\">4</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=5\">5</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">1 / 5</span></li></ul></nav>";
@@ -80,8 +79,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 48,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "2 / 5"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item active\"><span class=\"page-link\">2</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">3</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=4\">4</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=5\">5</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">2 / 5</span></li></ul></nav>";
@@ -97,8 +95,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 48,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "3 / 5"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">2</a></li><li class=\"page-item active\"><span class=\"page-link\">3</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=4\">4</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=5\">5</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=4\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">3 / 5</span></li></ul></nav>";
@@ -114,8 +111,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 48,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "4 / 5"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">3</a></li><li class=\"page-item active\"><span class=\"page-link\">4</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=5\">5</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=5\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">4 / 5</span></li></ul></nav>";
@@ -131,8 +127,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 480,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "9 / 48"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 5);
             string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=8\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=7\">7</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=8\">8</a></li><li class=\"page-item active\"><span class=\"page-link\">9</span></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=10\">10</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=11\">11</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=10\">Next</a></li><li class=\"page-item\"><span class=\"page-link\">9 / 48</span></li></ul></nav>";
@@ -148,8 +143,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 Size = 10,
                 TotalItems = 48,
                 PreviousText = "Previous",
-                NextText = "Next",
-                Append = "9 / 5"
+                NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 3);
             Assert.AreEqual(string.Empty, html);
@@ -167,7 +161,7 @@ namespace HappyDog.Infrastructure.Test.PaginationTests
                 NextText = "Next"
             };
             string html = pagination.GetFlexibleLinks(p => "/test?p=" + p, 7);
-            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">3</a></li><li class=\"page-item active\"><span class=\"page-link\">4</span></li></ul></nav>";
+            string expected = "<nav><ul class=\"pagination\"><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">Previous</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=1\">1</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=2\">2</a></li><li class=\"page-item\"><a class=\"page-link\" href=\"/test?p=3\">3</a></li><li class=\"page-item active\"><span class=\"page-link\">4</span></li><li class=\"page-item\"><span class=\"page-link\">4 / 4</span></li></ul></nav>";
             Assert.AreEqual(expected, html);
         }
     }

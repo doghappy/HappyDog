@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article/article';
 import { ErrorHandlerService } from '../../services/error-handler.service';
-import { ArticleOperationComponent } from '../article-operation.component';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -11,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.css']
 })
-export class EditComponent extends ArticleOperationComponent implements OnInit {
+export class EditComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -19,12 +18,12 @@ export class EditComponent extends ArticleOperationComponent implements OnInit {
         private errorHandler: ErrorHandlerService,
         private toastr: ToastrService
     ) {
-        super();
     }
 
     public article: Article;
     private id: number;
     public isActive: boolean;
+    public tagIds: number[] = [];
 
     ngOnInit() {
         this.isActive = true;
@@ -33,7 +32,7 @@ export class EditComponent extends ArticleOperationComponent implements OnInit {
             .getArticle(this.id)
             .subscribe(r => {
                 this.article = r;
-                this.tagNames = r.tags.map(t => t.name).toString();
+                this.tagIds = r.tags.map(t => t.id);
                 this.isActive = false;
             });
     }
@@ -45,7 +44,7 @@ export class EditComponent extends ArticleOperationComponent implements OnInit {
             content: this.article.content,
             status: this.article.status,
             categoryId: this.article.categoryId,
-            tagNames: this.getTagNames()
+            tagIds: this.tagIds
         }).subscribe(result => {
             this.isActive = false;
             this.toastr.success("修改成功");
