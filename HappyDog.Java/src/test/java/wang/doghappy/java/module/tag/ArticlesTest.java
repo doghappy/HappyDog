@@ -24,7 +24,8 @@ public class ArticlesTest {
         var mockTagRepository = Mockito.mock(TagRepository.class);
         Mockito.when(mockTagRepository.findTagByName(Mockito.anyString())).thenReturn(null);
 
-        var tagService = new TagService(mockTagRepository);
+        var tagService = new TagService();
+        tagService.setTagRepository(mockTagRepository);
         var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new HomeController())
@@ -40,7 +41,8 @@ public class ArticlesTest {
         Mockito.when(mockTagRepository.findTagByName(Mockito.anyString())).thenReturn(new TagDto());
         Mockito.when(mockTagRepository.findArticleIds(Mockito.anyInt())).thenReturn(new ArrayList<>());
 
-        var tagService = new TagService(mockTagRepository);
+        var tagService = new TagService();
+        tagService.setTagRepository(mockTagRepository);
         var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new HomeController())
@@ -85,8 +87,11 @@ public class ArticlesTest {
 
         Mockito.when(mockArticleRepository.findByIds(Mockito.anyList(), Mockito.anyInt())).thenReturn(pagination);
 
-        var tagService = new TagService(mockTagRepository);
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
+        var tagService = new TagService();
+        tagService.setTagRepository(mockTagRepository);
+        var articleService = new ArticleService();
+        articleService.setArticleRepository(mockArticleRepository);
+        articleService.setTagRepository(mockTagRepository);
         var controller = new TagController(tagService, articleService);
         MockMvc mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new HomeController())

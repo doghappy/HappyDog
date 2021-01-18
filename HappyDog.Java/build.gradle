@@ -30,11 +30,10 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
     compile group: 'com.atlassian.commonmark', name: 'commonmark', version: '0.15.2'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.15'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.1'
     compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.3.9'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
-    testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.5.1'
+//    testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.5.1'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.1'
 }
 

@@ -3,13 +3,14 @@ package wang.doghappy.java.module.tag;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import wang.doghappy.java.module.article.ArticleService;
+import wang.doghappy.java.module.article.model.PostArticleDto;
+import wang.doghappy.java.module.tag.model.PostTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 import static wang.doghappy.java.util.PaginationUrlGenerator.generate;
@@ -58,7 +59,13 @@ public class TagController {
 
     @GetMapping("/api/tag")
     @ResponseBody
-    public List<TagDto> tags(){
+    public List<TagDto> tags() {
         return tagService.findTagDtos();
+    }
+
+    @PostMapping("/api/tag")
+    @ResponseBody
+    public TagDto post(@Valid @RequestBody PostTagDto dto) {
+        return tagService.post(dto);
     }
 }

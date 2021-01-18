@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .and()
                 .csrf()
-                .ignoringAntMatchers("/api/article");
+                .ignoringAntMatchers("/api/article", "/api/tag");
     }
 
     @Override
