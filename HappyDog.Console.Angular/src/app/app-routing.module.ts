@@ -22,7 +22,7 @@ const routes: Routes = [
             { path: "edit/:id", component: EditComponent },
             { path: "tags", component: TagListComponent },
             { path: "tags/post", component: TagPostComponent },
-            { path: "tags/:id(\\d+)", component: TagEditComponent },
+            { path: "tags/:id", component: TagEditComponent },
         ]
     },
     {

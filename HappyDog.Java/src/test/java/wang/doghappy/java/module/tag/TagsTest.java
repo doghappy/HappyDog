@@ -20,7 +20,8 @@ public class TagsTest {
     public void testEmpty() throws Exception {
         var mockTagRepository = Mockito.mock(TagRepository.class);
         Mockito.when(mockTagRepository.findTagDtos()).thenReturn(new ArrayList<>());
-        var tagService = new TagService(mockTagRepository);
+        var tagService = new TagService();
+        tagService.setTagRepository(mockTagRepository);
         var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/tag"))
@@ -40,7 +41,8 @@ public class TagsTest {
         tags.add(tag0);
         Mockito.when(mockTagRepository.findTagDtos()).thenReturn(tags);
 
-        var tagService = new TagService(mockTagRepository);
+        var tagService = new TagService();
+        tagService.setTagRepository(mockTagRepository);
         var controller = new TagController(tagService, null);
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/tag"))

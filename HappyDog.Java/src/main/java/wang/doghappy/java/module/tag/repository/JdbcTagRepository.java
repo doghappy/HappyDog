@@ -1,11 +1,14 @@
 package wang.doghappy.java.module.tag.repository;
 
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
+import wang.doghappy.java.module.tag.model.PostTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
 
 import java.sql.ResultSet;
@@ -19,6 +22,13 @@ public class JdbcTagRepository implements TagRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
+
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     private void setProperties(TagDto dto, ResultSet row) throws SQLException {
         dto.setId(row.getInt("Id"));
@@ -89,5 +99,20 @@ public class JdbcTagRepository implements TagRepository {
         var map = new MapSqlParameterSource();
         map.addValue("tagId", tagId);
         return jdbcTemplate.query(sql, map, (row, num) -> row.getInt("ArticleId"));
+    }
+
+    public TagDto post(PostTagDto dto) {
+        String sql = "INSERT Tags(Name, Color, GlyphFont, Glyph) VALUES(:Name, :Color, :GlyphFont, :Glyph)";
+        var map = new MapSqlParameterSource();
+        map.addValue("Name", dto.getName());
+        map.addValue("Color", dto.getColor());
+        map.addValue("GlyphFont", dto.getGlyphFont());
+        map.addValue("Glyph", dto.getGlyph());
+        var keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, map, keyHolder);
+        int id = keyHolder.getKey().intValue();
+        var tag = modelMapper.map(dto, TagDto.class);
+        tag.setId(id);
+        return tag;
     }
 }

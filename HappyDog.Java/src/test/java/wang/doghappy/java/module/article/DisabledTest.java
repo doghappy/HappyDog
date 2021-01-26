@@ -3,10 +3,10 @@ package wang.doghappy.java.module.article;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import wang.doghappy.java.module.article.model.Article;
-import wang.doghappy.java.module.article.repository.JpaArticleRepository;
-import wang.doghappy.java.module.category.model.Category;
-import wang.doghappy.java.module.category.repository.JpaCategoryRepository;
+import wang.doghappy.java.module.article.model.ArticleDto;
+import wang.doghappy.java.module.article.repository.ArticleRepository;
+import wang.doghappy.java.module.category.model.CategoryDto;
+import wang.doghappy.java.module.category.repository.CategoryRepository;
 import wang.doghappy.java.module.model.ArticleCategory;
 import wang.doghappy.java.module.model.BaseStatus;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
@@ -22,33 +22,30 @@ import static org.mockito.Mockito.when;
 public class DisabledTest {
     @Test
     public void testDisabled() {
-        var mockJpaArticleRepository = mock(JpaArticleRepository.class);
-        var article0 = new Article();
+        var article0 = new ArticleDto();
         article0.setId(1);
         article0.setCategoryId(ArticleCategory.NET);
-        article0.setContent("article0 content");
         article0.setTitle("article0 title");
         article0.setStatus(BaseStatus.DISABLED);
         article0.setCreateTime(Timestamp.from(Instant.now()));
         article0.setViewCount(2);
-        var article1 = new Article();
+        var article1 = new ArticleDto();
         article1.setId(2);
         article1.setCategoryId(ArticleCategory.DATABASE);
-        article1.setContent("article1 content");
         article1.setTitle("article1 title");
         article1.setStatus(BaseStatus.DISABLED);
         article1.setCreateTime(Timestamp.from(Instant.now()));
         article1.setViewCount(2);
-        var article2 = new Article();
+        var article2 = new ArticleDto();
         article2.setId(3);
         article2.setCategoryId(ArticleCategory.WINDOWS);
-        article2.setContent("article2 content");
         article2.setTitle("article2 title");
         article2.setStatus(BaseStatus.DISABLED);
         article2.setCreateTime(Timestamp.from(Instant.now()));
         article2.setViewCount(2);
         var articles = Arrays.asList(article0, article1, article2);
-        when(mockJpaArticleRepository.findAllDisabled()).thenReturn(articles);
+        var mockArticleRepository = mock(ArticleRepository.class);
+        when(mockArticleRepository.findAllDisabled()).thenReturn(articles);
 
         var mockTagRepository = mock(TagRepository.class);
         var tags = new ArrayList<ArticleIdTagDto>();
@@ -66,23 +63,25 @@ public class DisabledTest {
         tags.add(tag3);
         when(mockTagRepository.findTagDtoByArticleIds(Mockito.eq(Arrays.asList(1, 2, 3)))).thenReturn(tags);
 
-        var mockJpaCategoryRepository = mock(JpaCategoryRepository.class);
-        var category0 = new Category();
+        var mockCategoryRepository = mock(CategoryRepository.class);
+        var category0 = new CategoryDto();
         category0.setId(1);
         category0.setLabel(".NET");
         category0.setValue("NET");
-        var category1 = new Category();
+        var category1 = new CategoryDto();
         category1.setId(2);
         category1.setLabel("Java");
         category1.setValue("Java");
-        var category2 = new Category();
+        var category2 = new CategoryDto();
         category2.setId(3);
         category2.setLabel("Test");
         category2.setValue("Test");
-        when(mockJpaCategoryRepository.findAll()).thenReturn(Arrays.asList(category0, category1, category2));
+        when(mockCategoryRepository.findAll()).thenReturn(Arrays.asList(category0, category1, category2));
 
-        var articleService = new ArticleService(null, mockTagRepository, mockJpaArticleRepository);
-        articleService.setJpaCategoryRepository(mockJpaCategoryRepository);
+        var articleService = new ArticleService();
+        articleService.setArticleRepository(mockArticleRepository);
+        articleService.setTagRepository(mockTagRepository);
+        articleService.setCategoryRepository(mockCategoryRepository);
         var controller = new ArticleController(articleService);
         var result = controller.disabled();
 
