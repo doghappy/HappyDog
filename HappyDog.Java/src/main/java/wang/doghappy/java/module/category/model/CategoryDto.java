@@ -1,18 +1,16 @@
 package wang.doghappy.java.module.category.model;
 
-import wang.doghappy.java.module.model.ArticleCategory;
-
 public class CategoryDto {
-    private ArticleCategory id;
+    private int id;
     private String label;
     private String value;
     private String color;
 
-    public ArticleCategory getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(ArticleCategory id) {
+    public void setId(int id) {
         this.id = id;
     }
 

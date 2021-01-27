@@ -14,9 +14,9 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" th:href="@{/}">
-    <img src="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" width="30" height="30"
-         class="d-inline-block align-top"/>
-    开心狗
+        <img src="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" width="30" height="30"
+             class="d-inline-block align-top"/>
+        开心狗
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,39 +25,39 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:" data-toggle="dropdown" th:classappend="${categoryActive != null ? 'active' : ''}">
                     <i class="fas fa-list"></i>
                     分类
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" th:href="@{/article/net}">
-                    <i class="iconfont icon-net"></i>
-                    .NET
+                    <a class="dropdown-item" th:href="@{/NET}" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/NET') ? 'active' : ''}">
+                        <i class="iconfont icon-net"></i>
+                        .NET
                     </a>
-                    <a class="dropdown-item" th:href="@{/article/java}">
-                    <i class="fas fa-mug-hot"></i>
-                    Java
+                    <a class="dropdown-item" th:href="@{/Java}" th:classappend="${#httpServletRequest.requestURI == '/Java' ? 'active' : ''}">
+                        <i class="fas fa-mug-hot"></i>
+                        Java
                     </a>
-                    <a class="dropdown-item" th:href="@{/article/database}">
-                    <i class="fa fa-database"></i>
-                    数据库
+                    <a class="dropdown-item" th:href="@{/Database}" th:classappend="${#httpServletRequest.requestURI == '/Database' ? 'active' : ''}">
+                        <i class="fa fa-database"></i>
+                        数据库
                     </a>
-                    <a class="dropdown-item" th:href="@{/article/windows}">
-                    <i class="fab fa-windows"></i>
-                    Windows
+                    <a class="dropdown-item" th:href="@{/Windows}" th:classappend="${#httpServletRequest.requestURI == '/Windows' ? 'active' : ''}">
+                        <i class="fab fa-windows"></i>
+                        Windows
                     </a>
-                    <a class="dropdown-item" th:href="@{/article/read}">
-                    <i class="fas fa-book"></i>
-                    阅读
+                    <a class="dropdown-item" th:href="@{/Read}" th:classappend="${#httpServletRequest.requestURI == '/Read' ? 'active' : ''}">
+                        <i class="fas fa-book"></i>
+                        阅读
                     </a>
-                    <a class="dropdown-item" th:href="@{/article/essays}">
-                    <i class="fas fa-pencil-alt"></i>
-                    随笔
+                    <a class="dropdown-item" th:href="@{/Essays}" th:classappend="${#httpServletRequest.requestURI == '/Essays' ? 'active' : ''}">
+                        <i class="fas fa-pencil-alt"></i>
+                        随笔
                     </a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Tag" asp-action="List">
+                <a class="nav-link" th:href="@{/tag}" th:classappend="${#httpServletRequest.requestURI == '/tag' ? 'active' : ''}">
                     <i class="fa fa-tags"></i>
                     标签
                 </a>
@@ -67,7 +67,7 @@
               asp-controller="Article"
               asp-action="Search" style="padding:0;">
             <div class="input-group input-group-sm" style="width:100%; max-width:unset;">
-                <input type="text" name="q" class="form-control" placeholder="搜索一下" value="" />
+                <input type="text" name="q" class="form-control" placeholder="搜索一下" th:value="${searchKey + (searchValue == null ? '' : searchValue)}"/>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary">
                         <i class="fas fa-search"></i>
@@ -105,7 +105,7 @@
 </footer>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
-<!--<th:block layout:fragment="scripts"></th:block>-->
-<script src="~/js/baidu-statistics.js"></script>
+<th:block layout:fragment="scripts"></th:block>
+<!--<script src="~/js/baidu-statistics.js"></script>-->
 </body>
 </html>

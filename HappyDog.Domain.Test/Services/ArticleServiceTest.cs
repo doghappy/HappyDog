@@ -199,7 +199,7 @@ namespace HappyDog.Domain.Test.Services
                 CategoryId = ArticleCategory.Database,
                 Content = Guid.NewGuid().ToString(),
                 Status = BaseStatus.Disabled,
-                TagNames = new List<string> { "VS", " .NET", ".NEt " }
+                TagIds = new List<int> { 1, 2, 1 }
             };
 
             await svc.PostAsync(postDto);
@@ -216,10 +216,9 @@ namespace HappyDog.Domain.Test.Services
             Assert.AreEqual(postDto.CategoryId, articles[0].CategoryId);
             Assert.AreEqual(postDto.Content, articles[0].Content);
             Assert.AreEqual(postDto.Status, articles[0].Status);
-            Assert.AreEqual(2, articles[0].ArticleTags.Count);
-            Assert.AreEqual("VS", articles[0].ArticleTags[0].Tag.Name);
-            Assert.AreEqual(".net", articles[0].ArticleTags[1].Tag.Name);
-            Assert.AreEqual(2, totalTags);
+            Assert.AreEqual(1, articles[0].ArticleTags.Count);
+            Assert.AreEqual(".net", articles[0].ArticleTags[0].Tag.Name);
+            Assert.AreEqual(1, totalTags);
         }
 
         [TestMethod]
@@ -268,7 +267,7 @@ namespace HappyDog.Domain.Test.Services
                 CategoryId = ArticleCategory.Database,
                 Content = Guid.NewGuid().ToString(),
                 Status = BaseStatus.Disabled,
-                TagNames = new List<string> { " xaml", "uwp", "Xaml " }
+                TagIds = new List<int> { 5, 3, 4 }
             };
             await svc.PutAsync(1, putDto);
 
@@ -284,10 +283,9 @@ namespace HappyDog.Domain.Test.Services
             Assert.AreEqual(putDto.CategoryId, articles[0].CategoryId);
             Assert.AreEqual(putDto.Content, articles[0].Content);
             Assert.AreEqual(putDto.Status, articles[0].Status);
-            Assert.AreEqual(2, articles[0].ArticleTags.Count);
-            Assert.IsNotNull(articles[0].ArticleTags.SingleOrDefault(t => t.Tag.Name == "xaml"));
-            Assert.IsNotNull(articles[0].ArticleTags.SingleOrDefault(t => t.Tag.Name == "UWP"));
-            Assert.AreEqual(4, tagsCount);
+            Assert.AreEqual(1, articles[0].ArticleTags.Count);
+            Assert.AreEqual("UWP", articles[0].ArticleTags[0].Tag.Name);
+            Assert.AreEqual(3, tagsCount);
         }
     }
 }

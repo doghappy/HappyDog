@@ -8,6 +8,7 @@ import { AuthGuard } from './auth.guard';
 import { SigninComponent } from './signin/signin.component';
 import { TagListComponent } from './tag/tag-list/tag-list.component';
 import { TagEditComponent } from './tag/tag-edit/tag-edit.component';
+import { TagPostComponent } from './tag/tag-post/tag-post.component';
 
 const routes: Routes = [
     {
@@ -20,7 +21,8 @@ const routes: Routes = [
             { path: "hidden", component: HiddenComponent },
             { path: "edit/:id", component: EditComponent },
             { path: "tags", component: TagListComponent },
-            { path: "tags/:id", component: TagEditComponent }
+            { path: "tags/post", component: TagPostComponent },
+            { path: "tags/:id", component: TagEditComponent },
         ]
     },
     {
