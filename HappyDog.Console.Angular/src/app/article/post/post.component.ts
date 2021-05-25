@@ -35,14 +35,15 @@ export class PostComponent implements OnInit {
     }
 
     post(): void {
-        this.isActive = true;
-        this.articleService.post(this.article).subscribe(result => {
-            this.isActive = false;
-            this.toastr.success("提交成功");
-            this.router.navigate(['edit', result.id]);
-        }, err => {
-            this.isActive = false;
-            this.errorHandler.handleError(err);
-        });
+        console.log(this.article);
+        //this.isActive = true;
+        // this.articleService.post(this.article).subscribe(result => {
+        //     this.isActive = false;
+        //     this.toastr.success("提交成功");
+        //     this.router.navigate(['edit', result.id]);
+        // }, err => {
+        //     this.isActive = false;
+        //     this.errorHandler.handleError(err);
+        // });
     }
 }
