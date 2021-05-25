@@ -5,7 +5,7 @@
     <p class="mb-1 text-muted">
         @foreach (var tag in Model)
         {
-            <a class="btn btn-link badge badge-light border@(string.IsNullOrEmpty(tag.Color) ? " text-secondary" : string.Empty)"
+            <a class="btn btn-link badge badge-light text-decoration-none border@(string.IsNullOrEmpty(tag.Color) ? " text-secondary" : string.Empty)"
                style="@(string.IsNullOrEmpty(tag.Color) ? string.Empty : $"color: {tag.Color};")"
                asp-controller="Tag"
                asp-action="Article"

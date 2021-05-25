@@ -2,11 +2,11 @@
   <div class="col-md-6 mb-3" *ngFor="let item of articles">
     <div class="card" [ngClass]="{'text-white bg-secondary' : item.status === _baseStatus.Disabled}">
       <div class="card-body">
-        <a href="#">
+        <a href="javascript:" class="text-decoration-none">
           <strong [style.color]="item.category.color">{{item.category.label}}</strong>
         </a>
         <h5 class="card-title">
-          <a [routerLink]="'/edit/'+item.id" [ngClass]="item.status === _baseStatus.Enabled ? 'text-dark' : 'text-white'">
+          <a [routerLink]="'/edit/'+item.id" class="text-decoration-none" [ngClass]="item.status === _baseStatus.Enabled ? 'text-dark' : 'text-white'">
             {{item.title}}
           </a>
         </h5>
