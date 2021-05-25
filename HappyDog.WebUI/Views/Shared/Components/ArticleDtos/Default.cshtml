@@ -6,11 +6,11 @@
         <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <a href="@Url.Action(item.Category.Value, "Article")">
+                    <a href="@Url.Action(item.Category.Value, "Article")" class="text-decoration-none">
                         <strong style="color:@item.Category.Color">@item.Category.Label</strong>
                     </a>
                     <h5 class="card-title">
-                        @Html.ActionLink(item.Title, "Detail", "Article", new { id = item.Id }, new { @class = "text-dark" })
+                        @Html.ActionLink(item.Title, "Detail", "Article", new { id = item.Id }, new { @class = "text-dark text-decoration-none" })
                     </h5>
                     <p class="mb-1 text-muted">
                         <i class="fas fa-calendar-alt"></i>
