@@ -8,7 +8,7 @@
     <meta name="keywords" content="@ViewData["Keywords"]" />
     <link href="https://upyun.doghappy.wang/blog/wwwroot/favicon.ico" rel="icon" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/fontawesome5pro@5.14.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@@fortawesome/fontawesome-free@5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet" />
     <link href="https://upyun.doghappy.wang/blog/wwwroot/fonts/iconfont.css" rel="stylesheet" />
     <link href="https://upyun.doghappy.wang/blog/wwwroot/css/site.css" rel="stylesheet" />
@@ -93,29 +93,32 @@
 
     @RenderBody()
 
-    <footer class="container">
-        <hr />
-        <div>
-            <a class="text-secondary text-decoration-none" href="https://github.com/doghappy" target="_blank">
-                <i class="fab fa-github f-2"></i>
-            </a>
-            <a class="text-secondary text-decoration-none" href="mailto:hero_wong@outlook.com" target="_blank">
-                <i class="fa fa-envelope f-2"></i>
-            </a>
-            <a class="text-secondary text-decoration-none" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
-                <i class="iconfont icon-upyun f-2"></i>
-            </a>
-        </div>
-        <p class="footer-text text-muted">
-            Released by Azure DevOps
-        </p>
-        <p class="footer-text text-muted">
-            Powered by .NET 5.0.0 on Docker
-        </p>
-        <p class="footer-text">
-            <a class="text-muted text-decoration-none" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
-        </p>
-    </footer>
+<footer class="container">
+    <hr />
+    <div>
+        <a class="text-secondary text-decoration-none" href="https://github.com/doghappy" target="_blank">
+            <i class="fab fa-github f-2"></i>
+        </a>
+        <a class="text-secondary text-decoration-none" href="mailto:hero_wong@outlook.com" target="_blank">
+            <i class="fa fa-envelope f-2"></i>
+        </a>
+        <a class="text-secondary text-decoration-none" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
+            <i class="iconfont icon-upyun f-2"></i>
+        </a>
+    </div>
+    <p class="footer-text text-muted">
+        Released by Azure DevOps
+    </p>
+    <p class="footer-text text-muted">
+        Powered by .NET 5 on Docker
+    </p>
+    <p class="footer-text text-muted">
+        Version: @Program.Version
+    </p>
+    <p class="footer-text">
+        <a class="text-muted text-decoration-none" target="_blank" href="http://beian.miit.gov.cn/">鄂ICP备17019876号</a>
+    </p>
+</footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
     <script src="https://upyun.doghappy.wang/blog/wwwroot/js/baidu-statistics.js"></script>
