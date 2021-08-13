@@ -4,7 +4,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <UserSecretsId>ef924966-16fa-4344-886d-cd6b9493a222</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
     </PropertyGroup>
 
     <ItemGroup>
