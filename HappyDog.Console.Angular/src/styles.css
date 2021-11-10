@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+.inline-switch {
+    display: flex;
+    align-items: center;
+}
+
+.inline-switch .form-check, .form-switch {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.inline-switch .form-check, .form-switch .form-check-input {
+    margin: 0;
+}

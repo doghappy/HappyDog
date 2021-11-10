@@ -6,7 +6,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.model.PostArticleDto;
 import wang.doghappy.java.module.model.BaseStatus;
 

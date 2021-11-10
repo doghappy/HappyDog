@@ -6,8 +6,8 @@
     ViewData["SearchValue"] = "java:";
 }
 
-<div class="jumbotron" id="paginationTarget">
-    <div class="container body-content animate__animated animate__zoomIn">
+<div class="mb-5 bg-light">
+    <div class="container-fluid py-5 container body-content animate__animated animate__zoomIn">
         <div class="row">
             <div class="col-md-6">
                 <img src="https://upyun.doghappy.wang/blog/wwwroot/images/logo-java-text-color.svg" style="max-width:100%" />
@@ -26,5 +26,5 @@
 <div class="container body-content animate__animated animate__fadeIn">
     @await Component.InvokeAsync("ArticleDtos", new { articles = Model.Data })
 
-    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Net", new { page = p }), 7))
+    @Html.Raw(Model.GetFlexibleLinks(p => Url.Action("Java", new { page = p }), 7))
 </div>

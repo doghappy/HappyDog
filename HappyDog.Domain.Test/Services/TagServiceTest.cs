@@ -123,7 +123,7 @@ namespace HappyDog.Domain.Test.Services
         [TestMethod]
         public async Task Get_articles_by_tag_name()
         {
-            var c1 = await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            var c1 = await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
             var tag1 = await DbContext.Tags.AddAsync(new Tag { Name = "Tag1" });
             var tag2 = await DbContext.Tags.AddAsync(new Tag { Name = "Tag2" });
             await DbContext.Articles.AddAsync(new Article

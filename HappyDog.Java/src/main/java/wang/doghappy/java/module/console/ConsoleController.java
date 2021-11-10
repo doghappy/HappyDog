@@ -5,19 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import wang.doghappy.java.handler.LoginFailureHandler;
-import wang.doghappy.java.module.article.repository.JpaArticleRepository;
-
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/console")
 public class ConsoleController {
-
-    public ConsoleController(JpaArticleRepository jpaArticleRepository) {
-        this.jpaArticleRepository = jpaArticleRepository;
-    }
-
-    private final JpaArticleRepository jpaArticleRepository;
 
     @GetMapping("/login")
     public String login(

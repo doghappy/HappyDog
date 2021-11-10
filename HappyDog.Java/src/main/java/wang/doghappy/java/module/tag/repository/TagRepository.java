@@ -1,6 +1,7 @@
 package wang.doghappy.java.module.tag.repository;
 
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
+import wang.doghappy.java.module.tag.model.PostTagDto;
 import wang.doghappy.java.module.tag.model.TagDto;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,4 +13,5 @@ public interface TagRepository {
     List<TagDto> findTagDtos();
     TagDto findTagByName(String name);
     List<Integer> findArticleIds(int tagId);
+    TagDto post(PostTagDto dto);
 }

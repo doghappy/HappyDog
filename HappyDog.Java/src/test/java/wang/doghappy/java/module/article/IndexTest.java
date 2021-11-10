@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
+import wang.doghappy.java.module.category.repository.CategoryRepository;
 import wang.doghappy.java.module.tag.model.ArticleIdTagDto;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
@@ -73,7 +74,14 @@ public class IndexTest {
         var mockTagRepository = mock(TagRepository.class);
         when(mockTagRepository.findTagDtoByArticleIds(Mockito.anyCollection())).thenReturn(tags);
 
-        var articleService = new ArticleService(mockArticleRepository, mockTagRepository, null);
+        var mockCategoryRepository =mock(CategoryRepository.class);
+        when(mockCategoryRepository.findAll()).thenReturn(new ArrayList<>());
+
+        var articleService = new ArticleService();
+        articleService.setArticleRepository(mockArticleRepository);
+        articleService.setTagRepository(mockTagRepository);
+        articleService.setCategoryRepository(mockCategoryRepository);
+
         var controller = new ArticleController(articleService);
         MockMvc mockMvc = standaloneSetup(controller).build();
 
