@@ -21,7 +21,7 @@ steps:
     cd HappyDog.Console.Angular
     npm install -g @angular/cli
     npm install
-    ng build --prod
+    ng build --configuration production
 
 - task: PublishPipelineArtifact@1
   inputs:
