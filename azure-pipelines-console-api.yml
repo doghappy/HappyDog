@@ -15,7 +15,7 @@ steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
     inputs:
-      version: 5.0.x
+      version: 6.0.x
   - script: |
       dotnet test HappyDog.Console.Api.Test
   - task: PublishPipelineArtifact@1
