@@ -129,7 +129,13 @@ public class ArticleController {
 
     @PostMapping("/api/article")
     @ResponseBody
-    public ArticleDetailDto post(@Valid @RequestBody PostArticleDto dto) {
+    public ArticleDto post(@Valid @RequestBody PostArticleDto dto) {
         return articleService.post(dto);
+    }
+
+    @GetMapping("/api/article/{id:\\d+}")
+    @ResponseBody
+    public ArticleDetailDto jsonDetail(@PathVariable int id) {
+        return articleService.findOneForConsole(id);
     }
 }

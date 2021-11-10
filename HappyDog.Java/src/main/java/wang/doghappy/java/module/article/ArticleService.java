@@ -1,70 +1,54 @@
 package wang.doghappy.java.module.article;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wang.doghappy.java.module.article.model.Article;
 import wang.doghappy.java.module.article.model.ArticleDetailDto;
 import wang.doghappy.java.module.article.model.ArticleDto;
 import wang.doghappy.java.module.article.model.PostArticleDto;
 import wang.doghappy.java.module.article.repository.ArticleRepository;
-import wang.doghappy.java.module.article.repository.JpaArticleRepository;
 import wang.doghappy.java.module.category.model.CategoryDto;
-import wang.doghappy.java.module.category.repository.JpaCategoryRepository;
+import wang.doghappy.java.module.category.repository.CategoryRepository;
 import wang.doghappy.java.module.model.ArticleCategory;
-import wang.doghappy.java.module.tag.model.Tag;
 import wang.doghappy.java.module.tag.model.TagDto;
-import wang.doghappy.java.module.tag.repository.JpaTagRepository;
 import wang.doghappy.java.module.tag.repository.TagRepository;
 import wang.doghappy.java.util.Pagination;
-
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-
 import static java.util.stream.Collectors.toList;
 
 @Service
 public class ArticleService {
 
-    public ArticleService(
-            ArticleRepository articleRepository,
-            TagRepository tagRepository,
-            JpaArticleRepository jpaArticleRepository
-    ) {
+    private ArticleRepository articleRepository;
+    private TagRepository tagRepository;
+    private CategoryRepository categoryRepository;
+//    private ModelMapper modelMapper;
+
+    @Autowired
+    public void setArticleRepository(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
+    }
+
+    @Autowired
+    public void setTagRepository(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
-        this.jpaArticleRepository = jpaArticleRepository;
-    }
-
-    private final ArticleRepository articleRepository;
-    private final TagRepository tagRepository;
-    private final JpaArticleRepository jpaArticleRepository;
-    private JpaCategoryRepository jpaCategoryRepository;
-    private JpaTagRepository jpaTagRepository;
-    private ModelMapper modelMapper;
-
-    @Autowired
-    public void setJpaCategoryRepository(JpaCategoryRepository jpaCategoryRepository) {
-        this.jpaCategoryRepository = jpaCategoryRepository;
     }
 
     @Autowired
-    public void setJpaTagRepository(JpaTagRepository jpaTagRepository) {
-        this.jpaTagRepository = jpaTagRepository;
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
-    @Autowired
-    public void setModelMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+//    @Autowired
+//    public void setModelMapper(ModelMapper modelMapper) {
+//        this.modelMapper = modelMapper;
+//    }
 
     public Pagination<ArticleDto> findEnabledDtos(int page, Optional<ArticleCategory> category) {
         var pagination = articleRepository.findEnabledDtos(page, category);
         setTags(pagination.getData());
+        setCategory(pagination.getData());
         return pagination;
     }
 
@@ -97,9 +81,23 @@ public class ArticleService {
         }
     }
 
+    private void setTags(ArticleDto article) {
+        if (article != null) {
+            var tags = tagRepository.findTagDtoByArticleId(article.getId());
+            if (!tags.isEmpty()) {
+                article.setTags(tags);
+            }
+        }
+    }
+
     private void setCategory(List<ArticleDto> articles) {
         if (!articles.isEmpty()) {
-            var categories = jpaCategoryRepository.findAll();
+            var categories = categoryRepository.findAll();
+//            for (var category : categories) {
+//                for (var article :  articles) {
+//                    if(article.)
+//                }
+//            }
             articles
                     .stream()
                     .forEach(a -> {
@@ -120,6 +118,15 @@ public class ArticleService {
         }
     }
 
+    private void setCategory(ArticleDto article) {
+        if (article != null) {
+            var category = categoryRepository.findById(article.getCategoryId().getValue());
+            if (category != null) {
+                article.setCategory(category);
+            }
+        }
+    }
+
     public Pagination<ArticleDto> findByIds(List<Integer> ids, int page) {
         var pagination = articleRepository.findByIds(ids, page);
         setTags(pagination.getData());
@@ -127,7 +134,7 @@ public class ArticleService {
     }
 
     public List<ArticleDto> findAllDisabled() {
-        var articles = jpaArticleRepository.findAllDisabled();
+        var articles = articleRepository.findAllDisabled();
         var dtos = articles
                 .stream()
                 .map(a -> {
@@ -146,15 +153,14 @@ public class ArticleService {
         return dtos;
     }
 
-    public ArticleDetailDto post(PostArticleDto dto) {
-        var article = modelMapper.map(dto, Article.class);
-        article.setCreateTime(Timestamp.from(Instant.now()));
-        var tagIds = dto.getTagIds();
-        if (tagIds != null && !tagIds.isEmpty()) {
-            var tags = jpaTagRepository.findAllById(tagIds);
-            article.setTags(new HashSet<>(tags));
-        }
-        jpaArticleRepository.save(article);
-        return modelMapper.map(article, ArticleDetailDto.class);
+    public ArticleDto post(PostArticleDto dto) {
+        return articleRepository.post(dto);
+    }
+
+    public ArticleDetailDto findOneForConsole(int id) {
+        var article = articleRepository.findByIdForConsole(id);
+        setCategory(article);
+        setTags(article);
+        return article;
     }
 }
