@@ -29,7 +29,10 @@ namespace HappyDog.Domain.Test.Services
                 Status = BaseStatus.Enabled,
                 Category = new Category
                 {
-                    Id = ArticleCategory.Database
+                    Id = ArticleCategory.Database,
+                    Color = "",
+                    Label = "",
+                    Value = ""
                 },
                 ArticleTags = new List<ArticleTag>
                 {
@@ -68,7 +71,10 @@ namespace HappyDog.Domain.Test.Services
                 Status = BaseStatus.Disabled,
                 Category = new Category
                 {
-                    Id = ArticleCategory.Database
+                    Id = ArticleCategory.Database,
+                    Color = "",
+                    Label = "",
+                    Value = ""
                 },
                 ArticleTags = new List<ArticleTag>
                 {
@@ -106,9 +112,9 @@ namespace HappyDog.Domain.Test.Services
         [Description("分页获取文章列表")]
         public async Task Get_pagination_article_list()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disabled, CategoryId = ArticleCategory.Net });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enabled, CategoryId = ArticleCategory.Database });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enabled, CategoryId = ArticleCategory.Windows });
@@ -132,8 +138,8 @@ namespace HappyDog.Domain.Test.Services
         [Description("分页获取Database文章列表")]
         public async Task Get_pagination_database_list()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disabled, CategoryId = ArticleCategory.Database });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enabled, CategoryId = ArticleCategory.Database });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Enabled, CategoryId = ArticleCategory.Windows });
@@ -158,9 +164,9 @@ namespace HappyDog.Domain.Test.Services
         [Description("获取被禁用的文章")]
         public async Task Get_disabled_articles()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "article 1", Status = BaseStatus.Disabled, CategoryId = ArticleCategory.Database });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "article 2", Status = BaseStatus.Enabled, CategoryId = ArticleCategory.Database });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "article 3", Status = BaseStatus.Disabled, CategoryId = ArticleCategory.Windows });
