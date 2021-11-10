@@ -55,8 +55,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EmptySearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
@@ -75,8 +75,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task NetSearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
@@ -104,8 +104,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task DatabaseSearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
@@ -123,8 +123,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task WindowsSearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
@@ -142,8 +142,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task ReadSearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
@@ -161,8 +161,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EssaysSearchTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
@@ -180,8 +180,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task NetTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Net, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
@@ -199,8 +199,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task DatabaseTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Database, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Database, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Database, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
@@ -218,8 +218,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task WindowsTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Windows, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Windows, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
@@ -237,8 +237,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task ReadTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Read, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Read, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Read, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
@@ -256,8 +256,8 @@ namespace HappyDog.WebUI.Test
         [TestMethod]
         public async Task EssaysTest()
         {
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays });
-            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Essays, Color = "", Label = "", Value = "" });
+            await DbContext.Categories.AddAsync(new Category { Id = ArticleCategory.Net, Color = "", Label = "", Value = "" });
             await DbContext.Articles.AddAsync(new Article { Id = 1, Title = "test1", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Disabled });
             await DbContext.Articles.AddAsync(new Article { Id = 2, Title = "test2", CategoryId = ArticleCategory.Essays, Status = BaseStatus.Enabled });
             await DbContext.Articles.AddAsync(new Article { Id = 3, Title = "test3", CategoryId = ArticleCategory.Net, Status = BaseStatus.Enabled });
